@@ -1,0 +1,3 @@
+SELECT PermissionSetGroupId 
+FROM PermissionSetGroupComponent
+WHERE PermissionSetId IN (SELECT PermissionSetId FROM PermissionSetAssignment WHERE Assignee.Username = 'naga.kolipakula@emeal.nttdata.com.gsdev')

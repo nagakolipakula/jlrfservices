@@ -1,6 +1,6 @@
 import { LightningElement, track } from 'lwc';
 
-export default class DynamicTableWithPicklists extends LightningElement {
+export default class simpleInlineEditTable extends LightningElement {
     @track selectedCountry = '';
     @track selectedDerivatives = [];
     @track showWarning = false;

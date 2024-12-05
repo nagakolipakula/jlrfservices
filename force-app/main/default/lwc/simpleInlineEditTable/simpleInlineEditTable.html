@@ -1,0 +1,52 @@
+<template>
+    <lightning-card title="OXO Configurations" icon-name="custom:custom31">
+        <!-- Picklists for Country and Derivative -->
+        <div class="slds-grid slds-wrap slds-p-bottom_medium">
+            <!-- Country Select -->
+            <div class="slds-size_1-of-1 slds-p-bottom_small">
+                <lightning-combobox
+                    name="country"
+                    label="Select a Market"
+                    value={selectedCountry}
+                    placeholder="Select a Market"
+                    options={countryOptions}
+                    onchange={handleCountryChange}>
+                </lightning-combobox>
+            </div>
+            <!-- Derivative Select -->
+            <div class="slds-size_1-of-1">
+                <lightning-dual-listbox
+                    name="derivative"
+                    label="Select Derivative(s)"
+                    options={derivativeOptions}
+                    selected-list={selectedDerivatives}
+                    onchange={handleDerivativeChange}
+                    source-label="Available Derivatives"
+                    selected-label="Selected Derivatives"
+                    field-level-help="Choose the derivatives to display."
+                >
+                </lightning-dual-listbox>
+            </div>
+        </div>
+
+        <!-- Warning Message -->
+        <template if:true={showWarning}>
+            <div style="position: absolute; right: 10px; top: 0; color: red; font-size: 14px; font-weight: bold; z-index: 1000;">
+                ⚠ Warning: Editing "N/A" is not allowed!
+            </div>
+        </template>
+
+        <!-- Inline Editable Table -->
+        <div class="slds-p-around_medium">
+            <lightning-datatable
+                key-field="Id"
+                data={filteredData}
+                columns={filteredColumns}
+                draft-values={draftValues}
+                oncellchange={handleCellChange}
+                hide-checkbox-column="true"
+            >
+            </lightning-datatable>
+        </div>
+    </lightning-card>
+</template>

@@ -1,0 +1,9 @@
+.warning-message {
+    position: absolute;
+    right: 10px;
+    top: 0;
+    color: red;
+    font-size: 14px;
+    font-weight: bold;
+    z-index: 1000;
+}

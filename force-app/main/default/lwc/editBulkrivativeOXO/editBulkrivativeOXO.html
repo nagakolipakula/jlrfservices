@@ -1,0 +1,28 @@
+<template>
+    <div>
+        <p>Selected Brand: {selectedBrand}</p>
+        <p>Selected Market: {selectedMarket}</p>
+        <p>Selected Derivative: {selectedDerivative}</p>
+        <p>Selected Feature Group: {selectedFeatureGroup}</p>
+        <p>Selected Feature: {selectedFeature}</p>
+    </div>
+
+    <!-- Render the table only if data is available -->
+    <template if:true={data}>
+        <lightning-datatable
+            key-field="Id"
+            data={data}
+            columns={columns}
+            draft-values={draftValues}
+            oncellchange={handleCellChange}
+            onsave={handleSave}
+            hide-checkbox-column
+            suppress-bottom-bar
+        ></lightning-datatable>
+    </template>
+
+    <!-- Show a message if no data is available -->
+    <template if:false={data}>
+        <p>No data available for the selected filters.</p>
+    </template>
+</template>

@@ -1,27 +1,34 @@
 <template>
-    <div>
-        <p>Selected Brand: {selectedBrand}</p>
-        <p>Selected Market: {selectedMarket}</p>
-        <p>Selected Derivative: {selectedDerivative}</p>
-        <p>Selected Feature Group: {selectedFeatureGroup}</p>
-        <p>Selected Feature: {selectedFeature}</p>
-    </div>
+    <!-- Dual-Listbox for Derivatives -->
+    <lightning-dual-listbox
+        name="discoveryDerivatives"
+        label="Choose Discovery Derivatives"
+        source-label="Available"
+        selected-label="Selected"
+        options={derivativesOptions}
+        value={selectedDerivatives}
+        onchange={handlePicklistChange}>
+    </lightning-dual-listbox>
 
-    <!-- Render the table only if data is available -->
+    <!-- Fetch Button -->
+    <lightning-button
+        label="Fetch Bulk Derivatives"
+        onclick={fetchBulkDerivatives}
+        variant="brand">
+    </lightning-button>
+
+    <!-- Datatable to Display Results -->
     <template if:true={data}>
         <lightning-datatable
             key-field="Id"
             data={data}
             columns={columns}
-            draft-values={draftValues}
-            oncellchange={handleCellChange}
-            onsave={handleSave}
             hide-checkbox-column
-            suppress-bottom-bar
-        ></lightning-datatable>
+            suppress-bottom-bar>
+        </lightning-datatable>
     </template>
 
-    <!-- Show a message if no data is available -->
+    <!-- No Data Message -->
     <template if:false={data}>
         <p>No data available for the selected filters.</p>
     </template>

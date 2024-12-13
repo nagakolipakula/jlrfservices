@@ -8,7 +8,9 @@ public with sharing class BulkDerivativeControllerNK {
 
             List<Bulk_Derivative__c> derivatives = [
                 SELECT Id, Name, Market__r.Name, Product__c, Product__r.Name, Feature__c, Feature__r.Name,
-                    Engineering_Rule_Constraint__c, OXO_configuration__c, Dependency__c, Product_Pack__c
+                    Engineering_Rule_Constraint__c, OXO_configuration__c, Dependency__c, Product_Pack__c,
+                    Product__r.Body_Style__c, Product__r.Engine__c, Product__r.VehicleTrimLevel, 
+                    Product__r.Model_Code__c, Product__r.Derivative_Pack_Code__c
                 FROM Bulk_Derivative__c
                 WHERE Product__r.Name IN :productIds AND Market__r.Name = :marketId
             ];
@@ -35,7 +37,12 @@ public with sharing class BulkDerivativeControllerNK {
                 wrapper.OxoConfig = bulkDerive.OXO_configuration__c;
                 wrapper.Dependency = bulkDerive.Dependency__c;
                 wrapper.productPack = bulkDerive.Product_Pack__c;
-                wrapper.ProductValues = productToFeaturesMap; // Add dynamic product mapping
+                wrapper.BodyStyle = bulkDerive.Product__r.Body_Style__c;
+                wrapper.Engine = bulkDerive.Product__r.Engine__c;
+                wrapper.Trim = bulkDerive.Product__r.VehicleTrimLevel;
+                wrapper.ModelCode = bulkDerive.Product__r.Model_Code__c;
+                wrapper.DerivativePackCode = bulkDerive.Product__r.Derivative_Pack_Code__c;
+                wrapper.ProductValues = productToFeaturesMap; // Assign the feature map
                 wrapperList.add(wrapper);
             }
 
@@ -66,6 +73,11 @@ public with sharing class BulkDerivativeControllerNK {
         @AuraEnabled public String OxoConfig { get; set; }
         @AuraEnabled public String Dependency { get; set; }
         @AuraEnabled public String productPack { get; set; }
-        @AuraEnabled public Map<String, Map<String, String>> ProductValues { get; set; } // Product to OXO map
+        @AuraEnabled public String BodyStyle { get; set; }
+        @AuraEnabled public String Engine { get; set; }
+        @AuraEnabled public String Trim { get; set; }
+        @AuraEnabled public String ModelCode { get; set; }
+        @AuraEnabled public String DerivativePackCode { get; set; }
+        @AuraEnabled public Map<String, Map<String, String>> ProductValues { get; set; } // Define ProductValues
     }
 }

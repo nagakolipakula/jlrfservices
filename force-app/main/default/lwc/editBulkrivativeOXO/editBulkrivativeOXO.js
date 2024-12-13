@@ -9,16 +9,19 @@ const COLUMNS = [
 ];
 
 export default class EditBulkDerivativeOXO extends LightningElement {
-    @api selectedBrand;
-    @api selectedMarket;
-    @api selectedDerivative;
-    @api selectedFeatureGroup;
-    @api selectedFeature;
-    @track derivativesOptions = [];
-    @track selectedDerivatives = [];
-    @track selectedDerivativeNames = [];
-    @track selectedMarket = '';
-    @track data = [];
+    @api selectedBrand; // Property for selected brand
+    @api selectedMarket; // Property for selected market
+    @api selectedDerivative; // Property for selected derivative
+    @api selectedFeatureGroup; // **Define the missing property here**
+    @api selectedFeature; // Property for selected feature
+
+    @track derivativesOptions = []; // Options for dual-listbox
+    @track selectedDerivatives = []; // Selected derivatives
+    @track selectedDerivativeNames = []; // Selected derivative names
+    @track featureGroup = ''; // Feature group input value
+    @track feature = ''; // Feature input value
+    @track data = []; // Data for the datatable
+    @track dataPresent = false; // Flag to determine if data exists
     @track columns = COLUMNS;
 
     connectedCallback() {
@@ -49,12 +52,16 @@ export default class EditBulkDerivativeOXO extends LightningElement {
 
         console.log('Updated Selected Derivatives IDs:', JSON.stringify(this.selectedDerivatives));
         console.log('Updated Selected Derivatives Names:', JSON.stringify(this.selectedDerivativeNames));
-        console.log('Updated Selected Market:', this.selectedMarket);
     }
 
-    handleMarketChange(event) {
-        this.selectedMarket = event.target.value;
-        console.log('Updated Selected Market:', this.selectedMarket);
+    handleFeatureGroupChange(event) {
+        this.featureGroup = event.target.value; // Update feature group value
+        console.log('Updated Feature Group:', this.featureGroup);
+    }
+
+    handleFeatureChange(event) {
+        this.feature = event.target.value; // Update feature value
+        console.log('Updated Feature:', this.feature);
     }
 
     fetchBulkDerivatives() {
@@ -80,6 +87,8 @@ export default class EditBulkDerivativeOXO extends LightningElement {
             return;
         }
 
+        console.log('Fetching Bulk Derivatives for Feature Group:', this.featureGroup);
+        console.log('Fetching Bulk Derivatives for Feature:', this.feature);
         console.log('Fetching Bulk Derivatives for Market:', this.selectedMarket);
         console.log('Fetching Bulk Derivatives for Derivatives (Names):', JSON.stringify(this.selectedDerivativeNames));
 
@@ -89,9 +98,12 @@ export default class EditBulkDerivativeOXO extends LightningElement {
         })
             .then((data) => {
                 this.data = data;
+                this.dataPresent = this.data.length > 0; // Update dataPresent flag
                 console.log('Fetched Bulk Derivatives:', JSON.stringify(this.data));
             })
             .catch((error) => {
+                this.data = [];
+                this.dataPresent = false; // No data, so set the flag to false
                 console.error('Error fetching bulk derivatives:', error);
                 this.dispatchEvent(
                     new ShowToastEvent({

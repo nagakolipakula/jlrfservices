@@ -1,24 +1,42 @@
 <template>
-    <!-- Dual-Listbox for Derivatives -->
-    <lightning-dual-listbox
-        name="discoveryDerivatives"
-        label="Choose Discovery Derivatives"
-        source-label="Available"
-        selected-label="Selected"
-        options={derivativesOptions}
-        value={selectedDerivatives}
-        onchange={handlePicklistChange}>
-    </lightning-dual-listbox>
+    <div class="container">
+        <lightning-dual-listbox
+            name="discoveryDerivatives"
+            label="Choose Discovery Derivatives"
+            source-label="Available"
+            selected-label="Selected"
+            options={derivativesOptions}
+            value={selectedDerivatives}
+            onchange={handlePicklistChange}>
+        </lightning-dual-listbox>
+    </div>
 
-    <!-- Fetch Button -->
-    <lightning-button
-        label="Fetch Bulk Derivatives"
-        onclick={fetchBulkDerivatives}
-        variant="brand">
-    </lightning-button>
+    <div class="input-row">
+        <lightning-input
+            type="text"
+            label="Search (feature group) e.g. Wheels & Tyres"
+            value={featureGroup}
+            onchange={handleFeatureGroupChange}>
+        </lightning-input>
+        <lightning-input
+            type="text"
+            label="Search (feature) e.g. 19"
+            value={feature}
+            onchange={handleFeatureChange}>
+        </lightning-input>
+    </div>
+
+    <div class="button">
+        <lightning-button
+            class="fetch-button"
+            label="SEARCH"
+            onclick={fetchBulkDerivatives}
+            variant="brand">
+        </lightning-button>
+    </div>
 
     <!-- Datatable to Display Results -->
-    <template if:true={data}>
+    <template if:true={dataPresent}>
         <lightning-datatable
             key-field="Id"
             data={data}
@@ -29,7 +47,7 @@
     </template>
 
     <!-- No Data Message -->
-    <template if:false={data}>
-        <p>No data available for the selected filters.</p>
+    <template if:false={dataPresent}>
+        <p style="text-align: center; margin-top: 1rem;">No records found.</p>
     </template>
 </template>

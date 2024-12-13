@@ -9,19 +9,19 @@ const COLUMNS = [
 ];
 
 export default class EditBulkDerivativeOXO extends LightningElement {
-    @api selectedBrand; // Property for selected brand
-    @api selectedMarket; // Property for selected market
-    @api selectedDerivative; // Property for selected derivative
-    @api selectedFeatureGroup; // **Define the missing property here**
-    @api selectedFeature; // Property for selected feature
+    @api selectedBrand;
+    @api selectedMarket;
+    @api selectedDerivative;
+    @api selectedFeatureGroup;
+    @api selectedFeature;
 
-    @track derivativesOptions = []; // Options for dual-listbox
-    @track selectedDerivatives = []; // Selected derivatives
-    @track selectedDerivativeNames = []; // Selected derivative names
-    @track featureGroup = ''; // Feature group input value
-    @track feature = ''; // Feature input value
-    @track data = []; // Data for the datatable
-    @track dataPresent = false; // Flag to determine if data exists
+    @track derivativesOptions = [];
+    @track selectedDerivatives = [];
+    @track selectedDerivativeNames = [];
+    @track featureGroup = '';
+    @track feature = '';
+    @track data = [];
+    @track dataPresent = false;
     @track columns = COLUMNS;
 
     connectedCallback() {
@@ -55,12 +55,12 @@ export default class EditBulkDerivativeOXO extends LightningElement {
     }
 
     handleFeatureGroupChange(event) {
-        this.featureGroup = event.target.value; // Update feature group value
+        this.featureGroup = event.target.value;
         console.log('Updated Feature Group:', this.featureGroup);
     }
 
     handleFeatureChange(event) {
-        this.feature = event.target.value; // Update feature value
+        this.feature = event.target.value;
         console.log('Updated Feature:', this.feature);
     }
 
@@ -103,7 +103,7 @@ export default class EditBulkDerivativeOXO extends LightningElement {
             })
             .catch((error) => {
                 this.data = [];
-                this.dataPresent = false; // No data, so set the flag to false
+                this.dataPresent = false;
                 console.error('Error fetching bulk derivatives:', error);
                 this.dispatchEvent(
                     new ShowToastEvent({

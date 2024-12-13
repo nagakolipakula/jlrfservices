@@ -48,7 +48,6 @@ export default class EditBulkDerivativeOXO extends LightningElement {
 
         console.log('Updated Selected Derivatives Names:', JSON.stringify(this.selectedDerivativeNames));
 
-        // Dynamically update columns
         this.updateColumns();
     }
 
@@ -59,8 +58,8 @@ export default class EditBulkDerivativeOXO extends LightningElement {
 
         const dynamicColumns = this.selectedDerivativeNames.map((name) => ({
             label: name,
-            fieldName: name.replace(/\s+/g, '_'), // Create a unique fieldName for each product
-            editable: true, // Enable inline editing
+            fieldName: name.replace(/\s+/g, '_'),
+            editable: true,
         }));
 
         this.columns = [...baseColumns, ...dynamicColumns];
@@ -94,11 +93,10 @@ export default class EditBulkDerivativeOXO extends LightningElement {
             marketId: this.selectedMarket
         })
             .then((data) => {
-                // Map the response data to include dynamic product columns
                 this.data = data.map((row) => {
                     const newRow = { ...row };
                     this.selectedDerivativeNames.forEach((product) => {
-                        newRow[product.replace(/\s+/g, '_')] = row.ProductValues[product]?.[row.FeatureName] || ''; // Map product values
+                        newRow[product.replace(/\s+/g, '_')] = row.ProductValues[product]?.[row.FeatureName] || '';
                     });
                     return newRow;
                 });
@@ -122,13 +120,11 @@ export default class EditBulkDerivativeOXO extends LightningElement {
 
         console.log('Draft Values:', JSON.stringify(draftValues));
 
-        // Process draft values for saving (e.g., send to Apex for updates)
         this.data = this.data.map((row) => {
             const draft = draftValues.find((item) => item.Id === row.Id);
             return draft ? { ...row, ...draft } : row;
         });
 
-        // Clear draft values after saving
         this.template.querySelector('lightning-datatable').draftValues = [];
 
         this.dispatchEvent(

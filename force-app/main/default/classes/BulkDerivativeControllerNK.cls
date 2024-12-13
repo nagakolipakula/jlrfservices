@@ -5,7 +5,7 @@ public with sharing class BulkDerivativeControllerNK {
         try {
             System.debug('Incoming ProductIds: ' + productIds);
             System.debug('Incoming MarketId: ' + marketId);
-
+derivatives
             List<Bulk_Derivative__c> derivatives = [
                 SELECT Id, Name, Market__r.Name, Product__c, Product__r.Name, Feature__c, Feature__r.Name,
                     Engineering_Rule_Constraint__c, OXO_configuration__c, Dependency__c, Product_Pack__c,
@@ -78,6 +78,6 @@ public with sharing class BulkDerivativeControllerNK {
         @AuraEnabled public String Trim { get; set; }
         @AuraEnabled public String ModelCode { get; set; }
         @AuraEnabled public String DerivativePackCode { get; set; }
-        @AuraEnabled public Map<String, Map<String, String>> ProductValues { get; set; } // Define ProductValues
+        @AuraEnabled public Map<String, Map<String, String>> ProductValues { get; set; }
     }
 }

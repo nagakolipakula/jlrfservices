@@ -1,12 +1,7 @@
 import { LightningElement, api, track } from 'lwc';
-import getDiscoveryDerivatives from '@salesforce/apex/BulkDerivativeControllerNK.getDiscoveryDerivatives';
 import getBulkDerivative from '@salesforce/apex/BulkDerivativeControllerNK.getBulkDerivative';
+import getDiscoveryDerivatives from '@salesforce/apex/BulkDerivativeControllerNK.getDiscoveryDerivatives';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
-
-const COLUMNS = [
-    { label: 'Feature', fieldName: 'FeatureName' },
-    { label: 'OXO Configuration', fieldName: 'OxoConfig', editable: true },
-];
 
 export default class EditBulkDerivativeOXO extends LightningElement {
     @api selectedBrand;
@@ -21,8 +16,9 @@ export default class EditBulkDerivativeOXO extends LightningElement {
     @track featureGroup = '';
     @track feature = '';
     @track data = [];
-    @track dataPresent = false;
-    @track columns = COLUMNS;
+    @track columns = [
+        { label: 'Feature', fieldName: 'FeatureName' },
+    ];
 
     connectedCallback() {
         this.fetchDiscoveryDerivatives();
@@ -33,7 +29,7 @@ export default class EditBulkDerivativeOXO extends LightningElement {
             .then((data) => {
                 this.derivativesOptions = data.map((item) => ({
                     label: item.Name,
-                    value: item.Id,
+                    value: item.Name, // Use Name instead of Id
                 }));
                 console.log('Fetched Derivatives Options:', JSON.stringify(this.derivativesOptions));
             })
@@ -50,18 +46,24 @@ export default class EditBulkDerivativeOXO extends LightningElement {
             return matchingOption ? matchingOption.label : 'Unknown';
         });
 
-        console.log('Updated Selected Derivatives IDs:', JSON.stringify(this.selectedDerivatives));
         console.log('Updated Selected Derivatives Names:', JSON.stringify(this.selectedDerivativeNames));
+
+        // Dynamically update columns
+        this.updateColumns();
     }
 
-    handleFeatureGroupChange(event) {
-        this.featureGroup = event.target.value;
-        console.log('Updated Feature Group:', this.featureGroup);
-    }
+    updateColumns() {
+        const baseColumns = [
+            { label: 'Feature', fieldName: 'FeatureName' },
+        ];
 
-    handleFeatureChange(event) {
-        this.feature = event.target.value;
-        console.log('Updated Feature:', this.feature);
+        const dynamicColumns = this.selectedDerivativeNames.map((name) => ({
+            label: name,
+            fieldName: name.replace(/\s+/g, '_'), // Create a unique fieldName for each product
+            editable: true, // Enable inline editing
+        }));
+
+        this.columns = [...baseColumns, ...dynamicColumns];
     }
 
     fetchBulkDerivatives() {
@@ -87,23 +89,23 @@ export default class EditBulkDerivativeOXO extends LightningElement {
             return;
         }
 
-        console.log('Fetching Bulk Derivatives for Feature Group:', this.featureGroup);
-        console.log('Fetching Bulk Derivatives for Feature:', this.feature);
-        console.log('Fetching Bulk Derivatives for Market:', this.selectedMarket);
-        console.log('Fetching Bulk Derivatives for Derivatives (Names):', JSON.stringify(this.selectedDerivativeNames));
-
         getBulkDerivative({
-            productId: this.selectedDerivativeNames[0],
+            productIds: this.selectedDerivativeNames,
             marketId: this.selectedMarket
         })
             .then((data) => {
-                this.data = data;
-                this.dataPresent = this.data.length > 0; // Update dataPresent flag
+                // Map the response data to include dynamic product columns
+                this.data = data.map((row) => {
+                    const newRow = { ...row };
+                    this.selectedDerivativeNames.forEach((product) => {
+                        newRow[product.replace(/\s+/g, '_')] = row.ProductValues[product]?.[row.FeatureName] || ''; // Map product values
+                    });
+                    return newRow;
+                });
+
                 console.log('Fetched Bulk Derivatives:', JSON.stringify(this.data));
             })
             .catch((error) => {
-                this.data = [];
-                this.dataPresent = false;
                 console.error('Error fetching bulk derivatives:', error);
                 this.dispatchEvent(
                     new ShowToastEvent({
@@ -113,5 +115,28 @@ export default class EditBulkDerivativeOXO extends LightningElement {
                     })
                 );
             });
+    }
+
+    handleSave(event) {
+        const draftValues = event.detail.draftValues;
+
+        console.log('Draft Values:', JSON.stringify(draftValues));
+
+        // Process draft values for saving (e.g., send to Apex for updates)
+        this.data = this.data.map((row) => {
+            const draft = draftValues.find((item) => item.Id === row.Id);
+            return draft ? { ...row, ...draft } : row;
+        });
+
+        // Clear draft values after saving
+        this.template.querySelector('lightning-datatable').draftValues = [];
+
+        this.dispatchEvent(
+            new ShowToastEvent({
+                title: 'Success',
+                message: 'Records updated successfully.',
+                variant: 'success',
+            })
+        );
     }
 }

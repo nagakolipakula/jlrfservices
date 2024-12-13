@@ -1,5 +1,6 @@
 <template>
     <div class="container">
+        <!-- Dual-Listbox for Derivatives -->
         <lightning-dual-listbox
             name="discoveryDerivatives"
             label="Choose Discovery Derivatives"
@@ -9,21 +10,6 @@
             value={selectedDerivatives}
             onchange={handlePicklistChange}>
         </lightning-dual-listbox>
-    </div>
-
-    <div class="input-row">
-        <lightning-input
-            type="text"
-            label="Search (feature group) e.g. Wheels & Tyres"
-            value={featureGroup}
-            onchange={handleFeatureGroupChange}>
-        </lightning-input>
-        <lightning-input
-            type="text"
-            label="Search (feature) e.g. 19"
-            value={feature}
-            onchange={handleFeatureChange}>
-        </lightning-input>
     </div>
 
     <div class="button">
@@ -36,18 +22,20 @@
     </div>
 
     <!-- Datatable to Display Results -->
-    <template if:true={dataPresent}>
+    <template if:true={data}>
         <lightning-datatable
             key-field="Id"
             data={data}
             columns={columns}
+            draft-values={draftValues}
+            onsave={handleSave}
             hide-checkbox-column
             suppress-bottom-bar>
         </lightning-datatable>
     </template>
 
     <!-- No Data Message -->
-    <template if:false={dataPresent}>
+    <template if:false={data}>
         <p style="text-align: center; margin-top: 1rem;">No records found.</p>
     </template>
 </template>

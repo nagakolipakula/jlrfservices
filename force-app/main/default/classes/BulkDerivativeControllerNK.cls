@@ -1,22 +1,33 @@
 public with sharing class BulkDerivativeControllerNK {
 
     @AuraEnabled(cacheable=true)
-    public static List<BulkDerivativeWrapper> getBulkDerivative(String productId, String marketId) {
+    public static List<BulkDerivativeWrapper> getBulkDerivative(List<String> productIds, String marketId) {
         try {
-            System.debug('Incoming ProductId: ' + productId);
+            System.debug('Incoming ProductIds: ' + productIds);
             System.debug('Incoming MarketId: ' + marketId);
 
             List<Bulk_Derivative__c> derivatives = [
                 SELECT Id, Name, Market__r.Name, Product__c, Product__r.Name, Feature__c, Feature__r.Name,
                     Engineering_Rule_Constraint__c, OXO_configuration__c, Dependency__c, Product_Pack__c
                 FROM Bulk_Derivative__c
-                WHERE Product__r.Name = :productId AND Market__r.Name = :marketId
+                WHERE Product__r.Name IN :productIds AND Market__r.Name = :marketId
             ];
 
             System.debug('DEBUG: Fetched Bulk Derivatives: ' + derivatives);
 
+            Map<String, Map<String, String>> productToFeaturesMap = new Map<String, Map<String, String>>();
+
+            // Initialize the product-to-feature map
+            for (String productId : productIds) {
+                productToFeaturesMap.put(productId, new Map<String, String>());
+            }
+
             List<BulkDerivativeWrapper> wrapperList = new List<BulkDerivativeWrapper>();
             for (Bulk_Derivative__c bulkDerive : derivatives) {
+                // Populate product-to-feature mapping
+                Map<String, String> featureMap = productToFeaturesMap.get(bulkDerive.Product__r.Name);
+                featureMap.put(bulkDerive.Feature__r.Name, bulkDerive.OXO_configuration__c);
+
                 BulkDerivativeWrapper wrapper = new BulkDerivativeWrapper();
                 wrapper.Id = bulkDerive.Id;
                 wrapper.FeatureName = bulkDerive.Feature__r.Name;
@@ -24,6 +35,7 @@ public with sharing class BulkDerivativeControllerNK {
                 wrapper.OxoConfig = bulkDerive.OXO_configuration__c;
                 wrapper.Dependency = bulkDerive.Dependency__c;
                 wrapper.productPack = bulkDerive.Product_Pack__c;
+                wrapper.ProductValues = productToFeaturesMap; // Add dynamic product mapping
                 wrapperList.add(wrapper);
             }
 
@@ -54,5 +66,6 @@ public with sharing class BulkDerivativeControllerNK {
         @AuraEnabled public String OxoConfig { get; set; }
         @AuraEnabled public String Dependency { get; set; }
         @AuraEnabled public String productPack { get; set; }
+        @AuraEnabled public Map<String, Map<String, String>> ProductValues { get; set; } // Product to OXO map
     }
 }

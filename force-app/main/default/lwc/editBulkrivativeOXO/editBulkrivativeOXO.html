@@ -31,58 +31,66 @@
 
     <!-- Top Table: Static Rows with Dynamic Columns -->
     <template if:true={transformedData}>
-        <div class="custom-table">
-            <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_striped">
-                <thead>
-                    <tr class="slds-line-height_reset">
-                        <th class="slds-text-title_caps">Attributes</th>
-                        <template for:each={selectedDerivativeNames} for:item="derivative">
-                            <th key={derivative} class="slds-text-title_caps">{derivative}</th>
-                        </template>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr class="slds-hint-parent">
-                        <th class="slds-cell-wrap">Body Style</th>
-                        <template for:each={transformedData.BodyStyle} for:item="value">
-                            <td key={value} class="slds-cell-wrap">{value}</td>
-                        </template>
-                    </tr>
-                    <tr class="slds-hint-parent">
-                        <th class="slds-cell-wrap">Engine</th>
-                        <template for:each={transformedData.Engine} for:item="value">
-                            <td key={value} class="slds-cell-wrap">{value}</td>
-                        </template>
-                    </tr>
-                    <tr class="slds-hint-parent">
-                        <th class="slds-cell-wrap">Trim</th>
-                        <template for:each={transformedData.Trim} for:item="value">
-                            <td key={value} class="slds-cell-wrap">{value}</td>
-                        </template>
-                    </tr>
-                    <tr class="slds-hint-parent">
-                        <th class="slds-cell-wrap">Model Code</th>
-                        <template for:each={transformedData.ModelCode} for:item="value">
-                            <td key={value} class="slds-cell-wrap">{value}</td>
-                        </template>
-                    </tr>
-                    <tr class="slds-hint-parent">
-                        <th class="slds-cell-wrap">Derivative Pack Code</th>
-                        <template for:each={transformedData.DerivativePackCode} for:item="value">
-                            <td key={value} class="slds-cell-wrap">{value}</td>
-                        </template>
-                    </tr>
-                    <tr class="slds-hint-parent">
-                        <th class="slds-cell-wrap">OXO Configuration</th>
-                        <template for:each={transformedData.OxoConfig} for:item="value">
-                            <td key={value} class="slds-cell-wrap">{value}</td>
-                        </template>
-                    </tr>
-                </tbody>
-            </table>
+        <!-- Grid for Table Alignment -->
+        <div class="slds-grid slds-wrap">
+            <div class="slds-col slds-size_2-of-12"></div> <!-- Increased Left Spacer -->
+            <div class="slds-col slds-size_10-of-12">
+                <div class="custom-table">
+                    <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_striped">
+                        <thead>
+                            <tr class="slds-line-height_reset">
+                                <th class="slds-text-title_caps">Attributes</th>
+                                <template for:each={selectedDerivativeNames} for:item="derivative">
+                                    <th key={derivative} class="slds-text-title_caps">{derivative}</th>
+                                </template>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="slds-hint-parent">
+                                <th class="slds-cell-wrap">Body Style</th>
+                                <template for:each={transformedData.BodyStyle} for:item="value">
+                                    <td key={value} class="slds-cell-wrap">{value}</td>
+                                </template>
+                            </tr>
+                            <tr class="slds-hint-parent">
+                                <th class="slds-cell-wrap">Engine</th>
+                                <template for:each={transformedData.Engine} for:item="value">
+                                    <td key={value} class="slds-cell-wrap">{value}</td>
+                                </template>
+                            </tr>
+                            <tr class="slds-hint-parent">
+                                <th class="slds-cell-wrap">Trim</th>
+                                <template for:each={transformedData.Trim} for:item="value">
+                                    <td key={value} class="slds-cell-wrap">{value}</td>
+                                </template>
+                            </tr>
+                            <tr class="slds-hint-parent">
+                                <th class="slds-cell-wrap">Model Code</th>
+                                <template for:each={transformedData.ModelCode} for:item="value">
+                                    <td key={value} class="slds-cell-wrap">{value}</td>
+                                </template>
+                            </tr>
+                            <tr class="slds-hint-parent">
+                                <th class="slds-cell-wrap">Derivative Pack Code</th>
+                                <template for:each={transformedData.DerivativePackCode} for:item="value">
+                                    <td key={value} class="slds-cell-wrap">{value}</td>
+                                </template>
+                            </tr>
+                            <!-- <tr class="slds-hint-parent">
+                                <th class="slds-cell-wrap">OXO Configuration</th>
+                                <template for:each={transformedData.OxoConfig} for:item="value">
+                                    <td key={value} class="slds-cell-wrap">{value}</td>
+                                </template>
+                            </tr> -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="slds-col slds-size_3-of-12"></div>
         </div>
-    <!-- </template>
-    <template if:true={bottomTableData}> -->
+    </template>    
+    
+    <template if:true={bottomTableData}>
         <lightning-datatable
             key-field="FeatureName"
             data={bottomTableData}

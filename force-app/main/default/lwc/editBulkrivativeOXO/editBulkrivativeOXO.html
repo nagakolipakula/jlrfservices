@@ -4,7 +4,7 @@
         <lightning-input
             type="text"
             label="Search by Market Name"
-            placeholder="Enter Market Name (e.g., GLOBAL)"
+            placeholder="Enter Market Name"
             onchange={handleMarketChange}>
         </lightning-input>
 
@@ -20,30 +20,78 @@
         </lightning-dual-listbox>
     </div>
 
-    <div class="button">
+    <!-- <div class="button">
         <lightning-button
             class="fetch-button"
             label="SEARCH"
             onclick={fetchBulkDerivatives}
             variant="brand">
         </lightning-button>
-    </div>
+    </div> -->
 
-    <!-- Datatable to Display Results -->
-    <template if:true={data}>
+    <!-- Top Table: Static Rows with Dynamic Columns -->
+    <template if:true={transformedData}>
+        <div class="custom-table">
+            <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+                <thead>
+                    <tr>
+                        <th>Attributes</th>
+                        <template for:each={selectedDerivativeNames} for:item="derivative">
+                            <th key={derivative}>{derivative}</th>
+                        </template>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>Body Style</th>
+                        <template for:each={transformedData.BodyStyle} for:item="value">
+                            <td key={value}>{value}</td>
+                        </template>
+                    </tr>
+                    <tr>
+                        <th>Engine</th>
+                        <template for:each={transformedData.Engine} for:item="value">
+                            <td key={value}>{value}</td>
+                        </template>
+                    </tr>
+                    <tr>
+                        <th>Trim</th>
+                        <template for:each={transformedData.Trim} for:item="value">
+                            <td key={value}>{value}</td>
+                        </template>
+                    </tr>
+                    <tr>
+                        <th>Model Code</th>
+                        <template for:each={transformedData.ModelCode} for:item="value">
+                            <td key={value}>{value}</td>
+                        </template>
+                    </tr>
+                    <tr>
+                        <th>Derivative Pack Code</th>
+                        <template for:each={transformedData.DerivativePackCode} for:item="value">
+                            <td key={value}>{value}</td>
+                        </template>
+                    </tr>
+                    <!-- <tr>
+                        <th>OXO Configuration</th>
+                        <template for:each={transformedData.OxoConfig} for:item="value">
+                            <td key={value}>{value}</td>
+                        </template>
+                    </tr> -->
+                </tbody>
+            </table>
+        </div>
+    </template>
+
+    <!-- Bottom Table: Datatable -->
+    <template if:true={bottomTableData}>
         <lightning-datatable
-            key-field="Id"
-            data={data}
-            columns={columns}
-            draft-values={draftValues}
-            onsave={handleSave}
+            key-field="FeatureName"
+            data={bottomTableData}
+            columns={bottomColumns}
             hide-checkbox-column
             suppress-bottom-bar>
         </lightning-datatable>
     </template>
-
-    <!-- No Data Message -->
-    <template if:false={data}>
-        <p style="text-align: center; margin-top: 1rem;">No records found.</p>
-    </template>
+    
 </template>

@@ -1,12 +1,20 @@
 <template>
     <div class="container">
+        <!-- Input for Market Filter -->
+        <lightning-input
+            type="text"
+            label="Search by Market Name"
+            placeholder="Enter Market Name (e.g., GLOBAL)"
+            onchange={handleMarketChange}>
+        </lightning-input>
+
         <!-- Dual-Listbox for Derivatives -->
         <lightning-dual-listbox
             name="discoveryDerivatives"
             label="Choose Discovery Derivatives"
             source-label="Available"
             selected-label="Selected"
-            options={derivativesOptions}
+            options={filteredDerivativesOptions}
             value={selectedDerivatives}
             onchange={handlePicklistChange}>
         </lightning-dual-listbox>

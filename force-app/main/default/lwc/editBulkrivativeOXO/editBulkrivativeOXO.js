@@ -9,8 +9,8 @@ export default class EditBulkDerivativeOXO extends LightningElement {
     @api selectedDerivative;
     @api selectedFeatureGroup;
     @api selectedFeature;
-
     @track derivativesOptions = [];
+    @track filteredDerivativesOptions = [];
     @track selectedDerivatives = [];
     @track selectedDerivativeNames = [];
     @track featureGroup = '';
@@ -29,8 +29,10 @@ export default class EditBulkDerivativeOXO extends LightningElement {
             .then((data) => {
                 this.derivativesOptions = data.map((item) => ({
                     label: item.Name,
-                    value: item.Name, // Use Name instead of Id
+                    value: item.Name,
                 }));
+
+                this.filterDerivativesByMarket();
                 console.log('Fetched Derivatives Options:', JSON.stringify(this.derivativesOptions));
             })
             .catch((error) => {
@@ -38,16 +40,30 @@ export default class EditBulkDerivativeOXO extends LightningElement {
             });
     }
 
+    handleMarketChange(event) {
+        this.selectedMarket = event.target.value;
+        this.filterDerivativesByMarket();
+    }
+
+    filterDerivativesByMarket() {
+        if (this.selectedMarket && this.selectedMarket.trim() !== '') {
+            const searchKey = this.selectedMarket.toLowerCase();
+            this.filteredDerivativesOptions = this.derivativesOptions.filter((option) =>
+                option.label.toLowerCase().includes(searchKey)
+            );
+        } else {
+            this.filteredDerivativesOptions = [...this.derivativesOptions];
+        }
+    }
+
     handlePicklistChange(event) {
         this.selectedDerivatives = [...event.detail.value];
-
         this.selectedDerivativeNames = this.selectedDerivatives.map((id) => {
-            const matchingOption = this.derivativesOptions.find((option) => option.value === id);
+            const matchingOption = this.filteredDerivativesOptions.find((option) => option.value === id);
             return matchingOption ? matchingOption.label : 'Unknown';
         });
 
         console.log('Updated Selected Derivatives Names:', JSON.stringify(this.selectedDerivativeNames));
-
         this.updateColumns();
     }
 
@@ -113,26 +129,5 @@ export default class EditBulkDerivativeOXO extends LightningElement {
                     })
                 );
             });
-    }
-
-    handleSave(event) {
-        const draftValues = event.detail.draftValues;
-
-        console.log('Draft Values:', JSON.stringify(draftValues));
-
-        this.data = this.data.map((row) => {
-            const draft = draftValues.find((item) => item.Id === row.Id);
-            return draft ? { ...row, ...draft } : row;
-        });
-
-        this.template.querySelector('lightning-datatable').draftValues = [];
-
-        this.dispatchEvent(
-            new ShowToastEvent({
-                title: 'Success',
-                message: 'Records updated successfully.',
-                variant: 'success',
-            })
-        );
     }
 }

@@ -92,7 +92,6 @@ export default class EditBulkDerivativeOXO extends LightningElement {
     
         console.log('Selected Derivatives:', JSON.stringify(this.selectedDerivativeNames));
     
-        // Clear tables and columns when no derivatives are selected
         if (this.selectedDerivativeNames.length === 0) {
             this.transformedData = {
                 BodyStyle: [],
@@ -105,14 +104,13 @@ export default class EditBulkDerivativeOXO extends LightningElement {
     
             this.bottomTableData = [];
             this.bottomColumns = [{ label: 'Feature', fieldName: 'FeatureName' }];
-            this.columns = []; // Clear top table columns
+            this.columns = [];
         } else {
             this.fetchTopTableData();
             this.fetchBottomTableData();
         }
     }    
 
-    // Fetch Data for Top Table
     fetchTopTableData() {
         if (!this.selectedDerivativeNames.length) {
             this.transformedData = {
@@ -123,7 +121,7 @@ export default class EditBulkDerivativeOXO extends LightningElement {
                 DerivativePackCode: [],
                 OxoConfig: [],
             };
-            this.columns = []; // Clear top table columns
+            this.columns = [];
             return;
         }
     
@@ -160,7 +158,23 @@ export default class EditBulkDerivativeOXO extends LightningElement {
             .catch((error) => this.showError('Failed to fetch top table data.'));
     }
 
-    // Fetch Data for Bottom Table
+    prepareBottomTableData(rawData) {
+        const preparedData = [];
+    
+        rawData.forEach((row) => {
+            const rowData = { FeatureName: row.FeatureName };
+    
+            this.selectedDerivativeNames.forEach((derivative) => {
+                const colName = derivative.replace(/\s+/g, '_');
+                rowData[colName] = row.ProductValues[derivative]?.[row.FeatureName] || 'N/A';
+            });
+    
+            preparedData.push(rowData);
+        });
+    
+        return preparedData;
+    }
+
     fetchBottomTableData() {
         if (!this.selectedDerivativeNames.length) {
             this.bottomTableData = [];
@@ -173,28 +187,10 @@ export default class EditBulkDerivativeOXO extends LightningElement {
             marketId: this.selectedMarket
         })
             .then((data) => {
-                const bottomDataMap = new Map();
+                this.bottomTableData = this.prepareBottomTableData(data);
     
-                // Build rows dynamically
-                data.forEach((row) => {
-                    const featureName = row.FeatureName;
-                    if (!bottomDataMap.has(featureName)) {
-                        bottomDataMap.set(featureName, { FeatureName: featureName });
-                    }
-    
-                    // Add OxoConfig for each derivative dynamically
-                    this.selectedDerivativeNames.forEach((product) => {
-                        bottomDataMap.get(featureName)[product.replace(/\s+/g, '_')] =
-                            row.ProductValues[product]?.[featureName] || 'N/A';
-                    });
-                });
-    
-                // Convert to array for lightning-datatable
-                this.bottomTableData = Array.from(bottomDataMap.values());
-    
-                // Rebuild dynamic columns
                 this.bottomColumns = [
-                    { label: 'Feature', fieldName: 'FeatureName' },
+                    { label: 'Feature', fieldName: 'FeatureName', editable: false },
                     ...this.selectedDerivativeNames.map((name) => ({
                         label: name,
                         fieldName: name.replace(/\s+/g, '_'),
@@ -202,6 +198,8 @@ export default class EditBulkDerivativeOXO extends LightningElement {
                         editable: true,
                     })),
                 ];
+    
+                console.log('Bottom Table Data:', JSON.stringify(this.bottomTableData));
             })
             .catch((error) => {
                 console.error('Error fetching bottom table data:', error);

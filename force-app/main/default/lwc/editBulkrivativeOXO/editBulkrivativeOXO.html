@@ -32,63 +32,63 @@
     <!-- Top Table: Static Rows with Dynamic Columns -->
     <template if:true={transformedData}>
         <div class="custom-table">
-            <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+            <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-table_striped">
                 <thead>
-                    <tr>
-                        <th>Attributes</th>
+                    <tr class="slds-line-height_reset">
+                        <th class="slds-text-title_caps">Attributes</th>
                         <template for:each={selectedDerivativeNames} for:item="derivative">
-                            <th key={derivative}>{derivative}</th>
+                            <th key={derivative} class="slds-text-title_caps">{derivative}</th>
                         </template>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <th>Body Style</th>
+                    <tr class="slds-hint-parent">
+                        <th class="slds-cell-wrap">Body Style</th>
                         <template for:each={transformedData.BodyStyle} for:item="value">
-                            <td key={value}>{value}</td>
+                            <td key={value} class="slds-cell-wrap">{value}</td>
                         </template>
                     </tr>
-                    <tr>
-                        <th>Engine</th>
+                    <tr class="slds-hint-parent">
+                        <th class="slds-cell-wrap">Engine</th>
                         <template for:each={transformedData.Engine} for:item="value">
-                            <td key={value}>{value}</td>
+                            <td key={value} class="slds-cell-wrap">{value}</td>
                         </template>
                     </tr>
-                    <tr>
-                        <th>Trim</th>
+                    <tr class="slds-hint-parent">
+                        <th class="slds-cell-wrap">Trim</th>
                         <template for:each={transformedData.Trim} for:item="value">
-                            <td key={value}>{value}</td>
+                            <td key={value} class="slds-cell-wrap">{value}</td>
                         </template>
                     </tr>
-                    <tr>
-                        <th>Model Code</th>
+                    <tr class="slds-hint-parent">
+                        <th class="slds-cell-wrap">Model Code</th>
                         <template for:each={transformedData.ModelCode} for:item="value">
-                            <td key={value}>{value}</td>
+                            <td key={value} class="slds-cell-wrap">{value}</td>
                         </template>
                     </tr>
-                    <tr>
-                        <th>Derivative Pack Code</th>
+                    <tr class="slds-hint-parent">
+                        <th class="slds-cell-wrap">Derivative Pack Code</th>
                         <template for:each={transformedData.DerivativePackCode} for:item="value">
-                            <td key={value}>{value}</td>
+                            <td key={value} class="slds-cell-wrap">{value}</td>
                         </template>
                     </tr>
-                    <!-- <tr>
-                        <th>OXO Configuration</th>
+                    <tr class="slds-hint-parent">
+                        <th class="slds-cell-wrap">OXO Configuration</th>
                         <template for:each={transformedData.OxoConfig} for:item="value">
-                            <td key={value}>{value}</td>
+                            <td key={value} class="slds-cell-wrap">{value}</td>
                         </template>
-                    </tr> -->
+                    </tr>
                 </tbody>
             </table>
         </div>
-    </template>
-
-    <!-- Bottom Table: Datatable -->
-    <template if:true={bottomTableData}>
+    <!-- </template>
+    <template if:true={bottomTableData}> -->
         <lightning-datatable
             key-field="FeatureName"
             data={bottomTableData}
             columns={bottomColumns}
+            draft-values={draftValues}
+            onsave={handleSave}
             hide-checkbox-column
             suppress-bottom-bar>
         </lightning-datatable>

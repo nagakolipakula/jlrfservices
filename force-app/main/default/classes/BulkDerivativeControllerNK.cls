@@ -5,7 +5,7 @@ public with sharing class BulkDerivativeControllerNK {
         try {
             System.debug('Incoming ProductIds: ' + productIds);
             System.debug('Incoming MarketId: ' + marketId);
-derivatives
+            
             List<Bulk_Derivative__c> derivatives = [
                 SELECT Id, Name, Market__r.Name, Product__c, Product__r.Name, Feature__c, Feature__r.Name,
                     Engineering_Rule_Constraint__c, OXO_configuration__c, Dependency__c, Product_Pack__c,

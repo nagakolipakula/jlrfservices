@@ -3,7 +3,7 @@ import getBulkDerivative from '@salesforce/apex/BulkDerivativeControllerNK.getBu
 import getDiscoveryDerivatives from '@salesforce/apex/BulkDerivativeControllerNK.getDiscoveryDerivatives';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
-export default class EditBulkDerivativeOXO extends LightningElement {
+export default class editBulkDerivativeOXO extends LightningElement {
     @api selectedBrand;
     @api selectedMarket;
     @api selectedDerivative;
@@ -83,7 +83,9 @@ export default class EditBulkDerivativeOXO extends LightningElement {
         }
     
         console.log('Updated Selected Derivatives:', JSON.stringify(this.selectedDerivativeNames));
-    }handlePicklistChange(event) {
+    }
+    
+    handlePicklistChange(event) {
         this.selectedDerivatives = [...event.detail.value];
         this.selectedDerivativeNames = this.selectedDerivatives.map((id) => {
             const match = this.filteredDerivativesOptions.find((option) => option.value === id);
@@ -212,7 +214,6 @@ export default class EditBulkDerivativeOXO extends LightningElement {
         this.fetchBottomTableData();
     }
     
-
     showError(message) {
         this.dispatchEvent(
             new ShowToastEvent({

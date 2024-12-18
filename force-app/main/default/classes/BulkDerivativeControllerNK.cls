@@ -59,7 +59,7 @@ public with sharing class BulkDerivativeControllerNK {
             return [
                 SELECT Id, Name 
                 FROM Product2 
-                WHERE Name LIKE '%Discovery%' OR Name LIKE '%Velar%'
+                WHERE Name LIKE '%Discovery%'
             ];
         } catch (Exception e) {
             throw new AuraHandledException('Error fetching Discovery derivatives: ' + e.getMessage());

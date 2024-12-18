@@ -1,7 +1,7 @@
 import { LightningElement, track } from 'lwc';
  
 export default class SliderComponent extends LightningElement {
-    @track sliderValue = 50000;
+    @track sliderValue = 0;
     minValue = 0;
     maxValue = 100000;
  

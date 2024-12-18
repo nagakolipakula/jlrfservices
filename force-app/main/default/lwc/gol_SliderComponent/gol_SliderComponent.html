@@ -1,0 +1,24 @@
+<template>
+    <div class="slider-container">
+        <div class="input-container">
+            <label class="slider-label">Slider</label>
+            <lightning-input type="number" variant="label-hidden" value={sliderValue} onchange={handleInputChange}
+                class="input-box">
+            </lightning-input>
+        </div>
+        <div class="slider-wrapper">
+            <input
+                type="range"
+                min={minValue}
+                max={maxValue}
+                value={sliderValue}
+                oninput={handleSliderChange}
+                class="custom-slider"
+            />
+            <div class="slider-values">
+                <span class="slider-min">{minValue}</span>
+                <span class="slider-max">{maxValue}</span>
+            </div>
+        </div>
+    </div>
+</template>

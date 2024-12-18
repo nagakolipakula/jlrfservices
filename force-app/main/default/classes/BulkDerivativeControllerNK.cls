@@ -66,6 +66,26 @@ public with sharing class BulkDerivativeControllerNK {
         }
     }
 
+    @AuraEnabled(cacheable=true)
+    public static List<CustomSelectOption> getFeatureGroups() {
+        try {
+            List<CustomSelectOption> options = new List<CustomSelectOption>();
+            List<Product2> products = [
+                SELECT Feature_Group__r.Name 
+                FROM Product2 
+                WHERE Feature_Group__r.Name != NULL
+            ];
+            for (Product2 product : products) {
+                if (product.Feature_Group__r != null) {
+                    options.add(new CustomSelectOption(product.Feature_Group__r.Name, product.Feature_Group__r.Name));
+                }
+            }
+            return options;
+        } catch (Exception e) {
+            throw new AuraHandledException('Error fetching Feature Groups: ' + e.getMessage());
+        }
+    }
+
     public class BulkDerivativeWrapper {
         @AuraEnabled public String Id { get; set; }
         @AuraEnabled public String FeatureName { get; set; }
@@ -80,4 +100,17 @@ public with sharing class BulkDerivativeControllerNK {
         @AuraEnabled public String DerivativePackCode { get; set; }
         @AuraEnabled public Map<String, Map<String, String>> ProductValues { get; set; }
     }
+
+    public class CustomSelectOption {
+        @AuraEnabled
+        public String label { get; set; }
+        @AuraEnabled
+        public String value { get; set; }
+    
+        public CustomSelectOption(String label, String value) {
+            this.label = label;
+            this.value = value;
+        }
+    }
+    
 }

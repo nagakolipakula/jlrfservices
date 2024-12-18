@@ -1,6 +1,7 @@
 import { LightningElement, api, track } from 'lwc';
 import getBulkDerivative from '@salesforce/apex/BulkDerivativeControllerNK.getBulkDerivative';
 import getDiscoveryDerivatives from '@salesforce/apex/BulkDerivativeControllerNK.getDiscoveryDerivatives';
+import getFeatureGroups from '@salesforce/apex/BulkDerivativeControllerNK.getFeatureGroups';
 import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 
 export default class editBulkDerivativeOXO extends LightningElement {
@@ -17,6 +18,8 @@ export default class editBulkDerivativeOXO extends LightningElement {
     @track feature = '';
     @track filteredDerivativesOptions = [];
     @track derivativesOptions = [];
+    @track featureGroupOptions = [];
+    @track selectedFeatureGroup = '';
 
     // Top Table Data
     @track transformedData = {
@@ -37,6 +40,28 @@ export default class editBulkDerivativeOXO extends LightningElement {
 
     connectedCallback() {
         this.fetchDiscoveryDerivatives();
+        this.fetchFeatureGroups();
+    }
+
+    fetchFeatureGroups() {
+        getFeatureGroups()
+            .then((data) => {
+                this.featureGroupOptions = data;
+            })
+            .catch((error) => {
+                console.error('Error fetching Feature Groups:', error);
+                this.showError('Failed to load feature groups.');
+            });
+    }
+
+    handleFeatureGroupChange(event) {
+        this.selectedFeatureGroup = event.target.value;
+        console.log('Selected Feature Group:', this.selectedFeatureGroup);
+    }
+
+    handleFeatureChange(event) {
+        const feature = event.target.value;
+        console.log('Feature Search:', feature);
     }
 
     // Fetch Available Derivatives

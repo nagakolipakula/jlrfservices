@@ -20,6 +20,28 @@
         </lightning-dual-listbox>
     </div>
 
+    <div class="slds-grid slds-wrap">
+        <!-- Combobox for Feature Group -->
+        <div class="slds-col slds-size_6-of-12">
+            <lightning-combobox
+                label="Select Feature Group"
+                placeholder="Select Feature Group"
+                options={featureGroupOptions}
+                value={selectedFeatureGroup}
+                onchange={handleFeatureGroupChange}>
+            </lightning-combobox>
+        </div>
+        <!-- Input for Feature -->
+        <div class="slds-col slds-size_6-of-12">
+            <lightning-input
+                type="text"
+                label="Search Feature"
+                placeholder="Enter Feature Name"
+                onchange={handleFeatureChange}>
+            </lightning-input>
+        </div>
+    </div>
+
     <!-- <div class="button">
         <lightning-button
             class="fetch-button"
@@ -91,15 +113,17 @@
     </template>    
     
     <template if:true={bottomTableData}>
-        <lightning-datatable
-            key-field="FeatureName"
-            data={bottomTableData}
-            columns={bottomColumns}
-            draft-values={draftValues}
-            onsave={handleSave}
-            hide-checkbox-column
-            suppress-bottom-bar>
-        </lightning-datatable>
+        <div class="datatable-container" style="margin-left: 11rem;">
+            <lightning-datatable
+                key-field="FeatureName"
+                data={bottomTableData}
+                columns={bottomColumns}
+                draft-values={draftValues}
+                onsave={handleSave}
+                hide-checkbox-column
+                suppress-bottom-bar>
+            </lightning-datatable>
+        </div>
     </template>
     
 </template>

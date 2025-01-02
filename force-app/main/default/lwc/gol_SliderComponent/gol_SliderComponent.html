@@ -1,10 +1,11 @@
 <template>
     <div class="slider-container">
         <div class="input-container">
-            <label class="slider-label">Slider</label>
-            <lightning-input type="number" variant="label-hidden" value={sliderValue} onchange={handleInputChange}
-                class="input-box">
-            </lightning-input>
+            <label class="slider-label">Downpayment (incl.VAT)</label>
+            <div class="input-box-wrapper">
+                <input type="text" value={formattedSliderValue} onchange={handleInputChange} class="input-box">
+                <span class="currency-symbol">€</span>
+            </div>
         </div>
         <div class="slider-wrapper">
             <input
@@ -16,8 +17,8 @@
                 class="custom-slider"
             />
             <div class="slider-values">
-                <span class="slider-min">{minValue}</span>
-                <span class="slider-max">{maxValue}</span>
+                <span class="slider-min">€ {minValue}</span>
+                <span class="slider-max">{formattedMaxValue} €</span>
             </div>
         </div>
     </div>

@@ -13,12 +13,41 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 10px;
+    margin-bottom: 15px;
 }
  
 .input-box {
-    width: 150px; 
+    width: 150px;
+    height: 45px;
+    gap: 8px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 14px;
+    border: 1px solid rgb(12 18 28 / 100%);
+    border-radius: 0;
+    padding-left: 20px;
+}
+
+.input-box-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.input-box input {
+    padding-right: 25px;
+    width: 150px;
     text-align: right;
+}
+
+.currency-symbol {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    font-size: 14px;
+    color: #000;
+    pointer-events: none;
+    margin-right: 5.75rem;
 }
  
 .slider-wrapper {
@@ -77,10 +106,12 @@
 .slider-values {
     display: flex;
     justify-content: space-between;
-    margin-top: 10px;
+    margin-top: 25px;
     width: 100%;
 }
  
 .slider-min, .slider-max {
     font-size: 12px;
+    white-space: nowrap;
+    margin: 0 5px;
 }

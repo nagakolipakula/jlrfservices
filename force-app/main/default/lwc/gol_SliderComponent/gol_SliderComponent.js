@@ -9,9 +9,13 @@ export default class SliderComponent extends LightningElement {
         let value = Number(event.target.value.replace(/,/g, ''));
         if (value >= this.minValue && value <= this.maxValue) {
             this.sliderValue = value;
+    
+            const percentage = ((this.sliderValue - this.minValue) / (this.maxValue - this.minValue)) * 100;
+            const slider = this.template.querySelector('.custom-slider');
+            slider.style.background = `linear-gradient(to right, rgb(12 18 28 / 90%) ${percentage}%, rgb(12 18 28 / 20%) ${percentage}%)`;
         }
     }
-
+    
     get formattedSliderValue() {
         return this.sliderValue.toLocaleString('en-US');
     }

@@ -19,7 +19,7 @@ export default class sliderComponent extends LightningElement {
     }
 
     get formattedSliderValue() {
-        return this.sliderValue.toLocaleString('en-US');
+        return (this.sliderValue).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
 
     get formattedMaxValue() {

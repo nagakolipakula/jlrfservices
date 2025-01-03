@@ -1,21 +1,23 @@
-import { LightningElement, track } from 'lwc';
- 
-export default class SliderComponent extends LightningElement {
-    @track sliderValue = 0;
+import { LightningElement } from 'lwc';
+
+export default class sliderComponent extends LightningElement {
+    sliderValue = 0;
     minValue = 0;
     maxValue = 100000;
- 
+
     handleInputChange(event) {
-        let value = Number(event.target.value.replace(/,/g, ''));
-        if (value >= this.minValue && value <= this.maxValue) {
+        const value = this.parseInputValue(event.target.value);
+        if (this.isValueInRange(value)) {
             this.sliderValue = value;
-    
-            const percentage = ((this.sliderValue - this.minValue) / (this.maxValue - this.minValue)) * 100;
-            const slider = this.template.querySelector('.custom-slider');
-            slider.style.background = `linear-gradient(to right, rgb(12 18 28 / 90%) ${percentage}%, rgb(12 18 28 / 20%) ${percentage}%)`;
+            this.updateSliderBackground();
         }
     }
-    
+
+    handleSliderChange(event) {
+        this.sliderValue = Number(event.target.value);
+        this.updateSliderBackground();
+    }
+
     get formattedSliderValue() {
         return this.sliderValue.toLocaleString('en-US');
     }
@@ -23,9 +25,16 @@ export default class SliderComponent extends LightningElement {
     get formattedMaxValue() {
         return this.maxValue.toLocaleString('en-US');
     }
- 
-    handleSliderChange(event) {
-        this.sliderValue = Number(event.target.value);
+
+    parseInputValue(input) {
+        return Number(input.replace(/,/g, ''));
+    }
+
+    isValueInRange(value) {
+        return value >= this.minValue && value <= this.maxValue;
+    }
+
+    updateSliderBackground() {
         const percentage = ((this.sliderValue - this.minValue) / (this.maxValue - this.minValue)) * 100;
         const slider = this.template.querySelector('.custom-slider');
         slider.style.background = `linear-gradient(to right, rgb(12 18 28 / 90%) ${percentage}%, rgb(12 18 28 / 20%) ${percentage}%)`;

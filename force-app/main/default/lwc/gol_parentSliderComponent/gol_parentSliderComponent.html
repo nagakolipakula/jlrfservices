@@ -1,0 +1,28 @@
+<template>
+    <div class="slider-container">
+        <!-- First Row -->
+        <div class="slider-row">
+          <c-gol-slider-component
+            label-name="Downpayment"
+            label-for="downpayment"
+            unit="€"
+            slider-value={downpayment}
+            min-value="0"
+            max-value="50000"
+            step-value="100"
+            onsliderchange={handleDownpaymentChange}
+          ></c-gol-slider-component>
+
+          <c-gol-slider-component
+            label-name="Mileage p.a."
+            label-for="mileage"
+            unit="km"
+            slider-value={mileage}
+            min-value="5000"
+            max-value="40000"
+            step-value="1000"
+            onsliderchange={handleMileageChange}
+      ></c-gol-slider-component>
+      </div>
+    </div>
+</template>

@@ -1,0 +1,26 @@
+.slider-container {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 40px;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.slider-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 40px;
+}
+
+.slider-container > .slider-row {
+    width: 100%;
+    padding-bottom: 40px;
+}
+
+.slider-row c-gol-slider-component {
+    flex: 1;
+    min-width: 300px;
+    max-width: 530px;
+}

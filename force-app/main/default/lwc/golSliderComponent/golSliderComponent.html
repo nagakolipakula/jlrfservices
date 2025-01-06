@@ -1,0 +1,28 @@
+<template>
+    <div class="slider-container">
+        <div class="input-container">
+            <label class="slider-label">{labelName}</label>
+            <div class="input-box-wrapper">
+                <input
+                    type="text"
+                    value={formattedSliderValue}
+                    onchange={handleInputChange}
+                    class="input-box">
+                <span class="currency-symbol">{unit}</span>
+            </div>
+        </div>
+        <div class="slider-wrapper">
+            <input
+                type="range"
+                min={minValue}
+                max={maxValue}
+                value={sliderValue}
+                oninput={handleSliderChange}
+                class="custom-slider" />
+            <div class="slider-values">
+                <span class="slider-min">{unit} {minValue}</span>
+                <span class="slider-max">{formattedMaxValue} {unit}</span>
+            </div>
+        </div>
+    </div>
+</template>

@@ -3,6 +3,9 @@ import { LightningElement } from 'lwc';
 export default class gol_parentSliderComponent extends LightningElement {
     downpayment = 0;
     mileage = 5000;
+    downPaymentMaxValue = 50000;
+    mileageMinValue = 5000;
+    mileageMaxValue = 40000;
     isSubmitted = false;    
 
     handleDownpaymentChange(event) {

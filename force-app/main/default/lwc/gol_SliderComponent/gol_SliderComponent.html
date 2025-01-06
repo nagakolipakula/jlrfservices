@@ -1,10 +1,10 @@
 <template>
     <div class="slider-container">
         <div class="input-container">
-            <label class="slider-label">Downpayment (incl.VAT)</label>
+            <label class="slider-label">{label.GOL_Downpayment}</label>
             <div class="input-box-wrapper">
                 <input type="text" value={formattedSliderValue} onchange={handleInputChange} class="input-box">
-                <span class="currency-symbol">€</span>
+                <span class="currency-symbol">{label.GOL_Currency_symbol}</span>
             </div>
         </div>
         <div class="slider-wrapper">
@@ -17,8 +17,8 @@
                 class="custom-slider"
                 />
             <div class="slider-values">
-                <span class="slider-min">€ {minValue}</span>
-                <span class="slider-max">{formattedMaxValue} €</span>
+                <span class="slider-min">{label.GOL_Currency_symbol} {minValue}</span>
+                <span class="slider-max">{formattedMaxValue} {label.GOL_Currency_symbol}</span>
             </div>
         </div>
     </div>

@@ -1,9 +1,15 @@
 import { LightningElement } from 'lwc';
+import 	GOL_Downpayment from '@salesforce/label/c.GOL_Downpayment';
+import 	GOL_Currency_symbol from '@salesforce/label/c.GOL_Currency_symbol';
 
 export default class sliderComponent extends LightningElement {
     sliderValue = 0;
     minValue = 0;
     maxValue = 100000;
+    label = {
+        GOL_Downpayment,
+        GOL_Currency_symbol
+    }
 
     handleInputChange(event) {
         const value = this.parseInputValue(event.target.value);

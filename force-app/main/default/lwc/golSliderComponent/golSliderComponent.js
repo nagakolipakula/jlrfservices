@@ -6,7 +6,6 @@ export default class golSliderComponent extends LightningElement {
     @api unit = '';
     @api minValue;
     @api maxValue;
-    @api stepValue;
 
     _sliderValue = 0;
 

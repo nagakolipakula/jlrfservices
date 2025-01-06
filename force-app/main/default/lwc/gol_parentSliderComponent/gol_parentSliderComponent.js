@@ -1,4 +1,6 @@
 import { LightningElement } from 'lwc';
+import 	GOL_Downpayment from '@salesforce/label/c.GOL_Downpayment';
+import 	GOL_Currency_symbol from '@salesforce/label/c.GOL_Currency_symbol';
 
 export default class gol_parentSliderComponent extends LightningElement {
     downpayment = 0;
@@ -6,7 +8,11 @@ export default class gol_parentSliderComponent extends LightningElement {
     downPaymentMaxValue = 50000;
     mileageMinValue = 5000;
     mileageMaxValue = 40000;
-    isSubmitted = false;    
+    isSubmitted = false;
+    label = {
+        GOL_Downpayment,
+        GOL_Currency_symbol
+    }
 
     handleDownpaymentChange(event) {
         console.log('Downpayment Changed:', event.detail);

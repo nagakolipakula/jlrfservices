@@ -8,7 +8,7 @@
                     value={formattedSliderValue}
                     onchange={handleInputChange}
                     class="input-box">
-                <span class="currency-symbol">{unit}</span>
+                <!-- <span class="currency-symbol">{unit}</span> -->
             </div>
         </div>
         <div class="slider-wrapper">
@@ -20,8 +20,8 @@
                 oninput={handleSliderChange}
                 class="custom-slider" />
             <div class="slider-values">
-                <span class="slider-min">{unit} {minValue}</span>
-                <span class="slider-max">{formattedMaxValue} {unit}</span>
+                <span class="slider-min">{formattedMinValue}</span>
+                <span class="slider-max">{formattedMaxValue}</span>
             </div>
         </div>
     </div>

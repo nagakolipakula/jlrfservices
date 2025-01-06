@@ -9,14 +9,25 @@ export default class gol_parentSliderComponent extends LightningElement {
     isSubmitted = false;
 
     handleDownpaymentChange(event) {
-        console.log('Parent Component - Downpayment Value Changed:', event.detail);
         this.downpayment = event.detail;
-        // this.checkIfAllValuesSelected();
+        this.checkIfAllValuesSelected();
     }
     
     handleMileageChange(event) {
         this.mileage = event.detail;
-        // this.checkIfAllValuesSelected();
+        this.checkIfAllValuesSelected();
     }
+
+    checkIfAllValuesSelected() {
+        if (this.downpayment !== null &&
+            this.mileage !== null) {
+          this.isSubmitted = true;
+          const serializedData = {
+            downpayment: this.downpayment,
+            mileage: this.mileage
+          };
+          console.log("Selected Data:", JSON.stringify(serializedData, null, 2));
+        } 
+      }
   
 }

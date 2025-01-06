@@ -1,6 +1,6 @@
 import { LightningElement, api } from 'lwc';
 
-export default class GolSliderComponent extends LightningElement {
+export default class golSliderComponent extends LightningElement {
     @api labelName;
     @api labelFor;
     @api unit = '';
@@ -36,11 +36,15 @@ export default class GolSliderComponent extends LightningElement {
     }
 
     get formattedSliderValue() {
-        return (this.sliderValue || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        return `${(this.sliderValue || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ${this.unit}`;
     }
 
     get formattedMaxValue() {
-        return this.maxValue.toLocaleString('en-US');
+        return `${this.maxValue.toLocaleString('en-US')} ${this.unit}`;
+    }
+
+    get formattedMinValue() {
+        return `${this.minValue.toLocaleString('en-US')} ${this.unit}`;
     }
 
     parseInputValue(input) {

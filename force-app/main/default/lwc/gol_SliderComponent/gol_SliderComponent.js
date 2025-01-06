@@ -2,7 +2,7 @@ import { LightningElement } from 'lwc';
 import 	GOL_Downpayment from '@salesforce/label/c.GOL_Downpayment';
 import 	GOL_Currency_symbol from '@salesforce/label/c.GOL_Currency_symbol';
 
-export default class sliderComponent extends LightningElement {
+export default class gol_sliderComponent extends LightningElement {
     sliderValue = 0;
     minValue = 0;
     maxValue = 100000;

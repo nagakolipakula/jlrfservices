@@ -3,12 +3,14 @@
         <div class="input-container">
             <label class="slider-label">{labelName}</label>
             <div class="input-box-wrapper">
+                <template if:true={isEuro}>
+                    <span class="currency-symbol">{unit}</span>
+                </template>
                 <input
                     type="text"
                     value={formattedSliderValue}
                     onchange={handleInputChange}
                     class="input-box">
-                <!-- <span class="currency-symbol">{unit}</span> -->
             </div>
         </div>
         <div class="slider-wrapper">

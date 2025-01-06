@@ -15,6 +15,10 @@ export default class golSliderComponent extends LightningElement {
         return this._sliderValue;
     }
 
+    get isEuro() {
+        return this.unit === '€';
+    }
+
     set sliderValue(value) {
         this._sliderValue = value;
         this.updateSliderBackground();
@@ -36,15 +40,25 @@ export default class golSliderComponent extends LightningElement {
     }
 
     get formattedSliderValue() {
-        return `${(this.sliderValue || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ${this.unit}`;
+        return this.unit === 'km'
+            ? `${(this.sliderValue || 0).toLocaleString('en-US')} ${this.unit}`
+            : `${(this.sliderValue || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
     }
 
     get formattedMaxValue() {
-        return `${this.maxValue.toLocaleString('en-US')} ${this.unit}`;
-    }
+        return this.unit === 'km'
+            ? `${this.maxValue.toLocaleString('en-US')} ${this.unit}`
+            : `${(this.maxValue || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ${this.unit}`;
+    }    
 
     get formattedMinValue() {
-        return `${this.minValue.toLocaleString('en-US')} ${this.unit}`;
+        if (this.unit === 'km') {
+            return `${this.minValue.toLocaleString('en-US')} ${this.unit}`;
+        }
+        if (this.unit === '€') {
+            return `${this.unit} ${this.minValue.toLocaleString('en-US')}`;
+        }
+        return `${this.minValue.toLocaleString('en-US')}`;
     }
 
     parseInputValue(input) {

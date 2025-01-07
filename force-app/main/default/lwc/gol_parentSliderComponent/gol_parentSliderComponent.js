@@ -5,7 +5,7 @@ import 	GOL_Mileage from '@salesforce/label/c.GOL_Mileage';
 import 	GOL_Distance_symbol from '@salesforce/label/c.GOL_Distance_symbol';
 
 export default class gol_parentSliderComponent extends LightningElement {
-    // @api response;
+    @api response;
     downpayment = 0;
     mileage = 5000;
     downPaymentMaxValue = 50000;
@@ -32,15 +32,15 @@ export default class gol_parentSliderComponent extends LightningElement {
     }
 
     checkIfAllValuesSelected() {
-        if (this.downpayment !== null &&
-            this.mileage !== null) {
-          this.isSubmitted = true;
-          const serializedData = {
-            downpayment: this.downpayment,
-            mileage: this.mileage
-          };
-          console.log("Selected Data:", JSON.stringify(serializedData, null, 2));
-        } 
+      if (this.downpayment !== null &&
+          this.mileage !== null) {
+        this.isSubmitted = true;
+        const serializedData = {
+          downpayment: this.downpayment,
+          mileage: this.mileage
+        };
+        console.log("Selected Data:", JSON.stringify(serializedData, null, 2));
       }
+    }
   
 }

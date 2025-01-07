@@ -11,31 +11,49 @@ export default class golSliderComponent extends LightningElement {
 
     @api
     get sliderValue() {
-        return this._sliderValue;
+      return this._sliderValue;
+    }
+  
+    set sliderValue(value) {
+      this._sliderValue = value;
+      this.updateSliderBackground();
     }
 
     get isEuro() {
         return this.unit === '€';
     }
 
-    set sliderValue(value) {
-        this._sliderValue = value;
-        this.updateSliderBackground();
-    }
+    // set sliderValue(value) {
+    //     this._sliderValue = value;
+    //     this.updateSliderBackground();
+    //     const slider = this.template.querySelector('.slider');
+    //     if (slider) {
+    //         slider.value = value;
+    //     }
+    // }
 
     handleInputChange(event) {
-        const value = this.parseInputValue(event.target.value);
-        if (this.isValueInRange(value)) {
-            this.sliderValue = value;
-            this.updateSliderBackground();
-            this.dispatchChangeEvent();
+        let value = parseInt(event.target.value, 10);
+        if (value >= this.minValue && value <= this.maxValue) {
+          this._sliderValue = value;
+          this.updateSliderBackground();
+          this.dispatchEvent(
+            new CustomEvent("sliderchange", {
+              detail: this._sliderValue
+            })
+          );
         }
-    }
+    }  
 
     handleSliderChange(event) {
-        this.sliderValue = Number(event.target.value);
+        const value = event.target.value;
+        this._sliderValue = value;
         this.updateSliderBackground();
-        this.dispatchChangeEvent();
+        this.dispatchEvent(
+          new CustomEvent("sliderchange", {
+            detail: this._sliderValue
+          })
+        );
     }
 
     get formattedSliderValue() {

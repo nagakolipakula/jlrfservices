@@ -8,9 +8,9 @@
 		<target>lightning__RecordPage</target>
         <target>lightning__FlowScreen</target>
 	</targets>
-	<!-- <targetConfigs>
+	<targetConfigs>
         <targetConfig targets="lightning__FlowScreen">
 			<property name="response" type="string" label="Response From Apex"/>
         </targetConfig>
-    </targetConfigs> -->
+    </targetConfigs>
 </LightningComponentBundle>

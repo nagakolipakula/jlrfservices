@@ -4,7 +4,7 @@
           <c-gol-slider-component
             label-name={label.GOL_Downpayment}
             label-for="downpayment"
-            unit="€"
+            unit={label.GOL_Currency_symbol}
             slider-value={downpayment}
             min-value="0"
             max-value={downPaymentMaxValue}
@@ -13,9 +13,9 @@
           ></c-gol-slider-component>
 
           <c-gol-slider-component
-            label-name="Mileage p.a."
+            label-name={label.GOL_Mileage}
             label-for="mileage"
-            unit="km"
+            unit={label.GOL_Distance_symbol}
             slider-value={mileage}
             min-value={mileageMinValue}
             max-value={mileageMaxValue}

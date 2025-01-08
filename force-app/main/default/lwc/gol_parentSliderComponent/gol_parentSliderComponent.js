@@ -21,7 +21,22 @@ export default class gol_parentSliderComponent extends LightningElement {
 
     handleDownpaymentChange(event) {
         console.log('Downpayment Changed:', event.detail);
-        console.log(this.response);
+        let fixedResponse = this.response.replace(/<\/?[^>]+(>|$)/g, '');
+
+        let parsedResponse;
+        try {
+            parsedResponse = JSON.parse(fixedResponse);
+            console.log('Parsed Response:', parsedResponse);
+
+            console.log('First Name:', parsedResponse[0]?.name || 'Not Available');
+            console.log('First Provider:', parsedResponse[0]?.provider || 'Not Available');
+        } catch (error) {
+            console.error('Failed to parse fixed response:', error);
+        }
+        // if (this.response && typeof this.response === 'object') {
+        //   console.log('Specific Field (e.g., "field1"):', this.response.field1);
+        //   console.log('Nested Object (e.g., "nested.field2"):', this.response.nested?.field2);
+        // }
         this.downpayment = event.detail;
         this.checkIfAllValuesSelected();
     }

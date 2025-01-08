@@ -94,9 +94,9 @@ export default class golSliderComponent extends LightningElement {
         }
     }
 
-    dispatchChangeEvent() {
-        this.dispatchEvent(new CustomEvent('sliderchange', {
-            detail: this.sliderValue
-        }));
-    }
+    // dispatchChangeEvent() {
+    //     this.dispatchEvent(new CustomEvent('sliderchange', {
+    //         detail: this.sliderValue
+    //     }));
+    // }
 }

@@ -42,5 +42,4 @@ export default class gol_parentSliderComponent extends LightningElement {
         console.log("Selected Data:", JSON.stringify(serializedData, null, 2));
       }
     }
-  
 }

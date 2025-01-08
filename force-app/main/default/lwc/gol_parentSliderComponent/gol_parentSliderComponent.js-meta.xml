@@ -10,7 +10,7 @@
 	</targets>
 	<targetConfigs>
         <targetConfig targets="lightning__FlowScreen">
-			<property name="response" type="string" label="Response From Apex"/>
+			<property name="response" type="String" label="Response From Flow"/>
         </targetConfig>
     </targetConfigs>
 </LightningComponentBundle>

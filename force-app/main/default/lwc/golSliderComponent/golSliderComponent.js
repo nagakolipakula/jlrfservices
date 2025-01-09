@@ -65,7 +65,7 @@ export default class golSliderComponent extends LightningElement {
     get formattedMaxValue() {
         if (this.maxValue === undefined || this.maxValue === null) {
             console.error('maxValue is not defined:', this.maxValue);
-            return ''; // Return a fallback or empty string
+            return '';
         }
         if (this.unit === 'km') {
             return `${this.maxValue.toLocaleString('en-US')} ${this.unit}`;
@@ -79,7 +79,7 @@ export default class golSliderComponent extends LightningElement {
     get formattedMinValue() {
         if (this.minValue === undefined || this.minValue === null) {
             console.error('minValue is not defined:', this.minValue);
-            return ''; // Return a fallback or empty string
+            return '';
         }
         if (this.unit === 'km') {
             return `${this.minValue.toLocaleString('en-US')} ${this.unit}`;

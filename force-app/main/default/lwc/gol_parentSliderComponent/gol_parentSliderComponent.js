@@ -71,7 +71,7 @@ export default class gol_parentSliderComponent extends LightningElement {
         if (key.includes('Mileage')) return units.mileageUnit.toLowerCase();
         if (key.includes('Payment')) return units.currencyCode === 'EUR' ? '€' : '';
         if (key.includes('Duration')) return units.creditTimeUnit.toLowerCase();
-        return ''; // Default case
+        return '';
     }
 
     handleSliderChange(event) {

@@ -21,7 +21,7 @@ export default class gol_parentSliderComponent extends LightningElement {
   // }
   sliders = [];
   namesWithIds = [];
-  selectedProductId = 'A';
+  selectedProductId;
 
   connectedCallback() {
     this.initializeSliders();
@@ -42,7 +42,11 @@ export default class gol_parentSliderComponent extends LightningElement {
             .filter(item => item.name && item.id)
             .map(item => ({ label: item.name, 
                             value: item.id }));
-      console.log('Filtered Names with IDs:', this.namesWithIds);
+        console.log('Filtered Names with IDs:', this.namesWithIds);
+
+        if (!this.selectedProductId && this.namesWithIds.length > 0) {
+            this.selectedProductId = this.namesWithIds[0].value;
+        }
 
       const providerData = parsedResponse.find(item => item.id === this.selectedProductId);
       console.log('First Match for provider id = this.selectedProductId:', this.selectedProductId);
@@ -65,6 +69,7 @@ export default class gol_parentSliderComponent extends LightningElement {
         console.log('Filtered and Sliders Generated:', this.sliders);
       } else {
         console.warn('No Input Fields Found');
+        this.sliders = [];
       }
     } else {
       console.warn('Response is empty or not defined');
@@ -85,7 +90,7 @@ export default class gol_parentSliderComponent extends LightningElement {
 
   handleProductSelectionChange(event) {
     this.selectedProductId = event.detail;
-    console.log(`Selected Product ID In Parent Comp: ${this.selectedProductId}`);
+    this.initializeSliders();
   }
 
   handleDownpaymentChange(event) {

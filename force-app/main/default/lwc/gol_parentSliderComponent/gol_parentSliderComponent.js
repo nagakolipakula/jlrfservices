@@ -67,7 +67,6 @@ export default class gol_parentSliderComponent extends LightningElement {
   }
 
   getUnit(key, units) {
-    // Dynamically determine the unit based on the units like mileage or payment
     if (key.includes('Mileage')) return units.mileageUnit.toLowerCase();
     if (key.includes('Payment')) return units.currencyCode === 'EUR' ? '€' : '';
     if (key.includes('Duration')) return units.creditTimeUnit.toLowerCase();

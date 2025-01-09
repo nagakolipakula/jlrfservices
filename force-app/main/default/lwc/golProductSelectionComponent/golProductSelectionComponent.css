@@ -9,8 +9,3 @@
     flex-direction: column;
     gap: 10px;
 }
-
-.radio-button-item {
-    display: flex;
-    align-items: center;
-}

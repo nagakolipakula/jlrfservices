@@ -1,38 +1,94 @@
 import { LightningElement, api } from 'lwc';
-import 	GOL_Downpayment from '@salesforce/label/c.GOL_Downpayment';
-import 	GOL_Currency_symbol from '@salesforce/label/c.GOL_Currency_symbol';
-import 	GOL_Mileage from '@salesforce/label/c.GOL_Mileage';
-import 	GOL_Distance_symbol from '@salesforce/label/c.GOL_Distance_symbol';
+// import 	GOL_Downpayment from '@salesforce/label/c.GOL_Downpayment';
+// import 	GOL_Currency_symbol from '@salesforce/label/c.GOL_Currency_symbol';
+// import 	GOL_Mileage from '@salesforce/label/c.GOL_Mileage';
+// import 	GOL_Distance_symbol from '@salesforce/label/c.GOL_Distance_symbol';
 
 export default class gol_parentSliderComponent extends LightningElement {
     @api response;
-    downpayment = 0;
-    mileage = 5000;
-    downPaymentMaxValue = 50000;
-    mileageMinValue = 5000;
-    mileageMaxValue = 40000;
+    // downpayment = 0;
+    // mileage = 5000;
+    // downPaymentMaxValue = 50000;
+    // mileageMinValue = 5000;
+    // mileageMaxValue = 40000;
     isSubmitted = false;
-    label = {
-        GOL_Downpayment,
-        GOL_Currency_symbol,
-        GOL_Mileage,
-        GOL_Distance_symbol
+    // label = {
+    //     GOL_Downpayment,
+    //     GOL_Currency_symbol,
+    //     GOL_Mileage,
+    //     GOL_Distance_symbol
+    // }
+    sliders = [];
+
+    connectedCallback() {
+    //   console.log('Connected Callback Triggered');
+      this.initializeSliders();
+    }
+
+    initializeSliders() {
+      if (this.response) {
+        //   console.log('Raw Response:', this.response); 
+  
+          let tidyUpResponse = this.response.replace(/<\/?[^>]+(>|$)/g, '').trim();
+          let parsedResponse;
+          try {
+              parsedResponse = JSON.parse(tidyUpResponse);
+          } catch (error) {
+              console.error('Failed to parse sanitized response:', error);
+              return;
+          }
+  
+          const providerData = parsedResponse.find(item => item.provider === 'BNPP-PF');
+          console.log('First Match for provider=BNPP-PF:', providerData); // Debug
+  
+          if (providerData && providerData.inputFields) {
+              const inputFields = providerData.inputFields;
+  
+              const allowedFields = ['durationsRange', 'annualMileagesRange', 'downPaymentRange'];
+              this.sliders = Object.entries(inputFields)
+                  .filter(([key]) => allowedFields.includes(key)) 
+                  .map(([key, field]) => ({
+                      id: key,
+                      label: field.description,
+                      min: field.minimum,
+                      max: field.maximum,
+                      step: field.step,
+                      defaultValue: field.defaultValue,
+                      unit: this.getUnit(key, providerData.units)
+                  }));
+  
+              console.log('Filtered and Sliders Generated:', this.sliders); 
+          } else {
+              console.warn('No Input Fields Found');
+          }
+      } else {
+          console.warn('Response is empty or not defined');
+      }
+  }  
+  
+    getUnit(key, units) {
+        // Dynamically determine the unit based on the units like mileage or payment
+        if (key.includes('Mileage')) return units.mileageUnit.toLowerCase();
+        if (key.includes('Payment')) return units.currencyCode === 'EUR' ? '€' : '';
+        if (key.includes('Duration')) return units.creditTimeUnit.toLowerCase();
+        return ''; // Default case
+    }
+
+    handleSliderChange(event) {
+      const { id, value } = event.detail;
+      console.log(`Slider changed: ${id} -> ${value}`);
     }
 
     handleDownpaymentChange(event) {
         console.log('Downpayment Changed:', event.detail);
-        let fixedResponse = this.response.replace(/<\/?[^>]+(>|$)/g, '');
+        // let fixedResponse = this.response.replace(/<\/?[^>]+(>|$)/g, '');
 
-        let parsedResponse;
-        try {
-            parsedResponse = JSON.parse(fixedResponse);
-            console.log('Parsed Response:', parsedResponse);
-
-            console.log('First Name:', parsedResponse[0]?.name || 'Not Available');
-            console.log('First Provider:', parsedResponse[0]?.provider || 'Not Available');
-        } catch (error) {
-            console.error('Failed to parse fixed response:', error);
-        }
+        // let parsedResponse;
+        // try {
+        //     parsedResponse = JSON.parse(fixedResponse);
+        // } catch (error) {
+        //     console.error('Failed to parse fixed response:', error);
+        // }
         // if (this.response && typeof this.response === 'object') {
         //   console.log('Specific Field (e.g., "field1"):', this.response.field1);
         //   console.log('Nested Object (e.g., "nested.field2"):', this.response.nested?.field2);

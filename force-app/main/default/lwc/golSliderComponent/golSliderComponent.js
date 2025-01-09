@@ -38,8 +38,8 @@ export default class golSliderComponent extends LightningElement {
           this._sliderValue = value;
           this.updateSliderBackground();
           this.dispatchEvent(
-            new CustomEvent("sliderchange", {
-              detail: this._sliderValue
+            new CustomEvent('sliderchange', {
+                detail: { id: this.labelFor, value: this._sliderValue }
             })
           );
         }
@@ -50,9 +50,9 @@ export default class golSliderComponent extends LightningElement {
         this._sliderValue = value;
         this.updateSliderBackground();
         this.dispatchEvent(
-          new CustomEvent("sliderchange", {
-            detail: this._sliderValue
-          })
+            new CustomEvent('sliderchange', {
+                detail: { id: this.labelFor, value: this._sliderValue }
+            })
         );
     }
 
@@ -63,12 +63,24 @@ export default class golSliderComponent extends LightningElement {
     }
 
     get formattedMaxValue() {
-        return this.unit === 'km'
-            ? `${this.maxValue.toLocaleString('en-US')} ${this.unit}`
-            : `${(this.maxValue || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} ${this.unit}`;
-    }    
+        if (this.maxValue === undefined || this.maxValue === null) {
+            console.error('maxValue is not defined:', this.maxValue);
+            return ''; // Return a fallback or empty string
+        }
+        if (this.unit === 'km') {
+            return `${this.maxValue.toLocaleString('en-US')} ${this.unit}`;
+        }
+        if (this.unit === '€') {
+            return `${this.unit} ${this.maxValue.toLocaleString('en-US')}`;
+        }
+        return `${this.maxValue.toLocaleString('en-US')}`;
+    }        
 
     get formattedMinValue() {
+        if (this.minValue === undefined || this.minValue === null) {
+            console.error('minValue is not defined:', this.minValue);
+            return ''; // Return a fallback or empty string
+        }
         if (this.unit === 'km') {
             return `${this.minValue.toLocaleString('en-US')} ${this.unit}`;
         }
@@ -76,7 +88,7 @@ export default class golSliderComponent extends LightningElement {
             return `${this.unit} ${this.minValue.toLocaleString('en-US')}`;
         }
         return `${this.minValue.toLocaleString('en-US')}`;
-    }
+    }    
 
     parseInputValue(input) {
         return Number(input.replace(/,/g, ''));

@@ -1,27 +1,17 @@
 <template>
-    <div class="slider-container">
-        <div class="slider-row">
+  <div class="slider-container">
+      <template for:each={sliders} for:item="slider">
           <c-gol-slider-component
-            label-name={label.GOL_Downpayment}
-            label-for="downpayment"
-            unit={label.GOL_Currency_symbol}
-            slider-value={downpayment}
-            min-value="0"
-            max-value={downPaymentMaxValue}
-            step-value="100"
-            onsliderchange={handleDownpaymentChange}
+              key={slider.id}
+              label-name={slider.label}
+              label-for={slider.id}
+              unit={slider.unit}
+              slider-value={slider.defaultValue}
+              min-value={slider.min}
+              max-value={slider.max}
+              step-value={slider.step}
+              onsliderchange={handleSliderChange}
           ></c-gol-slider-component>
-
-          <c-gol-slider-component
-            label-name={label.GOL_Mileage}
-            label-for="mileage"
-            unit={label.GOL_Distance_symbol}
-            slider-value={mileage}
-            min-value={mileageMinValue}
-            max-value={mileageMaxValue}
-            step-value="1000"
-            onsliderchange={handleMileageChange}
-          ></c-gol-slider-component>
-      </div>
-    </div>
+      </template>
+  </div>
 </template>

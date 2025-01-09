@@ -1,6 +1,10 @@
 <template>
-
-    <c-gol-product-selection-component response={response}></c-gol-product-selection-component>
+  <div>
+    <c-gol-product-selection-component 
+        products={namesWithIds} 
+        onproductchange={handleProductSelectionChange}>
+    </c-gol-product-selection-component>
+  </div>
     
   <div class="slider-container">
       <template for:each={sliders} for:item="slider">

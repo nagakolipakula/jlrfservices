@@ -20,16 +20,15 @@ export default class gol_parentSliderComponent extends LightningElement {
   //     GOL_Distance_symbol
   // }
   sliders = [];
+  namesWithIds = [];
+  selectedProductId = 'A';
 
   connectedCallback() {
-    //   console.log('Connected Callback Triggered');
     this.initializeSliders();
   }
 
   initializeSliders() {
     if (this.response) {
-      //   console.log('Raw Response:', this.response); 
-
       let tidyUpResponse = this.response.replace(/<\/?[^>]+(>|$)/g, '').trim();
       let parsedResponse;
       try {
@@ -39,8 +38,14 @@ export default class gol_parentSliderComponent extends LightningElement {
         return;
       }
 
-      const providerData = parsedResponse.find(item => item.provider === 'BNPP-PF');
-      console.log('First Match for provider=BNPP-PF:', providerData); // Debug
+      this.namesWithIds = parsedResponse
+            .filter(item => item.name && item.id)
+            .map(item => ({ label: item.name, 
+                            value: item.id }));
+      console.log('Filtered Names with IDs:', this.namesWithIds);
+
+      const providerData = parsedResponse.find(item => item.id === this.selectedProductId);
+      console.log('First Match for provider id = this.selectedProductId:', this.selectedProductId);
 
       if (providerData && providerData.inputFields) {
         const inputFields = providerData.inputFields;
@@ -76,6 +81,11 @@ export default class gol_parentSliderComponent extends LightningElement {
   handleSliderChange(event) {
     const { id, value } = event.detail;
     console.log(`Slider changed: ${id} -> ${value}`);
+  }
+
+  handleProductSelectionChange(event) {
+    this.selectedProductId = event.detail;
+    console.log(`Selected Product ID In Parent Comp: ${this.selectedProductId}`);
   }
 
   handleDownpaymentChange(event) {

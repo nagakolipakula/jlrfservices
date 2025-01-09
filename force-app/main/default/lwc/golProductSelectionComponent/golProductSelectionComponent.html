@@ -1,8 +1,13 @@
 <template>
-        <lightning-radio-group
-                label={label.GOL_Select_Financial_Product}
-                options={products}
-                value={selectedProduct}
-                onchange={handleProductChange} >
-        </lightning-radio-group>
+
+        <div class="product-selection-label">
+                {label.GOL_Select_Financial_Product}
+        </div>
+        <div class="radio-buttons-container">
+                <lightning-radio-group
+                        options={products}
+                        value={selectedProduct}
+                        onchange={handleProductChange} >
+                </lightning-radio-group>
+        </div>
 </template>

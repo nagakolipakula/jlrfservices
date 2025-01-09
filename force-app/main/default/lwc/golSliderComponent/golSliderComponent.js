@@ -11,12 +11,20 @@ export default class golSliderComponent extends LightningElement {
 
     @api
     get sliderValue() {
-      return this._sliderValue;
+        return this._sliderValue;
     }
-  
+
     set sliderValue(value) {
-      this._sliderValue = value;
-      this.updateSliderBackground();
+        this._sliderValue = value;
+        this.updateSliderBackground();
+    }
+
+    connectedCallback() {
+        console.log('ConnectedCallback triggered');
+        // Delay the background update to ensure the DOM is ready
+        setTimeout(() => {
+            this.updateSliderBackground();
+        }, 0); // Delay by 0 ms to allow for the next event loop
     }
 
     get isEuro() {
@@ -35,15 +43,15 @@ export default class golSliderComponent extends LightningElement {
     handleInputChange(event) {
         let value = parseInt(event.target.value, 10);
         if (value >= this.minValue && value <= this.maxValue) {
-          this._sliderValue = value;
-          this.updateSliderBackground();
-          this.dispatchEvent(
-            new CustomEvent('sliderchange', {
-                detail: { id: this.labelFor, value: this._sliderValue }
-            })
-          );
+            this._sliderValue = value;
+            this.updateSliderBackground();
+            this.dispatchEvent(
+                new CustomEvent('sliderchange', {
+                    detail: { id: this.labelFor, value: this._sliderValue }
+                })
+            );
         }
-    }  
+    }
 
     handleSliderChange(event) {
         const value = event.target.value;
@@ -74,7 +82,7 @@ export default class golSliderComponent extends LightningElement {
             return `${this.unit} ${this.maxValue.toLocaleString('en-US')}`;
         }
         return `${this.maxValue.toLocaleString('en-US')}`;
-    }        
+    }
 
     get formattedMinValue() {
         if (this.minValue === undefined || this.minValue === null) {
@@ -88,7 +96,7 @@ export default class golSliderComponent extends LightningElement {
             return `${this.unit} ${this.minValue.toLocaleString('en-US')}`;
         }
         return `${this.minValue.toLocaleString('en-US')}`;
-    }    
+    }
 
     parseInputValue(input) {
         return Number(input.replace(/,/g, ''));
@@ -99,9 +107,11 @@ export default class golSliderComponent extends LightningElement {
     }
 
     updateSliderBackground() {
+        console.log('updateSliderBackground triggered');
         const percentage = ((this.sliderValue - this.minValue) / (this.maxValue - this.minValue)) * 100;
         const slider = this.template.querySelector('.custom-slider');
         if (slider) {
+            console.log('Slider background updated with percentage:', percentage);
             slider.style.background = `linear-gradient(to right, rgb(12 18 28 / 90%) ${percentage}%, rgb(12 18 28 / 20%) ${percentage}%)`;
         }
     }

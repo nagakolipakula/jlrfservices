@@ -1,7 +1,8 @@
 .slider-container {
     display: inline-flex;
-    flex-direction: column;
-    gap: 40px;
+    flex-wrap: wrap; 
+    gap: 40px; 
+    justify-content: space-between; 
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
@@ -24,4 +25,11 @@
     flex: 1;
     min-width: 300px;
     max-width: 530px;
+}
+
+.slider-container > c-gol-slider-component {
+    flex: 1 1 calc(50% - 40px); 
+    min-width: 300px;
+    max-width: 530px;
+    box-sizing: border-box; 
 }

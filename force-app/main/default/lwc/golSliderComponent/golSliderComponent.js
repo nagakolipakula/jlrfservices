@@ -83,7 +83,7 @@ export default class golSliderComponent extends LightningElement {
             return `${this.maxValue.toLocaleString('en-US')} ${this.unit}`;
         }
         if (this.unit === '€') {
-            return `${this.unit} ${this.maxValue.toLocaleString('en-US')}`;
+            return `${this.maxValue.toLocaleString('en-US')} ${this.unit}`;
         }
         return `${this.maxValue.toLocaleString('en-US')}`;
     }

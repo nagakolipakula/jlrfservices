@@ -5,7 +5,7 @@
     justify-content: space-between; 
     width: 100%;
     max-width: 1200px;
-    margin: 0 auto;
+    margin-left: 20px;
 }
 
 .slider-row {
@@ -35,8 +35,16 @@
 }
 
 .product-selection-label {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    cursor: pointer;
+    margin-top: 35px;
+    margin-bottom: 10px;
+    margin-left: 20px;
+    width: 318px;
+    height: 18px;
+    font-family: 'Avenir Next', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 18px;
+    letter-spacing: 0.9px;
+    color: #0C121C;
 }

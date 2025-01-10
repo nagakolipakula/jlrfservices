@@ -54,7 +54,7 @@ export default class golSliderComponent extends LightningElement {
     }
 
     handleSliderChange(event) {
-        const value = event.target.value;
+        const value = parseFloat(event.target.value);
         this._sliderValue = value;
         this.updateSliderBackground();
         this.dispatchEvent(
@@ -65,9 +65,13 @@ export default class golSliderComponent extends LightningElement {
     }
 
     get formattedSliderValue() {
-        return this.unit === 'km'
-            ? `${(this.sliderValue || 0).toLocaleString('en-US')} ${this.unit}`
-            : `${(this.sliderValue || 0).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+        if (this.unit === '€') {
+            return `${(this.sliderValue || 0).toLocaleString('en-US', { 
+                minimumFractionDigits: 2, 
+                maximumFractionDigits: 2 
+            })}`;
+        }
+        return `${Math.round(this.sliderValue || 0).toLocaleString('en-US')}`;
     }
 
     get formattedMaxValue() {

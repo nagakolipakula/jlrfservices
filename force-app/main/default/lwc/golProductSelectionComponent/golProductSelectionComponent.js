@@ -23,10 +23,19 @@ export default class GolProductSelectionComponent extends LightningElement {
         return this._products;
     }
 
-    // connectedCallback() {
-    //     console.log('Products received in child component:', this.products);
-    //     // this.initializeProductItems();
-    // }
+    connectedCallback() {
+        if (this._products.length > 0) {
+            this.selectedProduct = this._products[0].value;
+        }
+        this.updateProducts();
+    }
+
+    updateProducts() {
+        this._products = this._products.map((product) => ({
+            ...product,
+            checked: product.value === this.selectedProduct
+        }));
+    }
     
     // initializeProductItems() {
     //     if(this.response){

@@ -3,10 +3,24 @@ import 	GOL_Select_Financial_Product from '@salesforce/label/c.GOL_Select_Financ
 
 export default class GolProductSelectionComponent extends LightningElement {
     // @api response;
-    @api products = [];
+    _products = [];
     selectedProduct;
     label = {
         GOL_Select_Financial_Product
+    }
+
+    @api
+    set products(value) {
+        this._products = value || [];
+        console.log('Products received in child:', JSON.stringify(this._products));
+        this._products = this._products.map((product) => ({
+            ...product,
+            checked: product.value === this.selectedProduct
+        }));
+    }
+
+    get products() {
+        return this._products;
     }
 
     // connectedCallback() {
@@ -43,7 +57,12 @@ export default class GolProductSelectionComponent extends LightningElement {
     // }
     
     handleProductChange(event) {
-        this.selectedProduct = event.detail.value;
+        this.selectedProduct = event.target.value;
+        console.log('Selected Product in Child:', this.selectedProduct);
+        // this.products = this.products.map((product) => ({
+        //     ...product,
+        //     checked: product.value === this.selectedProduct
+        // }));
         const selectProductEvent = new CustomEvent('productchange', {
             detail: this.selectedProduct
         });

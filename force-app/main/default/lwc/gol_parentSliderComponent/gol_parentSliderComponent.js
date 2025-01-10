@@ -1,4 +1,5 @@
 import { LightningElement, api } from 'lwc';
+import 	GOL_Select_Financial_Product from '@salesforce/label/c.GOL_Select_Financial_Product';
 // import 	GOL_Downpayment from '@salesforce/label/c.GOL_Downpayment';
 // import 	GOL_Currency_symbol from '@salesforce/label/c.GOL_Currency_symbol';
 // import 	GOL_Mileage from '@salesforce/label/c.GOL_Mileage';
@@ -13,12 +14,13 @@ export default class gol_parentSliderComponent extends LightningElement {
   // mileageMinValue = 5000;
   // mileageMaxValue = 40000;
   isSubmitted = false;
-  // label = {
+  label = {
+         GOL_Select_Financial_Product
   //     GOL_Downpayment,
   //     GOL_Currency_symbol,
   //     GOL_Mileage,
   //     GOL_Distance_symbol
-  // }
+  }
   sliders = [];
   namesWithIds = [];
   selectedProductId;
@@ -90,7 +92,7 @@ export default class gol_parentSliderComponent extends LightningElement {
 
   handleProductSelectionChange(event) {
     this.selectedProductId = event.detail;
-    this.initializeSliders();
+    this.initializeSliders(this.selectedProductId);
   }
 
   handleDownpaymentChange(event) {

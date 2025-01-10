@@ -1,13 +1,23 @@
 <template>
-
         <div class="product-selection-label">
-                {label.GOL_Select_Financial_Product}
+            {label.GOL_Select_Financial_Product}
         </div>
         <div class="radio-buttons-container">
-                <lightning-radio-group
-                        options={products}
-                        value={selectedProduct}
-                        onchange={handleProductChange} >
-                </lightning-radio-group>
+            <template for:each={products} for:item="product">
+                <div key={product.value} class="slds-radio">
+                    <input type="radio" 
+                           id={product.value} 
+                           name="radioGroup" 
+                           value={product.value} 
+                           checked={product.checked} 
+                           onchange={handleProductChange} />
+                    <label class="slds-radio__label" for={product.value}>
+                        <span class="slds-radio_faux"></span>
+                        <span class="slds-form-element__label">
+                            <b>{product.label}</b>
+                        </span>
+                    </label>
+                </div>
+            </template>
         </div>
 </template>

@@ -33,3 +33,10 @@
     max-width: 530px;
     box-sizing: border-box; 
 }
+
+.product-selection-label {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    cursor: pointer;
+}

@@ -41,9 +41,9 @@ export default class golSliderComponent extends LightningElement {
     // }
 
     handleInputChange(event) {
-        let value = parseInt(event.target.value, 10);
+        let value = parseFloat(event.target.value, 10);
         if (value >= this.minValue && value <= this.maxValue) {
-            this._sliderValue = value;
+            this.sliderValue = value;
             this.updateSliderBackground();
             this.dispatchEvent(
                 new CustomEvent('sliderchange', {

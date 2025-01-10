@@ -43,3 +43,12 @@
     cursor: pointer;
     gap: 2px;
 }
+
+.slds-radio_faux {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 1px solid #0d0e0d;
+    border-radius: 50%;
+    margin-right: 10px;
+}

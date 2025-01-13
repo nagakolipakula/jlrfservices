@@ -95,8 +95,8 @@ export default class gol_parentSliderComponent extends LightningElement {
     this.initializeSliders(this.selectedProductId);
   }
 
-  handleDownpaymentChange(event) {
-    console.log('Downpayment Changed:', event.detail);
+  // handleDownpaymentChange(event) {
+  //   console.log('Downpayment Changed:', event.detail);
     // let fixedResponse = this.response.replace(/<\/?[^>]+(>|$)/g, '');
 
     // let parsedResponse;
@@ -109,24 +109,24 @@ export default class gol_parentSliderComponent extends LightningElement {
     //   console.log('Specific Field (e.g., "field1"):', this.response.field1);
     //   console.log('Nested Object (e.g., "nested.field2"):', this.response.nested?.field2);
     // }
-    this.downpayment = event.detail;
-    this.checkIfAllValuesSelected();
-  }
+  //   this.downpayment = event.detail;
+  //   this.checkIfAllValuesSelected();
+  // }
 
-  handleMileageChange(event) {
-    this.mileage = event.detail;
-    this.checkIfAllValuesSelected();
-  }
+  // handleMileageChange(event) {
+  //   this.mileage = event.detail;
+  //   this.checkIfAllValuesSelected();
+  // }
 
-  checkIfAllValuesSelected() {
-    if (this.downpayment !== null &&
-      this.mileage !== null) {
-      this.isSubmitted = true;
-      const serializedData = {
-        downpayment: this.downpayment,
-        mileage: this.mileage
-      };
-      console.log("Selected Data:", JSON.stringify(serializedData, null, 2));
-    }
-  }
+  // checkIfAllValuesSelected() {
+  //   if (this.downpayment !== null &&
+  //     this.mileage !== null) {
+  //     this.isSubmitted = true;
+  //     const serializedData = {
+  //       downpayment: this.downpayment,
+  //       mileage: this.mileage
+  //     };
+  //     console.log("Selected Data:", JSON.stringify(serializedData, null, 2));
+  //   }
+  // }
 }

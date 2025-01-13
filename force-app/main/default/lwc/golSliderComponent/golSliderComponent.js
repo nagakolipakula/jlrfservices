@@ -102,13 +102,13 @@ export default class golSliderComponent extends LightningElement {
         return `${this.minValue.toLocaleString('en-US')}`;
     }
 
-    parseInputValue(input) {
-        return Number(input.replace(/,/g, ''));
-    }
+    // parseInputValue(input) {
+    //     return Number(input.replace(/,/g, ''));
+    // }
 
-    isValueInRange(value) {
-        return value >= this.minValue && value <= this.maxValue;
-    }
+    // isValueInRange(value) {
+    //     return value >= this.minValue && value <= this.maxValue;
+    // }
 
     updateSliderBackground() {
         Promise.resolve().then(() => {

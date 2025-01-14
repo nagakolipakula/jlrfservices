@@ -1,4 +1,4 @@
-import { LightningElement, api } from 'lwc';
+import { LightningElement, api, track} from 'lwc';
 import 	GOL_Select_Financial_Product from '@salesforce/label/c.GOL_Select_Financial_Product';
 // import 	GOL_Downpayment from '@salesforce/label/c.GOL_Downpayment';
 // import 	GOL_Currency_symbol from '@salesforce/label/c.GOL_Currency_symbol';
@@ -21,26 +21,31 @@ export default class gol_parentSliderComponent extends LightningElement {
   //     GOL_Mileage,
   //     GOL_Distance_symbol
   }
-  sliders = [];
-  namesWithIds = [];
-  selectedProductId;
-
+  @track sliders = [];
+  @track namesWithIds = [];
+  @track selectedProductId;
+  @track parsedResponse;
   connectedCallback() {
+    if(this.response){
+    let tidyUpResponse = this.response.replace(/<\/?[^>]+(>|$)/g, '').trim();
+     //let parsedResponse;
+     try {
+      this.parsedResponse = JSON.parse(tidyUpResponse);
+      console.log('MS connectedCallback parsedResponse ==>'+JSON.stringify(this.parsedResponse,null,2));
+    } catch (error) {
+      console.error('Failed to parse sanitized response:', error);
+      return;
+    }
     this.initializeSliders();
+    }else {
+      console.warn('Response is empty or not defined');
+    }
   }
 
   initializeSliders() {
-    if (this.response) {
-      let tidyUpResponse = this.response.replace(/<\/?[^>]+(>|$)/g, '').trim();
-      let parsedResponse;
-      try {
-        parsedResponse = JSON.parse(tidyUpResponse);
-      } catch (error) {
-        console.error('Failed to parse sanitized response:', error);
-        return;
-      }
-
-      this.namesWithIds = parsedResponse
+    if (this.parsedResponse) {
+      console.log('MS initializeSliders parsedResponse ==>'+JSON.stringify(this.parsedResponse,null,2));
+      this.namesWithIds = this.parsedResponse
             .filter(item => item.name && item.id)
             .map(item => ({ label: item.name, 
                             value: item.id }));
@@ -50,9 +55,9 @@ export default class gol_parentSliderComponent extends LightningElement {
             this.selectedProductId = this.namesWithIds[0].value;
         }
 
-      const providerData = parsedResponse.find(item => item.id === this.selectedProductId);
+      const providerData = this.parsedResponse.find(item => item.id === this.selectedProductId);
       console.log('First Match for provider id = this.selectedProductId:', this.selectedProductId);
-
+      console.log('providerData MS===>'+ JSON.stringify(providerData));
       if (providerData && providerData.inputFields) {
         const inputFields = providerData.inputFields;
 
@@ -68,7 +73,7 @@ export default class gol_parentSliderComponent extends LightningElement {
             defaultValue: field.defaultValue,
             unit: this.getUnit(key, providerData.units)
           }));
-        console.log('Filtered and Sliders Generated:', this.sliders);
+        console.log('Filtered and Sliders Generated:'+ JSON.stringify(this.sliders));
       } else {
         console.warn('No Input Fields Found');
         this.sliders = [];
@@ -87,12 +92,23 @@ export default class gol_parentSliderComponent extends LightningElement {
 
   handleSliderChange(event) {
     const { id, value } = event.detail;
+    const idVal = event.detail.id;
+    const valueVal = event.detail.value;
     console.log(`Slider changed: ${id} -> ${value}`);
+    console.log(idVal+'<==MS Slider changed MS==>'+valueVal);
+    console.log(this.selectedProductId+'<== this.selectedProductId this.parsedResponse MS===>'+this.parsedResponse.length);
+    for(var i=0; i<this.parsedResponse.length; i++){
+        if(this.selectedProductId === this.parsedResponse[i].id){
+          console.log('this.parsedResponse[i].inputFields'+this.parsedResponse[i].inputFields.durationsRange);
+          this.parsedResponse[i].inputFields.durationsRange.defaultValue=valueVal;
+        }
+    }
   }
 
   handleProductSelectionChange(event) {
     this.selectedProductId = event.detail;
-    this.initializeSliders(this.selectedProductId);
+    console.log('MS parsedResponse  handleProductSelectionChange ==>'+JSON.stringify(this.parsedResponse,null,2));
+    this.initializeSliders();
   }
 
   // handleDownpaymentChange(event) {

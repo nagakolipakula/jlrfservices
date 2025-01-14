@@ -20,6 +20,9 @@ export default class golSliderComponent extends LightningElement {
     }
 
     connectedCallback() {
+        console.log('child slider connectedCallback call');
+        console.log('this._sliderValue MS==> '+this._sliderValue);
+        console.log('this.sliderValue MS==> '+this.sliderValue);
     //     console.log('ConnectedCallback triggered');
     //     // Delay the background update to ensure the DOM is ready
     //     setTimeout(() => {

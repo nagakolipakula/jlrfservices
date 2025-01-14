@@ -29,11 +29,11 @@ export default class golSliderComponent extends LightningElement {
             this.updateSliderBackground();
     //     }, 0); // Delay by 0 ms to allow for the next event loop
     }
-    renderedCallback(){
-        console.log('child slider renderedCallback call');
-        console.log('this._sliderValue renderedCallback MS==> '+this._sliderValue);
-        this.updateSliderBackground();
-    }
+    // renderedCallback(){
+    //     console.log('child slider renderedCallback call');
+    //     console.log('this._sliderValue renderedCallback MS==> '+this._sliderValue);
+    //     this.updateSliderBackground();
+    // }
     get isEuro() {
         return this.unit === '€';
     }
@@ -78,6 +78,9 @@ export default class golSliderComponent extends LightningElement {
                 maximumFractionDigits: 2 
             })}`;
         }
+        if (this.unit === 'km') {
+            return `${Math.round(this.sliderValue || 0).toLocaleString('en-US')} ${this.unit}`;
+        }
         return `${Math.round(this.sliderValue || 0).toLocaleString('en-US')}`;
     }
 
@@ -92,7 +95,7 @@ export default class golSliderComponent extends LightningElement {
         if (this.unit === '€') {
             return `${this.maxValue.toLocaleString('en-US')} ${this.unit}`;
         }
-        return `${this.maxValue.toLocaleString('en-US')}`;
+        return `${this.maxValue.toLocaleString('en-US')} months`;
     }
 
     get formattedMinValue() {
@@ -100,13 +103,13 @@ export default class golSliderComponent extends LightningElement {
             console.error('minValue is not defined:', this.minValue);
             return '';
         }
-        if (this.unit === 'km') {
+        if (this.unit === 'km' || this.unit === 'months') {
             return `${this.minValue.toLocaleString('en-US')} ${this.unit}`;
         }
         if (this.unit === '€') {
             return `${this.unit} ${this.minValue.toLocaleString('en-US')}`;
         }
-        return `${this.minValue.toLocaleString('en-US')}`;
+        return `${this.minValue.toLocaleString('en-US')} months`;
     }
 
     // parseInputValue(input) {

@@ -25,6 +25,7 @@ export default class gol_parentSliderComponent extends LightningElement {
   @track namesWithIds = [];
   @track selectedProductId;
   @track parsedResponse;
+  childSliderComponent = false;
   connectedCallback() {
     if(this.response){
     let tidyUpResponse = this.response.replace(/<\/?[^>]+(>|$)/g, '').trim();
@@ -44,6 +45,7 @@ export default class gol_parentSliderComponent extends LightningElement {
 
   initializeSliders() {
     if (this.parsedResponse) {
+      this.childSliderComponent = false;
       console.log('MS initializeSliders parsedResponse ==>'+JSON.stringify(this.parsedResponse,null,2));
       this.namesWithIds = this.parsedResponse
             .filter(item => item.name && item.id)
@@ -74,6 +76,10 @@ export default class gol_parentSliderComponent extends LightningElement {
             unit: this.getUnit(key, providerData.units)
           }));
         console.log('Filtered and Sliders Generated:'+ JSON.stringify(this.sliders));
+        setTimeout(() => {
+          this.childSliderComponent = true;
+      }, 100);
+        
       } else {
         console.warn('No Input Fields Found');
         this.sliders = [];
@@ -100,7 +106,14 @@ export default class gol_parentSliderComponent extends LightningElement {
     for(var i=0; i<this.parsedResponse.length; i++){
         if(this.selectedProductId === this.parsedResponse[i].id){
           console.log('this.parsedResponse[i].inputFields'+this.parsedResponse[i].inputFields.durationsRange);
+          if(idVal === 'durationsRange'){// check allowedFields const value
           this.parsedResponse[i].inputFields.durationsRange.defaultValue=valueVal;
+          }
+          else if(idVal === 'annualMileagesRange'){
+          this.parsedResponse[i].inputFields.annualMileagesRange.defaultValue=valueVal;
+          }else if(idVal === 'downPaymentRange'){
+            this.parsedResponse[i].inputFields.downPaymentRange.defaultValue=valueVal;
+          }
         }
     }
   }

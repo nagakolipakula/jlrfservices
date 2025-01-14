@@ -5,10 +5,10 @@
         onproductchange={handleProductSelectionChange}>
     </c-gol-product-selection-component>
   </div>
+  <template if:true={childSliderComponent}>
   <div class="product-selection-label">
     {label.GOL_Select_Financial_Product}
   </div>
-    
   <div class="slider-container">
       <template for:each={sliders} for:item="slider">
           <c-gol-slider-component
@@ -24,4 +24,5 @@
           ></c-gol-slider-component>
       </template>
   </div>
+  </template>
 </template>

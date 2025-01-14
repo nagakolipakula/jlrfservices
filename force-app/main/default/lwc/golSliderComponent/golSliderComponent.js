@@ -29,7 +29,11 @@ export default class golSliderComponent extends LightningElement {
             this.updateSliderBackground();
     //     }, 0); // Delay by 0 ms to allow for the next event loop
     }
-
+    renderedCallback(){
+        console.log('child slider renderedCallback call');
+        console.log('this._sliderValue renderedCallback MS==> '+this._sliderValue);
+        this.updateSliderBackground();
+    }
     get isEuro() {
         return this.unit === '€';
     }

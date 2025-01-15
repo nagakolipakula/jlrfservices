@@ -129,59 +129,82 @@ export default class gol_parentSliderComponent extends LightningElement {
   
   handleSliderChange(event) {
     const { id, value } = event.detail;
+
+    this.logSliderChange(id, value);
+
     if (id === 'durationsRange') {
+        this.updateDependentSlider(value);
+    }
+
+    this.updateParsedResponse(id, value);
+    this.sliders = [...this.sliders]; // Trigger re-render
+  }
+
+  logSliderChange(id, value) {
+      console.log(`Slider changed: ${id} -> ${value}`);
+      console.log(`${id} <== MS Slider changed MS ==> ${value}`);
+      console.log(`${this.selectedProductId} <== this.selectedProductId this.parsedResponse MS ==> ${this.parsedResponse.length}`);
+  }
+
+  updateDependentSlider(value) {
       const dependentSlider = this.sliders.find(slider => slider.id === 'dependentMileageSlider');
+      if (!dependentSlider) return;
 
-      if (dependentSlider) {
-          const product = this.parsedResponse.find(item => item.id === this.selectedProductId);
-          const durationRange = product?.inputFields?.durationsRange;
-          const mileageRange = product?.inputFields?.annualMileagesRange;
+      const product = this.getSelectedProduct();
+      if (!product) return;
 
-          const matchingDuration = durationRange?.intervals?.ranges.find(
-              range => value >= range.min && value <= range.max
-          );
+      const durationRange = product?.inputFields?.durationsRange;
+      const mileageRange = product?.inputFields?.annualMileagesRange;
+
+      if (durationRange && mileageRange) {
+          const matchingDuration = this.findMatchingRange(durationRange.intervals?.ranges, value);
 
           if (matchingDuration) {
               const order = matchingDuration.order;
               console.log(`Matching duration range order: ${order}`);
 
-              const matchingMileage = mileageRange?.intervals?.ranges.find(
-                  range => range.order === order
-              );
-
+              const matchingMileage = this.findMatchingMileageRange(mileageRange.intervals?.ranges, order);
               if (matchingMileage) {
-                  dependentSlider.max = matchingMileage.max; // Update the max value
-                  console.log(
-                      `Updated range for Dependent Mileage based on duration (${value} months): Min = ${dependentSlider.min}, Max = ${dependentSlider.max}`
-                  );
+                  this.updateSliderMax(dependentSlider, matchingMileage.max);
               } else {
                   console.warn(`No matching mileage range found for order: ${order}`);
               }
           } else {
               console.warn(`No matching duration range found for value: ${value}`);
           }
-
-          this.sliders = [...this.sliders];
       }
   }
-    const idVal = event.detail.id;
-    const valueVal = event.detail.value;
-    console.log(`Slider changed: ${id} -> ${value}`);
-    console.log(idVal+'<==MS Slider changed MS==>'+valueVal);
-    console.log(this.selectedProductId+'<== this.selectedProductId this.parsedResponse MS===>'+this.parsedResponse.length);
-    for(var i=0; i<this.parsedResponse.length; i++){
-        if(this.selectedProductId === this.parsedResponse[i].id){
-          console.log('this.parsedResponse[i].inputFields'+this.parsedResponse[i].inputFields.durationsRange);
-          if(idVal === 'durationsRange'){// check allowedFields const value
-          this.parsedResponse[i].inputFields.durationsRange.defaultValue=valueVal;
+
+  updateParsedResponse(id, value) {
+      for (let i = 0; i < this.parsedResponse.length; i++) {
+          if (this.selectedProductId === this.parsedResponse[i].id) {
+              const inputFields = this.parsedResponse[i].inputFields;
+              if (id === 'durationsRange') {
+                  inputFields.durationsRange.defaultValue = value;
+              } else if (id === 'annualMileagesRange') {
+                  inputFields.annualMileagesRange.defaultValue = value;
+              } else if (id === 'downPaymentRange') {
+                  inputFields.downPaymentRange.defaultValue = value;
+              }
           }
-          else if(idVal === 'annualMileagesRange'){
-          this.parsedResponse[i].inputFields.annualMileagesRange.defaultValue=valueVal;
-          }else if(idVal === 'downPaymentRange'){
-            this.parsedResponse[i].inputFields.downPaymentRange.defaultValue=valueVal;
-          }
-        }
-    }
+      }
+  }
+
+  getSelectedProduct() {
+      return this.parsedResponse.find(item => item.id === this.selectedProductId);
+  }
+
+  findMatchingRange(ranges, value) {
+      return ranges?.find(range => value >= range.min && value <= range.max);
+  }
+
+  findMatchingMileageRange(ranges, order) {
+      return ranges?.find(range => range.order === order);
+  }
+
+  updateSliderMax(slider, max) {
+      slider.max = max;
+      console.log(`Updated range for Dependent Mileage: Min = ${slider.min}, Max = ${slider.max}`);
   }
 
   handleProductSelectionChange(event) {

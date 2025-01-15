@@ -67,17 +67,33 @@ export default class gol_parentSliderComponent extends LightningElement {
 
         const allowedFields = ['durationsRange', 'annualMileagesRange', 'downPaymentRange'];
         this.sliders = Object.entries(inputFields)
-          .filter(([key]) => allowedFields.includes(key))
-          .map(([key, field]) => ({
-            id: key,
-            label: field.description,
-            min: field.minimum,
-            max: field.maximum,
-            step: field.step,
-            defaultValue: field.defaultValue,
-            unit: this.getUnit(key, providerData.units)
-          }));
-        console.log('Filtered and Sliders Generated:'+ JSON.stringify(this.sliders));
+                .filter(([key]) => allowedFields.includes(key))
+                .map(([key, field]) => {
+                    if (providerData.provider === 'ARVAL' && key === 'annualMileagesRange') {
+                        const durationRange = inputFields.durationsRange;
+                        const mileageRange = field;
+
+                        return {
+                            id: 'dependentMileageSlider',
+                            label: mileageRange.description,
+                            min: mileageRange.minimum,
+                            max: this.getDynamicMaxValue(durationRange, mileageRange),
+                            step: mileageRange.step,
+                            defaultValue: mileageRange.defaultValue,
+                            unit: 'km'
+                        };
+                    }
+
+                    return {
+                        id: key,
+                        label: field.description,
+                        min: field.minimum,
+                        max: field.maximum,
+                        step: field.step,
+                        defaultValue: field.defaultValue,
+                        unit: this.getUnit(key, providerData.units)
+                    };
+                });
         setTimeout(() => {
           this.childSliderComponent = true;
       }, 100);
@@ -89,6 +105,18 @@ export default class gol_parentSliderComponent extends LightningElement {
     } else {
       console.warn('Response is empty or not defined');
     }
+  }
+
+  getDynamicMaxValue(durationRange, mileageRange, isInitial = true) {
+    if (isInitial) {
+        return mileageRange.maximum;
+    }
+
+    const selectedDuration = durationRange.defaultValue;
+    const matchingRange = durationRange.intervals.ranges.find(
+        range => selectedDuration >= range.min && selectedDuration <= range.max
+    );
+    return matchingRange ? matchingRange.max : mileageRange.maximum;
   }
 
   getUnit(key, units) {
@@ -105,6 +133,41 @@ export default class gol_parentSliderComponent extends LightningElement {
   
   handleSliderChange(event) {
     const { id, value } = event.detail;
+    if (id === 'durationsRange') {
+      const dependentSlider = this.sliders.find(slider => slider.id === 'dependentMileageSlider');
+
+      if (dependentSlider) {
+          const product = this.parsedResponse.find(item => item.id === this.selectedProductId);
+          const durationRange = product?.inputFields?.durationsRange;
+          const mileageRange = product?.inputFields?.annualMileagesRange;
+
+          const matchingDuration = durationRange?.intervals?.ranges.find(
+              range => value >= range.min && value <= range.max
+          );
+
+          if (matchingDuration) {
+              const order = matchingDuration.order;
+              console.log(`Matching duration range order: ${order}`);
+
+              const matchingMileage = mileageRange?.intervals?.ranges.find(
+                  range => range.order === order
+              );
+
+              if (matchingMileage) {
+                  dependentSlider.max = matchingMileage.max; // Update the max value
+                  console.log(
+                      `Updated range for Dependent Mileage based on duration (${value} months): Min = ${dependentSlider.min}, Max = ${dependentSlider.max}`
+                  );
+              } else {
+                  console.warn(`No matching mileage range found for order: ${order}`);
+              }
+          } else {
+              console.warn(`No matching duration range found for value: ${value}`);
+          }
+
+          this.sliders = [...this.sliders];
+      }
+  }
     const idVal = event.detail.id;
     const valueVal = event.detail.value;
     console.log(`Slider changed: ${id} -> ${value}`);

@@ -6,23 +6,28 @@
     </c-gol-product-selection-component>
   </div>
   <template if:true={childSliderComponent}>
-  <div class="product-selection-label">
-    {label.GOL_Adjust_parameters}
-  </div>
-  <div class="slider-container">
-      <template for:each={sliders} for:item="slider">
-          <c-gol-slider-component
-              key={slider.id}
-              label-name={slider.label}
-              label-for={slider.id}
-              unit={slider.unit}
-              slider-value={slider.defaultValue}
-              min-value={slider.min}
-              max-value={slider.max}
-              step-value={slider.step}
-              onsliderchange={handleSliderChange}
-          ></c-gol-slider-component>
-      </template>
-  </div>
+    <div class="product-selection-label">
+        {label.GOL_Adjust_parameters}
+    </div>
+    <div class="slider-container">
+        <template for:each={sliders} for:item="slider">
+            <c-gol-slider-component
+                key={slider.id}
+                label-name={slider.label}
+                label-for={slider.id}
+                unit={slider.unit}
+                slider-value={slider.defaultValue}
+                min-value={slider.min}
+                max-value={slider.max}
+                step-value={slider.step}
+                onsliderchange={handleSliderChange}
+            ></c-gol-slider-component>
+        </template>
+    </div>
   </template>
+  <div>
+    <c-gol_-insurance-services-component>
+
+    </c-gol_-insurance-services-component>
+  </div>
 </template>

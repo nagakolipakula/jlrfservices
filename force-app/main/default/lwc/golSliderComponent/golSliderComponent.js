@@ -6,7 +6,6 @@ export default class golSliderComponent extends LightningElement {
     @api unit = '';
     @api minValue;
     @api maxValue;
-
     _sliderValue = 0;
 
     @api
@@ -20,32 +19,18 @@ export default class golSliderComponent extends LightningElement {
     }
 
     connectedCallback() {
-        console.log('child slider connectedCallback call');
-        console.log('this._sliderValue MS==> '+this._sliderValue);
-        console.log('this.sliderValue MS==> '+this.sliderValue);
-    //     console.log('ConnectedCallback triggered');
-    //     // Delay the background update to ensure the DOM is ready
-    //     setTimeout(() => {
-            this.updateSliderBackground();
-    //     }, 0); // Delay by 0 ms to allow for the next event loop
+        this.updateSliderBackground();
     }
-    // renderedCallback(){
-    //     console.log('child slider renderedCallback call');
-    //     console.log('this._sliderValue renderedCallback MS==> '+this._sliderValue);
-    //     this.updateSliderBackground();
-    // }
+
+    renderedCallback(){
+        setTimeout(() => {
+            this.updateSliderBackground();
+        }, 100);
+    }
+
     get isEuro() {
         return this.unit === '€';
     }
-
-    // set sliderValue(value) {
-    //     this._sliderValue = value;
-    //     this.updateSliderBackground();
-    //     const slider = this.template.querySelector('.slider');
-    //     if (slider) {
-    //         slider.value = value;
-    //     }
-    // }
 
     handleInputChange(event) {
         let value = parseFloat(event.target.value, 10);
@@ -112,14 +97,6 @@ export default class golSliderComponent extends LightningElement {
         return `${this.minValue.toLocaleString('en-US')} months`;
     }
 
-    // parseInputValue(input) {
-    //     return Number(input.replace(/,/g, ''));
-    // }
-
-    // isValueInRange(value) {
-    //     return value >= this.minValue && value <= this.maxValue;
-    // }
-
     updateSliderBackground() {
         Promise.resolve().then(() => {
             const percentage = ((this.sliderValue - this.minValue) / (this.maxValue - this.minValue)) * 100;
@@ -130,10 +107,4 @@ export default class golSliderComponent extends LightningElement {
             }
         });
     }
-
-    // dispatchChangeEvent() {
-    //     this.dispatchEvent(new CustomEvent('sliderchange', {
-    //         detail: this.sliderValue
-    //     }));
-    // }
 }

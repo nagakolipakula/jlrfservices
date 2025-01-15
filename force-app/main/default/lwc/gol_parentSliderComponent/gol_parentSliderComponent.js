@@ -1,5 +1,6 @@
 import { LightningElement, api, track} from 'lwc';
 import 	GOL_Select_Financial_Product from '@salesforce/label/c.GOL_Select_Financial_Product';
+import 	GOL_Adjust_parameters from '@salesforce/label/c.GOL_Adjust_parameters';
 // import 	GOL_Downpayment from '@salesforce/label/c.GOL_Downpayment';
 // import 	GOL_Currency_symbol from '@salesforce/label/c.GOL_Currency_symbol';
 // import 	GOL_Mileage from '@salesforce/label/c.GOL_Mileage';
@@ -15,7 +16,8 @@ export default class gol_parentSliderComponent extends LightningElement {
   // mileageMaxValue = 40000;
   isSubmitted = false;
   label = {
-         GOL_Select_Financial_Product
+         GOL_Select_Financial_Product,
+         GOL_Adjust_parameters
   //     GOL_Downpayment,
   //     GOL_Currency_symbol,
   //     GOL_Mileage,

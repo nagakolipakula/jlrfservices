@@ -1,0 +1,2 @@
+$url = "https://jlr-glms--nttfsdev.sandbox.my.site.com/Retailer/s/hybrid-main-screen?quoteId=a0sVc000000p33tIAA&mode=Hybrid&retUrl=https%3A%2F%2Frules.config.landrover.com%2Flr%2Fes_es-smart%2Fl663_k255%2F4bwee%2Fa-90_a-p525_a-sv8_p%2Fa-rec-sv8_n-032am_n-041cz_n-1au_n-245ag_n-304nj%2Fipr%2Freserve%2F%3FrecId%3Da0sVc000000p33tIAA_Hybrid%26env%3Dhttps%3A%2F%2Fjlr-glms--nttfsdev.sandbox.my.site.com%2FRetailer%2Fs"
+Start-Process $url

@@ -102,7 +102,7 @@ export default class golSliderComponent extends LightningElement {
             const percentage = ((this.sliderValue - this.minValue) / (this.maxValue - this.minValue)) * 100;
             const slider = this.template.querySelector('.custom-slider');
             if (slider) {
-                console.log('Slider background updated with percentage:', percentage);
+                // console.log('Slider background updated with percentage:', percentage);
                 slider.style.background = `linear-gradient(to right, rgb(12 18 28 / 90%) ${percentage}%, rgb(12 18 28 / 20%) ${percentage}%)`;
             }
         });

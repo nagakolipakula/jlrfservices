@@ -137,7 +137,7 @@ export default class gol_parentSliderComponent extends LightningElement {
     }
 
     this.updateParsedResponse(id, value);
-    this.sliders = [...this.sliders]; // Trigger re-render
+    this.sliders = [...this.sliders];
   }
 
   logSliderChange(id, value) {

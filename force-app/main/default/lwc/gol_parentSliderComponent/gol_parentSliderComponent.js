@@ -55,7 +55,7 @@ export default class gol_parentSliderComponent extends LightningElement {
     this.initializeSliders();
   }
 
-  getUnit(key, units) {
+  getUnits(key, units) {
     if (key.includes('Mileage')) return units.mileageUnit === 'KILOMETERS' ? 'km' : '';
     if (key.includes('Credit')) {
       console.log('Checking units.creditTimeUnit:', units.creditTimeUnit);
@@ -114,7 +114,7 @@ export default class gol_parentSliderComponent extends LightningElement {
         this.sliders = Object.entries(inputFields)
             .filter(([key]) => allowedFields.includes(key))
             .map(([key, field]) => this.createSliders(providerData, key, field));
-
+            this.sliders.sort((a, b) => a.sequence - b.sequence);
         console.log('Generated Sliders:', JSON.stringify(this.sliders, null, 2));
     } else {
         console.warn('No Input Fields Found');
@@ -123,6 +123,10 @@ export default class gol_parentSliderComponent extends LightningElement {
   }
 
   createSliders(providerData, key, field) {
+    let sequence = 0;
+    if (key === 'downPaymentRange') sequence = 1;
+    else if (key === 'annualMileagesRange') sequence = 2;
+    else if (key === 'durationsRange') sequence = 3;
     if (providerData.provider === 'ARVAL' && key === 'annualMileagesRange') {
         const durationRange = providerData.inputFields.durationsRange;
         const mileageRange = field;
@@ -135,6 +139,7 @@ export default class gol_parentSliderComponent extends LightningElement {
             step: mileageRange.step,
             defaultValue: mileageRange.defaultValue,
             unit: 'km',
+            sequence
         };
     }
     return {
@@ -144,7 +149,8 @@ export default class gol_parentSliderComponent extends LightningElement {
         max: field.maximum,
         step: field.step,
         defaultValue: field.defaultValue,
-        unit: this.getUnit(key, providerData.units),
+        unit: this.getUnits(key, providerData.units),
+        sequence
     };
   }
   

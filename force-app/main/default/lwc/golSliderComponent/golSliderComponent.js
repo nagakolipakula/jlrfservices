@@ -1,7 +1,7 @@
 import { LightningElement, api } from 'lwc';
 
 export default class golSliderComponent extends LightningElement {
-    @api labelName;
+    // @api labelName;
     @api labelFor;
     @api unit = '';
     @api minValue;

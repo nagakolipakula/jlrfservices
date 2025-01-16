@@ -4,7 +4,7 @@ import 	GOL_Adjust_parameters from '@salesforce/label/c.GOL_Adjust_parameters';
 
 export default class gol_parentSliderComponent extends LightningElement {
   @api response;
-  isSubmitted = false;
+//   isSubmitted = false;
   sliders = [];
   namesWithIds = [];
   selectedProductId;
@@ -31,76 +31,40 @@ export default class gol_parentSliderComponent extends LightningElement {
     }
   }
 
-  initializeSliders() {
-    if (!this.parsedResponse) {
-        console.warn('Response is empty or not defined');
-        return;
-    }
-    this.childSliderComponent = false;
-    this.populateNamesWithIds();
-    this.setDefaultSelectedProductId();
-    this.setupSliders();
-
-    setTimeout(() => {
-        this.childSliderComponent = true;
-    }, 100);
-  }
-
-  populateNamesWithIds() {
-      this.namesWithIds = this.parsedResponse
-          .filter(item => item.name && item.id)
-          .map(item => ({ label: item.name, value: item.id }));
-      console.log('Filtered Names with IDs:', this.namesWithIds);
+  //Radio buttons
+  getProductIds() {
+    this.namesWithIds = this.parsedResponse
+        .filter(item => item.name && item.id)
+        .map(item => ({ label: item.name, value: item.id }));
+    console.log('Filtered Names with IDs:', this.namesWithIds);
   }
 
   setDefaultSelectedProductId() {
-      if (!this.selectedProductId && this.namesWithIds.length > 0) {
-          this.selectedProductId = this.namesWithIds[0].value;
-      }
+    if (!this.selectedProductId && this.namesWithIds.length > 0) {
+        this.selectedProductId = this.namesWithIds[0].value;
+    }
   }
 
-  setupSliders() {
-      const providerData = this.parsedResponse.find(item => item.id === this.selectedProductId);
-      if (providerData && providerData.inputFields) {
-          const inputFields = providerData.inputFields;
-          const allowedFields = ['durationsRange', 'annualMileagesRange', 'downPaymentRange'];
-
-          this.sliders = Object.entries(inputFields)
-              .filter(([key]) => allowedFields.includes(key))
-              .map(([key, field]) => this.createSliderConfig(providerData, key, field));
-
-          console.log('Generated Sliders:', JSON.stringify(this.sliders, null, 2));
-      } else {
-          console.warn('No Input Fields Found');
-          this.sliders = [];
-      }
+  getSelectedProduct() {
+    return this.parsedResponse.find(item => item.id === this.selectedProductId);
   }
 
-  createSliderConfig(providerData, key, field) {
-      if (providerData.provider === 'ARVAL' && key === 'annualMileagesRange') {
-          const durationRange = providerData.inputFields.durationsRange;
-          const mileageRange = field;
+  handleProductSelectionChange(event) {
+    this.selectedProductId = event.detail;
+    console.log('MS parsedResponse  handleProductSelectionChange ==>'+JSON.stringify(this.parsedResponse,null,2));
+    this.initializeSliders();
+  }
 
-          return {
-              id: 'dependentMileageSlider',
-              label: mileageRange.description,
-              min: mileageRange.minimum,
-              max: this.getDynamicMaxValue(durationRange, mileageRange),
-              step: mileageRange.step,
-              defaultValue: mileageRange.defaultValue,
-              unit: 'km',
-          };
+  getUnit(key, units) {
+    if (key.includes('Mileage')) return units.mileageUnit === 'KILOMETERS' ? 'km' : '';
+    if (key.includes('Credit')) {
+      console.log('Checking units.creditTimeUnit:', units.creditTimeUnit);
+      if (units.creditTimeUnit === 'MONTHLY') {
+          return 'months';
       }
-
-      return {
-          id: key,
-          label: field.description,
-          min: field.minimum,
-          max: field.maximum,
-          step: field.step,
-          defaultValue: field.defaultValue,
-          unit: this.getUnit(key, providerData.units),
-      };
+    }
+    if (key.includes('Payment')) return units.currencyCode === 'EUR' ? '€' : '';
+    return '';
   }
 
   getDynamicMaxValue(durationRange, mileageRange, isInitial = true) {
@@ -115,16 +79,73 @@ export default class gol_parentSliderComponent extends LightningElement {
     return matchingRange ? matchingRange.max : mileageRange.maximum;
   }
 
-  getUnit(key, units) {
-    if (key.includes('Mileage')) return units.mileageUnit === 'KILOMETERS' ? 'km' : '';
-    if (key.includes('Credit')) {
-      console.log('Checking units.creditTimeUnit:', units.creditTimeUnit);
-      if (units.creditTimeUnit === 'MONTHLY') {
-          return 'months';
-      }
+  getSliderNames(inputFields) {
+    const fieldNames = [];
+    for (const [key, value] of Object.entries(inputFields)) {
+        if (typeof value === 'object' && !Array.isArray(value) && value !== null) {
+            fieldNames.push(key);
+        }
     }
-    if (key.includes('Payment')) return units.currencyCode === 'EUR' ? '€' : '';
-    return '';
+    return fieldNames;
+  }
+
+  //Dynamic Sliders
+  initializeSliders() {
+    if (!this.parsedResponse) {
+        console.warn('Response is empty or not defined');
+        return;
+    }
+    this.childSliderComponent = false;
+    this.getProductIds();
+    this.setDefaultSelectedProductId();
+    this.setupSliders();
+
+    setTimeout(() => {
+        this.childSliderComponent = true;
+    }, 100);
+  }
+
+  setupSliders() {
+    const providerData = this.parsedResponse.find(item => item.id === this.selectedProductId);
+    if (providerData && providerData.inputFields) {
+        const inputFields = providerData.inputFields;
+        const allowedFields = this.getSliderNames(inputFields);
+
+        this.sliders = Object.entries(inputFields)
+            .filter(([key]) => allowedFields.includes(key))
+            .map(([key, field]) => this.createSliders(providerData, key, field));
+
+        console.log('Generated Sliders:', JSON.stringify(this.sliders, null, 2));
+    } else {
+        console.warn('No Input Fields Found');
+        this.sliders = [];
+    }
+  }
+
+  createSliders(providerData, key, field) {
+    if (providerData.provider === 'ARVAL' && key === 'annualMileagesRange') {
+        const durationRange = providerData.inputFields.durationsRange;
+        const mileageRange = field;
+
+        return {
+            id: 'dependentMileageSlider',
+            label: mileageRange.description,
+            min: mileageRange.minimum,
+            max: this.getDynamicMaxValue(durationRange, mileageRange),
+            step: mileageRange.step,
+            defaultValue: mileageRange.defaultValue,
+            unit: 'km',
+        };
+    }
+    return {
+        id: key,
+        label: field.description,
+        min: field.minimum,
+        max: field.maximum,
+        step: field.step,
+        defaultValue: field.defaultValue,
+        unit: this.getUnit(key, providerData.units),
+    };
   }
   
   handleSliderChange(event) {
@@ -176,24 +197,20 @@ export default class gol_parentSliderComponent extends LightningElement {
   }
 
   updateParsedResponse(id, value) {
-      for (let i = 0; i < this.parsedResponse.length; i++) {
-          if (this.selectedProductId === this.parsedResponse[i].id) {
-              const inputFields = this.parsedResponse[i].inputFields;
-              if (id === 'durationsRange') {
-                  inputFields.durationsRange.defaultValue = value;
-              } else if (id === 'annualMileagesRange') {
-                  inputFields.annualMileagesRange.defaultValue = value;
-              } else if (id === 'downPaymentRange') {
-                  inputFields.downPaymentRange.defaultValue = value;
-              }
-          }
-      }
+    for (let i = 0; i < this.parsedResponse.length; i++) {
+        if (this.selectedProductId === this.parsedResponse[i].id) {
+            const inputFields = this.parsedResponse[i].inputFields;
+            const allowedFields = this.getSliderNames(inputFields);
+            if (allowedFields.includes(id)) {
+                inputFields[id].defaultValue = value;
+            } else {
+                console.warn(`Field "${id}" is not valid or not found in inputFields.`);
+            }
+        }
+    }
   }
 
-  getSelectedProduct() {
-      return this.parsedResponse.find(item => item.id === this.selectedProductId);
-  }
-
+  //For ARVAL dependent Slider depends upon duration range
   findMatchingRange(ranges, value) {
       return ranges?.find(range => value >= range.min && value <= range.max);
   }
@@ -205,12 +222,6 @@ export default class gol_parentSliderComponent extends LightningElement {
   updateSliderMax(slider, max) {
       slider.max = max;
       console.log(`Updated range for Dependent Mileage: Min = ${slider.min}, Max = ${slider.max}`);
-  }
-
-  handleProductSelectionChange(event) {
-    this.selectedProductId = event.detail;
-    console.log('MS parsedResponse  handleProductSelectionChange ==>'+JSON.stringify(this.parsedResponse,null,2));
-    this.initializeSliders();
   }
 
   // handleDownpaymentChange(event) {
@@ -225,7 +236,6 @@ export default class gol_parentSliderComponent extends LightningElement {
     // }
     // if (this.response && typeof this.response === 'object') {
     //   console.log('Specific Field (e.g., "field1"):', this.response.field1);
-    //   console.log('Nested Object (e.g., "nested.field2"):', this.response.nested?.field2);
     // }
   //   this.downpayment = event.detail;
   //   this.checkIfAllValuesSelected();

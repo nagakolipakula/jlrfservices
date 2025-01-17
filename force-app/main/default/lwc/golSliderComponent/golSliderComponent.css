@@ -81,7 +81,7 @@
     background: white;
     border: 2px black; /* Thumb border */
     cursor: pointer;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40' width='40' height='40'%3E%3Ccircle cx='20' cy='20' r='19' fill='white' stroke='black' stroke-width='2'/%3E%3Ctext x='50%25' y='50%25' fill='black' font-size='14' font-family='Arial' font-weight='bold' text-anchor='middle' alignment-baseline='middle'%3E%26lt;%20%26gt;%3C/text%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40' width='40' height='40'%3E%3Ccircle cx='20' cy='20' r='19' fill='white' stroke='black' stroke-width='2'/%3E%3Ctext x='13' y='35' fill='black' font-size='21' font-family='Arial' font-weight='bold' text-anchor='middle' transform='rotate(-90 11 22)'%3E^%3C/text%3E%3Ctext x='27' y='35' fill='black' font-size='21' font-family='Arial' font-weight='bold' text-anchor='middle' transform='rotate(90 29 22)'%3E^%3C/text%3E%3C/svg%3E");
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -94,7 +94,7 @@
     height: 40px;
     border-radius: 50%;
     background: white;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40' width='40' height='40'%3E%3Ccircle cx='20' cy='20' r='19' fill='black' stroke='black' stroke-width='2'/%3E%3Ctext x='50%25' y='50%25' fill='white' font-size='14' font-family='Arial' font-weight='bold' text-anchor='middle' alignment-baseline='middle'%3E%26lt;%20%26gt;%3C/text%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40' width='40' height='40'%3E%3Ccircle cx='20' cy='20' r='19' fill='black' stroke='white' stroke-width='2'/%3E%3Ctext x='13' y='35' fill='white' font-size='21' font-family='Arial' font-weight='bold' text-anchor='middle' transform='rotate(-90 11 22)'%3E^%3C/text%3E%3Ctext x='27' y='35' fill='white' font-size='21' font-family='Arial' font-weight='bold' text-anchor='middle' transform='rotate(90 29 22)'%3E^%3C/text%3E%3C/svg%3E");
     border: 2px black;
     cursor: pointer;
     background-size: contain;

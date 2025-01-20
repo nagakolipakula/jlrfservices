@@ -41,6 +41,10 @@ export default class golSliderComponent extends LightningElement {
         return this.unit === '€';
     }
 
+    get rangeUnits() {
+        return this.unit === 'km';
+    }
+
     handleInputChange(event) {
         let value = parseFloat(event.target.value, 10);
         if (value >= this.minValue && value <= this.maxValue) {
@@ -73,7 +77,7 @@ export default class golSliderComponent extends LightningElement {
             })}`;
         }
         if (this.unit === 'km') {
-            return `${Math.round(this.sliderValue || 0).toLocaleString('en-US')} ${this.unit}`;
+            return `${Math.round(this.sliderValue || 0).toLocaleString('en-US')}`;
         }
         return `${Math.round(this.sliderValue || 0).toLocaleString('en-US')}`;
     }

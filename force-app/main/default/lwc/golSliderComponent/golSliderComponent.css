@@ -55,6 +55,18 @@
     margin-right: 5.75rem;
 }
 
+.mileage-units {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    font-size: 14px;
+    color: #000;
+    pointer-events: none;
+    margin-right: 10px;
+    font-weight: 600;
+}
+
 .slider-wrapper {
     position: relative;
     margin-top: 10px;

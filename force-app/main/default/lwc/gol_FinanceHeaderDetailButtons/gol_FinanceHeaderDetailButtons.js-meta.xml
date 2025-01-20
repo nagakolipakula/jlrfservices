@@ -15,6 +15,8 @@
         <targetConfig targets="lightning__FlowScreen">
             <property name="companyNameCheck" type="String" label="Company Name Check"/>
 			<property name="quoteId" type="String" label="QuoteId"/>
+			<property name="loadButtonChecks" type="String" label="loadButtonChecks"/>
+			<property name="productAPIResponseCode" type="String" label="productAPIResponseCode"/>
         </targetConfig>
     </targetConfigs>
 </LightningComponentBundle>

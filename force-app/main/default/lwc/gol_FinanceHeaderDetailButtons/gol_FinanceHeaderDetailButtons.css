@@ -2,6 +2,19 @@
 
 .button-container {
     display: flex;
+	padding: 2% 0% 2% 0%;
+}
+
+.FinancecalCulatorLabelCss{
+	font-family: 'Avenir Next', sans-serif;
+	font-style: normal;
+	font-weight: 500;
+	font-size: 20px;
+	line-height: 24px;
+	letter-spacing: 1.2px;
+	color: #000000;
+	padding: 4% 0% 2% 0%;
+	margin-left: 20px;
 }
 
 .btn-client-select {
@@ -17,4 +30,9 @@
 	--slds-c-button-radius-border: 0.5px;
 	margin-left: 20px;
 	--slds-c-button-neutral-color-background-hover: #E9ECEC;
+}
+
+.slds-button{
+    --lwc-shadowButtonFocus: none !important;
+	box-shadow: none !important;
 }

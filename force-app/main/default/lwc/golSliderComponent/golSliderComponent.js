@@ -26,6 +26,15 @@ export default class golSliderComponent extends LightningElement {
         setTimeout(() => {
             this.updateSliderBackground();
         }, 100);
+        const inputBox = this.template.querySelector('.input-box');
+        if (inputBox) {
+            inputBox.addEventListener('mouseover', () => {
+                inputBox.style.border = '2px solid rgba(12, 18, 28, 0.8)';
+            });
+            inputBox.addEventListener('mouseout', () => {
+                inputBox.style.border = '2px solid rgba(12, 18, 28, 0.3)';
+            });
+        }
     }
 
     get isEuro() {

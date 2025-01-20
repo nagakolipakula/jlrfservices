@@ -76,9 +76,9 @@ export default class golSliderComponent extends LightningElement {
                 maximumFractionDigits: 2 
             })}`;
         }
-        if (this.unit === 'km') {
-            return `${Math.round(this.sliderValue || 0).toLocaleString('en-US')}`;
-        }
+        // if (this.unit === 'km') {
+        //     return `${Math.round(this.sliderValue || 0).toLocaleString('en-US')} ${this.unit}`;
+        // }
         return `${Math.round(this.sliderValue || 0).toLocaleString('en-US')}`;
     }
 

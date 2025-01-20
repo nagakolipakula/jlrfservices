@@ -138,7 +138,7 @@ export default class gol_parentSliderComponent extends LightningElement {
             max: this.getDynamicMaxValue(durationRange, mileageRange),
             step: mileageRange.step,
             defaultValue: mileageRange.defaultValue,
-            unit: 'km',
+            unit: this.getUnits(key, providerData.units),
             sequence
         };
     }

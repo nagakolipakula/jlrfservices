@@ -180,26 +180,36 @@ export default class gol_parentSliderComponent extends LightningElement {
     const product = this.getSelectedProduct();
     if (!product) return;
 
-    const durationRange = product?.inputFields?.durationsRange;
-    const mileageRange = product?.inputFields?.annualMileagesRange;
+    const durationRange = product.inputFields?.durationsRange;
+    const mileageRange = product.inputFields?.annualMileagesRange;
 
     if (durationRange && mileageRange) {
       const matchingDuration = this.findMatchingRange(durationRange.intervals?.ranges, value);
-
       if (matchingDuration) {
         const order = matchingDuration.order;
         console.log(`Matching duration range order: ${order}`);
 
         const matchingMileage = this.findMatchingMileageRange(mileageRange.intervals?.ranges, order);
         if (matchingMileage) {
-          this.updateSliderMax(dependentSlider, matchingMileage.max);
-        } else {
-          console.warn(`No matching mileage range found for order: ${order}`);
+            dependentSlider.max = matchingMileage.max;
+            dependentSlider.defaultValue = product.inputFields.annualMileagesRange.defaultValue;
+          
+            dependentSlider.value = Math.min(dependentSlider.defaultValue, dependentSlider.max);
+            console.log('Full Product Response:', JSON.stringify(product, null, 2));
+            const inputBox = this.template.querySelector('.input-box');
+            const inputValue = inputBox ? inputBox.value : 'Input box not found';
+            console.log(`Updated Dependent Slider: Max = ${dependentSlider.max}, Default Value = ${dependentSlider.defaultValue}, Current Value = ${dependentSlider.value}`);
+                console.log(`Mileage Input Value: ${inputValue}`);
+          } else {
+            console.warn(`No matching mileage range found for order: ${order}`);
         }
       } else {
-        console.warn(`No matching duration range found for value: ${value}`);
+          console.warn(`No matching duration range found for value: ${value}`);
       }
+    } else {
+        console.warn('Duration Range or Mileage Range is missing in the product response.');
     }
+    this.sliders = [...this.sliders];
   }
 
   updateParsedResponse(id, value) {

@@ -168,51 +168,51 @@ export default class gol_parentSliderComponent extends LightningElement {
   }
 
   logSliderChange(id, value) {
-      console.log(`Slider changed: ${id} -> ${value}`);
-      console.log(`${id} <== MS Slider changed MS ==> ${value}`);
-      console.log(`${this.selectedProductId} <== this.selectedProductId this.parsedResponse MS ==> ${this.parsedResponse.length}`);
+    console.log(`Slider changed: ${id} -> ${value}`);
+    console.log(`${id} <== MS Slider changed MS ==> ${value}`);
+    console.log(`${this.selectedProductId} <== this.selectedProductId this.parsedResponse MS ==> ${this.parsedResponse.length}`);
   }
 
   updateDependentSlider(value) {
-      const dependentSlider = this.sliders.find(slider => slider.id === 'dependentMileageSlider');
-      if (!dependentSlider) return;
+    const dependentSlider = this.sliders.find(slider => slider.id === 'dependentMileageSlider');
+    if (!dependentSlider) return;
 
-      const product = this.getSelectedProduct();
-      if (!product) return;
+    const product = this.getSelectedProduct();
+    if (!product) return;
 
-      const durationRange = product?.inputFields?.durationsRange;
-      const mileageRange = product?.inputFields?.annualMileagesRange;
+    const durationRange = product?.inputFields?.durationsRange;
+    const mileageRange = product?.inputFields?.annualMileagesRange;
 
-      if (durationRange && mileageRange) {
-          const matchingDuration = this.findMatchingRange(durationRange.intervals?.ranges, value);
+    if (durationRange && mileageRange) {
+      const matchingDuration = this.findMatchingRange(durationRange.intervals?.ranges, value);
 
-          if (matchingDuration) {
-              const order = matchingDuration.order;
-              console.log(`Matching duration range order: ${order}`);
+      if (matchingDuration) {
+        const order = matchingDuration.order;
+        console.log(`Matching duration range order: ${order}`);
 
-              const matchingMileage = this.findMatchingMileageRange(mileageRange.intervals?.ranges, order);
-              if (matchingMileage) {
-                  this.updateSliderMax(dependentSlider, matchingMileage.max);
-              } else {
-                  console.warn(`No matching mileage range found for order: ${order}`);
-              }
-          } else {
-              console.warn(`No matching duration range found for value: ${value}`);
-          }
+        const matchingMileage = this.findMatchingMileageRange(mileageRange.intervals?.ranges, order);
+        if (matchingMileage) {
+          this.updateSliderMax(dependentSlider, matchingMileage.max);
+        } else {
+          console.warn(`No matching mileage range found for order: ${order}`);
+        }
+      } else {
+        console.warn(`No matching duration range found for value: ${value}`);
       }
+    }
   }
 
   updateParsedResponse(id, value) {
     for (let i = 0; i < this.parsedResponse.length; i++) {
-        if (this.selectedProductId === this.parsedResponse[i].id) {
-            const inputFields = this.parsedResponse[i].inputFields;
-            const allowedFields = this.getSliderNames(inputFields);
-            if (allowedFields.includes(id)) {
-                inputFields[id].defaultValue = value;
-            } else {
-                console.warn(`Field "${id}" is not valid or not found in inputFields.`);
-            }
+      if (this.selectedProductId === this.parsedResponse[i].id) {
+        const inputFields = this.parsedResponse[i].inputFields;
+        const allowedFields = this.getSliderNames(inputFields);
+        if (allowedFields.includes(id)) {
+            inputFields[id].defaultValue = value;
+        } else {
+            console.warn(`Field "${id}" is not valid or not found in inputFields.`);
         }
+      }
     }
   }
 

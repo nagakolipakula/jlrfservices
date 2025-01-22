@@ -1,0 +1,77 @@
+<template>
+
+    <div class="container">
+        <div class="slds-tabs_default">
+            <ul class="slds-tabs_default__nav" role="tablist">
+                <template for:each={tabItems} for:item="tab">
+                    <li key={tab.Title} class={tab.ItemClass} title={tab.Title} role="presentation" style={tab.TabItemStyle} >
+                        <a class="slds-tabs_default__link" href="#" role="tab" tabindex={tab.TabIndex} aria-selected={tab.IsActive} aria-controls={tab.TabId} onclick={handleTabClick} data-tab={tab.TabId}>{tab.Title}</a>
+                    </li>
+                </template>
+            </ul>
+            <template for:each={tabItems} for:item="tab">
+                <div key={tab.TabId} id={tab.TabId} class={tab.ContentClass} role="tabpanel" aria-labelledby={tab.TabId}>
+                    <!-- Invoke a Screen flow in LWC -->
+                    <div class="scrollbar hideScrollbar" style="height: 100%; Width:100%; overflow:scroll;">
+                        <div style="padding-left: 0px;padding-right: 0px;">
+ 
+                            <lightning-flow
+                                flow-api-name={tab.HeaderFlowName}
+                                flow-input-variables={summaryTabinputVariables}
+                                onstatuschange={handleStatusChange}>
+                            </lightning-flow>
+                        </div>
+                        <div style="padding-left: 50px;padding-right: 50px;">
+                                <!--template lwc:if={tab.IsFinanceTab}>
+                                    <c-gol_-Iframe-Finance quote-id={quoteId} page-name="finance"></c-gol_-Iframe-Finance>
+                                </template>
+                                <template lwc:elseif={tab.IsTradeInTab}-->
+                                   <!-- <c-gol_-Trade-In quote-id={quoteId} ></c-gol_-Trade-In> -->
+                                <!--/template>
+                                <template lwc:else-->
+                                    <lightning-flow
+                                        flow-api-name={tab.FlowName}
+                                        flow-input-variables={summaryTabinputVariables}
+                                        onstatuschange={handleStatusChange}>
+                                    </lightning-flow> 
+                                <!-- </template> -->
+                        </div>
+                    </div>
+                </div>
+            </template>
+        </div>
+    </div>
+
+    <!-- <div class="container">
+        <lightning-tabset>
+            <template if:true={tabItems}>
+                <template iterator:tab={tabItems}>
+                    <div key={tab.value.FlowName}>
+                        <lightning-tab label={tab.value.Title} id={tab.value.FlowName} class="tab-text--font">
+                            
+                            <div class="scrollbar hideScrollbar" style="height: 100%; Width:100%; overflow:scroll;margin-top: 15px;">
+                                <div style="padding-left: 0px;padding-right: 0px;">
+                                <lightning-flow
+                                    flow-api-name={tab.value.HeaderFlowName}
+                                    flow-input-variables={summaryTabinputVariables}
+                                    onstatuschange={handleStatusChange}
+                                >
+                                </lightning-flow>
+                                </div>
+                                <div style="padding-left: 50px;padding-right: 50px;">
+                                <lightning-flow
+                                    flow-api-name={tab.value.FlowName}
+                                    flow-input-variables={summaryTabinputVariables}
+                                    onstatuschange={handleStatusChange}
+                                >
+                                </lightning-flow>
+                                </div>
+                            </div>
+                        </lightning-tab>  
+                    </div>  
+                </template>
+            </template>
+           
+        </lightning-tabset>
+    </div> -->
+</template>

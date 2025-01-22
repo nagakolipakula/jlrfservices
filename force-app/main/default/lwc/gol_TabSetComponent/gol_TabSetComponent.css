@@ -1,0 +1,36 @@
+@import "c/gol_CssLibrary";
+
+.container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow-y: hidden; /* Hide vertical scrollbar */
+  display: flex;
+  flex-direction: column;
+}
+
+.scrollbar
+{
+    overflow-y: scroll;
+}
+
+.hideScrollbar::-webkit-scrollbar
+{
+    background-color: transparent;
+}
+ .slds-tabs_default__item.slds-is-active .slds-tabs_default__link{
+    color: black !important;
+ }
+.slds-tabs_default__item.slds-is-active .slds-tabs_default__link:hover {
+  color: black !important;
+}
+
+.slds-tabs_default__link{
+  margin-bottom: 10px;
+}
+/* .slds-tabs_default__item.slds-is-active {
+  padding-bottom: 10px;
+} */
+/* .slds-tabs_default__item{
+     margin-bottom : 10px  
+} */

@@ -3,7 +3,6 @@ import GOL_Select_Financial_Product from '@salesforce/label/c.GOL_Select_Financi
 import GOL_Adjust_parameters from '@salesforce/label/c.GOL_Adjust_parameters';
 import GOL_Calculate_Financing from '@salesforce/label/c.GOL_Calculate_Financing';
 import GOL_Finance_Insurance_and_Services from '@salesforce/label/c.GOL_Finance_Insurance_and_Services';
-// import { NavigationMixin } from 'lightning/navigation';
 import { FlowAttributeChangeEvent, FlowNavigationNextEvent, FlowNavigationBackEvent, FlowNavigationFinishEvent } from 'lightning/flowSupport';
 
 export default class gol_parentSliderComponent extends LightningElement {
@@ -262,21 +261,39 @@ export default class gol_parentSliderComponent extends LightningElement {
   }
 
   updateFlowVariables() {
-    const serializedData = {
-        downpayment: this.downpayment,
-        mileage: this.mileage,
-        duration: this.duration
-    };
-    console.log("Selected Data:", JSON.stringify(serializedData, null, 2));
+    // console.log('----------------');
+    // console.log(this.sliders);
+    this.buildSerializedData();
+    // const serializedData = {
+    //     downpayment: this.downpayment,
+    //     mileage: this.mileage,
+    //     duration: this.duration
+    // };
+    // console.log("Selected Data:", JSON.stringify(serializedData, null, 2));
     // this[NavigationMixin.Navigate]({
     //   type: 'standard__flow',
     //   attributes: {
     //       flowApiName: 'GOL_Screen_Flow_Finance_Tab'
     //   },
     // });
-    this.dispatchEvent(
-      new FlowAttributeChangeEvent('serializedData', JSON.stringify(serializedData))
-    );
+    this.dispatchEvent(new FlowAttributeChangeEvent('serializedData', JSON.stringify(this.serializedData)));
+  }
+
+  buildSerializedData() {
+    const serializedData = {};
+    this.sliders.forEach((slider) => {
+        serializedData[slider.id] = {
+            selectedValue: this[slider.id] || slider.defaultValue,
+            step: slider.step,
+            defaultValue: slider.defaultValue,
+            minimum: slider.min,
+            maximum: slider.max,
+            unit: slider.unit,
+            description: slider.label
+        };
+    });
+    this.serializedData = serializedData;
+    console.log("Serialized Data:", JSON.stringify(this.serializedData, null, 2));
   }
 
   handleCalculateFinancingClick() {
@@ -291,4 +308,24 @@ export default class gol_parentSliderComponent extends LightningElement {
   handleBackToFianceFinish() {
     this.dispatchEvent(new FlowNavigationFinishEvent());
   }
+
+  // buildGetQuotePayload(){
+    
+  // }
+
+  // buildInputFields(){
+  //   const inputFields = {};
+  //   this.sliders.forEach((field) => {
+  //       inputFields[field.id] = {
+  //           selectedValue: this.downpayment,
+  //           step: field.step,
+  //           defaultValue: field.defaultValue,
+  //           minimum: field.min,
+  //           unit: 'field.unit',
+  //           maximum: field.max,
+  //           description: field.label
+  //       };
+  //   });
+  //   console.log(inputFields);
+  // }
 }

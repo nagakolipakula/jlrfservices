@@ -10,7 +10,16 @@
 	</targets>
 	<targetConfigs>
         <targetConfig targets="lightning__FlowScreen">
-			<property name="response" type="String" label="Response From Flow"/>
+			<property 
+				name="response" 
+				type="String"
+				label="Response From Flow"/>
+			<property
+                name="serializedData"
+                type="String"
+                label="Serialized Data"
+                description="Serialized Data passed from LWC to Flow."
+                required="false" />
         </targetConfig>
     </targetConfigs>
 </LightningComponentBundle>

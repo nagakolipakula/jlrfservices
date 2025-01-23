@@ -2,7 +2,7 @@ import { LightningElement, api } from 'lwc';
 import GOL_Select_Financial_Product from '@salesforce/label/c.GOL_Select_Financial_Product';
 import GOL_Adjust_parameters from '@salesforce/label/c.GOL_Adjust_parameters';
 import GOL_Calculate_Financing from '@salesforce/label/c.GOL_Calculate_Financing';
-import 	GOL_Finance_Insurance_and_Services from '@salesforce/label/c.GOL_Finance_Insurance_and_Services';
+import GOL_Finance_Insurance_and_Services from '@salesforce/label/c.GOL_Finance_Insurance_and_Services';
 
 export default class gol_parentSliderComponent extends LightningElement {
   @api response;
@@ -160,15 +160,14 @@ export default class gol_parentSliderComponent extends LightningElement {
 
   handleSliderChange(event) {
     const { id, value } = event.detail;
-
-    this.logSliderChange(id, value);
-
-    if (id === 'durationsRange') {
-      this.updateDependentSlider(value);
+    if (id === 'downPaymentRange') {
+        this.downpayment = value;
+    } else if (id === 'annualMileagesRange' || id === 'dependentMileageSlider') {
+        this.mileage = value;
+    } else if (id === 'durationsRange') {
+        this.duration = value;
     }
-
-    this.updateParsedResponse(id, value);
-    this.sliders = [...this.sliders];
+    this.checkIfAllValuesSelected();
   }
 
   logSliderChange(id, value) {
@@ -244,37 +243,27 @@ export default class gol_parentSliderComponent extends LightningElement {
     console.log(`Updated range for Dependent Mileage: Min = ${slider.min}, Max = ${slider.max}`);
   }
 
-  // handleDownpaymentChange(event) {
-  //   console.log('Downpayment Changed:', event.detail);
-  // let fixedResponse = this.response.replace(/<\/?[^>]+(>|$)/g, '');
-
-  // let parsedResponse;
-  // try {
-  //     parsedResponse = JSON.parse(fixedResponse);
-  // } catch (error) {
-  //     console.error('Failed to parse fixed response:', error);
-  // }
-  // if (this.response && typeof this.response === 'object') {
-  //   console.log('Specific Field (e.g., "field1"):', this.response.field1);
-  // }
-  //   this.downpayment = event.detail;
-  //   this.checkIfAllValuesSelected();
-  // }
+  handleDownpaymentChange(event) {
+    this.downpayment = event.detail;
+    this.checkIfAllValuesSelected();
+  }
 
   handleMileageChange(event) {
     this.mileage = event.detail;
     this.checkIfAllValuesSelected();
   }
 
+  handleDurationChange(event) {
+    this.duration = event.detail;
+    this.checkIfAllValuesSelected();
+  }
+
   checkIfAllValuesSelected() {
-    // if (this.downpayment !== null &&
-    //   this.mileage !== null) {
-    //   this.isSubmitted = true;
-      const serializedData = {
-        // downpayment: this.downpayment,
-        mileage: this.mileage
-      };
-      console.log("Selected Data:", JSON.stringify(serializedData, null, 2));
-    }
-  
+    const serializedData = {
+        downpayment: this.downpayment,
+        mileage: this.mileage,
+        duration: this.duration
+    };
+    console.log("Selected Data:", JSON.stringify(serializedData, null, 2));
+  }
 }

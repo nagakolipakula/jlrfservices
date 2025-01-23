@@ -1,8 +1,6 @@
 <template>
   <div>
-    <c-gol-product-selection-component 
-          products={namesWithIds}
-          onproductchange={handleProductSelectionChange}>
+    <c-gol-product-selection-component products={namesWithIds} onproductchange={handleProductSelectionChange}>
     </c-gol-product-selection-component>
   </div>
   <template if:true={childSliderComponent}>
@@ -11,41 +9,29 @@
     </div>
     <div class="slider-container">
       <template for:each={sliders} for:item="slider">
-        <c-gol-slider-component 
-                    key={slider.id}
-                    label-name={slider.label}
-                    label-for={slider.id} 
-                    unit={slider.unit}
-                    slider-value={slider.defaultValue} 
-                    min-value={slider.min} 
-                    max-value={slider.max} 
-                    step-value={slider.step}
-                    onsliderchange={handleSliderChange}>
+        <c-gol-slider-component key={slider.id} label-name={slider.label} label-for={slider.id} unit={slider.unit}
+          slider-value={slider.defaultValue} min-value={slider.min} max-value={slider.max} step-value={slider.step}
+          onsliderchange={handleSliderChange}>
         </c-gol-slider-component>
       </template>
     </div>
   </template>
-<!--Insurance and Services Section Start-->
-<template if:true={childSliderComponent}>
-  <div class="insurancelabelcss">
-    {label.GOL_Finance_Insurance_and_Services}
-  </div>
-  <div class="insuranceservicescss">
-    <template for:each={sliders} for:item="slider" for:index="index">
-      <c-gol_-insurance-services-component
-            key={slider.id}
-            indexnumber={index}>
-      </c-gol_-insurance-services-component>
-    </template>  
-  </div>
-</template>
-<!--Insurance and Services Section End-->
+  <!--Insurance and Services Section Start-->
+  <template if:true={childSliderComponent}>
+    <div class="insurancelabelcss">
+      {label.GOL_Finance_Insurance_and_Services}
+    </div>
+    <div class="insuranceservicescss">
+      <template for:each={sliders} for:item="slider" for:index="index">
+        <c-gol_-insurance-services-component key={slider.id} indexnumber={index}>
+        </c-gol_-insurance-services-component>
+      </template>
+    </div>
+  </template>
+  <!--Insurance and Services Section End-->
   <div class="button-container">
-    <lightning-button 
-          variant="brand" 
-          label={label.GOL_Calculate_Financing}
-          class="calculate-financing-btn"
-          onclick={checkIfAllValuesSelected}>
-    </lightning-button>
+    <button class="calculate-financing-btn" onclick={handleCalculateFinancingClick}>
+      {label.GOL_Calculate_Financing}
+    </button>
   </div>
 </template>

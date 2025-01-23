@@ -1,10 +1,12 @@
 import { LightningElement, api } from 'lwc';
-import 	GOL_Select_Financial_Product from '@salesforce/label/c.GOL_Select_Financial_Product';
-import 	GOL_Adjust_parameters from '@salesforce/label/c.GOL_Adjust_parameters';
+import GOL_Select_Financial_Product from '@salesforce/label/c.GOL_Select_Financial_Product';
+import GOL_Adjust_parameters from '@salesforce/label/c.GOL_Adjust_parameters';
+import GOL_Calculate_Financing from '@salesforce/label/c.GOL_Calculate_Financing';
+import 	GOL_Finance_Insurance_and_Services from '@salesforce/label/c.GOL_Finance_Insurance_and_Services';
 
 export default class gol_parentSliderComponent extends LightningElement {
   @api response;
-//   isSubmitted = false;
+  //   isSubmitted = false;
   sliders = [];
   namesWithIds = [];
   selectedProductId;
@@ -12,36 +14,38 @@ export default class gol_parentSliderComponent extends LightningElement {
   childSliderComponent = false;
   label = {
     GOL_Select_Financial_Product,
-    GOL_Adjust_parameters
+    GOL_Adjust_parameters,
+    GOL_Calculate_Financing,
+    GOL_Finance_Insurance_and_Services
   }
-  
+
   connectedCallback() {
     try {
-        if (!this.response) {
-            console.warn('Response is empty or not defined');
-            return;
-        }
-        const tidyUpResponse = this.response.replace(/<\/?[^>]+(>|$)/g, '').trim();
-        this.parsedResponse = JSON.parse(tidyUpResponse);
-        console.log('Connected Callback - Parsed Response:', JSON.stringify(this.parsedResponse, null, 2));
-        this.initializeSliders();
+      if (!this.response) {
+        console.warn('Response is empty or not defined');
+        return;
+      }
+      const tidyUpResponse = this.response.replace(/<\/?[^>]+(>|$)/g, '').trim();
+      this.parsedResponse = JSON.parse(tidyUpResponse);
+      console.log('Connected Callback - Parsed Response:', JSON.stringify(this.parsedResponse, null, 2));
+      this.initializeSliders();
     } catch (error) {
-        console.error('Error in connectedCallback:', error.message);
-        console.error('Raw Response:', this.response);
+      console.error('Error in connectedCallback:', error.message);
+      console.error('Raw Response:', this.response);
     }
   }
 
   //Radio buttons
   getProductIds() {
     this.namesWithIds = this.parsedResponse
-        .filter(item => item.name && item.id)
-        .map(item => ({ label: item.name, value: item.id }));
+      .filter(item => item.name && item.id)
+      .map(item => ({ label: item.name, value: item.id }));
     console.log('Filtered Names with IDs:', this.namesWithIds);
   }
 
   setDefaultSelectedProductId() {
     if (!this.selectedProductId && this.namesWithIds.length > 0) {
-        this.selectedProductId = this.namesWithIds[0].value;
+      this.selectedProductId = this.namesWithIds[0].value;
     }
   }
 
@@ -51,7 +55,7 @@ export default class gol_parentSliderComponent extends LightningElement {
 
   handleProductSelectionChange(event) {
     this.selectedProductId = event.detail;
-    console.log('MS parsedResponse  handleProductSelectionChange ==>'+JSON.stringify(this.parsedResponse,null,2));
+    console.log('MS parsedResponse  handleProductSelectionChange ==>' + JSON.stringify(this.parsedResponse, null, 2));
     this.initializeSliders();
   }
 
@@ -60,7 +64,7 @@ export default class gol_parentSliderComponent extends LightningElement {
     if (key.includes('Credit')) {
       console.log('Checking units.creditTimeUnit:', units.creditTimeUnit);
       if (units.creditTimeUnit === 'MONTHLY') {
-          return 'months';
+        return 'months';
       }
     }
     if (key.includes('Payment')) return units.currencyCode === 'EUR' ? '€' : '';
@@ -69,12 +73,12 @@ export default class gol_parentSliderComponent extends LightningElement {
 
   getDynamicMaxValue(durationRange, mileageRange, isInitial = true) {
     if (isInitial) {
-        return mileageRange.maximum;
+      return mileageRange.maximum;
     }
 
     const selectedDuration = durationRange.defaultValue;
     const matchingRange = durationRange.intervals.ranges.find(
-        range => selectedDuration >= range.min && selectedDuration <= range.max
+      range => selectedDuration >= range.min && selectedDuration <= range.max
     );
     return matchingRange ? matchingRange.max : mileageRange.maximum;
   }
@@ -82,9 +86,9 @@ export default class gol_parentSliderComponent extends LightningElement {
   getSliderNames(inputFields) {
     const fieldNames = [];
     for (const [key, value] of Object.entries(inputFields)) {
-        if (typeof value === 'object' && !Array.isArray(value) && value !== null) {
-            fieldNames.push(key);
-        }
+      if (typeof value === 'object' && !Array.isArray(value) && value !== null) {
+        fieldNames.push(key);
+      }
     }
     return fieldNames;
   }
@@ -92,8 +96,8 @@ export default class gol_parentSliderComponent extends LightningElement {
   //Dynamic Sliders
   initializeSliders() {
     if (!this.parsedResponse) {
-        console.warn('Response is empty or not defined');
-        return;
+      console.warn('Response is empty or not defined');
+      return;
     }
     this.childSliderComponent = false;
     this.getProductIds();
@@ -101,24 +105,24 @@ export default class gol_parentSliderComponent extends LightningElement {
     this.setupSliders();
 
     setTimeout(() => {
-        this.childSliderComponent = true;
+      this.childSliderComponent = true;
     }, 100);
   }
 
   setupSliders() {
     const providerData = this.parsedResponse.find(item => item.id === this.selectedProductId);
     if (providerData && providerData.inputFields) {
-        const inputFields = providerData.inputFields;
-        const allowedFields = this.getSliderNames(inputFields);
+      const inputFields = providerData.inputFields;
+      const allowedFields = this.getSliderNames(inputFields);
 
-        this.sliders = Object.entries(inputFields)
-            .filter(([key]) => allowedFields.includes(key))
-            .map(([key, field]) => this.createSliders(providerData, key, field));
-            this.sliders.sort((a, b) => a.sequence - b.sequence);
-        console.log('Generated Sliders:', JSON.stringify(this.sliders, null, 2));
+      this.sliders = Object.entries(inputFields)
+        .filter(([key]) => allowedFields.includes(key))
+        .map(([key, field]) => this.createSliders(providerData, key, field));
+      this.sliders.sort((a, b) => a.sequence - b.sequence);
+      console.log('Generated Sliders:', JSON.stringify(this.sliders, null, 2));
     } else {
-        console.warn('No Input Fields Found');
-        this.sliders = [];
+      console.warn('No Input Fields Found');
+      this.sliders = [];
     }
   }
 
@@ -128,39 +132,39 @@ export default class gol_parentSliderComponent extends LightningElement {
     else if (key === 'annualMileagesRange') sequence = 2;
     else if (key === 'durationsRange') sequence = 3;
     if (providerData.provider === 'ARVAL' && key === 'annualMileagesRange') {
-        const durationRange = providerData.inputFields.durationsRange;
-        const mileageRange = field;
+      const durationRange = providerData.inputFields.durationsRange;
+      const mileageRange = field;
 
-        return {
-            id: 'dependentMileageSlider',
-            label: mileageRange.description,
-            min: mileageRange.minimum,
-            max: this.getDynamicMaxValue(durationRange, mileageRange),
-            step: mileageRange.step,
-            defaultValue: mileageRange.defaultValue,
-            unit: this.getUnits(key, providerData.units),
-            sequence
-        };
-    }
-    return {
-        id: key,
-        label: field.description,
-        min: field.minimum,
-        max: field.maximum,
-        step: field.step,
-        defaultValue: field.defaultValue,
+      return {
+        id: 'dependentMileageSlider',
+        label: mileageRange.description,
+        min: mileageRange.minimum,
+        max: this.getDynamicMaxValue(durationRange, mileageRange),
+        step: mileageRange.step,
+        defaultValue: mileageRange.defaultValue,
         unit: this.getUnits(key, providerData.units),
         sequence
+      };
+    }
+    return {
+      id: key,
+      label: field.description,
+      min: field.minimum,
+      max: field.maximum,
+      step: field.step,
+      defaultValue: field.defaultValue,
+      unit: this.getUnits(key, providerData.units),
+      sequence
     };
   }
-  
+
   handleSliderChange(event) {
     const { id, value } = event.detail;
 
     this.logSliderChange(id, value);
 
     if (id === 'durationsRange') {
-        this.updateDependentSlider(value);
+      this.updateDependentSlider(value);
     }
 
     this.updateParsedResponse(id, value);
@@ -191,23 +195,23 @@ export default class gol_parentSliderComponent extends LightningElement {
 
         const matchingMileage = this.findMatchingMileageRange(mileageRange.intervals?.ranges, order);
         if (matchingMileage) {
-            dependentSlider.max = matchingMileage.max;
-            dependentSlider.defaultValue = product.inputFields.annualMileagesRange.defaultValue;
-          
-            dependentSlider.value = Math.min(dependentSlider.defaultValue, dependentSlider.max);
-            console.log('Full Product Response:', JSON.stringify(product, null, 2));
-            const inputBox = this.template.querySelector('.input-box');
-            const inputValue = inputBox ? inputBox.value : 'Input box not found';
-            console.log(`Updated Dependent Slider: Max = ${dependentSlider.max}, Default Value = ${dependentSlider.defaultValue}, Current Value = ${dependentSlider.value}`);
-                console.log(`Mileage Input Value: ${inputValue}`);
-          } else {
-            console.warn(`No matching mileage range found for order: ${order}`);
+          dependentSlider.max = matchingMileage.max;
+          dependentSlider.defaultValue = product.inputFields.annualMileagesRange.defaultValue;
+
+          dependentSlider.value = Math.min(dependentSlider.defaultValue, dependentSlider.max);
+          console.log('Full Product Response:', JSON.stringify(product, null, 2));
+          const inputBox = this.template.querySelector('.input-box');
+          const inputValue = inputBox ? inputBox.value : 'Input box not found';
+          console.log(`Updated Dependent Slider: Max = ${dependentSlider.max}, Default Value = ${dependentSlider.defaultValue}, Current Value = ${dependentSlider.value}`);
+          console.log(`Mileage Input Value: ${inputValue}`);
+        } else {
+          console.warn(`No matching mileage range found for order: ${order}`);
         }
       } else {
-          console.warn(`No matching duration range found for value: ${value}`);
+        console.warn(`No matching duration range found for value: ${value}`);
       }
     } else {
-        console.warn('Duration Range or Mileage Range is missing in the product response.');
+      console.warn('Duration Range or Mileage Range is missing in the product response.');
     }
     this.sliders = [...this.sliders];
   }
@@ -218,9 +222,9 @@ export default class gol_parentSliderComponent extends LightningElement {
         const inputFields = this.parsedResponse[i].inputFields;
         const allowedFields = this.getSliderNames(inputFields);
         if (allowedFields.includes(id)) {
-            inputFields[id].defaultValue = value;
+          inputFields[id].defaultValue = value;
         } else {
-            console.warn(`Field "${id}" is not valid or not found in inputFields.`);
+          console.warn(`Field "${id}" is not valid or not found in inputFields.`);
         }
       }
     }
@@ -228,49 +232,49 @@ export default class gol_parentSliderComponent extends LightningElement {
 
   //For ARVAL dependent Slider depends upon duration range
   findMatchingRange(ranges, value) {
-      return ranges?.find(range => value >= range.min && value <= range.max);
+    return ranges?.find(range => value >= range.min && value <= range.max);
   }
 
   findMatchingMileageRange(ranges, order) {
-      return ranges?.find(range => range.order === order);
+    return ranges?.find(range => range.order === order);
   }
 
   updateSliderMax(slider, max) {
-      slider.max = max;
-      console.log(`Updated range for Dependent Mileage: Min = ${slider.min}, Max = ${slider.max}`);
+    slider.max = max;
+    console.log(`Updated range for Dependent Mileage: Min = ${slider.min}, Max = ${slider.max}`);
   }
 
   // handleDownpaymentChange(event) {
   //   console.log('Downpayment Changed:', event.detail);
-    // let fixedResponse = this.response.replace(/<\/?[^>]+(>|$)/g, '');
+  // let fixedResponse = this.response.replace(/<\/?[^>]+(>|$)/g, '');
 
-    // let parsedResponse;
-    // try {
-    //     parsedResponse = JSON.parse(fixedResponse);
-    // } catch (error) {
-    //     console.error('Failed to parse fixed response:', error);
-    // }
-    // if (this.response && typeof this.response === 'object') {
-    //   console.log('Specific Field (e.g., "field1"):', this.response.field1);
-    // }
+  // let parsedResponse;
+  // try {
+  //     parsedResponse = JSON.parse(fixedResponse);
+  // } catch (error) {
+  //     console.error('Failed to parse fixed response:', error);
+  // }
+  // if (this.response && typeof this.response === 'object') {
+  //   console.log('Specific Field (e.g., "field1"):', this.response.field1);
+  // }
   //   this.downpayment = event.detail;
   //   this.checkIfAllValuesSelected();
   // }
 
-  // handleMileageChange(event) {
-  //   this.mileage = event.detail;
-  //   this.checkIfAllValuesSelected();
-  // }
+  handleMileageChange(event) {
+    this.mileage = event.detail;
+    this.checkIfAllValuesSelected();
+  }
 
-  // checkIfAllValuesSelected() {
-  //   if (this.downpayment !== null &&
-  //     this.mileage !== null) {
-  //     this.isSubmitted = true;
-  //     const serializedData = {
-  //       downpayment: this.downpayment,
-  //       mileage: this.mileage
-  //     };
-  //     console.log("Selected Data:", JSON.stringify(serializedData, null, 2));
-  //   }
-  // }
+  checkIfAllValuesSelected() {
+    // if (this.downpayment !== null &&
+    //   this.mileage !== null) {
+    //   this.isSubmitted = true;
+      const serializedData = {
+        // downpayment: this.downpayment,
+        mileage: this.mileage
+      };
+      console.log("Selected Data:", JSON.stringify(serializedData, null, 2));
+    }
+  
 }

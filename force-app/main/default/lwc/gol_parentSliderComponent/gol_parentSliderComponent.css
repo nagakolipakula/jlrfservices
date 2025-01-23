@@ -53,22 +53,28 @@
     display: flex;
     padding: 3% 0% 3% 0%;
     margin-top: 15px;
-    margin-left: 10px;
+    margin-left: 18px;
     text-align: center;
 }
 
-.calculate-financing-btn::part(button) {
-    background-color: #000; 
-    color: #fff; 
-    transition: background-color 0.3s ease, color 0.3s ease; 
-    cursor: pointer; 
+.calculate-financing-btn {
+    background-color: #000;
+    color: #fff;
+    border: 1px solid #000;
+    padding: 10px 20px;
+    font-size: 11px;
+    font-family:'Arial';
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    cursor: pointer;
 }
 
-.calculate-financing-btn::part(button):hover {
+.calculate-financing-btn:hover {
     background-color: #fff;
-    color: #000; 
+    color: #000;
 }
-.insurancelabelcss{
+
+.insurancelabelcss {
     font-family: 'Avenir Next', sans-serif;
     font-style: normal;
     font-weight: 500;
@@ -79,7 +85,8 @@
     padding: 3% 1% 2% 0%;
     margin-left: 20px;
 }
-.insuranceservicescss{
+
+.insuranceservicescss {
     display: inline-flex;
     flex-wrap: wrap;
     gap: 40px;
@@ -88,6 +95,7 @@
     max-width: 1200px;
     margin-left: 20px;
 }
+
 .insuranceservicescss>c-gol_-insurance-services-component {
     flex: 1 1 calc(50% - 40px);
     min-width: 300px;

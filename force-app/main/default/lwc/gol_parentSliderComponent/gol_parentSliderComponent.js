@@ -8,7 +8,6 @@ import { FlowAttributeChangeEvent, FlowNavigationNextEvent, FlowNavigationBackEv
 
 export default class gol_parentSliderComponent extends LightningElement {
   @api response;
-  @api calculateFinanceButton;
   //   isSubmitted = false;
   sliders = [];
   namesWithIds = [];
@@ -261,7 +260,7 @@ export default class gol_parentSliderComponent extends LightningElement {
     this.checkIfAllValuesSelected();
   }
 
-  checkIfAllValuesSelected(event) {
+  checkIfAllValuesSelected() {
     const serializedData = {
         downpayment: this.downpayment,
         mileage: this.mileage,

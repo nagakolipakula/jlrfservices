@@ -32,23 +32,24 @@ export default class Gol_FinanceHeaderDetailButtons extends LightningElement {
             this.companyPerchaseStyle = 'btn-client-select';
         }
     }
+
     handleReconfigure (event){
-            if(this.companyNameCheck !== event.target.value || this.productAPIResponseCode != 200){
-            const selectedButton = event.target.dataset.id;
-            if (selectedButton === 'personal') {
-                  this.personalPerchaseStyle = 'btn-client-select';
-                  this.companyPerchaseStyle = 'btn-client-deselect';
-              } else if (selectedButton === 'company') {
-                  this.personalPerchaseStyle = 'btn-client-deselect';
-                  this.companyPerchaseStyle = 'btn-client-select';
-              }
-            console.log('--------<<>>>'+event.target.value);
-            this.dispatchEvent(new FlowAttributeChangeEvent('companyNameCheck', event.target.value));
-            this.navigateFlow();
+        if(this.companyNameCheck !== event.target.value || this.productAPIResponseCode != 200){
+        const selectedButton = event.target.dataset.id;
+        if (selectedButton === 'personal') {
+                this.personalPerchaseStyle = 'btn-client-select';
+                this.companyPerchaseStyle = 'btn-client-deselect';
+            } else if (selectedButton === 'company') {
+                this.personalPerchaseStyle = 'btn-client-deselect';
+                this.companyPerchaseStyle = 'btn-client-select';
             }
-          }
-          navigateFlow() {
-            this.dispatchEvent(new FlowNavigationNextEvent());
-               
-        }      
+        console.log('--------<<>>>'+event.target.value);
+        this.dispatchEvent(new FlowAttributeChangeEvent('companyNameCheck', event.target.value));
+        this.navigateFlow();
+        }
+    }
+
+    navigateFlow() {
+        this.dispatchEvent(new FlowNavigationNextEvent());
+    }    
 }

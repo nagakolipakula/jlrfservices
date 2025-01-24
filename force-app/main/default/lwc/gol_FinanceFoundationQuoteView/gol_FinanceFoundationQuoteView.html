@@ -1,13 +1,15 @@
 <template>
     <div class="id-container">
+        <!-- below JLR ID need to be coming from custom label too -->
         <span class="id-label">JLR ID: 5001-A</span>
     </div>
     <div class="container">
         <div class="summary-card">
             <div class="lease-info">
                 <p class="lease-title">
-                    <strong>{label.GOL_Lease}</strong> €0,000 {label.GOL_monthly}
+                    <strong>{label.GOL_Lease}</strong> € 5,000 {label.GOL_monthly}
                 </p>
+                <!-- below VAT included need to be coming from custom label too -->
                 <div class="vat-toggle-row">
                     <input type="checkbox" id="vatToggle" />
                     <label for="vatToggle" class="vat-label">VAT included</label>
@@ -16,11 +18,11 @@
             <div class="details">
                 <div class="detail-row">
                     <span>{label.GOL_Final_price_with_trade_in}</span>
-                    <span>€000,000</span>
+                    <span>€ 500,000</span>
                 </div>
                 <div class="detail-row">
                     <span>{label.GOL_Deposits}</span>
-                    <span>€00,000</span>
+                    <span>€ 500,000</span>
                 </div>
                 <div class="detail-row">
                     <span>{label.GOL_Agreement_duration}</span>
@@ -40,21 +42,23 @@
                 </div>
                 <div class="detail-row">
                     <span>{label.GOL_Management_fees}</span>
-                    <span>€00,000</span>
+                    <span>€ 500,000</span>
                 </div>
                 <div class="total-row">
                     <span>{label.GOL_Total_lease_amount}</span>
-                    <span>€000,000</span>
+                    <span>€ 500,000</span>
                 </div>
             </div>
             <div class="monthly-payment">
                 <h3>{label.GOL_Monthly_payment}</h3>
-                <p class="payment-amount">€0,000</p>
+                <p class="payment-amount">€ 5,000</p>
             </div>
+            <!-- below lorem ipsum need to be coming from custom label too -->
             <p class="description">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
                 tempor incididunt ut labore et dolore magna aliqua.
             </p>
+            <!-- below modify button need to be coming from custom label too -->
             <div class="modify-button">
                 <button type="button" class="slds-button slds-button_neutral" onclick={handleBackToFianceCalculator}>MODIFY</button>
             </div>

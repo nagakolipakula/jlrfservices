@@ -27,8 +27,6 @@ export default class gol_FinanceFoundationQuoteView extends LightningElement {
         GOL_Management_fees,
         GOL_Total_lease_amount,
         GOL_Monthly_payment
-
-
     }
 
     handleBackToFianceCalculator() {

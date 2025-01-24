@@ -1,60 +1,62 @@
 <template>
+    <div class="id-container">
+        <span class="id-label">JLR ID: 5001-A</span>
+    </div>
     <div class="container">
-        <div class="header">
-            <span class="id-label">JLR ID: 5001-A</span>
-            <lightning-input type="toggle" label="VAT included"></lightning-input>
-        </div>
-
         <div class="summary-card">
             <div class="lease-info">
-                <p class="lease-title">Lease <strong>€0,000 monthly</strong></p>
+                <p class="lease-title">
+                    <strong>{label.GOL_Lease} </strong>€0,000 {label.GOL_monthly}
+                </p>
+                <div class="vat-toggle-row">
+                    <lightning-input type="toggle"></lightning-input>
+                    <label class="vat-label">VAT included</label>
+                </div>
             </div>
             <div class="details">
                 <div class="detail-row">
-                    <span>Final price with trade-in</span>
+                    <span>{label.GOL_Final_price_with_trade_in}</span>
                     <span>€000,000</span>
                 </div>
                 <div class="detail-row">
-                    <span>Deposit</span>
+                    <span>{label.GOL_Deposits}</span>
                     <span>€00,000</span>
                 </div>
                 <div class="detail-row">
-                    <span>Agreement duration</span>
+                    <span>{label.GOL_Agreement_duration}</span>
                     <span>36 months</span>
                 </div>
                 <div class="detail-row">
-                    <span>Mileage per annum</span>
+                    <span>{label.GOL_Mileage_per_annum}</span>
                     <span>10,000 km</span>
                 </div>
                 <div class="detail-row">
-                    <span>Effective rate</span>
+                    <span>{label.GOL_Effective_rate}</span>
                     <span>1.4%</span>
                 </div>
                 <div class="detail-row">
-                    <span>Nominal rate</span>
+                    <span>{label.GOL_Nominal_rate}</span>
                     <span>1.4%</span>
                 </div>
                 <div class="detail-row">
-                    <span>Management fees</span>
+                    <span>{label.GOL_Management_fees}</span>
                     <span>€00,000</span>
                 </div>
                 <div class="total-row">
-                    <span>Total lease amount</span>
+                    <span>{label.GOL_Total_lease_amount}</span>
                     <span>€000,000</span>
                 </div>
             </div>
-
             <div class="monthly-payment">
-                <h3>Monthly payment</h3>
+                <h3>{label.GOL_Monthly_payment}</h3>
                 <p class="payment-amount">€0,000</p>
             </div>
-
             <p class="description">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+                tempor incididunt ut labore et dolore magna aliqua.
             </p>
-
             <div class="modify-button">
-                <lightning-button label="Modify" variant="brand"></lightning-button>
+                <button type="button" class="slds-button slds-button_neutral">MODIFY</button>
             </div>
         </div>
     </div>

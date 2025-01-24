@@ -1,0 +1,148 @@
+<!--
+  @description       : Component to display Upcoming and Past Bookings in a table
+  @author            : naga.kolipakula@emeal.nttdata.com
+  @group             : 
+  @last modified on  : 12-24-2024
+  @last modified by  : mandeep.mann@emeal.nttdata.com
+
+-->
+<template>
+    <button class={upcomingTabClass} data-tab="upcoming" onclick={handleTabClick}>{customLabels.Upcoming_bookings}</button>
+    <button class={pastTabClass} data-tab="past" onclick={handleTabClick}>{customLabels.Past_bookings}</button>
+
+    <template if:true={isUpcomingTab}>
+        <template if:true={upcomingBooking}>
+            <div class="tab-content table-responsive">
+                <table class="slds-table">
+                    <thead>
+                        <tr>
+                            <th>{customLabels.Reference}</th>
+                            <th>{customLabels.Service}</th>
+                            <th>{customLabels.Vehicle}</th>
+                            <th>{customLabels.License_plate}</th>
+                            <th>{customLabels.Retailer}</th>
+                            <th>{customLabels.Drop_off_date}</th>
+                            <th>{customLabels.Drop_off_time}</th>
+                            <th>{customLabels.Status}</th>
+                            <th class="no-background"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template for:each={styledBookings} for:item="booking">
+                            <tr key={booking.id} class={booking.rowClass} style={booking.style} onclick={handleRowClick}
+                                data-id={booking.id}>
+                                <td>{booking.reference}</td>
+                                <td>{booking.service}</td>
+                                <td>{booking.vehicle}</td>
+                                <td>{booking.licensePlate}</td>
+                                <td>{booking.retailer}</td>
+                                <td>{booking.dropOffDate}</td>
+                                <td>{booking.dropOffTime}</td>
+                                <td>{booking.Status}</td>
+                                <td class="no-background">
+                                    <div class="dropdown" data-id={booking.id} onclick={toggleDropdown}
+                                        onmouseleave={closeDropdown}>
+                                        <span class="custom-menu-icon" data-id={booking.id}>
+                                                <lightning-icon icon-name="utility:threedots" size="small"></lightning-icon>
+                                            </span>
+                                        <div class="dropdown-menu">
+                                            <!--Commented Edit booking button for future requirements-->
+                                            <!-- <a data-id={booking.id} data-action="modifyBooking" onclick={handleAction}
+                                                class={editLinkButton}>Edit booking</a> -->
+                                            <a data-id={booking.id} data-action="cancelBooking" onclick={handleAction}
+                                                class={cancelLinkButton}>{customLabels.Cancel_Booking}</a>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+            </div>
+        </template>
+        <template if:false={upcomingBooking}>
+            <p class="para-style1">{customLabels.YOU_HAVE_NO_UPCOMING_BOOKINGS_AT_THE_MOMENT}</p>
+            <p class="para-style2">{customLabels.Once_you_have_a_booking_you_will_see_it_here}</p>
+        </template>
+    </template>
+
+    <template if:true={isPastTab}>
+        <template if:true={pastBooking}>
+            <div class="tab-content table-responsive">
+                <table class="slds-table">
+                    <thead>
+                        <tr>
+                            <th>{customLabels.Reference}</th>
+                            <th>{customLabels.Service}</th>
+                            <th>{customLabels.Vehicle}</th>
+                            <th>{customLabels.License_plate}</th>
+                            <th>{customLabels.Retailer}</th>
+                            <th>{customLabels.Drop_off_date}</th>
+                            <th>{customLabels.Drop_off_time}</th>
+                            <th>{customLabels.Status}</th>
+                        <!--    <th>Reference</th>
+                            <th>Service</th>
+                            <th>Vehicle</th>
+                            <th>License plate</th>  
+                            <th>Retailer</th>
+                            <th>Drop off date</th>
+                            <th>Drop off time</th>
+                            <th>Status</th>   -->
+                            <th class="no-background"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template for:each={styledPastBookings} for:item="booking">
+                            <tr key={booking.id} class={booking.rowClass} style={booking.style} onclick={handleRowClick}
+                                data-id={booking.id}>
+                                <td>{booking.reference}</td>
+                                <td>{booking.service}</td>
+                                <td>{booking.vehicle}</td>
+                                <td>{booking.licensePlate}</td>
+                                <td>{booking.retailer}</td>
+                                <td>{booking.dropOffDate}</td>
+                                <td>{booking.dropOffTime}</td>
+                                <td>{booking.Status}</td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+            </div>
+        </template>
+        <template if:false={pastBooking}>
+            <p class="para-style1">{customLabels.YOU_HAVE_NO_PAST_BOOKINGS_AT_THE_MOMENT}</p>
+        </template>
+    </template>
+
+    <!-- modal start cancel booking -->      
+    <template if:true={isCancelBookingFromMyBookingsPage}>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                    
+                <!-- modal body start -->
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <div class="utilityclosediv">
+                        <button class="utilityclosebtn slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={handleCancelBookingClose}>
+                            <lightning-icon icon-name="utility:close" alternative-text="close" size="small"></lightning-icon>
+                            <span class="slds-assistive-text">{Close}</span>
+                        </button>
+                    </div>
+                    <div class="textbodycss">
+                        <P class="cancelbookingcss">{customLabels.Are_you_sure}</P>
+                        <P class="cancelbookingtextcss">{customLabels.We_re_sorry_to_hear_that_you_wish_to_cancel_the_booking}</P>
+                        <p class="servicenamecss">{customLabels.Service_name}</p>
+                        <p class="addresscss">{selectedBookingDetails.retailer}</p>
+                        <p class="datetimecss">{selectedDropOffDate} - {selectedBookingDetails.dropOffTime}</p>
+                    </div>
+                    <div class="btndivcss slds-text-align_center slds-clearfix">
+                        <button data-id="CancelBtnCSS" class="keepbookingBtnCSS" onclick={handleCancelBookingClose}>KEEP BOOKING</button>
+                        <button data-id="SaveBtnCSS" class="confirmcancellationBtnCSS" onclick={handleCancelBookingConfirmation}>CONFIRM CANCELLATION</button>
+                    </div>                    
+                </div>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+ 	</template>
+    <!-- modal end cancel booking-->
+    <c-osb-gs2-show-toast></c-osb-gs2-show-toast>
+</template>

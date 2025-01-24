@@ -1,0 +1,333 @@
+/* Titles Upcoming and Past Bookings */
+.tablinks {
+    cursor: pointer;
+    width: 195px;
+    height: 37px;
+    padding: 11px 12px 12px 12px;
+    border-width: 2px 0px 0px 0px;
+    font-family: 'Avenir Next', sans-serif;
+    font-size: 9.5px;
+    font-weight: 600;
+    line-height: 13.66px;
+    letter-spacing: 3px;
+    text-align: center;
+    color: #0C121C;
+    border: 2px solid transparent;
+    margin-right: 10px;
+}
+
+.tablinks {
+    background-color: #E9ECEC;
+}
+
+.tablinks.active {
+    background-color: white;
+    border-color: #0C121C;
+}
+
+.tab-content {
+    display: block;
+    padding: 24px 0px;
+    padding-top: 5px;
+    padding-right: 0px;
+    padding-bottom: 50px;
+    border-top: none;
+    overflow-y: hidden;
+    /* height: 20rem; */
+    height: auto;
+}
+
+/* Ellipsis */
+.tablinks:last-child {
+    margin-right: 0;
+}
+
+.slds-table {
+    width: 95%;
+    border-collapse: collapse;
+    table-layout: auto;
+}
+
+.slds-table thead th {
+    background-color: white;
+    color: black;
+    padding: 10px;
+    font-weight: 600;
+    border-bottom: 1px solid #e0e0e0;
+    margin-top: 2rem;
+}
+
+.slds-table td {
+    font-family: 'Avenir Next', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 21px;
+    letter-spacing: 0.34px;
+    text-align: left;
+    padding: 10px;
+    color: #000000;
+    height:auto;
+    vertical-align: top;
+}
+
+.no-background {
+    background-color: white !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    background-color: white;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    min-width: 75px;
+    padding: 5px 0;
+}
+
+.dropdown-menu a {
+    color: black;
+    padding: 8px 12px;
+    text-decoration: none;
+    display: block;
+    font-size: 12px;
+}
+
+.dropdown-menu a:hover {
+    background-color: #ddd;
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+.custom-menu-icon {
+    background: white !important;
+    border: none !important;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tab-names {
+    border-bottom: 0px;
+}
+
+.para-style1 {
+    margin-top: 40px;
+    font-weight: bold;
+    font-size: 18px;
+    text-align: center;
+}
+
+.para-style2 {
+    font-weight: normal;
+    font-size: 12px;
+    text-align: center;
+}
+
+.slds-modal__container {
+    margin: 0 auto;
+    width: 50%;
+    max-width: 52rem;
+    min-width: 50rem;
+    height: auto;
+    top: 5%;
+}
+
+.utilityclosediv {
+    padding: 0% 0% 10% 0%;
+}
+
+.utilityclosebtn {
+    float: right;
+}
+
+.textbodycss {
+    text-align: center;
+}
+
+.cancelbookingcss {
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.cancelbookingtextcss {
+    margin: 20px 0px 40px 0px;
+    font-size: 16px;
+}
+
+.servicenamecss {
+    font-weight: 650;
+    font-size: 15px;
+}
+
+.addresscss {
+    margin: 8px 0px 5px 0px;
+    font-size: 14px;
+}
+
+.datetimecss {
+    font-size: 14px;
+}
+
+.btndivcss {
+    padding: 10% 0% 5% 0%;
+}
+
+.keepbookingBtnCSS,
+.confirmcancellationBtnCSS {
+    width: 275px;
+    line-height: 50px;
+    font-family: 'Avenir Next';
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    text-align: center;
+    border: 1px solid black;
+}
+
+.keepbookingBtnCSS {
+    background: white;
+    color: black;
+}
+
+.confirmcancellationBtnCSS {
+    background: black;
+    color: white;
+    margin-left: 10px;
+}
+
+.BackToMyBookingsBtnCSS {
+    background-color: white !important;
+    color: black !important;
+    border: none !important;
+    padding-top: 1%;
+    font-family: Avenir Next;
+    font-size: 10px;
+    font-weight: 300;
+    line-height: 50px;
+    letter-spacing: 0.3em;
+    text-align: center;
+}
+
+.section {
+    margin-bottom: 1rem;
+}
+
+.disabled-button {
+    background-color: #f0f0f0;
+    color: #a0a0a0;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+.table-responsive {
+    overflow-x: auto;
+    /* -webkit-overflow-scrolling: touch; */
+    overflow-y: auto;
+}
+
+.dropdown-menu {
+    position: absolute;
+    right: 0;
+    z-index: 1000;
+    min-width: 160px;
+    max-width: 250px;
+    background-color: white;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    padding: 8px 0;
+    display: none;
+}
+
+.dropdown-menu.show {
+    display: block;
+}
+
+.dropdown-menu a {
+    padding: 10px 15px;
+    font-size: 12px;
+    display: block;
+}
+
+.dropdown-menu a:hover {
+    background-color: #f2f2f2;
+}
+
+@media (max-width: 1024px) and (min-width: 769px) {
+    .slds-modal__container {
+        height: 95vh;
+        max-height: 75vh;
+        width: auto;
+    }
+}
+
+@media (max-width: 768px) and (min-width: 481px) {
+    .slds-modal__container {
+        height: 120vh;
+        width: 80vw;
+        max-width: 60rem;
+        min-width: 40rem;
+    }
+}
+
+/* Mobile Styling for Buttons */
+@media (max-width: 480px) {
+    .slds-float_right {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        width: 100%;
+    }
+
+    .tablinks {
+        background-color: #E9ECEC;
+        margin-right: 9px;
+    }
+
+    .keepbookingBtnCSS,
+    .confirmcancellationBtnCSS {
+        width: 100%;
+        height: 45px;
+        font-size: 14px;
+        margin-left: inherit;
+    }
+
+    .cancelbookingcss {
+        font-size: 20px;
+    }
+
+    .cancelbookingtextcss {
+        font-size: 16px;
+    }
+
+    .slds-modal__container {
+        height: auto;
+        max-height: 120vh;
+        width: 60vh;
+        max-width: 25rem;
+        min-width: 28rem;
+    }
+
+    .textbodycss {
+        padding: 10px;
+    }
+
+    .btndivcss {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+        padding: 10px 0 5px 0;
+    }
+}

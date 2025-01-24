@@ -10,6 +10,8 @@ import GOL_Nominal_rate from '@salesforce/label/c.GOL_Nominal_rate';
 import GOL_Management_fees from '@salesforce/label/c.GOL_Management_fees';
 import GOL_Total_lease_amount from '@salesforce/label/c.GOL_Total_lease_amount';
 import GOL_Monthly_payment from '@salesforce/label/c.GOL_Monthly_payment';
+import { FlowAttributeChangeEvent, FlowNavigationNextEvent, FlowNavigationBackEvent, FlowNavigationFinishEvent } from 'lightning/flowSupport';
+
 
 
 export default class gol_FinanceFoundationQuoteView extends LightningElement {
@@ -27,5 +29,9 @@ export default class gol_FinanceFoundationQuoteView extends LightningElement {
         GOL_Monthly_payment
 
 
+    }
+
+    handleBackToFianceCalculator() {
+        this.dispatchEvent(new FlowNavigationNextEvent());
     }
 }

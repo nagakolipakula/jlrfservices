@@ -280,18 +280,26 @@ export default class gol_parentSliderComponent extends LightningElement {
   }
 
   buildSerializedData() {
-    const serializedData = {};
-    this.sliders.forEach((slider) => {
-        serializedData[slider.id] = {
-            selectedValue: this[slider.id] || slider.defaultValue,
-            step: slider.step,
-            defaultValue: slider.defaultValue,
-            minimum: slider.min,
-            maximum: slider.max,
-            unit: slider.unit,
-            description: slider.label
-        };
-    });
+    const cpiProducts = this.buildCpiProducts();
+    const inputFields = this.buildInputFields();
+    const serializedData = {
+      quoteId: 'ab01sUVD-0101-E010-0134-cdwxRS3YZABI',
+      product: {
+          id: 'C',
+          name: 'Crédit classique',
+          description: 'Crédit classique',
+          selected: true,
+          units: {
+              mileageUnit: 'KILOMETERS',
+              currencyCode: 'EUR',
+              creditTimeUnit: 'MONTHLY'
+          },
+          cpiProducts: cpiProducts,
+          inputFields: inputFields
+      }
+  };
+
+
     this.serializedData = serializedData;
     console.log("Serialized Data:", JSON.stringify(this.serializedData, null, 2));
   }
@@ -309,6 +317,38 @@ export default class gol_parentSliderComponent extends LightningElement {
     this.dispatchEvent(new FlowNavigationFinishEvent());
   }
 
+  buildCpiProducts() {
+    return [
+        {
+            financialProductId: 'MC',
+            name: 'EstándarEmpresa-Seguro protección pago',
+            description: 'EstándarEmpresa-Seguro protección pago',
+            id: '7037A',
+            monthlyCost: 127400.13,
+            selected: true
+        }
+    ];
+ }
+
+ buildInputFields() {
+    const inputFields = {};
+    this.sliders.forEach((slider) => {
+       inputFields[slider.id] = {
+            selectedValue: this[slider.id] || slider.defaultValue,
+            step: slider.step,
+            defaultValue: slider.defaultValue,
+            minimum: slider.min,
+            maximum: slider.max,
+            unit: slider.unit,
+            description: slider.label
+        };
+    });
+
+  return inputFields;
+}
+
+
+ 
   // buildGetQuotePayload(){
     
   // }

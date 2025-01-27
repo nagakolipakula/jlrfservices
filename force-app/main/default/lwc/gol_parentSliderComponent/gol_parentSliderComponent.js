@@ -8,6 +8,7 @@ import { FlowAttributeChangeEvent, FlowNavigationNextEvent, FlowNavigationBackEv
 export default class gol_parentSliderComponent extends LightningElement {
   @api response;
   @api serializedData;
+  @api quoteExternalId;
   //   isSubmitted = false;
   sliders = [];
   namesWithIds = [];
@@ -282,17 +283,18 @@ export default class gol_parentSliderComponent extends LightningElement {
   buildSerializedData() {
     const cpiProducts = this.buildCpiProducts();
     const inputFields = this.buildInputFields();
+    const providerData = this.parsedResponse.find(item => item.id === this.selectedProductId);
     const serializedData = {
-      quoteId: 'ab01sUVD-0101-E010-0134-cdwxRS3YZABI',
+      quoteId: this.quoteExternalId,
       product: {
-          id: 'C',
-          name: 'Crédit classique',
-          description: 'Crédit classique',
+          id: providerData.id,
+          name: providerData.name,
+          description: providerData.description,
           selected: true,
           units: {
-              mileageUnit: 'KILOMETERS',
-              currencyCode: 'EUR',
-              creditTimeUnit: 'MONTHLY'
+              mileageUnit: providerData.units.mileageUnit,
+              currencyCode: providerData.units.currencyCode,
+              creditTimeUnit: providerData.units.creditTimeUnit
           },
           cpiProducts: cpiProducts,
           inputFields: inputFields

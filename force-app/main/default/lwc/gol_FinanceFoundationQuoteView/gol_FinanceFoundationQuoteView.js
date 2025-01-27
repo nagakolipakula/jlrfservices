@@ -10,6 +10,10 @@ import GOL_Nominal_rate from '@salesforce/label/c.GOL_Nominal_rate';
 import GOL_Management_fees from '@salesforce/label/c.GOL_Management_fees';
 import GOL_Total_lease_amount from '@salesforce/label/c.GOL_Total_lease_amount';
 import GOL_Monthly_payment from '@salesforce/label/c.GOL_Monthly_payment';
+import GOL_JLR_Id from '@salesforce/label/c.GOL_JLR_Id';
+import GOL_VAT_label from '@salesforce/label/c.GOL_VAT_label';
+import GOL_Lorem_Text from '@salesforce/label/c.GOL_Lorem_Text';
+import GOL_Modify_button from '@salesforce/label/c.GOL_Modify_button';
 import { FlowAttributeChangeEvent, FlowNavigationNextEvent, FlowNavigationBackEvent, FlowNavigationFinishEvent } from 'lightning/flowSupport';
 
 
@@ -26,7 +30,11 @@ export default class gol_FinanceFoundationQuoteView extends LightningElement {
         GOL_Nominal_rate,
         GOL_Management_fees,
         GOL_Total_lease_amount,
-        GOL_Monthly_payment
+        GOL_Monthly_payment,
+        GOL_JLR_Id,
+        GOL_VAT_label,
+        GOL_Lorem_Text,
+        GOL_Modify_button
     }
 
     handleBackToFianceCalculator() {

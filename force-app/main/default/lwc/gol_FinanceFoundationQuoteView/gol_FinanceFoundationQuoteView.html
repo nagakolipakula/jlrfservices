@@ -1,7 +1,6 @@
 <template>
     <div class="id-container">
-        <!-- below JLR ID need to be coming from custom label too -->
-        <span class="id-label">JLR ID: 5001-A</span>
+        <span class="id-label">{label.GOL_JLR_Id}</span>
     </div>
     <div class="container">
         <div class="summary-card">
@@ -9,10 +8,9 @@
                 <p class="lease-title">
                     <strong>{label.GOL_Lease}</strong> € 5,000 {label.GOL_monthly}
                 </p>
-                <!-- below VAT included need to be coming from custom label too -->
                 <div class="vat-toggle-row">
                     <input type="checkbox" id="vatToggle" />
-                    <label for="vatToggle" class="vat-label">VAT included</label>
+                    <label for="vatToggle" class="vat-label">{label.GOL_VAT_label}</label>
                 </div>
             </div>
             <div class="details">
@@ -53,14 +51,11 @@
                 <h3>{label.GOL_Monthly_payment}</h3>
                 <p class="payment-amount">€ 5,000</p>
             </div>
-            <!-- below lorem ipsum need to be coming from custom label too -->
             <p class="description">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                tempor incididunt ut labore et dolore magna aliqua.
+                {label.GOL_Lorem_Text}
             </p>
-            <!-- below modify button need to be coming from custom label too -->
             <div class="modify-button">
-                <button type="button" class="slds-button slds-button_neutral" onclick={handleBackToFianceCalculator}>MODIFY</button>
+                <button type="button" class="slds-button slds-button_neutral" onclick={handleBackToFianceCalculator}>{label.GOL_Modify_button}</button>
             </div>
         </div>
     </div>

@@ -20,6 +20,10 @@
                 label="Serialized Data"
                 description="Serialized Data passed from LWC to Flow."
                 required="false" />
+			<property 
+				name="quoteExternalId" 
+				type="String"
+				label="Quote External Id"/>
         </targetConfig>
     </targetConfigs>
 </LightningComponentBundle>

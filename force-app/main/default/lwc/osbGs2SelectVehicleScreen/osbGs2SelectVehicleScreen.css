@@ -1,0 +1,492 @@
+lightning-input,
+lightning-combobox {
+  --slds-c-input-radius-border: 0 !important;
+}
+
+div[disabled=disabled] {
+  pointer-events: none;
+  opacity: 0.4;
+}
+
+.errorMsgCSS {
+  color: red;
+}
+
+.selectoptioncss {
+  width: 100%;
+  margin: 0 auto;
+
+  select {
+    width: 100%;
+    border-radius: 0;
+    padding: 6px 0px 6px 0px;
+    border: 1px solid black;
+  }
+}
+
+.inputboxcss {
+  width: 100%;
+  margin: 0 auto;
+
+  input {
+    width: 100%;
+    border-radius: 0;
+    padding: 6px 3px 6px 5px !important;
+    border: 1px solid black;
+  }
+}
+
+select {
+  display: inline-block;
+  width: 49%;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.displaycardetails {
+  padding-top: 12%;
+}
+
+.ptextcss {
+  padding-top: 4px;
+  min-height: 21px;
+}
+
+.displaycarimg {
+  width: 100%;
+  height: 7rem;
+}
+
+.imgCSS {
+  width: 100% !important;
+  max-height: 110% !important;
+  min-height: 8rem;
+}
+
+.span2textcss {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.span2textcss:hover {
+  font-weight: 900;
+}
+
+.toppaddingcss {
+  padding-top: 15px;
+}
+
+button:disabled,
+button[disabled] {
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
+  content: 'SELECTED';
+}
+
+.addnewcarcss:hover {
+  font-weight: 900;
+}
+
+.addnewcarcss {
+  cursor: pointer;
+  padding-bottom: 15px;
+  /*right: 30px;*/
+  position: relative;
+  /*margin-left: 42rem;*/
+}
+
+.novehiclebodycss {
+  position: relative;
+  padding: 90px 0px 90px 0px;
+}
+
+.noupcomingbookingcss {
+  font-size: 16px;
+  font-weight: 600;
+  padding-bottom: 12px;
+}
+
+.hselectVehiclecss {
+  text-align: left;
+  font-size: 20px;
+  padding-bottom: 10px;
+}
+
+.slecteservicecss {
+  padding: 20px 0px 15px 16px;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.ptextdescriptioncss {
+  padding-top: 5px;
+}
+
+.checkboxcss {
+  height: 20px;
+  width: 20px;
+  cursor: pointer;
+}
+
+.servicenamecss {
+  font-weight: 500;
+}
+
+.serviceboxcss {
+  border-radius: 0px;
+}
+
+.checkboxcss {
+  accent-color: black;
+}
+
+/*Accordion Start*/
+details {
+  margin: 5px;
+  font-size: 12px;
+}
+
+summary {
+  padding: 8px;
+  margin: 0px 12px 0px 12px;
+  border-radius: 0;
+  font-size: 16px;
+  color: #fff;
+  background: rgb(67, 71, 72);
+  cursor: pointer;
+  position: relative;
+}
+
+summary::marker {
+  content: "";
+}
+
+summary::before {
+  content: "";
+  position: absolute;
+  inset: .75rem;
+  left: auto;
+  aspect-ratio: 1;
+  background:
+    conic-gradient(from 90deg at 20% 20%, #0000 90deg, #fff 0) 100% 100%/58% 52%;
+  clip-path: inset(2px);
+}
+
+details[open] summary::before {
+  background: linear-gradient(#fff 0 0) 50%/100% 15% no-repeat;
+}
+
+details[open] summary {
+  border-radius: 0;
+  margin: 0px 12px 0px 12px;
+}
+
+/*Accordion End*/
+.servicenamefirstdesccss{
+  font-weight: 500;
+}
+.servicenameseconddesccss{
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 18px;
+    letter-spacing: 0.01em;
+}
+.BackToMyBookingsBtnCSS {
+  background-color: white !important;
+  color: black !important;
+  font-weight: 600;
+  border: none !important;
+  padding-top: 1%;
+}
+
+.footerCSS {
+  padding: 10% 1% 0% 1%;
+}
+
+.addNewVehicleBtnCSS {
+  background: black !important;
+  color: white !important;
+  padding: 1% 3% 1% 5%;
+  border: 1px solid black;
+}
+
+.addnewbtndivcss {
+  padding-top: 32px;
+}
+
+.plus {
+  position: absolute;
+  font-size: 30px;
+  margin: -15px 0px 0px -24px !important;
+}
+
+.SaveBtnCSS {
+  background: black !important;
+  color: white !important;
+  padding: 2% 18% 2% 18%;
+  border: 1px solid rgba(12, 18, 28, 0.2);
+}
+
+.CancelBtnCSS {
+  background: white !important;
+  color: black !important;
+  padding: 2% 18% 2% 18%;
+  border: 1px solid rgba(12, 18, 28, 0.2);
+}
+
+.newBookingfooterCSS {
+  padding-top: 4%;
+}
+
+/* Desktops (screens above 1024px) */
+@media screen and (min-width: 1025px) {
+  .footerCSS {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+  .BackToMyBookingsBtnCSS {
+    font-size: 12px;
+    width: auto;
+    text-align: center;
+    justify-content: center;
+  }
+
+  .NextBtnCSS {
+    float: right;
+    margin-left: auto;
+    width: auto;
+    padding: 1rem 2rem;
+  }
+}
+.imgForTabCSS{
+  display: none;
+}
+/* Tablets Pro styling */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .displaycardetails {
+    padding-top: 4%;
+    width: 70%;
+    position: relative;
+    left: 26%;
+    margin-top: -22px;
+    margin-left: 20px;
+  }  
+  .vehicleDetailCss{
+    width: 100%;
+  }
+  .imgForTabCSS{
+    display: block;
+    width: 26%;
+    text-align: center;
+  }
+}
+/* Tablets styling */
+@media (max-width: 768px) and (min-width: 481px) {
+  
+  .footerCSS {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem 0;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+  .NextBtnCSS {
+    float: right;
+    margin-left: 362px;
+    width: 20%;
+    padding: 1rem 2rem;
+
+  }
+
+  .BackToMyBookingsBtnCSS {
+    font-size: 13px;
+    width: auto;
+    text-align: center;
+    justify-content: center;
+    margin-left: 0px;
+    margin-top: -3px;
+  }
+
+  .slds-float_left,
+  .slds-float_right {
+    float: none !important;
+  }
+  .newBookingCSS{
+    width: 100%;
+  }
+  .newBookingfooterCSS{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .CancelBtnCSS{
+    width: 48%;
+    padding: 1.5% 18% 1.5% 18%;
+  }
+  .SaveBtnCSS{
+    width: 48%;
+    padding: 1.5% 18% 1.5% 18%;
+    position: relative;
+    left: 2%;
+  }
+  .displaycardetails {
+    padding-top: 4%;
+    width: 70%;
+    position: relative;
+    left: 26%;
+    margin-top: -22px;
+    margin-left: 20px;
+  }  
+  .vehicleDetailCss{
+    width: 100%;
+  }
+  .imgForTabCSS{
+    display: block;
+    width: 26%;
+    text-align: center;
+  }
+}
+
+/* Mobile styling */
+@media (max-width: 480px) {
+  .footerCSS {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    padding: 1rem 0;
+    width: 92%;
+    margin-left: 16px;
+  }
+
+  .NextBtnCSS {
+    width: 100%;
+    text-align: center;
+    padding: 1.5rem;
+    background-color: #E9ECEC;
+    font-size: 1.2rem;
+    border: none;
+  }
+
+  .BackToMyBookingsBtnCSS {
+    margin-top: 1rem;
+    width: auto;
+    color: black;
+    font-size: 1rem;
+    text-align: center;
+    padding-bottom: 1rem;
+  }
+
+  .newBookingfooterCSS{
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    padding: 1rem 0;
+    width: 92%;
+    margin-left: 4%;
+  }
+  .SaveBtnCSS{
+    width: 108%;
+    text-align: center;
+    padding: 0.5rem;
+    background-color: #E9ECEC;
+    font-size: 1.2rem;
+    border: none;
+    padding: 1% 18% 1% 18%;
+  }
+  .CancelBtnCSS{
+    margin-top: 1.5rem;
+    width: 108%;
+    color: black;
+    font-size: 1rem;
+    text-align: center;
+    padding: 1% 18% 1% 18%;
+  }
+  .slds-float_left,
+  .slds-float_right {
+    float: none !important;
+  }
+}
+
+.textbodycss {
+  text-align: center;
+  padding: 10px;
+}
+
+.keepbookingcss {
+  font-size: 24px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.keepbookingtextcss {
+  text-align: center;
+  font-size: 16px;
+  margin: 20px 0px 40px 0px;
+}
+
+.keepbookingBtnCSS {
+  background-color: white;
+  color: black;
+  border: 1px solid black;
+  width: 275px;
+  height: 50px;
+  line-height: 50px;
+  font-size: 12px;
+}
+
+.keepbookingBtnCSS,
+.confirmcancellationBtnCSS {
+  width: 100%;
+  max-width: 275px;
+  height: 50px;
+  font-size: 12px;
+  text-align: center;
+}
+
+.confirmcancellationBtnCSS {
+  background-color: black;
+  color: white;
+  border: 1px solid black;
+  width: 275px;
+  height: 50px;
+  line-height: 50px;
+  font-size: 12px;
+  //margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 10px;
+}
+
+.confirmcancellationBtnCSS {
+  background-color: black;
+  color: white;
+  border: 1px solid black;
+  margin-left: 8px;
+}
+
+.utilityclosediv {
+  padding: 0% 0% 10% 0%;
+}
+
+.utilityclosebtn {
+  float: right;
+}
+
+.slds-modal__container {
+  margin: 0 auto;
+  width: 50%;
+  max-width: 40rem;
+  min-width: 20rem;
+  height: auto;
+  top: 5%;
+  height: auto;
+}

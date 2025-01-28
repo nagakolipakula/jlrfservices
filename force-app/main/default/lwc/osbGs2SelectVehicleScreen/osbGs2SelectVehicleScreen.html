@@ -1,0 +1,270 @@
+<!--
+  @description       : Component to display the vehicle
+  @author            : Mohammad
+  @group             : 
+  @last modified on  : 01-07-2025
+  @last modified by  : mandeep.mann@emeal.nttdata.com
+-->
+<template>
+	<c-osb-gs2-progress-tracker 
+        active-step-number={activeStepNumber}
+        onstepchange={handleStepChange}>
+    </c-osb-gs2-progress-tracker>
+	<template if:true={isSpinner}>
+		<div class="spinnercss">
+			<lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+		</div>
+	</template>
+	<lightning-layout multiple-rows>
+		<lightning-layout-item size="12" small-device-size="6" medium-device-size="6" large-device-size="6"
+			padding="around-small">
+			<div class="hselectVehiclecss slds-text-align_left">
+				<template if:false={IsNewBooking}>
+					Select vehicle
+				</template>
+				<template if:true={IsNewBooking}>
+					Vehicle details
+				</template>
+			</div>
+		</lightning-layout-item>
+		<lightning-layout-item size="12" small-device-size="6" medium-device-size="6" large-device-size="6"
+			padding="around-small">
+		</lightning-layout-item>
+	</lightning-layout>
+
+	<!--Vehicle Screen Start-->
+	<template if:false={IsNewBooking}>
+		<!--Empty vehicle Screen Start-->
+		<template if:true={isNoVehicle}>
+		<lightning-layout multiple-rows>
+			<lightning-layout-item class="novehiclebodycss slds-text-align_center" size="12" small-device-size="12" medium-device-size="12" large-device-size="12">
+			<p class="noupcomingbookingcss">YOU HAVE NO UPCOMING BOOKINGS AT THE MOMENT</p>
+			<p class="newappointmenttextcss">Once you have a new appointment, you will see it here.</p>
+			<div class="addnewbtndivcss">
+				<button data-id="addNewVehicleBtn" class="addNewVehicleBtnCSS" onclick={handleAddNewVehicle}><span class="plus">+</span> ADD NEW VEHICLE</button>
+			</div>
+			</lightning-layout-item>
+		</lightning-layout>
+		</template>
+		<!--Empty vehicle Screen End-->
+
+		<template if:false={isNoVehicle}>
+		<lightning-layout multiple-rows>
+			<lightning-layout-item size="12" small-device-size="6" medium-device-size="8" large-device-size="9"
+				padding="around-small">
+			</lightning-layout-item>
+			<lightning-layout-item size="12" small-device-size="6" medium-device-size="4" large-device-size="3"
+				padding="around-small">
+				<div data-id="ADD NEW VEHICLE" disabled={isEditBooking} class="addnewcarcss slds-text-align_right" onclick={handleAddNewVehicle}>
+					+ ADD NEW VEHICLE</div>
+			</lightning-layout-item>
+		</lightning-layout>
+		
+		<div>
+			<lightning-layout multiple-rows>
+				<template for:each={AllVehicleDetails} for:item="VehicleDetail" for:index="index">
+					<lightning-layout-item key={VehicleDetail.VehicleRegistrationNumber} size="12" small-device-size="6"
+						medium-device-size="12" large-device-size="4" padding="around-small" class="vehicleDetailCss">
+						<div style={VehicleDetail.carboxcardcss}
+							class="custom-box slds-box slds-p-around_medium slds-text-align_left" data-mid={index}>
+							<!--<div class="displaycarimg">
+								<img class="imgCSS" src={VehicleDetail.VehicleImage} />
+                    			</div> -->
+								<!--<div class="imgForTabCSS"> -->
+									<!--<p></p> -->
+									<img src={VehicleDetail.imageURL}/>
+								<!--</div>-->
+								<div class="displaycardetails">
+									<p class="ptextcss">{VehicleDetail.VehicleName}</p>
+									<p class="ptextcss">{VehicleDetail.VehicleRegistrationNumber}</p>
+									<div class="slds-grid slds-gutters ptextcss">
+										<div class="slds-col slds-size_1-of-2 slds-text-align_left">
+											<!-- <span>{VehicleDetail.Mileage} km</span> -->
+											<span>{VehicleDetail.Mileage}</span>
+										</div>
+										<div disabled={isEditBooking} class="slds-col slds-size_1-of-2 slds-text-align_right">
+											<span class="span2textcss" onclick={handleUpdateVehicleClick} data-mid={index} data-id={VehicleDetail.VehicleRegistrationNumber}>Update</span>
+										</div>
+									</div>
+									<div class="toppaddingcss slds-text-align_center">
+										<button data-id={VehicleDetail.VehicleRegistrationNumber} disabled={VehicleDetail.disabledselectvehiclebutton} style={VehicleDetail.selectVehicleBtnCss} class="SelectVehicleCss" onclick={handleSelectVehicleClick} data-mid={index}>{VehicleDetail.selectvehiclebuttonname}</button>
+									</div>
+								</div>
+						</div>
+					</lightning-layout-item>
+				</template>
+			</lightning-layout>
+		</div>
+		</template>
+		<!-- Select Service Start -->
+		<template if:true={selecteService}>
+			<div class="slecteservicecss slds-text-align_left">Select service</div>
+			<!--Accordion Start -->
+			<div class="accordion">
+				<template for:each={vehicleServiceIPData} for:item="selectedVehicleDetail" for:index="headerindex">
+					<details key={selectedVehicleDetail.id} open={selectedVehicleDetail.isOpenAccordion}>
+						<summary>{selectedVehicleDetail.category}</summary> 
+						<!-- Dynamically render category name -->
+						<div>
+							<lightning-layout multiple-rows>
+								<!-- Loop through the jobs within each category -->
+								<template for:each={selectedVehicleDetail.jobs} for:item="selectedVehicleJobDetail" for:index="childindex">
+									<lightning-layout-item key={selectedVehicleJobDetail.id} size="12"
+										small-device-size="6" medium-device-size="6" large-device-size="6"
+										padding="around-small">
+										<div class="serviceboxcss custom-box slds-box slds-p-around_medium slds-text-align_left"
+											data-mid={childindex}>
+											<div class="slds-grid slds-gutters ptextcss">
+												<div class="slds-col slds-size_10-of-12 slds-text-align_left">
+													<template if:true={selectedVehicleDetail.isSCHEDULEDSERVICES}>
+														<p class="servicenamefirstdesccss">{selectedVehicleJobDetail.descriptionFirstLine}</p>
+														<p class="servicenameseconddesccss">{selectedVehicleJobDetail.descriptionSecondLine}</p>
+													</template>
+													<template if:false={selectedVehicleDetail.isSCHEDULEDSERVICES}>
+														<p class="servicenamecss">{selectedVehicleJobDetail.description}</p>
+													</template>
+												</div>
+												<div class="slds-col slds-size_2-of-12 slds-text-align_right">
+													<span class="spancheckboxcss" data-id={childindex}>
+														<template if:true={selectedVehicleDetail.isSCHEDULEDSERVICES}>
+															<!-- Render Radio Buttons for SCHEDULED SERVICES -->
+															<input 
+																checked={selectedVehicleJobDetail.selectedServiceVal} 
+																class="checkboxcss" 
+																type="radio" 
+																name="scheduleService" 
+																value={selectedVehicleJobDetail.id} 
+																data-id={childindex} 
+																data-mid={headerindex} 
+																data-name={selectedVehicleDetail.category} 
+																data-serviceheaderid={selectedVehicleDetail.id} 
+																onclick={handleServiceRadioSelection}>
+														</template>
+														<template if:false={selectedVehicleDetail.isSCHEDULEDSERVICES}>
+															<!-- Render Checkboxes for Other Categories -->
+															<input 
+																checked={selectedVehicleJobDetail.selectedServiceVal} 
+																class="checkboxcss" 
+																type="checkbox" 
+																value={selectedVehicleJobDetail.id} 
+																data-id={childindex} 
+																data-mid={headerindex} 
+																data-name={selectedVehicleDetail.category} 
+																data-serviceheaderid={selectedVehicleDetail.id} 
+																onclick={handleServiceCheckboxSelection}>
+														</template>
+													</span>
+												</div>
+											</div>
+										</div>
+									</lightning-layout-item>
+								</template>
+							</lightning-layout>
+						</div>
+					</details>
+				</template>
+			</div>
+			<!--Accordion End -->
+		</template>
+	<!--	<div slot="footer" class="slds-clearfix footerCSS">
+			<button data-id="BackToMyBookings" class="BackToMyBookingsBtnCSS slds-float_left" onclick={handleBackToMyBookingsClick}>	&lt; EXIT AND DISCARD</button>
+			<button data-id="NextBtn" style={nextBtnCss} disabled={disabledNextbutton} class="NextBtnCSS slds-float_right" onclick={handleNextBtnClick}>NEXT</button>
+		</div>  
+		<template if:true={goBacktoMyBookings}>
+			<section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+				<div class="slds-modal__container">
+					<div class="slds-modal__content slds-p-around_medium">
+						<div class="utilityclosediv">
+							<button class="utilityclosebtn slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={handleCancelBookingClose}>
+								<lightning-icon icon-name="utility:close" alternative-text="close" size="small"></lightning-icon>
+								<span class="slds-assistive-text">Close</span>
+							</button>
+						</div>
+						<div class="textbodycss">
+							<p class="keepbookingcss">ARE YOU SURE YOU WANT TO LEAVE?</p>
+							<p class="keepbookingtextcss">You will lose your current progress</p>
+						</div>
+						<div class="btndivcss slds-text-align_center slds-clearfix">
+							<button data-id="CancelBtnCSS" class="keepbookingBtnCSS" onclick={handleKeepBookingClose}>KEEP BOOKING</button>
+							<button data-id="SaveBtnCSS" class="confirmcancellationBtnCSS" onclick={handleExitNDiscardConfirmation}>EXIT AND DISCARD</button>
+						</div>
+					</div>
+				</div>
+			</section>
+			<div class="slds-backdrop slds-backdrop_open"></div>
+    	</template>  -->
+	</template>
+	<!--Vehicle Screen End-->
+	<!--Vehicle New Booking Screen Start-->
+	<template if:true={IsNewBooking}>
+		<lightning-layout multiple-rows>
+		<lightning-layout-item size="12" small-device-size="6" medium-device-size="12" large-device-size="9" class="newBookingCSS">
+			
+		<lightning-layout multiple-rows>
+			<lightning-layout-item size="12" small-device-size="6" medium-device-size="6" large-device-size="6"
+				padding="around-small">
+				<div class="slds-text-align_left inputboxcss">
+					<abbr  class="slds-required" title="Required">*</abbr>
+					<label>VIN number</label>
+					<input disabled={isUpdateVehicle} data-name="VIN" onchange={handleNeworUpdateVehicleInput} type="text" id="VIN" name="VIN" value={updateVehicleDetails.VIN}>
+					<template if:true={VINvalidation}>
+						<label class="errorMsgCSS">Error: VIN number is required.</label>
+					</template>
+				</div>
+			</lightning-layout-item>
+			<lightning-layout-item size="12" small-device-size="6" medium-device-size="6" large-device-size="6"
+				padding="around-small">
+				<div class="slds-text-align_left selectoptioncss">
+					<abbr  class="slds-required" title="Required">*</abbr>
+					<label>Model</label>
+					<select disabled={isUpdateVehicle} name="fullwidth 1" id="box__1" data-name="modelname" onchange={handleNeworUpdateVehicleInput}>
+                    <option value="" disabled selected>Select model</option>
+                    <template for:each={modelOptions} for:item="modelname">
+                            <option key={modelname.value} value={modelname.value} selected={modelname.selectedModelValue}>{modelname.value}</option>
+                    </template>
+                    </select>
+					<template if:true={modelvalidation}>
+						<label class="errorMsgCSS">Error: Model is required.</label>
+					</template>
+				</div>
+			</lightning-layout-item>
+			<lightning-layout-item size="12" small-device-size="6" medium-device-size="6" large-device-size="6"
+				padding="around-small">
+				<div class="slds-text-align_left inputboxcss">
+					<abbr  class="slds-required" title="Required">*</abbr>
+					<label>License plate</label>
+					<input disabled={isUpdateVehicle} data-name="Licenseplate" onchange={handleNeworUpdateVehicleInput} type="text" id="Licenseplate" name="Licenseplate" value={updateVehicleDetails.Licenseplate}>
+					<template if:true={Licenseplatevalidation}>
+						<label class="errorMsgCSS">Error: License plate is required.</label>
+					</template>
+				</div>
+			</lightning-layout-item>
+			<lightning-layout-item size="12" small-device-size="6" medium-device-size="6" large-device-size="6"
+				padding="around-small">
+				<div class="slds-text-align_left inputboxcss">
+					<abbr  class="slds-required" title="Required">*</abbr>
+					<label>Mileage (KM)</label>
+					<input data-name="Mileage" onkeyup={handleMileageInputVal} onchange={handleMileageInputVal} type="number" min="0" id="Mileage" name="Mileage" value={updateVehicleDetails.Mileage}>
+					<template if:true={Mileagevalidation}>
+						<label class="errorMsgCSS">Error: Mileage is required.</label>
+					</template>
+					<template if:true={MileagePositivevalidation}>
+						<label class="errorMsgCSS">Error: Please enter positive value only.</label>
+					</template>
+				</div>
+			</lightning-layout-item>
+			<lightning-layout-item size="12" small-device-size="12" medium-device-size="12" large-device-size="8"
+				padding="around-small">
+				<div class="slds-text-align_left slds-clearfix newBookingfooterCSS">
+					<button data-id="CancelBtnCSS" class="CancelBtnCSS slds-float_left" onclick={handleCancelNewBookingClick}>CANCEL</button>
+					<button data-id="SaveBtnCSS" class="SaveBtnCSS slds-float_right" onclick={handleSaveNewBookingClick}>SAVE</button>
+				</div>
+			</lightning-layout-item> 
+		</lightning-layout>
+		</lightning-layout-item>
+		<lightning-layout-item size="12" small-device-size="6" medium-device-size="2" large-device-size="3" padding="around-small"></lightning-layout-item>
+		</lightning-layout>
+	</template>
+	<!--Vehicle New Booking Screen End-->
+ <c-osb-gs2-Display-Footer></c-osb-gs2-Display-Footer>
+</template>

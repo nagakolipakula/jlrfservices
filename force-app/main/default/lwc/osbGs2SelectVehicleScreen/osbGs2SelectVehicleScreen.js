@@ -46,43 +46,41 @@ export default class osbGs2SelectVehicleScreen extends OmniscriptBaseMixin(Light
 
     connectedCallback() {
         this._actionUtil = new OmniscriptActionCommonUtil();
-        
+    
         const OmniJsonDatas = this.omniJsonData || {};
         console.log('ConnectedCallback -> Full OmniJsonData:', JSON.stringify(OmniJsonDatas));
+    
         var { actionName, selectedVehicle, selectedVehicleService, selectedVehicleAllService } = OmniJsonDatas;
     
-        // this.AllVehicleDetails = (this.omniJsonData?.Vehicle || []).filter(vehicle => vehicle != null);
-        if(this.omniJsonData.Vehicle !== undefined && this.omniJsonData.Vehicle.length>0){
-            this.AllVehicleDetails = JSON.parse(JSON.stringify(this.omniJsonData.Vehicle));
-        }
         if (selectedVehicleAllService) {
             this.selectedVehicleService = JSON.parse(JSON.stringify(selectedVehicleAllService));
         } else {
             this.selectedVehicleService = {};
         }
-        
-        this.selectedVehicle = selectedVehicle ? JSON.parse(JSON.stringify(selectedVehicle)) : {};
+    
         this.vehicleServiceIPData = selectedVehicleAllService ? JSON.parse(JSON.stringify(selectedVehicleAllService)) : [];
     
-        // console.log('ConnectedCallback -> Selected Vehicle:', JSON.stringify(this.selectedVehicle, null, 2));
-        // console.log('ConnectedCallback -> Selected Vehicle Service:', JSON.stringify(this.selectedVehicleService, null, 2));
-        // console.log('ConnectedCallback -> Selected Vehicle All Service:', JSON.stringify(this.selectedVehicleAllService, null, 2));
-
-        
-        if (this.AllVehicleDetails !== undefined && this.AllVehicleDetails.length>0) {
-            this.AllVehicleDetails = this.AllVehicleDetails.map((vehicle, index) => 
-                this.processVehicle(vehicle, actionName, selectedVehicle?.VehicleRegistrationNumber, this.selectedVehicle, this.selectedVehicleService, index)
-            );
+        if (this.omniJsonData.Vehicle !== undefined && this.omniJsonData.Vehicle.length > 0) {
+            this.AllVehicleDetails = this.omniJsonData.Vehicle.map((vehicle, index) => {
+                if (selectedVehicle && selectedVehicle.VehicleRegistrationNumber === vehicle.VehicleRegistrationNumber) {
+                    return this.highlightVehicle(vehicle, index);
+                }
+                return this.resetVehicle(vehicle, index);
+            });
     
-            this.finalizeVehicleSelection();
+            this.selectedVehicle = selectedVehicle ? JSON.parse(JSON.stringify(selectedVehicle)) : null;
     
-            if (this.selectedVehicle?.VIN) {
+            if (this.selectedVehicle) {
                 this.restoreSelectedServices();
             }
         } else {
             this.handleNoVehiclesAvailable();
         }
-    }       
+    
+        console.log('ConnectedCallback -> Selected Vehicle:', JSON.stringify(this.selectedVehicle, null, 2));
+        console.log('ConnectedCallback -> Selected Vehicle Service:', JSON.stringify(this.selectedVehicleService, null, 2));
+        console.log('ConnectedCallback -> All Vehicles:', JSON.stringify(this.AllVehicleDetails, null, 2));
+    }     
     
     restoreSelectedServices() {
         // console.log('Restoring selected services from connectedCallback...');

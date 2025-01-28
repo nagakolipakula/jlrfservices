@@ -1,4 +1,4 @@
-import { LightningElement } from 'lwc';
+import { LightningElement, api } from 'lwc';
 import GOL_Lease from '@salesforce/label/c.GOL_Lease';
 import GOL_monthly from '@salesforce/label/c.GOL_monthly';
 import GOL_Final_price_with_trade_in from '@salesforce/label/c.GOL_Final_price_with_trade_in';
@@ -19,6 +19,8 @@ import { FlowAttributeChangeEvent, FlowNavigationNextEvent, FlowNavigationBackEv
 
 
 export default class gol_FinanceFoundationQuoteView extends LightningElement {
+    @api financeInformationId;
+    @api ContactId;
     label = {
         GOL_Lease,
         GOL_monthly,
@@ -37,7 +39,20 @@ export default class gol_FinanceFoundationQuoteView extends LightningElement {
         GOL_Modify_button
     }
 
-    handleBackToFianceCalculator() {
-        this.dispatchEvent(new FlowNavigationNextEvent());
+    connectedCallback () {
+        console.log('financeInformationId', this.financeInformationId);
+        console.log('ContactId', this.ContactId);
     }
+
+    handleBackToFianceCalculator() {
+        contactId = this.ContactId;
+        this.dispatchEvent(new FlowNavigationNextEvent(contactId));
+        // this.dispatchEvent(new FlowNavigationBackEvent(contactId));));
+        // this.dispatchEvent(new CustomEvent('modify', {
+        //     detail: { contactId: this.ContactId || 'Static Text' },
+        //     bubbles: true,
+        //     composed: true
+        // }));
+        // console.log('modify event fired with ContactId:', this.ContactId || 'Static Text');
+    }    
 }

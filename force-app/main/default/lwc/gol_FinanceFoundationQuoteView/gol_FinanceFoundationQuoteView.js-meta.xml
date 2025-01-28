@@ -8,4 +8,17 @@
 		<target>lightning__RecordPage</target>
         <target>lightning__FlowScreen</target>
 	</targets>
+	<targetConfigs>
+        <targetConfig targets="lightning__FlowScreen">
+			<property 
+				name="financeInformationId" 
+				type="String"
+				label="Finance Information Id"/>
+			<property 
+				name="ContactId" 
+				type="String"
+				label="Contact Id"/>
+
+        </targetConfig>
+    </targetConfigs>
 </LightningComponentBundle>

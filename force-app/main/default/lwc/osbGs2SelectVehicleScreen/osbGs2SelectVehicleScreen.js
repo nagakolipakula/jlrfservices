@@ -54,15 +54,14 @@ export default class osbGs2SelectVehicleScreen extends OmniscriptBaseMixin(Light
         // this.AllVehicleDetails = (this.omniJsonData?.Vehicle || []).filter(vehicle => vehicle != null);
         if(this.omniJsonData.Vehicle !== undefined && this.omniJsonData.Vehicle.length>0){
             this.AllVehicleDetails = JSON.parse(JSON.stringify(this.omniJsonData.Vehicle));
-            console.log('allvehicle', JSON.stringify(this.AllVehicleDetails, null, 2));
-        } 
+        }
         if (selectedVehicleAllService) {
             this.selectedVehicleService = JSON.parse(JSON.stringify(selectedVehicleAllService));
         } else {
             this.selectedVehicleService = {};
         }
         
-        // this.selectedVehicle = selectedVehicle ? JSON.parse(JSON.stringify(selectedVehicle)) : {};
+        this.selectedVehicle = selectedVehicle ? JSON.parse(JSON.stringify(selectedVehicle)) : {};
         this.vehicleServiceIPData = selectedVehicleAllService ? JSON.parse(JSON.stringify(selectedVehicleAllService)) : [];
     
         // console.log('ConnectedCallback -> Selected Vehicle:', JSON.stringify(this.selectedVehicle, null, 2));

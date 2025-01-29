@@ -1,63 +1,86 @@
 <template>
+    <div class="header">
+        <h1 class="vehicle-title">RANGE ROVER VELAR DYNAMIC SE</h1>
+        <p class="vehicle-subtitle"><strong>Hybride Électrique PHEV</strong> &nbsp;&nbsp;&nbsp; 90 700€</p>
+    </div>
+    <div class="finance-section">
+        <h2 class="finance-title"><strong>{label.GOL_Finance_Calculation}</strong></h2>
+    </div>
     <div class="id-container">
         <span class="id-label">{label.GOL_JLR_Id} {ContactId}</span>
     </div>
-    <div class="container">
-        <div class="summary-card">
-            <div class="lease-info">
-                <p class="lease-title">
-                    <strong>{label.GOL_Lease}</strong> € 5,000 {label.GOL_monthly}
+    <div class="summary-and-button-container">
+        <div class="container">
+            <div class="summary-card">
+                <div class="lease-info">
+                    <p class="lease-title">
+                        <strong>{label.GOL_Lease}</strong> € 5,000 {label.GOL_monthly}
+                    </p>
+                    <div class="vat-toggle-row">
+                        <input type="checkbox" id="vatToggle" />
+                        <label for="vatToggle" class="vat-label">{label.GOL_VAT_label}</label>
+                    </div>
+                </div>
+                <div class="details">
+                    <div class="detail-row">
+                        <span>{label.GOL_Final_price_with_trade_in}</span>
+                        <span>€ 500,000</span>
+                    </div>
+                    <div class="detail-row">
+                        <span>{label.GOL_Deposits}</span>
+                        <span>€ 500,000</span>
+                    </div>
+                    <div class="detail-row">
+                        <span>{label.GOL_Agreement_duration}</span>
+                        <span>36 months</span>
+                    </div>
+                    <div class="detail-row">
+                        <span>{label.GOL_Mileage_per_annum}</span>
+                        <span>10,000 km</span>
+                    </div>
+                    <div class="detail-row">
+                        <span>{label.GOL_Effective_rate}</span>
+                        <span>1.4%</span>
+                    </div>
+                    <div class="detail-row">
+                        <span>{label.GOL_Nominal_rate}</span>
+                        <span>1.4%</span>
+                    </div>
+                    <div class="detail-row">
+                        <span>{label.GOL_Management_fees}</span>
+                        <span>€ 500,000</span>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="total-row">
+                        <span>{label.GOL_Total_lease_amount}</span>
+                        <span>€ 500,000</span>
+                    </div>
+                </div>
+                <div class="monthly-payment">
+                    <h3>{label.GOL_Monthly_payment}</h3>
+                    <p class="payment-amount">€ 5,000</p>
+                </div>
+                <p class="description">
+                    {label.GOL_Lorem_Text}
                 </p>
-                <div class="vat-toggle-row">
-                    <input type="checkbox" id="vatToggle" />
-                    <label for="vatToggle" class="vat-label">{label.GOL_VAT_label}</label>
+                <div class="modify-button">
+                    <button type="button" class="slds-button slds-button_neutral" onclick={handleBackToFianceCalculator}>{label.GOL_Modify_button}</button>
                 </div>
             </div>
-            <div class="details">
-                <div class="detail-row">
-                    <span>{label.GOL_Final_price_with_trade_in}</span>
-                    <span>€ 500,000</span>
-                </div>
-                <div class="detail-row">
-                    <span>{label.GOL_Deposits}</span>
-                    <span>€ 500,000</span>
-                </div>
-                <div class="detail-row">
-                    <span>{label.GOL_Agreement_duration}</span>
-                    <span>36 months</span>
-                </div>
-                <div class="detail-row">
-                    <span>{label.GOL_Mileage_per_annum}</span>
-                    <span>10,000 km</span>
-                </div>
-                <div class="detail-row">
-                    <span>{label.GOL_Effective_rate}</span>
-                    <span>1.4%</span>
-                </div>
-                <div class="detail-row">
-                    <span>{label.GOL_Nominal_rate}</span>
-                    <span>1.4%</span>
-                </div>
-                <div class="detail-row">
-                    <span>{label.GOL_Management_fees}</span>
-                    <span>€ 500,000</span>
-                </div>
-                <div class="divider"></div>
-                <div class="total-row">
-                    <span>{label.GOL_Total_lease_amount}</span>
-                    <span>€ 500,000</span>
-                </div>
-            </div>
-            <div class="monthly-payment">
-                <h3>{label.GOL_Monthly_payment}</h3>
-                <p class="payment-amount">€ 5,000</p>
-            </div>
-            <p class="description">
-                {label.GOL_Lorem_Text}
-            </p>
-            <div class="modify-button">
-                <button type="button" class="slds-button slds-button_neutral" onclick={handleBackToFianceCalculator}>{label.GOL_Modify_button}</button>
+        </div>
+        <div class="alternative-finance">
+            <h2 class="alternative-title"><strong>{label.GOL_Alternative_finance_calculation}</strong></h2>
+            <div class='custom-container'>
+                <button class="custom-button" onclick={handleNavigationBack}>
+                <span class="icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                        </svg>
+                </span>{label.GOL_Open_New_Calculator_Button}
+            </button>
             </div>
         </div>
     </div>
+
 </template>

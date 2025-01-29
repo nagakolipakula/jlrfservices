@@ -1,3 +1,39 @@
+.header {
+    margin-bottom: 40px;
+    margin-top: 50px;
+    text-align: left;
+}
+
+.vehicle-title {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0;
+    text-transform: uppercase;
+    font-family: 'AvenirNextRegular';
+    letter-spacing: 2px;
+}
+
+.vehicle-subtitle {
+    font-size: 14px;
+    margin: 4px 0;
+    color: #555;
+    font-family: 'AvenirNextRegular';
+    letter-spacing: 2px;
+}
+
+.finance-section {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 16px;
+}
+
+.finance-title {
+    font-size: 18px;
+    margin-bottom: 30px;
+    font-family: 'AvenirNextRegular';
+    letter-spacing: 2px;
+}
+
 .id-container {
     margin-bottom: 10px;
     font-family: Arial, sans-serif;
@@ -39,19 +75,19 @@
 }
 
 .vat-toggle-row {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  margin-top: 10px; 
-  gap: 10px; 
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top: 10px;
+    gap: 10px;
 }
 
 .vat-toggle-row .vat-label {
-  margin: 0; 
-  font-size: 14px; 
-  font-weight: bold; 
-  color: #000;
-  margin-top: -16px;
+    margin: 0;
+    font-size: 14px;
+    font-weight: bold;
+    color: #000;
+    margin-top: -16px;
 }
 
 .details {
@@ -152,4 +188,61 @@
 .divider {
     border: 0.5px solid rgba(74, 79, 84, 0.3);
     margin: 20px 0;
+}
+
+.summary-and-button-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 40px;
+}
+
+.alternative-finance {
+    width: 40%;
+    text-align: center;
+    margin-top: -45px;
+}
+
+.alternative-title {
+    font-size: 18px;
+    margin-bottom: 62px;
+    text-align: left;
+    margin-top: -46px;
+    font-family: 'AvenirNextRegular';
+    letter-spacing: 2px;
+}
+
+.custom-container {
+    text-align: center;
+    margin-top: -6px;
+}
+
+.custom-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 530px;
+    height: 46px;
+    padding: 16px 24px 16px 24px;
+    gap: 9px;
+    border-radius: 4px 0px 0px 0px;
+    border: 1px solid black;
+    opacity: 0px;
+    background-color: #fff;
+    font-family: 'Avenir Next', sans-serif;;
+    font-size: 10px;
+    letter-spacing: 2px;
+    font-weight: bold;
+}
+
+.custom-button .icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.custom-button .icon svg {
+    width: 25px;
+    height: 30px;
+    stroke-width: 1.5;
 }

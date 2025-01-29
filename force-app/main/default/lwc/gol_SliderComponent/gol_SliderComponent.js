@@ -10,7 +10,9 @@ export default class gol_sliderComponent extends LightningElement {
         GOL_Downpayment,
         GOL_Currency_symbol
     }
-
+    connectedCallback(){
+        console.log('second child slider connectedCallback call');
+    }
     handleInputChange(event) {
         const value = this.parseInputValue(event.target.value);
         if (this.isValueInRange(value)) {
@@ -25,11 +27,11 @@ export default class gol_sliderComponent extends LightningElement {
     }
 
     get formattedSliderValue() {
-        return (this.sliderValue).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        return (this.sliderValue).toLocaleString('fr-FR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
 
     get formattedMaxValue() {
-        return this.maxValue.toLocaleString('en-US');
+        return this.maxValue.toLocaleString('fr-FR');
     }
 
     parseInputValue(input) {

@@ -148,3 +148,8 @@
 .vat-toggle-row input[type="checkbox"]:checked::before {
     left: 22px;
 }
+
+.divider {
+    border: 0.5px solid rgba(74, 79, 84, 0.3);
+    margin: 20px 0;
+}

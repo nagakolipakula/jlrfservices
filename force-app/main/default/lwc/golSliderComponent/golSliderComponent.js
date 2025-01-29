@@ -71,15 +71,15 @@ export default class golSliderComponent extends LightningElement {
 
     get formattedSliderValue() {
         if (this.unit === '€') {
-            return `${(this.sliderValue || 0).toLocaleString('en-US', { 
+            return `${(this.sliderValue || 0).toLocaleString('fr-FR', { 
                 minimumFractionDigits: 2, 
                 maximumFractionDigits: 2 
             })}`;
         }
         // if (this.unit === 'km') {
-        //     return `${Math.round(this.sliderValue || 0).toLocaleString('en-US')} ${this.unit}`;
+        //     return `${Math.round(this.sliderValue || 0).toLocaleString('fr-FR')} ${this.unit}`;
         // }
-        return `${Math.round(this.sliderValue || 0).toLocaleString('en-US')}`;
+        return `${Math.round(this.sliderValue || 0).toLocaleString('fr-FR')}`;
     }
 
     get formattedMaxValue() {
@@ -88,12 +88,12 @@ export default class golSliderComponent extends LightningElement {
             return '';
         }
         if (this.unit === 'km') {
-            return `${this.maxValue.toLocaleString('en-US')} ${this.unit}`;
+            return `${this.maxValue.toLocaleString('fr-FR')} ${this.unit}`;
         }
         if (this.unit === '€') {
-            return `${this.maxValue.toLocaleString('en-US')} ${this.unit}`;
+            return `${this.maxValue.toLocaleString('fr-FR')} ${this.unit}`;
         }
-        return `${this.maxValue.toLocaleString('en-US')} months`;
+        return `${this.maxValue.toLocaleString('fr-FR')} months`;
     }
 
     get formattedMinValue() {
@@ -102,12 +102,12 @@ export default class golSliderComponent extends LightningElement {
             return '';
         }
         if (this.unit === 'km' || this.unit === 'months') {
-            return `${this.minValue.toLocaleString('en-US')} ${this.unit}`;
+            return `${this.minValue.toLocaleString('fr-FR')} ${this.unit}`;
         }
         if (this.unit === '€') {
-            return `${this.unit} ${this.minValue.toLocaleString('en-US')}`;
+            return `${this.unit} ${this.minValue.toLocaleString('fr-FR')}`;
         }
-        return `${this.minValue.toLocaleString('en-US')} months`;
+        return `${this.minValue.toLocaleString('fr-FR')} months`;
     }
 
     updateSliderBackground() {

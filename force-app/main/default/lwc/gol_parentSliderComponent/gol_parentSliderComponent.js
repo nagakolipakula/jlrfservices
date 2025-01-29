@@ -9,7 +9,7 @@ export default class gol_parentSliderComponent extends LightningElement {
   @api response;
   @api serializedData;
   @api quoteExternalId;
-    ContactId;
+  @api ContactId;
   //   isSubmitted = false;
   sliders = [];
   namesWithIds = [];
@@ -23,7 +23,7 @@ export default class gol_parentSliderComponent extends LightningElement {
     GOL_Finance_Insurance_and_Services
   }
 
-  connectedCallback() {
+    connectedCallback() {
     console.log('ContactId in connectedCallback:', this.ContactId);
     try {
       if (!this.response) {
@@ -38,6 +38,15 @@ export default class gol_parentSliderComponent extends LightningElement {
       console.error('Error in connectedCallback:', error.message);
       console.error('Raw Response:', this.response);
     }
+  }
+
+  handleModify(event) {
+    const contactID = event.detail;
+    console.log('ContactId in handleModify:', contactID);
+  }
+
+  renderedCallback() {
+    console.log('ContactId in rendered Callback:', this.ContactId);
   }
 
   //Radio buttons
@@ -289,7 +298,7 @@ export default class gol_parentSliderComponent extends LightningElement {
     const serializedData = {
       quoteId: this.quoteExternalId,
       product: {
-          id: providerData.id,
+          fullId: providerData.id,
           name: providerData.name,
           description: providerData.description,
           selected: true,
@@ -328,7 +337,7 @@ export default class gol_parentSliderComponent extends LightningElement {
             name: 'EstándarEmpresa-Seguro protección pago',
             description: 'EstándarEmpresa-Seguro protección pago',
             id: '7037A',
-            monthlyCost: 127400.13,
+            // monthlyCost: 127400.13,
             selected: true
         }
     ];
@@ -342,8 +351,8 @@ export default class gol_parentSliderComponent extends LightningElement {
             step: slider.step,
             defaultValue: slider.defaultValue,
             minimum: slider.min,
-            maximum: slider.max,
             unit: slider.unit,
+            maximum: slider.max,
             description: slider.label
         };
     });

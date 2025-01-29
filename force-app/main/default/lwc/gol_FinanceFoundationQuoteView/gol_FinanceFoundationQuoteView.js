@@ -44,14 +44,14 @@ export default class gol_FinanceFoundationQuoteView extends LightningElement {
         console.log('ContactId', this.ContactId);
     }
 
-    //ContactId need to pass into gol_parentSliderComponent using events
     handleBackToFianceCalculator() {
-        console.log('Dispatching contact Id', this.ContactId);
-        const flowNavigationEvent = new FlowNavigationNextEvent({
-            detail: {
-                contactId: this.ContactId  
-            }
-        });
+        console.log('Dispatching ContactId and FlowNavigationNextEvent', this.ContactId);
+        this.dispatchEvent(new FlowAttributeChangeEvent('ContactId', this.ContactId));
+        this.handleNavigationBack();
+    }
+    
+    handleNavigationBack(){
+        const flowNavigationEvent = new FlowNavigationNextEvent();
         this.dispatchEvent(flowNavigationEvent);
     }
 }

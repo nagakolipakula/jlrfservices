@@ -24,6 +24,10 @@
 				name="quoteExternalId" 
 				type="String"
 				label="Quote External Id"/>
+			<property 
+				name="ContactId" 
+				type="String"
+				label="Contact Id"/>
         </targetConfig>
     </targetConfigs>
 </LightningComponentBundle>

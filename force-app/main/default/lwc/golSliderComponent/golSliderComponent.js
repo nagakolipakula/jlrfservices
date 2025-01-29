@@ -77,9 +77,9 @@ export default class golSliderComponent extends LightningElement {
             })}`;
         }
         // if (this.unit === 'km') {
-        //     return `${Math.round(this.sliderValue || 0).toLocaleString('fr-FR')} ${this.unit}`;
+        //     return `${Math.round(this.sliderValue || 0)} ${this.unit}`;
         // }
-        return `${Math.round(this.sliderValue || 0).toLocaleString('fr-FR')}`;
+        return `${Math.round(this.sliderValue || 0)}`;
     }
 
     get formattedMaxValue() {
@@ -88,12 +88,12 @@ export default class golSliderComponent extends LightningElement {
             return '';
         }
         if (this.unit === 'km') {
-            return `${this.maxValue.toLocaleString('fr-FR')} ${this.unit}`;
+            return `${this.maxValue} ${this.unit}`;
         }
         if (this.unit === '€') {
-            return `${this.maxValue.toLocaleString('fr-FR')} ${this.unit}`;
+            return `${this.maxValue} ${this.unit}`;
         }
-        return `${this.maxValue.toLocaleString('fr-FR')} months`;
+        return `${this.maxValue} months`;
     }
 
     get formattedMinValue() {
@@ -102,12 +102,12 @@ export default class golSliderComponent extends LightningElement {
             return '';
         }
         if (this.unit === 'km' || this.unit === 'months') {
-            return `${this.minValue.toLocaleString('fr-FR')} ${this.unit}`;
+            return `${this.minValue} ${this.unit}`;
         }
         if (this.unit === '€') {
-            return `${this.unit} ${this.minValue.toLocaleString('fr-FR')}`;
+            return `${this.unit} ${this.minValue}`;
         }
-        return `${this.minValue.toLocaleString('fr-FR')} months`;
+        return `${this.minValue} months`;
     }
 
     updateSliderBackground() {

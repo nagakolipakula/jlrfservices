@@ -77,7 +77,7 @@ export default class gol_parentSliderComponent extends LightningElement {
     if (key.includes('Mileage')) return units.mileageUnit === 'KILOMETERS' ? 'km' : '';
     if (key.includes('Credit')) {
       console.log('Checking units.creditTimeUnit:', units.creditTimeUnit);
-      if (units.creditTimeUnit === 'MONTHLY') {
+      if (units.creditTimeUnit === 'MONTH') {
         return 'months';
       }
     }

@@ -25,9 +25,9 @@ export default class gol_parentSliderComponent extends LightningElement {
     GOL_Finance_Insurance_and_Services
   }
 
-    connectedCallback() {
-    console.log('First ContactId in connectedCallback:', this.ContactId);
-    console.log('Second ContactId in connectedCallback:', this.ContactId2);
+  connectedCallback() {
+  console.log('First ContactId in connectedCallback:', this.ContactId);
+  console.log('Second ContactId in connectedCallback:', this.ContactId2);
     try {
       if (!this.response) {
         console.warn('Response is empty or not defined');

@@ -48,6 +48,10 @@ export default class golSliderComponent extends LightningElement {
         return this.unit === 'km';
     }
 
+    get isDependentMileageSlider() {
+        return this.labelName === 'Kilométrage annuel';
+    }
+
     handleInputChange(event) {
         let value = parseFloat(event.target.value, 10);
         console.log('MS Slider Component value1 '+value);

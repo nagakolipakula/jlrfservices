@@ -10,7 +10,15 @@
                     type="text"
                     value={formattedSliderValue}
                     onchange={handleInputChange}
-                    class="input-box" />
+                    class="input-box"
+                    if:false={isDependentMileageSlider}/>
+                <template if:true={isDependentMileageSlider}>
+                    <input
+                        type="text"
+                        value={formattedSliderValue}
+                        class="input-box"
+                        readonly />
+                </template>
                 <template if:true={rangeUnits}>
                     <span class="mileage-units">{unit}</span>
                 </template>

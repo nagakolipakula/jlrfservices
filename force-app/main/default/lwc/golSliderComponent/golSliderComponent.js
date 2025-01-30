@@ -92,7 +92,7 @@ export default class golSliderComponent extends LightningElement {
         }
 
         if (this.unit === 'km') {
-            return `${Math.round(this.sliderValue || 0)} ${this.unit}`;
+            return `${Math.round(this.sliderValue || 0)}`;
         //    return `${(this.sliderValue || 0).toLocaleString(LOCALE, { 
         //     minimumFractionDigits: 2, 
         //     maximumFractionDigits: 2 
@@ -107,7 +107,7 @@ export default class golSliderComponent extends LightningElement {
             return '';
         }
         if (this.unit === 'km') {
-            return `${this.maxValue}`;
+            return `${this.maxValue} ${this.unit}`;
             // return `${(this.maxValue || 0).toLocaleString(LOCALE, { 
             //     minimumFractionDigits: 2, 
             //     maximumFractionDigits: 2 

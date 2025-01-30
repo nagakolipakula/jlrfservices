@@ -71,7 +71,7 @@
         <div class="alternative-finance">
             <h2 class="alternative-title"><strong>{label.GOL_Alternative_finance_calculation}</strong></h2>
             <div class='custom-container'>
-                <button class="custom-button" onclick={handleNavigationBack}>
+                <button class="custom-button" onclick={handleNavigationBackFromNewCalculator}>
                 <span class="icon">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
                             <line x1="12" y1="5" x2="12" y2="19"></line>
@@ -79,6 +79,9 @@
                         </svg>
                 </span>{label.GOL_Open_New_Calculator_Button}
             </button>
+            </div>
+            <div class="id-container">
+                <span class="id-label">{label.GOL_JLR_Id} {ContactId2}</span>
             </div>
         </div>
     </div>

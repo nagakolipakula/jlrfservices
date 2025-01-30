@@ -10,6 +10,7 @@ export default class gol_parentSliderComponent extends LightningElement {
   @api serializedData;
   @api quoteExternalId;
   @api ContactId;
+  @api ContactId2;
   //   isSubmitted = false;
   sliders = [];
   namesWithIds = [];
@@ -24,7 +25,8 @@ export default class gol_parentSliderComponent extends LightningElement {
   }
 
     connectedCallback() {
-    console.log('ContactId in connectedCallback:', this.ContactId);
+    console.log('First ContactId in connectedCallback:', this.ContactId);
+    console.log('Second ContactId in connectedCallback:', this.ContactId2);
     try {
       if (!this.response) {
         console.warn('Response is empty or not defined');

@@ -24,6 +24,7 @@ import { FlowAttributeChangeEvent, FlowNavigationNextEvent, FlowNavigationBackEv
 export default class gol_FinanceFoundationQuoteView extends LightningElement {
     @api financeInformationId;
     @api ContactId;
+    @api ContactId2;
     label = {
         GOL_Lease,
         GOL_monthly,
@@ -53,11 +54,21 @@ export default class gol_FinanceFoundationQuoteView extends LightningElement {
     handleBackToFianceCalculator() {
         console.log('Dispatching ContactId and FlowNavigationNextEvent', this.ContactId);
         this.dispatchEvent(new FlowAttributeChangeEvent('ContactId', this.ContactId));
+        this.dispatchEvent(new FlowAttributeChangeEvent('ContactId2', this.ContactId2));
+        console.log('ContactId1', this.ContactId1);
+        console.log('ContactId2', this.ContactId2);
         this.handleNavigationBack();
     }
     
     handleNavigationBack(){
         const flowNavigationEvent = new FlowNavigationNextEvent();
         this.dispatchEvent(flowNavigationEvent);
+    }
+
+    handleNavigationBackFromNewCalculator(){
+        const flowNavigationEvent = new FlowNavigationNextEvent();
+        this.dispatchEvent(new FlowAttributeChangeEvent('ContactId2', this.ContactId2));
+        this.dispatchEvent(flowNavigationEvent);
+        // this.ContactId = null;
     }
 }

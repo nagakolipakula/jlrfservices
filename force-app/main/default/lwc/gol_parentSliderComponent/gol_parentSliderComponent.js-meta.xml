@@ -28,6 +28,10 @@
 				name="ContactId" 
 				type="String"
 				label="Contact Id"/>
+			<property 
+				name="ContactId2" 
+				type="String"
+				label="2nd Contact Id"/>
         </targetConfig>
     </targetConfigs>
 </LightningComponentBundle>

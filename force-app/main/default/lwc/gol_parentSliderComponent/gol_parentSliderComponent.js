@@ -353,13 +353,13 @@ export default class gol_parentSliderComponent extends LightningElement {
     const inputFields = {};
     this.sliders.forEach((slider) => {
        inputFields[slider.id] = {
-            selectedValue: this[slider.id] || slider.defaultValue,
-            step: slider.step,
-            defaultValue: slider.defaultValue,
-            minimum: slider.min,
-            unit: slider.unit,
-            maximum: slider.max,
-            description: slider.label
+            selectedValue: this[slider.id] || slider.defaultValue || 0,
+            step: slider.step || 0,
+            defaultValue: slider.defaultValue || 0,
+            minimum: slider.min || 0,
+            unit: slider.unit || "",
+            maximum: slider.max || 0,
+            description: slider.label || 0
         };
     });
 

@@ -54,6 +54,10 @@ export default class golSliderComponent extends LightningElement {
         );
     }
 
+    get isPercentage() {
+        return this.unit === '%';
+    }
+
     handleInputChange(event) {
         let value = parseFloat(event.target.value, 10);
         if(value < this.minValue){
@@ -102,6 +106,10 @@ export default class golSliderComponent extends LightningElement {
         //     maximumFractionDigits: 2 
         //     })}`;
         }
+
+        if (this.isPercentage) {
+            return `${this.sliderValue} %`;
+        }
         return `${Math.round(this.sliderValue || 0)}`;
     }
 
@@ -125,6 +133,9 @@ export default class golSliderComponent extends LightningElement {
             })} ${this.unit}`;
 
         }
+        if (this.isPercentage) {
+            return `${this.maxValue} %`;
+        }
         return `${this.maxValue} months`;
     }
 
@@ -146,6 +157,9 @@ export default class golSliderComponent extends LightningElement {
                 minimumFractionDigits: 2, 
                 maximumFractionDigits: 2 
             })}`;
+        }
+        if (this.isPercentage) {
+            return `${this.minValue} %`;
         }
         return `${this.minValue} months`;
     }

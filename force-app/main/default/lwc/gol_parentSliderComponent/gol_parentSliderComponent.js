@@ -77,14 +77,21 @@ export default class gol_parentSliderComponent extends LightningElement {
   }
 
   getUnits(key, units) {
-    if (key.includes('Mileage')) return units.mileageUnit === 'KILOMETERS' ? 'km' : '';
-    if (key.includes('Credit')) {
-      console.log('Checking units.creditTimeUnit:', units.creditTimeUnit);
-      if (units.creditTimeUnit === 'MONTH') {
-        return 'months';
-      }
+    if (key.includes('Mileage')) {
+        return units.mileageUnit === 'KILOMETERS' ? 'km' : '';
     }
-    if (key.includes('Payment')) return units.currencyCode === 'EUR' ? '€' : '';
+    if (key.includes('Credit')) {
+        console.log('Checking units.creditTimeUnit:', units.creditTimeUnit);
+        if (units.creditTimeUnit === 'MONTH') {
+            return 'months';
+        }
+    }
+    if (key.includes('Payment')) {
+        return units.currencyCode === 'EUR' ? '€' : '';
+    }
+    if (key.includes('RateRange')) {
+        return '%';
+    }
     return '';
   }
 

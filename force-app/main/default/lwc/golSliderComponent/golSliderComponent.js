@@ -25,7 +25,6 @@ export default class golSliderComponent extends LightningElement {
     }
 
     renderedCallback(){
-        console.log('renderedCallback call');
         setTimeout(() => {
             this.updateSliderBackground();
         }, 100);
@@ -54,17 +53,15 @@ export default class golSliderComponent extends LightningElement {
 
     handleInputChange(event) {
         let value = parseFloat(event.target.value, 10);
-        console.log('MS Slider Component value1 '+value);
-        console.log('MS Slider Component this.minValue '+this.minValue);
-        console.log('MS Slider Component this.maxValue '+this.maxValue);
         if(value < this.minValue){
+            this.sliderValue = this.sliderValue + 1;
             value = this.minValue;
         }
         if(value > this.maxValue){
+            this.sliderValue = this.sliderValue - 1;
             value = this.maxValue;
         }
         if (value >= this.minValue && value <= this.maxValue) {
-            console.log('MS Slider Component value2 '+value);
             this.sliderValue = value;
             this.updateSliderBackground();
             this.dispatchEvent(
@@ -151,7 +148,6 @@ export default class golSliderComponent extends LightningElement {
     }
 
     updateSliderBackground() {
-        console.log('MS updateSliderBackground call');
         Promise.resolve().then(() => {
             const percentage = ((this.sliderValue - this.minValue) / (this.maxValue - this.minValue)) * 100;
             const slider = this.template.querySelector('.custom-slider');

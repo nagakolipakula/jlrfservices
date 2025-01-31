@@ -6,19 +6,20 @@
                 <template if:true={isEuro}>
                     <span class="currency-symbol">{unit}</span>
                 </template>
-                <input
-                    type="text"
-                    value={formattedSliderValue}
-                    onchange={handleInputChange}
-                    class="input-box"
-                    if:false={isDependentMileageSlider}/>
-                <template if:true={isDependentMileageSlider}>
+                <template if:true={isDownpayment}>
+                    <input
+                        type="text"
+                        value={formattedSliderValue}
+                        onchange={handleInputChange}
+                        class="input-box" />
+                </template>
+                <template if:false={isDownpayment}>
                     <input
                         type="text"
                         value={formattedSliderValue}
                         class="input-box"
                         readonly />
-                </template>
+                </template>                
                 <template if:true={rangeUnits}>
                     <span class="mileage-units">{unit}</span>
                 </template>

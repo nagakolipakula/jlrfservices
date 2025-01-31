@@ -47,8 +47,11 @@ export default class golSliderComponent extends LightningElement {
         return this.unit === 'km';
     }
 
-    get isDependentMileageSlider() {
-        return this.labelName === 'Kilométrage annuel';
+    get isDownpayment() {
+        return (
+            this.labelName === '1er loyer' || 
+            this.labelName === 'Apport'
+        );
     }
 
     handleInputChange(event) {

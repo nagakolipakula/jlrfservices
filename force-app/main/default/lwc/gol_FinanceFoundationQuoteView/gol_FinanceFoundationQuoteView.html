@@ -14,7 +14,13 @@
             <div class="summary-card">
                 <div class="lease-info">
                     <p class="lease-title">
-                        <strong>{label.GOL_Lease}</strong> € 5,000 {label.GOL_monthly}
+                        <strong>{label.GOL_Lease}</strong>
+                        <span class="label-text"></span>
+                        <lightning-formatted-number 
+                            value={financeInformationRecord.ERPT_FIN_InstallmentIntGrossAmt__c}
+                            format-style="currency">
+                        </lightning-formatted-number>
+                        <span class="label-text">{label.GOL_monthly}</span>
                     </p>
                     <div class="vat-toggle-row">
                         <input type="checkbox" id="vatToggle" />
@@ -24,41 +30,41 @@
                 <div class="details">
                     <div class="detail-row">
                         <span>{label.GOL_Final_price_with_trade_in}</span>
-                        <span>€ 500,000</span>
+                        <span> <lightning-formatted-number value={financeInformationRecord.ERPT_FIN_TotalGrossAmt__c} format-style="currency"> </lightning-formatted-number></span>
                     </div>
                     <div class="detail-row">
                         <span>{label.GOL_Deposits}</span>
-                        <span>€ 500,000</span>
+                        <span> <lightning-formatted-number value={financeInformationRecord.LMS_FIN_Deposit__c} format-style="currency"> </lightning-formatted-number></span>
                     </div>
                     <div class="detail-row">
                         <span>{label.GOL_Agreement_duration}</span>
-                        <span>36 months</span>
+                        <span> <lightning-formatted-number value={financeInformationRecord.LMS_FIN_Term__c}> </lightning-formatted-number> months</span>
                     </div>
                     <div class="detail-row">
                         <span>{label.GOL_Mileage_per_annum}</span>
-                        <span>10,000 km</span>
+                        <span> <lightning-formatted-number value={financeInformationRecord.LMS_FIN_Annual_Contract_Mileage__c} > </lightning-formatted-number> km</span>
                     </div>
                     <div class="detail-row">
                         <span>{label.GOL_Effective_rate}</span>
-                        <span>1.4%</span>
+                        <span> <lightning-formatted-number value={financeInformationRecord.ERPT_FIN_EffectiveRate__c} format-style="percent"> </lightning-formatted-number></span>
                     </div>
                     <div class="detail-row">
                         <span>{label.GOL_Nominal_rate}</span>
-                        <span>1.4%</span>
+                        <span> <lightning-formatted-number value={financeInformationRecord.ERPT_FIN_NominalRate__c} format-style="percent"> </lightning-formatted-number></span>
                     </div>
                     <div class="detail-row">
                         <span>{label.GOL_Management_fees}</span>
-                        <span>€ 500,000</span>
+                        <span> <lightning-formatted-number value={financeInformationRecord.ERPT_FIN_TotalGrossAmt__c} format-style="currency"> </lightning-formatted-number></span>
                     </div>
                     <div class="divider"></div>
                     <div class="total-row">
                         <span>{label.GOL_Total_lease_amount}</span>
-                        <span>€ 500,000</span>
+                        <span> <lightning-formatted-number value={financeInformationRecord.ERPT_FIN_TotalGrossAmt__c} format-style="currency"> </lightning-formatted-number></span>
                     </div>
                 </div>
                 <div class="monthly-payment">
                     <h3>{label.GOL_Monthly_payment}</h3>
-                    <p class="payment-amount">€ 5,000</p>
+                    <p class="payment-amount"><span> <lightning-formatted-number value={financeInformationRecord.ERPT_FIN_InstallmentIntGrossAmt__c} format-style="currency"> </lightning-formatted-number></span></p>
                 </div>
                 <p class="description">
                     {label.GOL_Lorem_Text}

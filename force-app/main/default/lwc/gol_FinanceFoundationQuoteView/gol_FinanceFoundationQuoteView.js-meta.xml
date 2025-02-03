@@ -22,6 +22,10 @@
 				name="ContactId2"
 				type="String"
 				label="2nd Contact Id"/>
+			<property
+			    name="QuotePrice" 
+				type="String"
+				label="Quote Price"/>
         </targetConfig>
     </targetConfigs>
 </LightningComponentBundle>

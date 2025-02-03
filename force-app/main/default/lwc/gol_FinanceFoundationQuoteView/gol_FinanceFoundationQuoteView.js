@@ -25,6 +25,7 @@ export default class gol_FinanceFoundationQuoteView extends LightningElement {
     @api financeInformationId;
     @api ContactId;
     @api ContactId2;
+    @api QuotePrice;
     label = {
         GOL_Lease,
         GOL_monthly,

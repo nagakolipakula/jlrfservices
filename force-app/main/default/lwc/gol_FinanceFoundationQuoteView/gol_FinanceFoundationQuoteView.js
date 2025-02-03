@@ -26,6 +26,9 @@ export default class gol_FinanceFoundationQuoteView extends LightningElement {
     @api ContactId;
     @api ContactId2;
     @api QuotePrice;
+    @api financeInfoRecord;
+    @api financeInformationRecord;
+   
     label = {
         GOL_Lease,
         GOL_monthly,
@@ -47,9 +50,11 @@ export default class gol_FinanceFoundationQuoteView extends LightningElement {
         GOL_Alternative_finance_calculation
     }
 
+    
     connectedCallback() {
         console.log('financeInformationId', this.financeInformationId);
         console.log('ContactId', this.ContactId);
+        console.log('Finance Record',this.financeInformationId.CurrencyIsoCode);
     }
 
     handleBackToFianceCalculator() {

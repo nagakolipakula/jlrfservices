@@ -18,14 +18,19 @@
 				name="ContactId" 
 				type="String"
 				label="Contact Id"/>
-			<property 
-				name="ContactId2"
+						<property 
+				name="ContactId2" 
 				type="String"
 				label="2nd Contact Id"/>
 			<property
 			    name="QuotePrice" 
 				type="String"
 				label="Quote Price"/>
+			<property 
+				name="financeInfoRecord" 
+				type="String"
+				label="Finance Info Record"/>
+			<property name="financeInformationRecord" type="@salesforce/schema/LMS_FinanceInformation__c" label="Finance Information quote record"/>
         </targetConfig>
     </targetConfigs>
 </LightningComponentBundle>

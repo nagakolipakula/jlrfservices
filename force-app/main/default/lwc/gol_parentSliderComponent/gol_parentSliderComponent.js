@@ -305,9 +305,12 @@ export default class gol_parentSliderComponent extends LightningElement {
   }
 
   buildSerializedData() {
-    const cpiProducts = this.buildCpiProducts();
+    // const cpiProducts = this.buildCpiProducts();
     const inputFields = this.buildInputFields();
     const providerData = this.parsedResponse.find(item => item.id === this.selectedProductId);
+    console.log('-------providerData----------');
+    console.log(providerData.cpiProducts);
+    const cpiProducts = providerData.cpiProducts;
     const serializedData = {
       quoteId: this.quoteExternalId,
       product: {
@@ -325,7 +328,7 @@ export default class gol_parentSliderComponent extends LightningElement {
       }
   };
 
-
+  console.log(serializedData);
     this.serializedData = serializedData;
     console.log("Serialized Data:", JSON.stringify(this.serializedData, null, 2));
   }

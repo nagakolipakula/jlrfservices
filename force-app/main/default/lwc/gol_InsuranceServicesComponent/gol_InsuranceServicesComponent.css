@@ -1,0 +1,37 @@
+.insuranceboxcss {
+    width: 100%;
+    /* height: 230px; */
+    border: 1px solid black;
+    box-sizing: border-box;
+    border-radius:4px;
+    padding: 32px;
+}
+.selectcss{
+    font-family: Avenir Next, sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 19px;
+    letter-spacing: 0.20000000298023224px;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: #000000;
+    width: 100%;
+    height: 44px;
+    border-radius: 0;
+    border: 1px solid rgb(12, 18, 28, 0.3);
+    padding: 13.5px 14px 11.5px 14px;
+}
+.insuranceproductnamecss{
+    width: 466px;
+    height: 25px;
+    font-family: Avenir Next, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 19px;
+    letter-spacing: 0.20000000298023224px;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: #0C121C;
+}

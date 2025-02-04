@@ -134,13 +134,6 @@
         <value>No vehicle found in this quote. Please add a vehicle.</value>
     </labels>
     <labels>
-        <fullName>GOL_A2_Quote_Reference</fullName>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>GOL A2 Quote Reference</shortDescription>
-        <value>Quote reference</value>
-    </labels>
-    <labels>
         <fullName>GOL_A2_Salesperson_warning_msg</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -197,6 +190,13 @@
         <value>Total Value</value>
     </labels>
     <labels>
+        <fullName>GOL_API_Callout_Failure_Error_Message</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL API Callout Failure Error Message</shortDescription>
+        <value>We couldn&apos;t complete your request due to a system error. Please try again later. If the issue persists, contact your system administrator for assistance.</value>
+    </labels>
+    <labels>
         <fullName>GOL_Accessories</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -250,7 +250,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>GOL Add-ON Page Number</shortDescription>
-        <value>Showing {0}  of  {1}   Page(s)</value>
+        <value>Showing {0} of {1} Page(s)</value>
     </labels>
     <labels>
         <fullName>GOL_Add_ON_Page_Size</fullName>
@@ -323,20 +323,6 @@
         <value>Adjusted Price (€)</value>
     </labels>
     <labels>
-        <fullName>GOL_AdjustmentTab_Category</fullName>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>GOL_AdjustmentTab_Category</shortDescription>
-        <value>Category</value>
-    </labels>
-    <labels>
-        <fullName>GOL_AdjustmentTab_ItemName</fullName>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>GOL_AdjustmentTab_ItemName</shortDescription>
-        <value>Item Name</value>
-    </labels>
-    <labels>
         <fullName>GOL_AdjustmentTab_ListPrice</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -365,12 +351,25 @@
         <value>Price (€)</value>
     </labels>
     <labels>
-        <fullName>GOL_Allianz_Consent_Description</fullName>
+        <fullName>GOL_Agreement_duration</fullName>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>GOL Allianz Consent Description</shortDescription>
-        <value>Ich bin damit einverstanden, dass meine Kontaktdaten (persönliche Daten, Kontaktdaten und Fahrzeugdaten) zum Zwecke der Werbung zu Kfz-Versicherungsprodukten der Allianz an die GA Global Automotive Versicherungsservice GmbH und die Allianz Versicherungs-AG weitergegeben werden und ich durch diese hierzu telefonisch oder per E-Mail kontaktiert werde. Die Allianz Versicherungs-AG und die GA Global Automotive Versicherungsservice GmbH geben Ihre Daten nicht unbefugt ohne Ihre Genehmigung an Dritte weiter.
-Diese Werbeeinwilligung kann jederzeit ohne Angabe von Gründen widerrufen werden. Für Land Rover kann der Widerruf schriftlich gegenüber landroverversicherung@allianz.de erklärt werden. Für Jaguar kann der Widerruf schriftlich gegenüber jaguarversicherung@allianz.de erklärt werden.</value>
+        <shortDescription>GOL Agreement duration</shortDescription>
+        <value>Agreement duration</value>
+    </labels>
+    <labels>
+        <fullName>GOL_Alternative_finance_calculation</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL Alternative finance calculation</shortDescription>
+        <value>Alternative finance calculation</value>
+    </labels>
+    <labels>
+        <fullName>GOL_Amount_incl_VAT</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL Amount (incl VAT)</shortDescription>
+        <value>Amount (incl. VAT)</value>
     </labels>
     <labels>
         <fullName>GOL_B1_B2_Approved_Vehicles_Button</fullName>
@@ -527,6 +526,13 @@ Diese Werbeeinwilligung kann jederzeit ohne Angabe von Gründen widerrufen werde
         <value>CREATE A NEW QUOTE</value>
     </labels>
     <labels>
+        <fullName>GOL_Calculate_Financing</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL Calculate Financing</shortDescription>
+        <value>CALCULATE FINANCING</value>
+    </labels>
+    <labels>
         <fullName>GOL_Cancel</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -608,7 +614,7 @@ Diese Werbeeinwilligung kann jederzeit ohne Angabe von Gründen widerrufen werde
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>GOL Confirm Contact Screen PRINT QUOTE</shortDescription>
-        <value>COMPLETE QUOTE</value>
+        <value>PRINT QUOTE</value>
     </labels>
     <labels>
         <fullName>GOL_Confirm_Contact_Screen_SEND_EMAIL_LINK</fullName>
@@ -622,7 +628,14 @@ Diese Werbeeinwilligung kann jederzeit ohne Angabe von Gründen widerrufen werde
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>GOL Consent Description Italy</shortDescription>
-        <value>Presa visione dell’informativa per il trattamento dei dati personali e consapevole del relativo contenuto, presto il consenso per le seguenti finalità, selezionando la relativa casella:</value>
+        <value>This is test description</value>
+    </labels>
+    <labels>
+        <fullName>GOL_Currency_symbol</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL Currency symbol</shortDescription>
+        <value>€</value>
     </labels>
     <labels>
         <fullName>GOL_Customer_Satisfaction_Survey</fullName>
@@ -630,6 +643,13 @@ Diese Werbeeinwilligung kann jederzeit ohne Angabe von Gründen widerrufen werde
         <protected>false</protected>
         <shortDescription>GOL Customer Satisfaction Survey</shortDescription>
         <value>Customer Satisfaction Survey</value>
+    </labels>
+    <labels>
+        <fullName>GOL_Customization</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL Customization</shortDescription>
+        <value>Customization</value>
     </labels>
     <labels>
         <fullName>GOL_D2_E2_Confirm_New_Stock_Select</fullName>
@@ -688,6 +708,13 @@ Diese Werbeeinwilligung kann jederzeit ohne Angabe von Gründen widerrufen werde
         <value>Deposit</value>
     </labels>
     <labels>
+        <fullName>GOL_Deposits</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL Deposits</shortDescription>
+        <value>Deposit</value>
+    </labels>
+    <labels>
         <fullName>GOL_Desired_Amount</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -709,11 +736,39 @@ Diese Werbeeinwilligung kann jederzeit ohne Angabe von Gründen widerrufen werde
         <value>Discount %</value>
     </labels>
     <labels>
+        <fullName>GOL_Distance_symbol</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL Distance symbol</shortDescription>
+        <value>km</value>
+    </labels>
+    <labels>
+        <fullName>GOL_Downpayment</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL Downpayment</shortDescription>
+        <value>Downpayment (incl.VAT)</value>
+    </labels>
+    <labels>
+        <fullName>GOL_Effective_rate</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL Effective rate</shortDescription>
+        <value>Effective rate</value>
+    </labels>
+    <labels>
         <fullName>GOL_Email_Is_Required</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>GOL_Email_Is_Required</shortDescription>
-        <value>Enter your email address</value>
+        <value>Email is required to send Draft Quote.</value>
+    </labels>
+    <labels>
+        <fullName>GOL_Excl_VAT</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL Excl VAT</shortDescription>
+        <value>(excl. VAT)</value>
     </labels>
     <labels>
         <fullName>GOL_Expired_Quote_Message</fullName>
@@ -1262,11 +1317,32 @@ Diese Werbeeinwilligung kann jederzeit ohne Angabe von Gründen widerrufen werde
         <value>Feature Value</value>
     </labels>
     <labels>
+        <fullName>GOL_Final_price_with_trade_in</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL Final price with trade-in</shortDescription>
+        <value>Final price with trade-in</value>
+    </labels>
+    <labels>
+        <fullName>GOL_Finance_Calculation</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL Finance Calculation</shortDescription>
+        <value>Finance calculation</value>
+    </labels>
+    <labels>
         <fullName>GOL_Finance_Finance_calculator</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>GOL_Finance_﻿Finance_calculator</shortDescription>
         <value>Finance calculator</value>
+    </labels>
+    <labels>
+        <fullName>GOL_Finance_Insurance_and_Services</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL Finance Insurance and Services</shortDescription>
+        <value>Insurance and Services</value>
     </labels>
     <labels>
         <fullName>GOL_Finance_Personal_Purchase</fullName>
@@ -1315,7 +1391,7 @@ Diese Werbeeinwilligung kann jederzeit ohne Angabe von Gründen widerrufen werde
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>GOL_G1_Confirm_Contact_Screen_Contacted_AT</shortDescription>
-        <value>I agree that Jaguar Land Rover Austria GmbH may contact me via the following communication channels for the stated purposes:</value>
+        <value>I am happy to be contacted by (Please select all the apply):</value>
     </labels>
     <labels>
         <fullName>GOL_G1_Confirm_Contact_Screen_Direct_Marketing</fullName>
@@ -1336,7 +1412,7 @@ Diese Werbeeinwilligung kann jederzeit ohne Angabe von Gründen widerrufen werde
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>GOL_G1_Confirm_Contact_Screen_HelpText</shortDescription>
-        <value>En cochant les cases ci-dessous, vous consentez à recevoir des communications marketing de la part de Jaguar Land Rover. Les informations vous concernant ne seront divulguées qu&apos;à Jaguar Land Rover Belux, ses concessionnaires, partenaires de franchise, agences, sociétés affiliées ou sociétés associées. Vous pouvez retirer votre consentement à tout moment, les détails de ce retrait se trouvant dans notre politique de confidentialité sur le site web.</value>
+        <value>...</value>
     </labels>
     <labels>
         <fullName>GOL_G1_Confirm_Contact_Screen_NotContacted</fullName>
@@ -1378,7 +1454,7 @@ Diese Werbeeinwilligung kann jederzeit ohne Angabe von Gründen widerrufen werde
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>GOL_G1_Confirm_Contact_Screen_Telephone_AT</shortDescription>
-        <value>Telephone / text message</value>
+        <value>Telephone</value>
     </labels>
     <labels>
         <fullName>GOL_G1_Expert_Mode_Button</fullName>
@@ -1414,6 +1490,13 @@ Diese Werbeeinwilligung kann jederzeit ohne Angabe von Gründen widerrufen werde
         <protected>false</protected>
         <shortDescription>GOL_GO</shortDescription>
         <value>Go</value>
+    </labels>
+    <labels>
+        <fullName>GOL_Get_Finance_Quote_End_Point</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL Get Finance Quote End Point</shortDescription>
+        <value>v2/finance/quotes</value>
     </labels>
     <labels>
         <fullName>GOL_GrossAmtDiscount</fullName>
@@ -1535,6 +1618,20 @@ Diese Werbeeinwilligung kann jederzeit ohne Angabe von Gründen widerrufen werde
         <value>You may exercise your rights under Articles 15 to 22 of the Data Protection Regulation (EU) 2016/679 against Jaguar Land Rover España S.L.U., as explained in the additional information. Further detailed information on data protection can be found on our website https://www.landrover.es/rgpd.html / https://www.jaguar.es/rgpd.html.</value>
     </labels>
     <labels>
+        <fullName>GOL_JLR_Id</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL JLR Id</shortDescription>
+        <value>JLR ID:</value>
+    </labels>
+    <labels>
+        <fullName>GOL_JLR_Support</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL JLR Support</shortDescription>
+        <value>JLR Support</value>
+    </labels>
+    <labels>
         <fullName>GOL_Jaguar</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -1570,6 +1667,13 @@ Diese Werbeeinwilligung kann jederzeit ohne Angabe von Gründen widerrufen werde
         <value>SM@RT 2.0</value>
     </labels>
     <labels>
+        <fullName>GOL_Lease</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL Lease</shortDescription>
+        <value>Lease</value>
+    </labels>
+    <labels>
         <fullName>GOL_Local_Editions</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -1584,6 +1688,20 @@ Diese Werbeeinwilligung kann jederzeit ohne Angabe von Gründen widerrufen werde
         <value>Remove</value>
     </labels>
     <labels>
+        <fullName>GOL_Lorem_Text</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL Lorem Text</shortDescription>
+        <value>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</value>
+    </labels>
+    <labels>
+        <fullName>GOL_Management_fees</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL Management fees</shortDescription>
+        <value>Management fees</value>
+    </labels>
+    <labels>
         <fullName>GOL_Market_Research</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -1591,11 +1709,46 @@ Diese Werbeeinwilligung kann jederzeit ohne Angabe von Gründen widerrufen werde
         <value>Market Research</value>
     </labels>
     <labels>
+        <fullName>GOL_Mileage</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL Mileage</shortDescription>
+        <value>Mileage p.a.</value>
+    </labels>
+    <labels>
+        <fullName>GOL_Mileage_per_annum</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL Mileage per annum</shortDescription>
+        <value>Mileage per annum</value>
+    </labels>
+    <labels>
         <fullName>GOL_Missing_Feature</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>GOL Missing Feature</shortDescription>
         <value>You have not chosen all options to comply to this Local Edition.</value>
+    </labels>
+    <labels>
+        <fullName>GOL_Modify_button</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL Modify button</shortDescription>
+        <value>MODIFY</value>
+    </labels>
+    <labels>
+        <fullName>GOL_Modify_in_Everest</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL Modify in Everest</shortDescription>
+        <value>Modify in Everest</value>
+    </labels>
+    <labels>
+        <fullName>GOL_Monthly_payment</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL Monthly payment</shortDescription>
+        <value>Monthly payment</value>
     </labels>
     <labels>
         <fullName>GOL_NA</fullName>
@@ -1619,6 +1772,13 @@ Diese Werbeeinwilligung kann jederzeit ohne Angabe von Gründen widerrufen werde
         <value>Vehicle hold not possible. Please contact manager.</value>
     </labels>
     <labels>
+        <fullName>GOL_Nominal_rate</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL Nominal rate</shortDescription>
+        <value>Nominal rate</value>
+    </labels>
+    <labels>
         <fullName>GOL_Non_Taxable_Item</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -1633,11 +1793,25 @@ Diese Werbeeinwilligung kann jederzeit ohne Angabe von Gründen widerrufen werde
         <value>On hold until date</value>
     </labels>
     <labels>
+        <fullName>GOL_Open_New_Calculator_Button</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL Open New Calculator Button</shortDescription>
+        <value>OPEN NEW CALCULATOR</value>
+    </labels>
+    <labels>
         <fullName>GOL_Outstanding_amount</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>GOL Outstanding amount</shortDescription>
         <value>Outstanding amount</value>
+    </labels>
+    <labels>
+        <fullName>GOL_Percentage</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL Percentage</shortDescription>
+        <value>Percentage</value>
     </labels>
     <labels>
         <fullName>GOL_Present_Quote_Cancel_Button</fullName>
@@ -1651,7 +1825,7 @@ Diese Werbeeinwilligung kann jederzeit ohne Angabe von Gründen widerrufen werde
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>GOL Present Quote Confirmation Message</shortDescription>
-        <value>Thank you!</value>
+        <value>Thank you, {0} ! Your reservation has been received.</value>
     </labels>
     <labels>
         <fullName>GOL_Present_Quote_Confirmation_Message_V1</fullName>
@@ -1706,7 +1880,7 @@ Diese Werbeeinwilligung kann jederzeit ohne Angabe von Gründen widerrufen werde
         <fullName>GOL_Promotions</fullName>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>GOL_Promotions</shortDescription>
+        <shortDescription>GOL Promotions</shortDescription>
         <value>PROMOTIONS</value>
     </labels>
     <labels>
@@ -1714,7 +1888,7 @@ Diese Werbeeinwilligung kann jederzeit ohne Angabe von Gründen widerrufen werde
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>GOL_ProspectConsentDescription</shortDescription>
-        <value>Declaration of consent</value>
+        <value>Description</value>
     </labels>
     <labels>
         <fullName>GOL_ProspectConsentDescriptionJLR</fullName>
@@ -1735,16 +1909,16 @@ Diese Werbeeinwilligung kann jederzeit ohne Angabe von Gründen widerrufen werde
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>GOL Prospect Consent Description AT CZ SK</shortDescription>
-        <value>Jaguar Land Rover Austria GmbH would like to keep you informed about current Jaguar and Land Rover products and services. If you would like us to do so, we request your consent.
-You agree that Jaguar Land Rover Austria GmbH, Fasaneriestraße 35, 5020 Salzburg, may use your title, first name and last name, email address, telephone number, address and, if applicable, company name within and outside the European Union in compliance with the applicable data protection laws for marketing and advertising purposes related to Jaguar and Land Rover products and services, for conducting market and opinion research and customer satisfaction surveys on Jaguar and Land Rover products and services.</value>
+        <value>Die Jaguar Land Rover Austria GmbH möchte Sie gerne über aktuelle Jaguar und Land Rover Produkte und Dienstleistungen informiert halten. Sofern Sie dies auch möchten, ersuchen wir Sie um Ihre Zustimmung.
+Sie sind damit einverstanden, dass die Jaguar Land Rover Austria GmbH, Fasaneriestraße 35, 5020 Salzburg Ihre Anrede, Ihren Vor- und Nachnamen, Ihre E-Mail-Adresse, Telefonnummer,  Adresse und ggf. Firmenname innerhalb und außerhalb der Europäischen Union unter Einhaltung des geltenden Datenschutzrechts zu Marketing- und Werbezwecken rund um Jaguar und Land Rover Produkte und Dienstleistungen, zur Durchführung von Markt- und Meinungsforschung sowie von Kundenzufriedenheitsbefragungen zu Jaguar und Land Rover Produkten und Dienstleistungen verarbeitet.</value>
     </labels>
     <labels>
         <fullName>GOL_Prospect_Consent_Description_AT_CZ_SK_Extra</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>GOL Prospect Consent Description AT CZ SK Extra</shortDescription>
-        <value>This consent is voluntary and can be changed or withdrawn at any time with effect for the future without stating reasons. This can be done by post to Jaguar Land Rover Customer Center, Fasaneriestraße 35, 5020 Salzburg, or by email to crcjlra@jaguarlandrover.com.
-The privacy policy of Jaguar Land Rover Austria GmbH is available at https://www.jaguar.at/privacy-policy/index.html and https://www.landrover.at/privacy-policy/index.html.</value>
+        <value>Diese Zustimmung erfolgt freiwillig und kann jederzeit ohne Angabe von Gründen mit Wirkung für die Zukunft geändert oder widerrufen werden. Dies kann postalisch beim Jaguar Land Rover Kundenzentrum, Fasaneriestraße 35, 5020 Salzburg oder per E-Mail an crcjlra@jaguarlandrover.com erfolgen.
+Die Datenschutzerklärung der Jaguar Land Rover Austria GmbH ist abrufbar unter https://www.jaguar.at/privacy-policy/index.html und https://www.landrover.at/privacy-policy/index.html.</value>
     </labels>
     <labels>
         <fullName>GOL_QuoteDetailsScreenFlow_Deposit_Required_Msg</fullName>
@@ -1808,7 +1982,7 @@ The privacy policy of Jaguar Land Rover Austria GmbH is available at https://www
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>GOL_RetailerCommunityUrl</shortDescription>
-        <value>https://jlr-glms--gsprojqa3.sandbox.my.site.com/Retailer/s</value>
+        <value>https://jlr-glms--nttfsdev.sandbox.my.site.com/Retailer/s</value>
     </labels>
     <labels>
         <fullName>GOL_Retailer_Consent_Description</fullName>
@@ -1846,6 +2020,13 @@ The Dealer is obliged to process your personal data in order to fulfil the oblig
         <protected>false</protected>
         <shortDescription>GOL Retailer Consent Description PT Extra</shortDescription>
         <value>The Dealer will be the recipient of the data provided. You may exercise your rights of access, rectification, cancellation and opposition in relation to your data, as well as other rights under Articles 15 to 22 of the Data Protection Regulation (EU) 2016/679, both with the dealer and with Jaguar Land Rover España, S.L.U., as explained in the additional information. Additional and more detailed information on data protection can be found on the Jaguar Land Rover S.L.U. website: https://www.landrover.es/rgpd.html / https://www.jaguar.es/rgpd.html or on the Dealer&apos;s website.</value>
+    </labels>
+    <labels>
+        <fullName>GOL_Retailer_Discount</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL Retailer Discount</shortDescription>
+        <value>Retailer Discount</value>
     </labels>
     <labels>
         <fullName>GOL_Retailer_Mode_AVL_URL</fullName>
@@ -2063,8 +2244,15 @@ The Dealer is obliged to process your personal data in order to fulfil the oblig
         <fullName>GOL_Subcategory</fullName>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>GOL_Subcategory</shortDescription>
+        <shortDescription>GOL Subcategory</shortDescription>
         <value>Subcategory</value>
+    </labels>
+    <labels>
+        <fullName>GOL_Total_lease_amount</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL Total lease amount</shortDescription>
+        <value>Total lease amount</value>
     </labels>
     <labels>
         <fullName>GOL_Total_value</fullName>
@@ -2084,7 +2272,7 @@ The Dealer is obliged to process your personal data in order to fulfil the oblig
         <fullName>GOL_Trade_In_Brand</fullName>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>GOL Trade In Brand</shortDescription>
+        <shortDescription>GOL_Trade_In_Brand</shortDescription>
         <value>Brand</value>
     </labels>
     <labels>
@@ -2112,7 +2300,7 @@ The Dealer is obliged to process your personal data in order to fulfil the oblig
         <fullName>GOL_Trade_In_Mileage</fullName>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>GOL Trade In Mileage</shortDescription>
+        <shortDescription>GOL_Trade_In_Mileage</shortDescription>
         <value>Odometer</value>
     </labels>
     <labels>
@@ -2140,7 +2328,7 @@ The Dealer is obliged to process your personal data in order to fulfil the oblig
         <fullName>GOL_Trade_In_Registered_Date</fullName>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>GOL Trade In Registered Date</shortDescription>
+        <shortDescription>GOL_Trade_In_Registered_Date</shortDescription>
         <value>Registration Date</value>
     </labels>
     <labels>
@@ -2161,7 +2349,7 @@ The Dealer is obliged to process your personal data in order to fulfil the oblig
         <fullName>GOL_Trade_In_Residual_BPM_Error</fullName>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>GOL Trade In Residual BPM Error</shortDescription>
+        <shortDescription>GOL_Trade_In_Residual_BPM_Error</shortDescription>
         <value>Residual BPM is required.</value>
     </labels>
     <labels>
@@ -2169,13 +2357,13 @@ The Dealer is obliged to process your personal data in order to fulfil the oblig
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>GOL Trade-In SAVE</shortDescription>
-        <value>SAVE TRADEIN</value>
+        <value>SAVE TRADE-IN</value>
     </labels>
     <labels>
         <fullName>GOL_Trade_In_Tax_Type</fullName>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>GOL Trade In Tax Type</shortDescription>
+        <shortDescription>GOL_Trade_In_Tax_Type</shortDescription>
         <value>Trade-in Tax Type</value>
     </labels>
     <labels>
@@ -2256,6 +2444,13 @@ The Dealer is obliged to process your personal data in order to fulfil the oblig
         <value>You are unable to adjust a automatic tax value.</value>
     </labels>
     <labels>
+        <fullName>GOL_VAT_label</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL VAT label</shortDescription>
+        <value>VAT included</value>
+    </labels>
+    <labels>
         <fullName>GOL_Vehicle_Hold_Requested_Msg</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -2282,13 +2477,6 @@ The Dealer is obliged to process your personal data in order to fulfil the oblig
         <protected>false</protected>
         <shortDescription>GOL WH1 Accessories Name</shortDescription>
         <value>Name</value>
-    </labels>
-    <labels>
-        <fullName>GOL_WH1_Accessories_Non_Tax_Item</fullName>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>GOL WH1 Accessories Non Tax Item</shortDescription>
-        <value>Non Taxable Item</value>
     </labels>
     <labels>
         <fullName>GOL_WH1_Accessories_Part_Number</fullName>
@@ -2423,7 +2611,7 @@ The Dealer is obliged to process your personal data in order to fulfil the oblig
         <shortDescription>GOL_consent_description_DE_1</shortDescription>
         <value>Die Jaguar Land Rover Deutschland GmbH, Campus Kronberg 7, 61476 Kronberg / Taunus, möchte Sie gerne auch zukünftig über Neuigkeiten auf dem Laufenden halten und Ihnen gelegentlich Informationen über unsere Produkte, Services und auf Ihre Bedürfnisse zugeschnittene Angebote sowie Einladungen zu Events und Kundenzufriedenheitsbefragungen zukommen lassen. Bitte geben Sie an, auf welchem Weg wir Sie zu diesen weiteren Zwecken kontaktieren dürfen.
 
- 
+
 
 Mit Ihrer Einwilligung für E-Mail erklären Sie sich mit dem Empfang von eNewslettern sowie mit dessen Analyse durch individuelle Messung, Speicherung und Auswertung von Öffnungsraten und der Klickraten in Empfängerprofilen zu Zwecken der Gestaltung künftiger Newsletter entsprechend den Interessen unserer Leser einverstanden. Die Einwilligung kann mit Wirkung für die Zukunft widerrufen werden. Ausführliche Hinweise erhalten Sie in unserer Datenschutzerklärung (www.landrover.de).</value>
     </labels>
@@ -2450,7 +2638,7 @@ Die DatenschutzerklÃ¤rung der Jaguar Land Rover Austria GmbH ist unter https:/
 
 Ich habe die Datenschutzinformation zur Kenntnis genommen und bin darüber hinaus damit einverstanden, dass meine personenbezogenen Daten vom ausgewählten Vertragspartner auch zum Zwecke der Direktwerbung (z. B. Kundeninformation und -betreuung, Einladung zu Produktvorstellungen, Mitteilung über technische Neuerungen, Reifenwechsel, HU/AU Fälligkeit, Serviceinformationen und -aktionen, Anschlussangebote bei Auslauf des Leasing-/Finanzierungsvertrages, Neukaufoptionen, Versendung von Kundenmagazinen, Markt- oder Meinungsforschung, insbesondere Kundenzufriedenheitsbefragungen) genutzt werden.
 
- 
+
 
 Die Einwilligung kann mit Wirkung für die Zukunft widerrufen werden. Ausführliche Hinweise erhalten Sie in der Datenschutzerklärung des Händlers.</value>
     </labels>
@@ -2460,6 +2648,13 @@ Die Einwilligung kann mit Wirkung für die Zukunft widerrufen werden. Ausführli
         <protected>false</protected>
         <shortDescription>GOL contact Screen Email Phone Error</shortDescription>
         <value>Please enter either Email or Phone</value>
+    </labels>
+    <labels>
+        <fullName>GOL_monthly</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL monthly</shortDescription>
+        <value>monthly</value>
     </labels>
     <labels>
         <fullName>Gol_Delete_Message</fullName>
@@ -2896,27 +3091,6 @@ Die Einwilligung kann mit Wirkung für die Zukunft widerrufen werden. Ausführli
         <value>Age of lead</value>
     </labels>
     <labels>
-        <fullName>LMS_AgeRangeFrom</fullName>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>Age Range From</shortDescription>
-        <value>Age Range From</value>
-    </labels>
-    <labels>
-        <fullName>LMS_AgeRangeTo</fullName>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>Age Range To</shortDescription>
-        <value>Age Range To</value>
-    </labels>
-    <labels>
-        <fullName>LMS_AgeRangeValues</fullName>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>Age Range</shortDescription>
-        <value>Age Range (in Months)</value>
-    </labels>
-    <labels>
         <fullName>LMS_All</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -2966,6 +3140,59 @@ Die Einwilligung kann mit Wirkung für die Zukunft widerrufen werden. Ausführli
         <value>These campaigns have already been applied to the quote. Please select some new campaigns.</value>
     </labels>
     <labels>
+        <fullName>LMS_Appointment_confirmation1</fullName>
+        <categories>Email Templates</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Appointment Message</shortDescription>
+        <value>&lt;br&gt;
+&lt;p class=&quot;a&quot; style=&quot;font-family:Arial,Lato, Tahoma, sans-serif;font-size:22px;&quot;&gt;Appointment confirmation&lt;/p&gt;</value>
+    </labels>
+    <labels>
+        <fullName>LMS_Appointment_confirmation3</fullName>
+        <categories>Email Templates</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Regards</shortDescription>
+        <value>&lt;p style=&quot;font-family:Arial,Lato, Tahoma, sans-serif;font-size:16px;&quot;&gt;&lt;b&gt;With kind regards,&lt;/b&gt;&lt;br&gt;Your team from {0} &lt;/p&gt;</value>
+    </labels>
+    <labels>
+        <fullName>LMS_Appointment_confirmation_Date</fullName>
+        <categories>Email Templates</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Appointment Date</shortDescription>
+        <value>&lt;p style=&quot;font-family:Arial,Lato, Tahoma, sans-serif;font-size:16px;&quot;&gt;
+&lt;b&gt;Date: {0, date, dd.MM.YYYY}&lt;/b&gt; &lt;br&gt;
+&lt;b&gt;Time: {1}&lt;/b&gt; &lt;br&gt;
+&lt;b&gt;Dealership: {2}&lt;/b&gt;&lt;br&gt;
+&lt;/p&gt;</value>
+    </labels>
+    <labels>
+        <fullName>LMS_Appointment_confirmation_Subject</fullName>
+        <categories>Email Templates</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Appointment Subject</shortDescription>
+        <value>Appointment confirmation</value>
+    </labels>
+    <labels>
+        <fullName>LMS_Appointment_confirmation_address_link</fullName>
+        <categories>Email Templates</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Address Link</shortDescription>
+        <value>&lt;p style=&quot;font-family:Arial,Lato, Tahoma, sans-serif;font-size:16px;&quot;&gt;As reminder you can find us &lt;a style=&quot;color:blue;&quot; href=&quot;https://maps.google.com/?q={0}%20{1}%20{2}%20{3}&quot;&gt;&lt;u&gt;here&lt;/u&gt;&lt;/a&gt;.&lt;br&gt;We look forward to your visit.&lt;/p&gt;</value>
+    </labels>
+    <labels>
+        <fullName>LMS_Appointment_confirmation_content</fullName>
+        <categories>Email Templates</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Appointment Content</shortDescription>
+        <value>&lt;p style=&quot;font-family:Arial,Lato, Tahoma, sans-serif;font-size:16px;&quot;&gt;Thank you for deciding to book an appointment with us.&lt;br&gt;We confirm the booking of your appointment for the following date:&lt;/p&gt;</value>
+    </labels>
+    <labels>
         <fullName>LMS_AppointmentsToday</fullName>
         <categories>LMS_DailySnapshotContainer</categories>
         <language>en_US</language>
@@ -2979,6 +3206,13 @@ Die Einwilligung kann mit Wirkung für die Zukunft widerrufen werden. Ausführli
         <protected>false</protected>
         <shortDescription>LMS_ApprovalEmail1</shortDescription>
         <value>{0} {1} has requested your approval for hold on the stock vehicle: {2}</value>
+    </labels>
+    <labels>
+        <fullName>LMS_ApprovalEmail2</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LMS_ApprovalEmail2</shortDescription>
+        <value>has requested your approval for hold on the stock vehicle:</value>
     </labels>
     <labels>
         <fullName>LMS_ApproveOrRejectRetailers</fullName>
@@ -4905,6 +5139,13 @@ Prospect details:</value>
         <value>Common Type of Sale</value>
     </labels>
     <labels>
+        <fullName>GOL_Indicative_Tradein_Finance_Flag</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL Indicative Tradein Finance Flag</shortDescription>
+        <value>false</value>
+    </labels>
+    <labels>
         <fullName>LMS_CommonTypeOfSaleNotMatchingWithOrder</fullName>
         <categories>LMS</categories>
         <language>en_US</language>
@@ -4925,6 +5166,13 @@ Thank you,
         <value>0DB0Y000000PDJf</value>
     </labels>
     <labels>
+        <fullName>LMS_CommunityLogin</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LMS_CommunityLogin</shortDescription>
+        <value>/s/login/</value>
+    </labels>
+    <labels>
         <fullName>LMS_CommunityName</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -4936,7 +5184,7 @@ Thank you,
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Community url</shortDescription>
-        <value>https://jlr-glms--gsprojqa3.sandbox.my.site.com/jlr</value>
+        <value>https://jlr-glms--nttfsdev.sandbox.my.site.com/jlr</value>
     </labels>
     <labels>
         <fullName>LMS_ConfigureCar</fullName>
@@ -5497,6 +5745,13 @@ Thank you,
         <protected>false</protected>
         <shortDescription>Demo Vehicles Retailer Group</shortDescription>
         <value>DEMO VEHICLES RETAILER GROUP</value>
+    </labels>
+    <labels>
+        <fullName>LMS_DesiredAmount</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LMS_DesiredAmount</shortDescription>
+        <value>Desired Amount</value>
     </labels>
     <labels>
         <fullName>LMS_DisclaimerMessageForGermany</fullName>
@@ -6152,6 +6407,41 @@ Retailer Registered Company Details&lt;/p&gt;​</value>
         <value>There is no WLTP data associated with this car, Please press “Get WLTP data” to check if data can be retrieved</value>
     </labels>
     <labels>
+        <fullName>LMS_EmissionDataPresent</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LMS_EmissionDataPresent</shortDescription>
+        <value>Emission Data is already present on the vehicle</value>
+    </labels>
+    <labels>
+        <fullName>LMS_EmissionDataUnavailable</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LMS_EmissionDataUnavailable</shortDescription>
+        <value>Emission Data is not available for your country.</value>
+    </labels>
+    <labels>
+        <fullName>LMS_EmissionDataUpdatedSuccessfully</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LMS_EmissionDataUpdatedSuccessfully</shortDescription>
+        <value>Emission data updated successfully!</value>
+    </labels>
+    <labels>
+        <fullName>LMS_EmissionUAT</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LMS_EmissionUAT</shortDescription>
+        <value>false</value>
+    </labels>
+    <labels>
+        <fullName>LMS_EmissionVinOrVistaMissing</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LMS_EmissionVinOrVistaMissing</shortDescription>
+        <value>Bad Request: Vista Order No. or Vin Number is needed for emission callout</value>
+    </labels>
+    <labels>
         <fullName>LMS_EmployeeHasHolidays</fullName>
         <categories>Event, Calendar</categories>
         <language>en_US</language>
@@ -6742,6 +7032,13 @@ The Team Jaguar Land Rover&lt;/p&gt;</value>
         <value>Save Records</value>
     </labels>
     <labels>
+        <fullName>LMS_GetWLTPData</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LMS_GetWLTPData</shortDescription>
+        <value>Get WLTP Data</value>
+    </labels>
+    <labels>
         <fullName>LMS_GlobalSalesChannel</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -6789,7 +7086,14 @@ The Team Jaguar Land Rover&lt;/p&gt;</value>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>LMS_HoldApproveMessage</shortDescription>
-        <value>&lt;p class=&quot;a&quot;&gt;To approve or reject this item, click this link https://jlr-glms--nttdev7.sandbox.my.site.com/jlr/s/login or reply to this email with one of these words in the first line of the email message: APPROVE, APPROVED, YES, REJECT, REJECTED, NO&lt;/p&gt;&lt;br&gt;</value>
+        <value>&lt;p class=&quot;a&quot;&gt;To approve or reject this item, click this link</value>
+    </labels>
+    <labels>
+        <fullName>LMS_HoldApproveMessage2</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LMS_HoldApproveMessage2</shortDescription>
+        <value>or reply to this email with one of these words in the first line of the email message: APPROVE, APPROVED, YES, REJECT, REJECTED, NO&lt;p&gt;&lt;br&gt;</value>
     </labels>
     <labels>
         <fullName>LMS_HoldApproveRegards</fullName>
@@ -6828,6 +7132,14 @@ You have a hold on stock vehicle with VIN: {1} and its expiring on {2} Lead:</va
         <protected>false</protected>
         <shortDescription>LMS Holdable</shortDescription>
         <value>Holdable</value>
+    </labels>
+    <labels>
+        <fullName>LMS_HoldableErrorMsg</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LMS_HoldableErrorMsg</shortDescription>
+        <value>Vehicle below the age of {0} are not available for holding.
+.</value>
     </labels>
     <labels>
         <fullName>LMS_Illexus_Error</fullName>
@@ -7014,13 +7326,6 @@ You have a hold on stock vehicle with VIN: {1} and its expiring on {2} Lead:</va
         <value>Invoice Address</value>
     </labels>
     <labels>
-        <fullName>LMS_IsCreateOrderBeforeApproveMsg</fullName>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>LMS_IsCreateOrderBeforeApproveMsg</shortDescription>
-        <value>You cannot create an Order until the Hold Request is Approved.</value>
-    </labels>
-    <labels>
         <fullName>LMS_JOB_RUNNING_ERROR</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -7078,20 +7383,6 @@ You have a hold on stock vehicle with VIN: {1} and its expiring on {2} Lead:</va
         <protected>false</protected>
         <shortDescription>Description for KPI column</shortDescription>
         <value>KPI</value>
-    </labels>
-    <labels>
-        <fullName>LMS_KeyFeaturesAND</fullName>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>KeyFeatures And</shortDescription>
-        <value>Key search(Vehicles must have ALL inserted Options)</value>
-    </labels>
-    <labels>
-        <fullName>LMS_KeyFeaturesOR</fullName>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>KeyFeatures OR</shortDescription>
-        <value>Key search(Vehicles must have ONE of the inserted Options)</value>
     </labels>
     <labels>
         <fullName>LMS_LBL_Province</fullName>
@@ -7386,27 +7677,6 @@ You have a hold on stock vehicle with VIN: {1} and its expiring on {2} Lead:</va
         <value>Message</value>
     </labels>
     <labels>
-        <fullName>LMS_MileageRangeFrom</fullName>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>Mileage Range From</shortDescription>
-        <value>Mileage Range From</value>
-    </labels>
-    <labels>
-        <fullName>LMS_MileageRangeTo</fullName>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>Mileage Range To</shortDescription>
-        <value>Mileage Range To</value>
-    </labels>
-    <labels>
-        <fullName>LMS_MileageRangeValues</fullName>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>Mileage Range</shortDescription>
-        <value>Mileage Range(in KM)</value>
-    </labels>
-    <labels>
         <fullName>LMS_MissingCurrentCarInfo</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -7646,13 +7916,6 @@ The Team Jaguar Land Rover&lt;br&gt;&lt;/p&gt;</value>
         <value>We are sorry but it looks like you don&apos;t have the correct permissions to access this record.</value>
     </labels>
     <labels>
-        <fullName>LMS_NoAccessToOrderMsg</fullName>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>LMS_NoAccessToOrderMsg</shortDescription>
-        <value>Your retailer does not own this vehicle, please submit a Hold Request from owning retailer by using Hold Vehicle button.</value>
-    </labels>
-    <labels>
         <fullName>LMS_NoAccessToVHCMessage</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -7680,6 +7943,13 @@ The Team Jaguar Land Rover&lt;br&gt;&lt;/p&gt;</value>
         <protected>false</protected>
         <shortDescription>LMS_NoEditOnRecurringDays</shortDescription>
         <value>Edit is not allowed on recurring days! Please delete it &amp; create a new one.</value>
+    </labels>
+    <labels>
+        <fullName>LMS_NoEmissionDataForStock</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LMS_NoEmissionDataForStock</shortDescription>
+        <value>There is no emission data currently associated with this vehicle. Please try again later.</value>
     </labels>
     <labels>
         <fullName>LMS_NoFeatures</fullName>
@@ -7959,6 +8229,13 @@ The Team Jaguar Land Rover&lt;br&gt;&lt;/p&gt;</value>
         <value>Open</value>
     </labels>
     <labels>
+        <fullName>LMS_Open_UCP</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LMS_Open_UCP</shortDescription>
+        <value>Open UCP</value>
+    </labels>
+    <labels>
         <fullName>LMS_OrderAmendmentCloneModalHeader</fullName>
         <categories>Order Amendment, Clone</categories>
         <language>en_US</language>
@@ -8206,27 +8483,6 @@ Thank you,
         <value>Previous</value>
     </labels>
     <labels>
-        <fullName>LMS_PriceRangeFrom</fullName>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>Price Range From</shortDescription>
-        <value>Price Range From</value>
-    </labels>
-    <labels>
-        <fullName>LMS_PriceRangeTo</fullName>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>Price Range To</shortDescription>
-        <value>Price Range To</value>
-    </labels>
-    <labels>
-        <fullName>LMS_PriceRangeValues</fullName>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>Price Range values</shortDescription>
-        <value>Price Range(in 1.000 Euros)</value>
-    </labels>
-    <labels>
         <fullName>LMS_PriceValue</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -8238,14 +8494,14 @@ Thank you,
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>LMS_PricingJobCompletedMsg</shortDescription>
-        <value>Pricing Job completed.</value>
+        <value>Pricing Job is completed.</value>
     </labels>
     <labels>
         <fullName>LMS_PricingJobCompletedNotification</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>LMS_PricingJobCompletedNotification</shortDescription>
-        <value>Pricing job is completed for quote cloned from Quote -</value>
+        <value>Pricing job is completed for quote {0} cloned from Quote</value>
     </labels>
     <labels>
         <fullName>LMS_PricingJobFailedMsg</fullName>
@@ -8572,20 +8828,6 @@ Thank you,
         <value>Choose exterior colour</value>
     </labels>
     <labels>
-        <fullName>LMS_QLI_ChooseInteriorColour</fullName>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>Choose Interior Colour</shortDescription>
-        <value>Choose Interior Colour</value>
-    </labels>
-    <labels>
-        <fullName>LMS_QLI_ChooseNoOfSeats</fullName>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>Choose Number of Seats</shortDescription>
-        <value>Choose Number of Seats</value>
-    </labels>
-    <labels>
         <fullName>LMS_QLI_ChooseTransmission</fullName>
         <categories>AddVehicle</categories>
         <language>en_US</language>
@@ -8682,13 +8924,6 @@ Thank you,
         <value>Engine Size To</value>
     </labels>
     <labels>
-        <fullName>LMS_QLI_EngineType</fullName>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>Engine Type</shortDescription>
-        <value>Engine Type</value>
-    </labels>
-    <labels>
         <fullName>LMS_QLI_ErrorSizes</fullName>
         <categories>AddVehicle</categories>
         <language>en_US</language>
@@ -8732,13 +8967,6 @@ Thank you,
         <protected>false</protected>
         <shortDescription>Icon</shortDescription>
         <value>Image</value>
-    </labels>
-    <labels>
-        <fullName>LMS_QLI_InteriorColour</fullName>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>Interior Colour</shortDescription>
-        <value>Interior Colour</value>
     </labels>
     <labels>
         <fullName>LMS_QLI_Level</fullName>
@@ -8801,13 +9029,6 @@ Thank you,
         <protected>false</protected>
         <shortDescription>LMS_QLI_NeedsApproval</shortDescription>
         <value>Vehicle Price needs approval.</value>
-    </labels>
-    <labels>
-        <fullName>LMS_QLI_NoOfSeats</fullName>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>Number of Seats</shortDescription>
-        <value>Number of Seats</value>
     </labels>
     <labels>
         <fullName>LMS_QLI_Other</fullName>
@@ -10357,20 +10578,6 @@ on {0} or {1}.&lt;/p&gt;
         <value>Search</value>
     </labels>
     <labels>
-        <fullName>LMS_SearchLicensePlate</fullName>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>Licence Plate</shortDescription>
-        <value>Search By Licence Plate</value>
-    </labels>
-    <labels>
-        <fullName>LMS_SearchOwningRetailerCity</fullName>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>Filter By Location</shortDescription>
-        <value>Filter By Location</value>
-    </labels>
-    <labels>
         <fullName>LMS_SearchRecord</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -10959,6 +11166,13 @@ When you create a test drive, the customer is automatically emailed a confirmati
 NOTE: this will stop the automatic creation of a lead for this Individual</value>
     </labels>
     <labels>
+        <fullName>LMS_TotalDiscountValue</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Total Discount Value</shortDescription>
+        <value>The total discount for the desired amount is = {0}</value>
+    </labels>
+    <labels>
         <fullName>LMS_TotalNetPrice</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -11289,6 +11503,13 @@ NOTE: this will stop the automatic creation of a lead for this Individual</value
         <protected>false</protected>
         <shortDescription>LMS_UpdateAll</shortDescription>
         <value>Update All</value>
+    </labels>
+    <labels>
+        <fullName>LMS_UpdateEmissionDataPrompt</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LMS_UpdateEmissionDataPrompt</shortDescription>
+        <value>Emission Data for the Stock Vehicle will be updated. Continue?</value>
     </labels>
     <labels>
         <fullName>LMS_UpdateVehicleBase</fullName>
@@ -16250,35 +16471,7 @@ If there are no Claims displayed on Screen, Please go ahead and Submit Claim for
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>gol_austria_jlr_consents_header</shortDescription>
-        <value>Consent Jaguar Land Rover Austria GmbH</value>
-    </labels>
-    <labels>
-        <fullName>gol_vehicle_config</fullName>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>gol_vehicle_config</shortDescription>
-        <value>Configuration Vehicle</value>
-    </labels>
-    <labels>
-        <fullName>gol_vehicle_stock</fullName>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>gol_vehicle_stock</shortDescription>
-        <value>Stock Vehicle</value>
-    </labels>
-    <labels>
-        <fullName>gol_vehicle_type</fullName>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>gol_vehicle_type</shortDescription>
-        <value>Type</value>
-    </labels>
-    <labels>
-        <fullName>gol_vehicle_used</fullName>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>gol_vehicle_used</shortDescription>
-        <value>Used</value>
+        <value>Consent for JLR Austria</value>
     </labels>
     <labels>
         <fullName>no_records_found</fullName>

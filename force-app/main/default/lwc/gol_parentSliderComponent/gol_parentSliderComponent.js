@@ -360,24 +360,27 @@ export default class gol_parentSliderComponent extends LightningElement {
  }
 
  buildInputFields() {
-    const inputFields = {};
-    this.sliders.forEach((slider) => {
-       inputFields[slider.id] = {
-            selectedValue: this[slider.id] || slider.defaultValue || 0,
-            step: slider.step || 0,
-            defaultValue: slider.defaultValue || 0,
-            minimum: slider.min || 0,
-            unit: slider.unit || "",
-            maximum: slider.max || 0,
-            description: slider.label || 0
+    const selectedFields = {};
+    const modifiedSliderValues = this.selectedSliderValues.get(this.selectedProductId);
+
+    Object.entries(modifiedSliderValues).forEach(([sliderId, selectedValue]) => {
+      const sliderDetails = this.sliders.find(slider => slider.id === sliderId);
+      if (sliderDetails) {
+        selectedFields[sliderId] = {
+          selectedValue: selectedValue,
+          step: sliderDetails.step || 0,
+          defaultValue: sliderDetails.defaultValue || 0,
+          minValue: sliderDetails.min || 0,
+          maxValue: sliderDetails.max || 0,
+          unit: sliderDetails.unit || "",
+          label: sliderDetails.label || ""
         };
+      }
     });
+    console.log("Selected Input Fields:", JSON.stringify(selectedFields, null, 2));
+    return selectedFields;
+  }
 
-  return inputFields;
-}
-
-
- 
   // buildGetQuotePayload(){
     
   // }

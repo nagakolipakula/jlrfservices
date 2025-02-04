@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <actionCalls>
-        <name>Get_Product</name>
-        <label>Get Product</label>
-        <locationX>176</locationX>
-        <locationY>242</locationY>
-        <actionName>GOLFinanceGetProductAPI.Get Product</actionName>
+        <name>Finance_Get_Product_All_Data</name>
+        <label>Finance Get Product All Data</label>
+        <locationX>963</locationX>
+        <locationY>350</locationY>
+        <actionName>GolFinanceGetProductAllData.getProducts</actionName>
         <actionType>externalService</actionType>
         <connector>
-            <targetReference>CheckAPIConnectivity</targetReference>
+            <targetReference>Assign_Company_Name_Check_Value</targetReference>
         </connector>
-        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <flowTransactionModel>Automatic</flowTransactionModel>
         <inputParameters>
             <name>quoteId</name>
             <value>
@@ -23,16 +23,102 @@
                 <elementReference>companyNameCheckFormulaValue</elementReference>
             </value>
         </inputParameters>
-        <nameSegment>GOLFinanceGetProductAPI.Get Product</nameSegment>
+        <nameSegment>GolFinanceGetProductAllData.getProducts</nameSegment>
+        <offset>0</offset>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </actionCalls>
+    <actionCalls>
+        <name>Invoke_Get_Quote_API_and_Create_Fin_Info_Record</name>
+        <label>Invoke Get Quote API and Create Fin Info Record</label>
+        <locationX>182</locationX>
+        <locationY>1298</locationY>
+        <actionName>GOL_GetFinanceQuote</actionName>
+        <actionType>apex</actionType>
+        <connector>
+            <targetReference>Check_Get_Quote_Status</targetReference>
+        </connector>
+        <flowTransactionModel>Automatic</flowTransactionModel>
+        <inputParameters>
+            <name>quoteId</name>
+            <value>
+                <elementReference>quoteId</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>quotePayload</name>
+            <value>
+                <elementReference>ParentSliderComponent.serializedData</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>GOL_GetFinanceQuote</nameSegment>
+        <offset>0</offset>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </actionCalls>
+    <actionCalls>
+        <name>Invoke_Get_Quote_API_and_Create_Fin_Info_Record_With_1_Fin_Info_Record</name>
+        <label>Invoke Get Quote API and Create Fin Info Record With 1 Fin Info Record</label>
+        <locationX>710</locationX>
+        <locationY>1298</locationY>
+        <actionName>GOL_GetFinanceQuote</actionName>
+        <actionType>apex</actionType>
+        <connector>
+            <targetReference>Check_Get_Quote_Status_For_Alternative_Fin_Info</targetReference>
+        </connector>
+        <flowTransactionModel>Automatic</flowTransactionModel>
+        <inputParameters>
+            <name>quoteId</name>
+            <value>
+                <elementReference>quoteId</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>quotePayload</name>
+            <value>
+                <elementReference>ParentSliderComponent.serializedData</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>GOL_GetFinanceQuote</nameSegment>
         <offset>0</offset>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </actionCalls>
     <apiVersion>62.0</apiVersion>
     <assignments>
+        <name>Assign_Company_Name_Check_Value</name>
+        <label>Assign Company Name Check Value</label>
+        <locationX>963</locationX>
+        <locationY>458</locationY>
+        <assignmentItems>
+            <assignToReference>companyNameCheck</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>companyNameCheckFormulaValue</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>CheckAPIConnectivity</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Payload_From_Parent_Slider_Component</name>
+        <label>Payload From Parent Slider Component</label>
+        <locationX>963</locationX>
+        <locationY>974</locationY>
+        <assignmentItems>
+            <assignToReference>retnResponse</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>ParentSliderComponent.serializedData</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>If_Payload_is_present</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
         <name>SelectedButtonValue</name>
         <label>SelectedButtonValue</label>
-        <locationX>176</locationX>
-        <locationY>758</locationY>
+        <locationX>963</locationX>
+        <locationY>2090</locationY>
         <assignmentItems>
             <assignToReference>companyNameCheck</assignToReference>
             <operator>Assign</operator>
@@ -40,9 +126,23 @@
                 <elementReference>FinanceHeaderDetailButtons.companyNameCheck</elementReference>
             </value>
         </assignmentItems>
+        <assignmentItems>
+            <assignToReference>contactIdForLWC</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_Finance_Records.Id</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>contactId2ForLWC</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Invoke_Get_Quote_API_and_Create_Fin_Info_Record_With_1_Fin_Info_Record.financeQuoteId</elementReference>
+            </value>
+        </assignmentItems>
         <connector>
             <isGoTo>true</isGoTo>
-            <targetReference>Get_Product</targetReference>
+            <targetReference>Finance_Get_Product_All_Data</targetReference>
         </connector>
     </assignments>
     <constants>
@@ -53,10 +153,115 @@
         </value>
     </constants>
     <decisions>
+        <description>For now checking for contact ID and need to change the logic in future</description>
+        <name>Check_for_Finance_Information_Record_Id</name>
+        <label>Check for Finance Information Record Id</label>
+        <locationX>644</locationX>
+        <locationY>1190</locationY>
+        <defaultConnector>
+            <targetReference>Foundation_Quote_View_Screen</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>With Finance Id</defaultConnectorLabel>
+        <rules>
+            <name>NoFinanceInfoId</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>contactIdForLWC</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Invoke_Get_Quote_API_and_Create_Fin_Info_Record</targetReference>
+            </connector>
+            <label>No Finance Info Id</label>
+        </rules>
+        <rules>
+            <name>If_Coming_From_New_C</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>contactIdForLWC</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>FinanceFoundationQuoteView.ContactId</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Invoke_Get_Quote_API_and_Create_Fin_Info_Record_With_1_Fin_Info_Record</targetReference>
+            </connector>
+            <label>If Coming From Alternative Calculation</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Check_Get_Quote_Status</name>
+        <label>Check Get Quote Status</label>
+        <locationX>182</locationX>
+        <locationY>1406</locationY>
+        <defaultConnector>
+            <targetReference>Error_Screen</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Finance Quote Not Created</defaultConnectorLabel>
+        <rules>
+            <name>Finance_Quote_Created</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Invoke_Get_Quote_API_and_Create_Fin_Info_Record.isSuccess</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Invoke_Get_Quote_API_and_Create_Fin_Info_Record.financeQuoteId</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Get_Finance_Records</targetReference>
+            </connector>
+            <label>Finance Quote Created</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Check_Get_Quote_Status_For_Alternative_Fin_Info</name>
+        <label>Check Get Quote Status For Alternative Fin Info</label>
+        <locationX>710</locationX>
+        <locationY>1406</locationY>
+        <defaultConnector>
+            <targetReference>Copy_1_of_Error_Screen</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Finance Quote Not Created For Alt Fin Info</defaultConnectorLabel>
+        <rules>
+            <name>Finance_Quote_Created_for_Alt_Fin_Quote</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Invoke_Get_Quote_API_and_Create_Fin_Info_Record_With_1_Fin_Info_Record.isSuccess</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Invoke_Get_Quote_API_and_Create_Fin_Info_Record_With_1_Fin_Info_Record.financeQuoteId</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Get_Finance_Records_with_Alt_Fin_Info_Record</targetReference>
+            </connector>
+            <label>Finance Quote Created for Alt Fin Quote</label>
+        </rules>
+    </decisions>
+    <decisions>
         <name>CheckAPIConnectivity</name>
         <label>Check API Connectivity</label>
-        <locationX>176</locationX>
-        <locationY>350</locationY>
+        <locationX>963</locationX>
+        <locationY>566</locationY>
         <defaultConnector>
             <targetReference>Insert_Exception</targetReference>
         </defaultConnector>
@@ -77,11 +282,36 @@
             <label>Success</label>
         </rules>
     </decisions>
+    <decisions>
+        <name>If_Payload_is_present</name>
+        <label>If Payload is present</label>
+        <locationX>963</locationX>
+        <locationY>1082</locationY>
+        <defaultConnector>
+            <targetReference>SelectedButtonValue</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Yes</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>ParentSliderComponent.serializedData</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Check_for_Finance_Information_Record_Id</targetReference>
+            </connector>
+            <label>Yes</label>
+        </rules>
+    </decisions>
     <environments>Default</environments>
     <formulas>
         <name>companyNameCheckFormulaValue</name>
         <dataType>String</dataType>
-        <expression>IF(ISBLANK({!FinanceHeaderDetailButtons.companyNameCheck}), &apos;PRIVATE&apos;, {!FinanceHeaderDetailButtons.companyNameCheck})</expression>
+        <expression>IF(ISBLANK({!FinanceHeaderDetailButtons.companyNameCheck}), IF({!Get_Prospect_Record.Record_Type_Name__c} == &apos;Organisation&apos;, &apos;PROFESSIONAL&apos;, &apos;PRIVATE&apos;), {!FinanceHeaderDetailButtons.companyNameCheck})</expression>
     </formulas>
     <interviewLabel>Screen Flow : Finance Tab {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Screen Flow : Finance Tab</label>
@@ -105,13 +335,78 @@
     </processMetadataValues>
     <processType>Flow</processType>
     <recordLookups>
+        <name>Get_Finance_Records</name>
+        <label>Get Finance Records</label>
+        <locationX>50</locationX>
+        <locationY>1514</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Foundation_Quote_View_Screen</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Invoke_Get_Quote_API_and_Create_Fin_Info_Record.financeQuoteId</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>LMS_FinanceInformation__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Finance_Records_with_Alt_Fin_Info_Record</name>
+        <label>Get Finance Records with Alt Fin Info Record</label>
+        <locationX>578</locationX>
+        <locationY>1514</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Foundation_Quote_View_Screen</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Invoke_Get_Quote_API_and_Create_Fin_Info_Record_With_1_Fin_Info_Record.financeQuoteId</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>LMS_FinanceInformation__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Prospect_Record</name>
+        <label>Get Prospect Record</label>
+        <locationX>963</locationX>
+        <locationY>242</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Finance_Get_Product_All_Data</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Quote_Record.LMS_QUO_Account__c</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Account</object>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>Record_Type_Name__c</queriedFields>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
         <name>Get_Quote_Record</name>
         <label>Get Quote Record</label>
-        <locationX>176</locationX>
+        <locationX>963</locationX>
         <locationY>134</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Get_Product</targetReference>
+            <targetReference>Get_Prospect_Record</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -125,18 +420,51 @@
         <object>LMS_Quote__c</object>
         <queriedFields>Id</queriedFields>
         <queriedFields>EPRT_QUO_External_ID__c</queriedFields>
+        <queriedFields>LMS_QUO_Account__c</queriedFields>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <screens>
+        <name>Copy_1_of_Error_Screen</name>
+        <label>Copy 1 of Error Screen</label>
+        <locationX>842</locationX>
+        <locationY>1514</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <fields>
+            <name>Copy_1_of_ErrorScreen</name>
+            <fieldText>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong style=&quot;font-size: 16px; color: rgb(211, 17, 17);&quot;&gt;{!Invoke_Get_Quote_API_and_Create_Fin_Info_Record.message}&lt;/strong&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>false</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <screens>
+        <name>Error_Screen</name>
+        <label>Error Screen</label>
+        <locationX>314</locationX>
+        <locationY>1514</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <fields>
+            <name>ErrorScreen</name>
+            <fieldText>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong style=&quot;font-size: 16px; color: rgb(211, 17, 17);&quot;&gt;{!Invoke_Get_Quote_API_and_Create_Fin_Info_Record.message}&lt;/strong&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>false</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <screens>
         <name>Finance_Product_Selection_Screen</name>
         <label>Finance Product Selection Screen</label>
-        <locationX>176</locationX>
-        <locationY>650</locationY>
+        <locationX>963</locationX>
+        <locationY>866</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
         <connector>
-            <targetReference>SelectedButtonValue</targetReference>
+            <targetReference>Payload_From_Parent_Slider_Component</targetReference>
         </connector>
         <fields>
             <name>FinanceHeaderDetailButtons</name>
@@ -157,7 +485,7 @@
             <inputParameters>
                 <name>productAPIResponseCode</name>
                 <value>
-                    <elementReference>Get_Product.responseCode</elementReference>
+                    <elementReference>Finance_Get_Product_All_Data.responseCode</elementReference>
                 </value>
             </inputParameters>
             <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
@@ -166,12 +494,12 @@
         </fields>
         <fields>
             <name>ProductAPIErrorMessage</name>
-            <fieldText>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong style=&quot;font-size: 16px; color: rgb(250, 0, 0);&quot;&gt;Unexpected error !!!!&lt;/strong&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong style=&quot;font-size: 16px; color: rgb(8, 8, 8);&quot;&gt;Received status code&lt;/strong&gt;&lt;strong style=&quot;font-size: 16px; color: rgb(8, 8, 8); background-color: var(--slds-g-color-neutral-base-100, var(--lwc-colorBackgroundInput,rgb(255, 255, 255))); font-family: var(--lwc-fontFamily,-apple-system, BlinkMacSystemFont, &apos;Segoe UI&apos;, Roboto, Helvetica, Arial, sans-serif, &apos;Apple Color Emoji&apos;, &apos;Segoe UI Emoji&apos;, &apos;Segoe UI Symbol&apos;);&quot;&gt;:  &lt;/strong&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong style=&quot;background-color: var(--slds-g-color-neutral-base-100, var(--lwc-colorBackgroundInput,rgb(255, 255, 255))); color: rgb(250, 0, 0); font-size: 16px; font-family: var(--lwc-fontFamily,-apple-system, BlinkMacSystemFont, &apos;Segoe UI&apos;, Roboto, Helvetica, Arial, sans-serif, &apos;Apple Color Emoji&apos;, &apos;Segoe UI Emoji&apos;, &apos;Segoe UI Symbol&apos;);&quot;&gt;{!Get_Product.responseCode}&lt;/strong&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong style=&quot;background-color: var(--slds-g-color-neutral-base-100, var(--lwc-colorBackgroundInput,rgb(255, 255, 255))); color: var(--slds-g-color-neutral-base-30, var(--lwc-colorTextWeak,rgb(68, 68, 68))); font-size: 16px; font-family: var(--lwc-fontFamily,-apple-system, BlinkMacSystemFont, &apos;Segoe UI&apos;, Roboto, Helvetica, Arial, sans-serif, &apos;Apple Color Emoji&apos;, &apos;Segoe UI Emoji&apos;, &apos;Segoe UI Symbol&apos;);&quot;&gt;﻿&lt;/strong&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong style=&quot;background-color: var(--slds-g-color-neutral-base-100, var(--lwc-colorBackgroundInput,rgb(255, 255, 255))); color: rgb(18, 17, 17); font-size: 16px; font-family: var(--lwc-fontFamily,-apple-system, BlinkMacSystemFont, &apos;Segoe UI&apos;, Roboto, Helvetica, Arial, sans-serif, &apos;Apple Color Emoji&apos;, &apos;Segoe UI Emoji&apos;, &apos;Segoe UI Symbol&apos;);&quot;&gt;Error message: &lt;/strong&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong style=&quot;background-color: var(--slds-g-color-neutral-base-100, var(--lwc-colorBackgroundInput,rgb(255, 255, 255))); color: rgb(250, 0, 0); font-size: 16px; font-family: var(--lwc-fontFamily,-apple-system, BlinkMacSystemFont, &apos;Segoe UI&apos;, Roboto, Helvetica, Arial, sans-serif, &apos;Apple Color Emoji&apos;, &apos;Segoe UI Emoji&apos;, &apos;Segoe UI Symbol&apos;);&quot;&gt;{!Get_Product.defaultExc}&lt;/strong&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong style=&quot;background-color: var(--slds-g-color-neutral-base-100, var(--lwc-colorBackgroundInput,rgb(255, 255, 255))); color: rgb(250, 0, 0); font-size: 16px; font-family: var(--lwc-fontFamily,-apple-system, BlinkMacSystemFont, &apos;Segoe UI&apos;, Roboto, Helvetica, Arial, sans-serif, &apos;Apple Color Emoji&apos;, &apos;Segoe UI Emoji&apos;, &apos;Segoe UI Symbol&apos;);&quot;&gt;&lt;span class=&quot;ql-cursor&quot;&gt;﻿&lt;/span&gt;&lt;/strong&gt;&lt;/p&gt;</fieldText>
+            <fieldText>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong style=&quot;color: rgb(250, 0, 0); font-size: 16px;&quot;&gt;Unexpected error !!!!&lt;/strong&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong style=&quot;color: rgb(8, 8, 8); font-size: 16px;&quot;&gt;Received status code&lt;/strong&gt;&lt;strong style=&quot;color: rgb(8, 8, 8); font-size: 16px; font-family: var(--lwc-fontFamily,-apple-system, BlinkMacSystemFont, &apos;Segoe UI&apos;, Roboto, Helvetica, Arial, sans-serif, &apos;Apple Color Emoji&apos;, &apos;Segoe UI Emoji&apos;, &apos;Segoe UI Symbol&apos;); background-color: var(--slds-g-color-neutral-base-100, var(--lwc-colorBackgroundInput,rgb(255, 255, 255)));&quot;&gt;:  &lt;/strong&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong style=&quot;font-family: var(--lwc-fontFamily,-apple-system, BlinkMacSystemFont, &apos;Segoe UI&apos;, Roboto, Helvetica, Arial, sans-serif, &apos;Apple Color Emoji&apos;, &apos;Segoe UI Emoji&apos;, &apos;Segoe UI Symbol&apos;); font-size: 16px; color: rgb(250, 0, 0); background-color: var(--slds-g-color-neutral-base-100, var(--lwc-colorBackgroundInput,rgb(255, 255, 255)));&quot;&gt;{!&lt;/strong&gt;Finance_Get_Product_All_Data&lt;strong style=&quot;font-family: var(--lwc-fontFamily,-apple-system, BlinkMacSystemFont, &apos;Segoe UI&apos;, Roboto, Helvetica, Arial, sans-serif, &apos;Apple Color Emoji&apos;, &apos;Segoe UI Emoji&apos;, &apos;Segoe UI Symbol&apos;); font-size: 16px; color: rgb(250, 0, 0); background-color: var(--slds-g-color-neutral-base-100, var(--lwc-colorBackgroundInput,rgb(255, 255, 255)));&quot;&gt;.responseCode}&lt;/strong&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong style=&quot;font-family: var(--lwc-fontFamily,-apple-system, BlinkMacSystemFont, &apos;Segoe UI&apos;, Roboto, Helvetica, Arial, sans-serif, &apos;Apple Color Emoji&apos;, &apos;Segoe UI Emoji&apos;, &apos;Segoe UI Symbol&apos;); font-size: 16px; color: var(--slds-g-color-neutral-base-30, var(--lwc-colorTextWeak,rgb(68, 68, 68))); background-color: var(--slds-g-color-neutral-base-100, var(--lwc-colorBackgroundInput,rgb(255, 255, 255)));&quot;&gt;﻿&lt;/strong&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong style=&quot;font-family: var(--lwc-fontFamily,-apple-system, BlinkMacSystemFont, &apos;Segoe UI&apos;, Roboto, Helvetica, Arial, sans-serif, &apos;Apple Color Emoji&apos;, &apos;Segoe UI Emoji&apos;, &apos;Segoe UI Symbol&apos;); font-size: 16px; color: rgb(18, 17, 17); background-color: var(--slds-g-color-neutral-base-100, var(--lwc-colorBackgroundInput,rgb(255, 255, 255)));&quot;&gt;Error message: &lt;/strong&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong style=&quot;font-family: var(--lwc-fontFamily,-apple-system, BlinkMacSystemFont, &apos;Segoe UI&apos;, Roboto, Helvetica, Arial, sans-serif, &apos;Apple Color Emoji&apos;, &apos;Segoe UI Emoji&apos;, &apos;Segoe UI Symbol&apos;); font-size: 16px; color: rgb(250, 0, 0); background-color: var(--slds-g-color-neutral-base-100, var(--lwc-colorBackgroundInput,rgb(255, 255, 255)));&quot;&gt;{!&lt;/strong&gt;Finance_Get_Product_All_Data&lt;strong style=&quot;font-family: var(--lwc-fontFamily,-apple-system, BlinkMacSystemFont, &apos;Segoe UI&apos;, Roboto, Helvetica, Arial, sans-serif, &apos;Apple Color Emoji&apos;, &apos;Segoe UI Emoji&apos;, &apos;Segoe UI Symbol&apos;); font-size: 16px; color: rgb(250, 0, 0); background-color: var(--slds-g-color-neutral-base-100, var(--lwc-colorBackgroundInput,rgb(255, 255, 255)));&quot;&gt;.defaultExc}&lt;/strong&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong style=&quot;font-family: var(--lwc-fontFamily,-apple-system, BlinkMacSystemFont, &apos;Segoe UI&apos;, Roboto, Helvetica, Arial, sans-serif, &apos;Apple Color Emoji&apos;, &apos;Segoe UI Emoji&apos;, &apos;Segoe UI Symbol&apos;); font-size: 16px; color: rgb(250, 0, 0); background-color: var(--slds-g-color-neutral-base-100, var(--lwc-colorBackgroundInput,rgb(255, 255, 255)));&quot;&gt;﻿&lt;/strong&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
             <visibilityRule>
                 <conditionLogic>and</conditionLogic>
                 <conditions>
-                    <leftValueReference>Get_Product.responseCode</leftValueReference>
+                    <leftValueReference>Finance_Get_Product_All_Data.responseCode</leftValueReference>
                     <operator>NotEqualTo</operator>
                     <rightValue>
                         <numberValue>200.0</numberValue>
@@ -189,13 +517,31 @@
                     <elementReference>responseFromApiCallout</elementReference>
                 </value>
             </inputParameters>
+            <inputParameters>
+                <name>quoteExternalId</name>
+                <value>
+                    <elementReference>Get_Quote_Record.EPRT_QUO_External_ID__c</elementReference>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>ContactId</name>
+                <value>
+                    <elementReference>contactIdForLWC</elementReference>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>ContactId2</name>
+                <value>
+                    <elementReference>contactId2ForLWC</elementReference>
+                </value>
+            </inputParameters>
             <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
             <visibilityRule>
                 <conditionLogic>and</conditionLogic>
                 <conditions>
-                    <leftValueReference>Get_Product.responseCode</leftValueReference>
+                    <leftValueReference>Finance_Get_Product_All_Data.responseCode</leftValueReference>
                     <operator>EqualTo</operator>
                     <rightValue>
                         <numberValue>200.0</numberValue>
@@ -206,8 +552,60 @@
         <showFooter>false</showFooter>
         <showHeader>false</showHeader>
     </screens>
+    <screens>
+        <name>Foundation_Quote_View_Screen</name>
+        <label>Foundation Quote View Screen</label>
+        <locationX>644</locationX>
+        <locationY>1898</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <connector>
+            <targetReference>SelectedButtonValue</targetReference>
+        </connector>
+        <fields>
+            <name>FinanceFoundationQuoteView</name>
+            <extensionName>c:gol_FinanceFoundationQuoteView</extensionName>
+            <fieldType>ComponentInstance</fieldType>
+            <inputParameters>
+                <name>financeInformationId</name>
+                <value>
+                    <elementReference>Get_Finance_Records.Id</elementReference>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>ContactId</name>
+                <value>
+                    <elementReference>Get_Finance_Records.Id</elementReference>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>ContactId2</name>
+                <value>
+                    <elementReference>Invoke_Get_Quote_API_and_Create_Fin_Info_Record_With_1_Fin_Info_Record.financeQuoteId</elementReference>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>QuotePrice</name>
+                <value>
+                    <elementReference>GetQuotePrice</elementReference>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>financeInformationRecord</name>
+                <value>
+                    <elementReference>Get_Finance_Records</elementReference>
+                </value>
+            </inputParameters>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+            <isRequired>true</isRequired>
+            <storeOutputAutomatically>true</storeOutputAutomatically>
+        </fields>
+        <showFooter>false</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
     <start>
-        <locationX>50</locationX>
+        <locationX>837</locationX>
         <locationY>0</locationY>
         <connector>
             <targetReference>Get_Quote_Record</targetReference>
@@ -217,8 +615,8 @@
     <subflows>
         <name>Insert_Exception</name>
         <label>Insert Exception</label>
-        <locationX>264</locationX>
-        <locationY>458</locationY>
+        <locationX>1051</locationX>
+        <locationY>674</locationY>
         <connector>
             <targetReference>Finance_Product_Selection_Screen</targetReference>
         </connector>
@@ -226,7 +624,7 @@
         <inputAssignments>
             <name>exMessage</name>
             <value>
-                <elementReference>Get_Product.defaultExc</elementReference>
+                <elementReference>Finance_Get_Product_All_Data.defaultExc</elementReference>
             </value>
         </inputAssignments>
         <inputAssignments>
@@ -246,7 +644,7 @@
         <description>Response from Muelsoft Get Product API Callout</description>
         <name>responseFromApiCallout</name>
         <isViewedAsPlainText>false</isViewedAsPlainText>
-        <text>&lt;p&gt;{!Get_Product.2XX}&lt;/p&gt;</text>
+        <text>&lt;p&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(68, 68, 68);&quot;&gt;{!Finance_Get_Product_All_Data.200}&lt;/span&gt;&lt;/p&gt;</text>
     </textTemplates>
     <variables>
         <name>companyNameCheck</name>
@@ -257,6 +655,34 @@
         <value>
             <stringValue>PRIVATE</stringValue>
         </value>
+    </variables>
+    <variables>
+        <name>contactId2ForLWC</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+    <variables>
+        <name>contactIdForLWC</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+    <variables>
+        <name>FinInfoRecords</name>
+        <dataType>String</dataType>
+        <isCollection>true</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+    <variables>
+        <name>GetQuotePrice</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
     </variables>
     <variables>
         <name>quoteId</name>
@@ -277,6 +703,13 @@
         <value>
             <booleanValue>false</booleanValue>
         </value>
+    </variables>
+    <variables>
+        <name>retnResponse</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
     </variables>
     <variables>
         <name>retUrl</name>

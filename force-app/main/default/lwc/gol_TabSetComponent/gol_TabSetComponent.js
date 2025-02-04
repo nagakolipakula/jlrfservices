@@ -27,8 +27,6 @@ export default class Gol_TabSetComponent extends LightningElement {
   currentPageReference;
 
   connectedCallback() {
-    console.log('====<<>>>>'+this.showFinancingTab)
-    console.log('====<<>>>>'+this.quoteId)
     this.tabSetItemshandler();        //GOL-2142
     console.log('current ref : ' + JSON.stringify(this.currentPageReference));     
     console.log(window.location.href);
@@ -37,7 +35,7 @@ export default class Gol_TabSetComponent extends LightningElement {
     console.log('default Tab : ' + this.defaulttab);
     
     if (this.defaulttab === undefined) {
-      this.defaulttab = 'tab-default-Summary';
+      this.defaulttab = 'tab-default-Financing';
     }
     this.tabItems.forEach(tab => {
       if(tab.TabId === this.defaulttab){
@@ -80,11 +78,11 @@ export default class Gol_TabSetComponent extends LightningElement {
         Title: GOL_F1_SUMMARY,
         HeaderFlowName: "GOL_Screen_Flow_Summary_Tab_Header_Car_Image",
         FlowName: "GOL_Screen_Flow_Summary_Tab",
-        ItemClass: 'slds-tabs_default__item slds-is-active',
-        ContentClass: 'slds-tabs_default__content slds-show',
+        ItemClass: 'slds-tabs_default__item',
+        ContentClass: 'slds-tabs_default__content slds-hide',
         TabItemStyle: '',
         TabIndex: 0,
-        IsActive: true,
+        IsActive: false,
         TabId: 'tab-default-Summary',
         IsFinanceTab:false,
         IsTradeInTab:false
@@ -147,13 +145,13 @@ export default class Gol_TabSetComponent extends LightningElement {
         Title: GOL_F1_FINANCING,
         HeaderFlowName: "",
         FlowName: "GOL_Screen_Flow_Finance_Tab",
-        ItemClass: 'slds-tabs_default__item',
-        ContentClass: 'slds-tabs_default__content slds-hide',
+        ItemClass: 'slds-tabs_default__item slds-is-active',
+        ContentClass: 'slds-tabs_default__content slds-show',
         TabItemStyle: '',
         TabIndex: 5,
-        IsActive: false,
+        IsActive: true,
         TabId: 'tab-default-Financing',
-        IsFinanceTab:true,
+        IsFinanceTab:false,
         IsTradeInTab:false
       },
       {

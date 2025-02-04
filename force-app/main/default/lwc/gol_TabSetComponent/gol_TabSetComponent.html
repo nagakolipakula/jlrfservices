@@ -22,19 +22,19 @@
                             </lightning-flow>
                         </div>
                         <div style="padding-left: 50px;padding-right: 50px;">
-                                <!--template lwc:if={tab.IsFinanceTab}>
-                                    <c-gol_-Iframe-Finance quote-id={quoteId} page-name="finance"></c-gol_-Iframe-Finance>
+                                <template lwc:if={tab.IsFinanceTab}>
+                                    <!--c-gol_-Iframe-Finance quote-id={quoteId} page-name="finance"></c-gol_-Iframe-Finance-->
                                 </template>
-                                <template lwc:elseif={tab.IsTradeInTab}-->
+                                <template lwc:elseif={tab.IsTradeInTab}>
                                    <!-- <c-gol_-Trade-In quote-id={quoteId} ></c-gol_-Trade-In> -->
-                                <!--/template>
-                                <template lwc:else-->
+                                </template>
+                                <template lwc:else>
                                     <lightning-flow
                                         flow-api-name={tab.FlowName}
                                         flow-input-variables={summaryTabinputVariables}
                                         onstatuschange={handleStatusChange}>
                                     </lightning-flow> 
-                                <!-- </template> -->
+                                </template>
                         </div>
                     </div>
                 </div>

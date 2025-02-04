@@ -140,17 +140,19 @@ export default class gol_parentSliderComponent extends LightningElement {
       const allowedFields = this.getSliderNames(inputFields);
 
       this.sliders = Object.entries(inputFields)
-          .filter(([key]) => allowedFields.includes(key))
-          .map(([key, field]) => {
-              let storedValue = this.selectedSliderValues.get(this.selectedProductId)?.[key];
-              return this.createSliders(providerData, key, field, storedValue);
-          });
-
-      // this.sliders.sort((a, b) => a.sequence - b.sequence);
-      console.log('Generated Sliders:', JSON.stringify(this.sliders, null, 2));
+        .filter(([key]) => 
+          allowedFields.includes(key) &&
+          key !== "downPaymentRateRange" &&
+          key !== "finalTermRateRange"
+        )
+        .map(([key, field]) => {
+          let storedValue = this.selectedSliderValues.get(this.selectedProductId)?.[key];
+          return this.createSliders(providerData, key, field, storedValue);
+        });
+        console.log('Generated Sliders:', JSON.stringify(this.sliders, null, 2));
     } else {
-      console.warn('No Input Fields Found');
-      this.sliders = [];
+        console.warn('No Input Fields Found');
+        this.sliders = [];
     }
   }
 

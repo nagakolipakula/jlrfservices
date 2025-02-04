@@ -367,7 +367,7 @@ export default class gol_parentSliderComponent extends LightningElement {
       const sliderDetails = this.sliders.find(slider => slider.id === sliderId);
       if (sliderDetails) {
         selectedFields[sliderId] = {
-          selectedValue: selectedValue,
+          selectedValue: selectedValue || sliderDetails.defaultValue || 0 ,
           step: sliderDetails.step || 0,
           defaultValue: sliderDetails.defaultValue || 0,
           minValue: sliderDetails.min || 0,
@@ -383,6 +383,8 @@ export default class gol_parentSliderComponent extends LightningElement {
 
   // buildGetQuotePayload(){
     
+
+
   // }
 
   // buildInputFields(){

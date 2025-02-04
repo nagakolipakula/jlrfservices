@@ -100,11 +100,8 @@ export default class golSliderComponent extends LightningElement {
         }
 
         if (this.unit === 'km') {
-            return `${Math.round(this.sliderValue || 0)}`;
-        //    return `${(this.sliderValue || 0).toLocaleString(LOCALE, { 
-        //     minimumFractionDigits: 2, 
-        //     maximumFractionDigits: 2 
-        //     })}`;
+            //return `${Math.round(this.sliderValue || 0)}`;
+            return `${(this.sliderValue || 0).toLocaleString(LOCALE)}`;
         }
 
         if (this.isPercentage) {
@@ -119,11 +116,8 @@ export default class golSliderComponent extends LightningElement {
             return '';
         }
         if (this.unit === 'km') {
-            return `${this.maxValue} ${this.unit}`;
-            // return `${(this.maxValue || 0).toLocaleString(LOCALE, { 
-            //     minimumFractionDigits: 2, 
-            //     maximumFractionDigits: 2 
-            // })} ${this.unit}`;
+            //return `${this.maxValue} ${this.unit}`;
+            return `${(this.maxValue || 0).toLocaleString(LOCALE)} ${this.unit}`;
         }
         if (this.unit === '€') {
             //return `${this.maxValue} ${this.unit}`;
@@ -145,11 +139,8 @@ export default class golSliderComponent extends LightningElement {
             return '';
         }
         if (this.unit === 'km' || this.unit === 'months') {
-            return `${this.minValue} ${this.unit}`;
-            // return `${(this.minValue || 0).toLocaleString(LOCALE, { 
-            //     minimumFractionDigits: 2, 
-            //     maximumFractionDigits: 2 
-            // })} ${this.unit}`;
+            //return `${this.minValue} ${this.unit}`;
+            return `${(this.minValue || 0).toLocaleString(LOCALE)} ${this.unit}`;
         }
         if (this.unit === '€') {
             //return `${this.unit} ${this.minValue}`;

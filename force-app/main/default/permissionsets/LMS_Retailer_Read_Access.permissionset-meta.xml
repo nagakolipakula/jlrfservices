@@ -389,162 +389,6 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>ExpressionBuilder</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>FieldDescriptor</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>FieldSelectorController</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>FlexCardController</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>FlowListController</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>GOL_AdjustmentAccessoriesPriceCtrl</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>GOL_ButtonsFilterController</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>GOL_CC_ImportRcCtrl</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>GOL_ChooseShowroomComponentController</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>GOL_ClientDetailsButtonController</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>GOL_Constants</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>GOL_CreateHybridProspectperRetailer</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>GOL_CreateUpdateClientDetailsFlowHandler</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>GOL_DataTableCtrl</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>GOL_GenerateExternalIdOnQuote</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>GOL_GenerateHybridQuote</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>GOL_GenerateVirtualQuote</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>GOL_GetShowroom</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>GOL_PromotionDataTableController</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>GOL_QuoteHelper</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>GOL_RemoveHtmlMarkups</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>GOL_SalesLeadHelper</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>GOL_SaveSupplementController</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>GOL_SelectQuoteController</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>GOL_ShowroomTriggerHelper</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>GOL_StockVehicleHelper</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>GOL_StockVehiclesSearch</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>GOL_SummaryDetailsController</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>GOL_SupplementHelper</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>GOL_TradeIn</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>GOL_TrimMessage</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>GOL_UnholdStockVehicleInvokable</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>GOL_UpdateConsentsHelper</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>GOL_UpdateRequiredFieldsOnQuote</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>GOL_Utils</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>GOL_VistaOrderOrVINSearch</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>GetFieldInformation</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>Gol_ClientCheckBoxHelper</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>Gol_DataTableController</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
         <apexClass>LMS_ATE_SyncRetGroupAccTeamsButton</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -822,26 +666,6 @@
     </classAccesses>
     <classAccesses>
         <apexClass>LMS_VehicleFetchFieldForEmail</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>VME_5KCode_CampaignSpec</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>VME_5KSearchScreen_Dealer</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>VME_ViewPreDeterminedEligibleClaimsCOMP</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>ers_DatatableController</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>ers_QueryNRecords</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -1572,6 +1396,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>LMS_FinanceInformation__c.GOL_JLR_ID__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>APXTConga4__Composer_QuickMerge__c.APXTConga4__Description__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1947,6 +1776,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Account.AccountNumber</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Account.AccountSource</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1963,6 +1797,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Account.Description</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.EPRT_ACC_IsVirtual__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -2017,6 +1856,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Account.Jigsaw</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Account.LMS_ACC_3hrRemind__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -2033,6 +1877,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Account.LMS_ACC_AccountOrigin__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.LMS_ACC_AccountTechnicalOrigin__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -2087,6 +1936,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Account.LMS_ACC_BillingDepartmentName__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Account.LMS_ACC_BillingStreetName__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -2123,6 +1977,26 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Account.LMS_ACC_BuyingMotivation__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.LMS_ACC_CSTransaction_ExpiryReminder__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.LMS_ACC_CSTransaction_Expiry__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.LMS_ACC_CSTransaction_FirstReminder__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.LMS_ACC_CSTransaction_RemindeFrequency__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -2182,12 +2056,22 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Account.LMS_ACC_ConsentsCollected__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Account.LMS_ACC_ConsideredModels__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
         <field>Account.LMS_ACC_Count__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.LMS_ACC_CountryOfResidence_SEARCH__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -2213,6 +2097,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Account.LMS_ACC_CurrentFuel__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.LMS_ACC_DMSExtractGeneration__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -2307,6 +2196,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Account.LMS_ACC_Defender_CS_Business_Unit__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Account.LMS_ACC_DepartmentName__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -2332,6 +2226,16 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Account.LMS_ACC_Discovery_CS_Business_Unit__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.LMS_ACC_DocImageProfile__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Account.LMS_ACC_ElectronicPocketGuide__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -2342,7 +2246,17 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Account.LMS_ACC_EmailAPConfirm__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Account.LMS_ACC_EmailAPResch__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.LMS_ACC_EmailNewLead__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -2372,7 +2286,17 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Account.LMS_ACC_EmployeeToBeAssignedRGM__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Account.LMS_ACC_EmployeeToBeAssigned__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.LMS_ACC_Enable_Conga_Sign__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -2393,6 +2317,16 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Account.LMS_ACC_ExpireReviewDays__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.LMS_ACC_ExpireReviewUnqualifiedDays__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.LMS_ACC_ExpireUnqualifiedDays__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -2442,7 +2376,17 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Account.LMS_ACC_FuelType__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Account.LMS_ACC_Gender__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.LMS_ACC_GenerateDMSButtonEnabled__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -2452,7 +2396,17 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Account.LMS_ACC_GroupName__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Account.LMS_ACC_HasAccessToVHC__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.LMS_ACC_HasExcludedVehicles__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -2487,12 +2441,27 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Account.LMS_ACC_IsBuyAndDrive__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Account.LMS_ACC_IsLegalEntity__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
         <field>Account.LMS_ACC_ItineraryType__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.LMS_ACC_JaguarConfiguratorStartingUrl__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.LMS_ACC_Jaguar_CS_Business_Unit__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -2512,6 +2481,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Account.LMS_ACC_LandRoverConfiguratorStartingUrl__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Account.LMS_ACC_LanguageIndicator2__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -2523,6 +2497,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Account.LMS_ACC_LastActivityDate__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.LMS_ACC_LastCompletedActivityId__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -2543,6 +2522,16 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Account.LMS_ACC_LegalName__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.LMS_ACC_LibraryId__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.LMS_ACC_LibraryLink__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -2568,6 +2557,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Account.LMS_ACC_MCEmailAPCancel__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.LMS_ACC_MCEmailAPConfirm__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -2598,6 +2592,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Account.LMS_ACC_Management__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.LMS_ACC_ManualRecordChangeIndicator__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -2683,6 +2682,21 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Account.LMS_ACC_NoOfFamilyMembers__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.LMS_ACC_NonAcademicTitle__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.LMS_ACC_NscSvCrmReferenceCode__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.LMS_ACC_NumberOfAutomaticTax__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -2787,7 +2801,17 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Account.LMS_ACC_PrimaryContact_SEARCH__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Account.LMS_ACC_PrimaryContact__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.LMS_ACC_PrimaryRetailer__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -2857,6 +2881,26 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Account.LMS_ACC_Quote48hr__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.LMS_ACC_QuoteExpiration__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.LMS_ACC_Range_Rover_CS_Business_Unit__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.LMS_ACC_Reg_Showroom_Vehicle__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Account.LMS_ACC_RegisteredOffice__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -2882,6 +2926,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Account.LMS_ACC_ReplacementVehicleNoticePeriod__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Account.LMS_ACC_RequiredInfoMissing__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -2893,6 +2942,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Account.LMS_ACC_Resurrected_Lead_Template__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.LMS_ACC_RetGroupAccTeamsSynchronized__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -2952,7 +3006,17 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Account.LMS_ACC_SendHoldAppprovalOwningRetailer__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Account.LMS_ACC_ShareVHCStockwithRetailerGroup__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.LMS_ACC_SharingGroupId__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -2963,6 +3027,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Account.LMS_ACC_ShippingDepartmentCode__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.LMS_ACC_ShippingDepartmentName__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -2988,6 +3057,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Account.LMS_ACC_SocialMediaType__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.LMS_ACC_StartDateWLTP__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -3042,6 +3116,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Account.LMS_ACC_TemplateNewLead__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Account.LMS_ACC_TemplateTDCancel__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -3058,6 +3137,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Account.LMS_ACC_TemplateTDResch__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.LMS_ACC_TemplateUnqualifiedLead__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -3127,6 +3211,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Account.LMS_ACC_UseNETPricingForDX__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Account.LMS_ACC_VATNumber__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -3152,7 +3241,22 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Account.LMS_ACC_VehicleModelNameplate__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.LMS_ACC_VehicleModelOfInterest_SEARCH__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Account.LMS_ACC_VehicleModelOfInterest__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.LMS_ACC_VehicleModelType__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -3173,6 +3277,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Account.LMS_ACC_Vip__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.LMS_ACC_WebConfiguratorLanguageCode__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -3207,7 +3316,17 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Account.LMS_Number_of_Leads__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Account.LMS_Tax_code__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.Model_Of_Interest_Name__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -3242,6 +3361,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Account.Retailer_Risk_Category__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Account.ShippingAddress</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -3262,6 +3386,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Account.Tax_Code__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Account.TickerSymbol</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -3272,17 +3401,42 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Account.VME_ACC_RetailerGroupId__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.VME_Country_hidden__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.VME_J_CustomerCode__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.VME_LR_Customer_code__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.VME_Retailer_Category__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Account.Website</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Applied_Campaign_Specifications__c.LMS_ACS_NetPrice__c</field>
+        <field>Account.X18_Digit_ID__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Applied_Campaign_Specifications__c.LMS_ACS_SalesPrice__c</field>
+        <field>Account.powerofOne__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -3587,11 +3741,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Contact.LMS_CON_VHCAccess__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>Contact.LMS_CON_VehicleUse__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -3798,11 +3947,6 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Event.LMS_EVT_FuelLevel__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Event.LMS_EVT_HOB_Email_Logo__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -4642,6 +4786,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>LMS_ConfigurationVehicle__c.ERPT_Configurator_Vehicle_Image_URL__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>LMS_ConfigurationVehicle__c.LMS_CVH_5000Code__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -4707,32 +4856,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>LMS_ConfigurationVehicle__c.LMS_CVH_CO2CostsHigh__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>LMS_ConfigurationVehicle__c.LMS_CVH_CO2CostsLow__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>LMS_ConfigurationVehicle__c.LMS_CVH_CO2CostsMed__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>LMS_ConfigurationVehicle__c.LMS_CVH_CO2EmissionWLTPgkm__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>LMS_ConfigurationVehicle__c.LMS_CVH_CO2_ClassCombined__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>LMS_ConfigurationVehicle__c.LMS_CVH_CO2_ClassWeightedCombined__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -4788,26 +4912,6 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>LMS_ConfigurationVehicle__c.LMS_CVH_EPRLUrl2__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>LMS_ConfigurationVehicle__c.LMS_CVH_ElecConsumptionExHighkWh100KM__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>LMS_ConfigurationVehicle__c.LMS_CVH_ElecConsumptionHighkWh100KM__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>LMS_ConfigurationVehicle__c.LMS_CVH_ElecConsumptionLowkWh100KM__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>LMS_ConfigurationVehicle__c.LMS_CVH_ElecConsumptionMediumkWh100KM__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -5068,61 +5172,6 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>LMS_ConfigurationVehicle__c.LMS_CVH_OpenRoadl100kmNEDC__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>LMS_ConfigurationVehicle__c.LMS_CVH_PCEDCO2EmissionCombg100KM__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>LMS_ConfigurationVehicle__c.LMS_CVH_PCEDFuelConsumptionCombl100KM__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>LMS_ConfigurationVehicle__c.LMS_CVH_PCEDFuelConsumptionExHighl100KM__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>LMS_ConfigurationVehicle__c.LMS_CVH_PCEDFuelConsumptionHighl100KM__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>LMS_ConfigurationVehicle__c.LMS_CVH_PCEDFuelConsumptionLowl100KM__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>LMS_ConfigurationVehicle__c.LMS_CVH_PCEDFuelConsumptionMedl100KM__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>LMS_ConfigurationVehicle__c.LMS_CVH_PEDElecConsumptionCombkWh100KM__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>LMS_ConfigurationVehicle__c.LMS_CVH_PEDElecConsumptionExHighkWh100KM__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>LMS_ConfigurationVehicle__c.LMS_CVH_PEDElecConsumptionHighkWh100KM__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>LMS_ConfigurationVehicle__c.LMS_CVH_PEDElecConsumptionLowkWh100KM__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>LMS_ConfigurationVehicle__c.LMS_CVH_PEDElecConsumptionMedkWh100KM__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -5532,11 +5581,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>LMS_FinanceInformation__c.GOL_JLR_ID__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>LMS_FinanceInformation__c.LMS_FIN_APR__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -5573,11 +5617,6 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>LMS_FinanceInformation__c.LMS_FIN_Deposit__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>LMS_FinanceInformation__c.LMS_FIN_DerivativeDescription__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -6432,11 +6471,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>LMS_Order__c.LMS_ORD_CancelledDueToCustomer__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>LMS_Order__c.LMS_ORD_ChevronStatuses__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -6907,22 +6941,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>LMS_QuoteLineItem__c.GOL_QLI_Discount_Price__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>LMS_QuoteLineItem__c.GOL_QLI_LastIndicativeTradeInValue__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>LMS_QuoteLineItem__c.GOL_QLI_LastRetailerTradeInValue__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>LMS_QuoteLineItem__c.GOL_QLI_VehicleVIN__c</field>
+        <field>LMS_QuoteLineItem__c.GOL_QLI_Indicative_TradeIn_Price__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -7187,11 +7206,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>LMS_QuoteLineItem__c.LMS_QLI_ResidualBPM__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>LMS_QuoteLineItem__c.LMS_QLI_RetailerFitAccessory__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -7343,11 +7357,6 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>LMS_QuoteLineItem__c.LMS_QLI_TypeOfTax__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>LMS_QuoteLineItem__c.LMS_QLI_VMEEndDate__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -7567,22 +7576,12 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>LMS_Quote__c.ERPT_QUO_Contact_Middle_Name__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>LMS_Quote__c.ERPT_QUO_Contact_Phone__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
         <field>LMS_Quote__c.ERPT_QUO_Contact_Registration_State__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>LMS_Quote__c.ERPT_QUO_Contact_Salutation__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -7731,7 +7730,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>LMS_Quote__c.ERPT_QUO_Language__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -7847,22 +7846,12 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>LMS_Quote__c.ERPT_QUO_StripeHoldRefund__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>LMS_Quote__c.ERPT_QUO_StripeIntentKey__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
         <field>LMS_Quote__c.ERPT_QUO_StripePaymentMethod__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>LMS_Quote__c.ERPT_QUO_StripeRefundStatus__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -7902,37 +7891,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>LMS_Quote__c.GOL_Is_Hybrid_Virtual__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>LMS_Quote__c.GOL_Last_Modified_Date__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>LMS_Quote__c.GOL_Launch_Quote_URL__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>LMS_Quote__c.GOL_Outstanding_amount__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>LMS_Quote__c.GOL_QUO_Brand_Logofx__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>LMS_Quote__c.GOL_QUO_Brand__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>LMS_Quote__c.GOL_QUO_Car_Image_URLfx__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -7942,32 +7901,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>LMS_Quote__c.GOL_QUO_Expiry_Date__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>LMS_Quote__c.GOL_QUO_Iberia_Total_for_Quote_Summary__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>LMS_Quote__c.GOL_QUO_IsHybridVirtual__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>LMS_Quote__c.GOL_QUO_Is_Hybrid_Abandoned__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>LMS_Quote__c.GOL_QUO_Language_ISO__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>LMS_Quote__c.GOL_QUO_ModelFx__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -7987,21 +7921,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>LMS_Quote__c.GOL_QUO_SubtotalGrossPrice__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>LMS_Quote__c.GOL_QUO_TaxCountry__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>LMS_Quote__c.GOL_QUO_TaxRegion__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>LMS_Quote__c.GOL_Select_Quote_Page_URL__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -8012,7 +7931,17 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>LMS_Quote__c.LMS_QUO_APOCar__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>LMS_Quote__c.LMS_QUO_AccessoriesNotRequiredReason__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>LMS_Quote__c.LMS_QUO_Account_SEARCH__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -8097,6 +8026,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>LMS_Quote__c.LMS_QUO_CanBeApproved__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>LMS_Quote__c.LMS_QUO_Co2TaxGrossAmount__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -8128,6 +8062,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>LMS_Quote__c.LMS_QUO_CongaTemplateGroup__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>LMS_Quote__c.LMS_QUO_DatePresented__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -8172,7 +8111,17 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>LMS_Quote__c.LMS_QUO_DiscountGrossExclAddOns__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>LMS_Quote__c.LMS_QUO_DiscountGross__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>LMS_Quote__c.LMS_QUO_DiscountNetExclAddOns__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -8252,12 +8201,12 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>LMS_Quote__c.LMS_QUO_GrandGrossTotal__c</field>
+        <field>LMS_Quote__c.LMS_QUO_FlagOpenQuoteStatus__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>LMS_Quote__c.LMS_QUO_HOBLogo__c</field>
+        <field>LMS_Quote__c.LMS_QUO_GrandGrossTotal__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -8307,7 +8256,27 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>LMS_Quote__c.LMS_QUO_IsBlocked__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>LMS_Quote__c.LMS_QUO_IsClonedQuote__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>LMS_Quote__c.LMS_QUO_IsLeasing__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>LMS_Quote__c.LMS_QUO_IsNewCar__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>LMS_Quote__c.LMS_QUO_IsTaxCalculated__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -8328,6 +8297,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>LMS_Quote__c.LMS_QUO_ManualChangeIndicator__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>LMS_Quote__c.LMS_QUO_MarketCode__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -8377,6 +8351,21 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>LMS_Quote__c.LMS_QUO_Opportunity_SEARCH__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>LMS_Quote__c.LMS_QUO_OrigMotorShow__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>LMS_Quote__c.LMS_QUO_OrigSteward__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>LMS_Quote__c.LMS_QUO_OtherInformation__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -8422,36 +8411,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>LMS_Quote__c.LMS_QUO_PreviousGrossPricecar__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>LMS_Quote__c.LMS_QUO_PreviousTotalNetPrice__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>LMS_Quote__c.LMS_QUO_PreviousVehicleBaseGrossPrice__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>LMS_Quote__c.LMS_QUO_PreviousVehicleBaseNetPrice__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>LMS_Quote__c.LMS_QUO_PreviousVehicleOptionsGrossPrice__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>LMS_Quote__c.LMS_QUO_PreviousVehicleOptionsNetPrice__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>LMS_Quote__c.LMS_QUO_Primary__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -8492,6 +8451,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>LMS_Quote__c.LMS_QUO_ResVehVistaOrderNo__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>LMS_Quote__c.LMS_QUO_Retailer__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -8517,6 +8481,36 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>LMS_Quote__c.LMS_QUO_Showroom_Country__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>LMS_Quote__c.LMS_QUO_Showroom_Phone__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>LMS_Quote__c.LMS_QUO_Showroom_State__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>LMS_Quote__c.LMS_QUO_Showroom_Street__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>LMS_Quote__c.LMS_QUO_Showroom_Website__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>LMS_Quote__c.LMS_QUO_Showroom_Zip_Code__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>LMS_Quote__c.LMS_QUO_SoldCarMarginVal__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -8537,7 +8531,22 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>LMS_Quote__c.LMS_QUO_StripePayementDate__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>LMS_Quote__c.LMS_QUO_StripePaymentUrl__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>LMS_Quote__c.LMS_QUO_StripeRefundDate__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>LMS_Quote__c.LMS_QUO_StripeRefundReason__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -8682,6 +8691,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>LMS_Quote__c.LMS_QUO_TaxationError__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>LMS_Quote__c.LMS_QUO_TaxesAndFeesGross__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -8812,12 +8826,12 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>LMS_Quote__c.LMS_QUO_UsedVehicleInformation__c</field>
+        <field>LMS_Quote__c.LMS_QUO_Transferred__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>LMS_Quote__c.LMS_QUO_VMEMaxEndDate__c</field>
+        <field>LMS_Quote__c.LMS_QUO_UsedVehicleInformation__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -8953,6 +8967,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>LMS_RetailerConsent__c.GOL_RCN_ConsentExternalId__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>LMS_RetailerConsent__c.LMS_RCN_ConsentExternalId__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -9322,11 +9341,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>LMS_SilentSalesman_Feature__c.LMS_SIF_isNonTaxable__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>LMS_SilentSalesman__c.LMS_SIL_APOImage__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -9378,46 +9392,6 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>LMS_SilentSalesman__c.LMS_SIL_BatteryWeightkg__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>LMS_SilentSalesman__c.LMS_SIL_CO2ClassCombined__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>LMS_SilentSalesman__c.LMS_SIL_CO2ClassWeightedCombined__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>LMS_SilentSalesman__c.LMS_SIL_CO2CostsHighAverage__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>LMS_SilentSalesman__c.LMS_SIL_CO2CostsLowAverage__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>LMS_SilentSalesman__c.LMS_SIL_CO2CostsMediumAverage__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>LMS_SilentSalesman__c.LMS_SIL_CO2EfficiencyClassImage__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>LMS_SilentSalesman__c.LMS_SIL_CO2EfficiencyClassWeightedImage__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>LMS_SilentSalesman__c.LMS_SIL_CO2EmissionWLTPgkm__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -9493,11 +9467,6 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>LMS_SilentSalesman__c.LMS_SIL_ElectricMotorPowerKW__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>LMS_SilentSalesman__c.LMS_SIL_EmissionPresent__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -9642,27 +9611,12 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>LMS_SilentSalesman__c.LMS_SIL_OfferPriceVAT__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>LMS_SilentSalesman__c.LMS_SIL_OfferPrice__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>LMS_SilentSalesman__c.LMS_SIL_OpenRoadl100kmNEDC__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
         <field>LMS_SilentSalesman__c.LMS_SIL_OptionsPrice__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>LMS_SilentSalesman__c.LMS_SIL_PCEDCO2EmissionCombg100KM__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -9967,7 +9921,17 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>LMS_StockVehicle__c.ERPTVHCPCEDCO2EmissionCombg100KM__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>LMS_StockVehicle__c.ERPT_VHC_Accessory_Name__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>LMS_StockVehicle__c.ERPT_VHC_CO2EmissionWLTPgkm__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -9978,6 +9942,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>LMS_StockVehicle__c.ERPT_VHC_Categorie__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>LMS_StockVehicle__c.ERPT_VHC_Co2Label__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -10017,6 +9986,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>LMS_StockVehicle__c.ERPT_VHC_PCEDCO2EmissionCombg100KM__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>LMS_StockVehicle__c.ERPT_VHC_SoleRetailer__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -10042,7 +10016,27 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>LMS_StockVehicle__c.GOL_Stock_Vehicle_Image_URL__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>LMS_StockVehicle__c.LMSVHCPCEDCO2EmissionCombg100KM__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>LMS_StockVehicle__c.LMS_JLRSAPCode__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>LMS_StockVehicle__c.LMS_New_Vehicle_Image__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>LMS_StockVehicle__c.LMS_OwningRetailerBillingCity__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -10057,7 +10051,22 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>LMS_StockVehicle__c.LMS_ShowUnholdButton__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>LMS_StockVehicle__c.LMS_StopVehicleDeletion__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>LMS_StockVehicle__c.LMS_VDR_Derivative_Description__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>LMS_StockVehicle__c.LMS_VHC_90DaysNotification__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -10087,12 +10096,17 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>LMS_StockVehicle__c.LMS_VHC_AgeOfVehicle__c</field>
+        <field>LMS_StockVehicle__c.LMS_VHC_AgreedPrice__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>LMS_StockVehicle__c.LMS_VHC_AgreedPrice__c</field>
+        <field>LMS_StockVehicle__c.LMS_VHC_ApexUpdateDate__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>LMS_StockVehicle__c.LMS_VHC_ApprovalProcess__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -10103,6 +10117,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>LMS_StockVehicle__c.LMS_VHC_Approver__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>LMS_StockVehicle__c.LMS_VHC_AvailableForOwingRetailer__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -10123,6 +10142,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>LMS_StockVehicle__c.LMS_VHC_BasePrice__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>LMS_StockVehicle__c.LMS_VHC_BatteryCapacitykWh__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -10152,12 +10176,32 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>LMS_StockVehicle__c.LMS_VHC_BrandOrderType__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>LMS_StockVehicle__c.LMS_VHC_Brand_SEARCH__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>LMS_StockVehicle__c.LMS_VHC_Brand__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
         <field>LMS_StockVehicle__c.LMS_VHC_C02EmissionNEDCgkm__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>LMS_StockVehicle__c.LMS_VHC_CO2ClassCombined__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>LMS_StockVehicle__c.LMS_VHC_CO2ClassWeightedCombined__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -10188,16 +10232,6 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>LMS_StockVehicle__c.LMS_VHC_CO2Level__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>LMS_StockVehicle__c.LMS_VHC_CO2_ClassCombined__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>LMS_StockVehicle__c.LMS_VHC_CO2_ClassWeightedCombined__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -10233,6 +10267,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>LMS_StockVehicle__c.LMS_VHC_CombustionEnginePwrKW__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>LMS_StockVehicle__c.LMS_VHC_CommercialVehicle__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -10282,7 +10321,22 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>LMS_StockVehicle__c.LMS_VHC_DGT_IMG__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>LMS_StockVehicle__c.LMS_VHC_DGTlabel__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>LMS_StockVehicle__c.LMS_VHC_Damage__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>LMS_StockVehicle__c.LMS_VHC_DataError__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -10377,6 +10431,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>LMS_StockVehicle__c.LMS_VHC_ElecConsumptionNEDCComb__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>LMS_StockVehicle__c.LMS_VHC_ElecRange__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -10398,6 +10457,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>LMS_StockVehicle__c.LMS_VHC_ElectricMotorPowerKW__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>LMS_StockVehicle__c.LMS_VHC_Electric_Consumption_WLTP_City__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -10447,7 +10511,57 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>LMS_StockVehicle__c.LMS_VHC_ErrorDescriptionShort__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>LMS_StockVehicle__c.LMS_VHC_ErrorDescription__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>LMS_StockVehicle__c.LMS_VHC_EstimatedDeliveryDate__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>LMS_StockVehicle__c.LMS_VHC_ExtImage1__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>LMS_StockVehicle__c.LMS_VHC_ExtImage2__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>LMS_StockVehicle__c.LMS_VHC_ExtImage3__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>LMS_StockVehicle__c.LMS_VHC_ExtImage4__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>LMS_StockVehicle__c.LMS_VHC_ExtImageProfile1__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>LMS_StockVehicle__c.LMS_VHC_ExtImageProfile2__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>LMS_StockVehicle__c.LMS_VHC_ExtImageProfile3__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>LMS_StockVehicle__c.LMS_VHC_ExtImageProfile4__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -10463,6 +10577,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>LMS_StockVehicle__c.LMS_VHC_ExternalId__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>LMS_StockVehicle__c.LMS_VHC_ExternalSource__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -10483,6 +10602,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>LMS_StockVehicle__c.LMS_VHC_FeaturesCost__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>LMS_StockVehicle__c.LMS_VHC_FeaturesPriceSecondaryRollUp__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -10562,7 +10686,17 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>LMS_StockVehicle__c.LMS_VHC_GovermentLabel__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>LMS_StockVehicle__c.LMS_VHC_HSN__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>LMS_StockVehicle__c.LMS_VHC_Handover_Date__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -10617,7 +10751,47 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>LMS_StockVehicle__c.LMS_VHC_Image_Urls__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>LMS_StockVehicle__c.LMS_VHC_InitialBPM__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>LMS_StockVehicle__c.LMS_VHC_InsuranceHistory__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>LMS_StockVehicle__c.LMS_VHC_IntImage1__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>LMS_StockVehicle__c.LMS_VHC_IntImage2__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>LMS_StockVehicle__c.LMS_VHC_IntImage3__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>LMS_StockVehicle__c.LMS_VHC_IntImageProfile1__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>LMS_StockVehicle__c.LMS_VHC_IntImageProfile2__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>LMS_StockVehicle__c.LMS_VHC_IntImageProfile3__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -10633,6 +10807,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>LMS_StockVehicle__c.LMS_VHC_IsMaster__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>LMS_StockVehicle__c.LMS_VHC_IsNew__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -10732,6 +10911,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>LMS_StockVehicle__c.LMS_VHC_Max_loaded_weight__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>LMS_StockVehicle__c.LMS_VHC_MaximumCO2EmissionWLTPgkm__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -10787,6 +10971,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>LMS_StockVehicle__c.LMS_VHC_NextMOT__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>LMS_StockVehicle__c.LMS_VHC_NoNewBookingFlag__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -10798,6 +10987,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>LMS_StockVehicle__c.LMS_VHC_NoPriceFeatures__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>LMS_StockVehicle__c.LMS_VHC_NumPreviousOwners__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -10832,7 +11026,17 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>LMS_StockVehicle__c.LMS_VHC_Numofseats__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>LMS_StockVehicle__c.LMS_VHC_OTRBasePrice__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>LMS_StockVehicle__c.LMS_VHC_On_Quote__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -10848,6 +11052,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>LMS_StockVehicle__c.LMS_VHC_OrderStatus__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>LMS_StockVehicle__c.LMS_VHC_Order_SEARCH__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -10873,6 +11082,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>LMS_StockVehicle__c.LMS_VHC_OwningRetailer__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>LMS_StockVehicle__c.LMS_VHC_OwningVehicles__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -10942,7 +11156,22 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>LMS_StockVehicle__c.LMS_VHC_PricingError__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>LMS_StockVehicle__c.LMS_VHC_PricingQuote__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>LMS_StockVehicle__c.LMS_VHC_PrimaryQuoteLink__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>LMS_StockVehicle__c.LMS_VHC_ProspectName_SEARCH__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -10962,6 +11191,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>LMS_StockVehicle__c.LMS_VHC_ReadyToDrive__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>LMS_StockVehicle__c.LMS_VHC_RefurbishmentCost__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -10972,7 +11206,17 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>LMS_StockVehicle__c.LMS_VHC_ResidualBPM__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>LMS_StockVehicle__c.LMS_VHC_RetailerPrice__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>LMS_StockVehicle__c.LMS_VHC_Revs_at_max_power__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -10988,6 +11232,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>LMS_StockVehicle__c.LMS_VHC_SIV__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>LMS_StockVehicle__c.LMS_VHC_SalesCountryCode__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -11032,6 +11281,16 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>LMS_StockVehicle__c.LMS_VHC_ShowVehicle__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>LMS_StockVehicle__c.LMS_VHC_StartDateWLTP__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>LMS_StockVehicle__c.LMS_VHC_Status__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -11052,6 +11311,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>LMS_StockVehicle__c.LMS_VHC_Top_Speed__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>LMS_StockVehicle__c.LMS_VHC_Topspeedkmh__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -11068,6 +11332,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>LMS_StockVehicle__c.LMS_VHC_TotalTradeInValue__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>LMS_StockVehicle__c.LMS_VHC_Towing_capacity_braked__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -11132,6 +11401,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>LMS_StockVehicle__c.LMS_VHC_VATReclaimValue__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>LMS_StockVehicle__c.LMS_VHC_VAT_MARGIN__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -11153,6 +11427,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>LMS_StockVehicle__c.LMS_VHC_VehicleModelName__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>LMS_StockVehicle__c.LMS_VHC_VehicleModel_SEARCH__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -11183,6 +11462,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>LMS_StockVehicle__c.LMS_VHC_VistaOrder__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>LMS_StockVehicle__c.LMS_VHC_WLTPError__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -11222,6 +11506,16 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>LMS_StockVehicle__c.LMS_VHC_WonQuote_SEARCH__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>LMS_StockVehicle__c.LMS_VHC_WonQuote__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>LMS_StockVehicle__c.LMS_VHC_isUsedInQuoteWithLOC__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -11233,6 +11527,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>LMS_StockVehicle__c.LMS_VHC_l100kmWLTP__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>LMS_StockVehicle__c.LMS_Vehicle_is_searchable__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -11447,11 +11746,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>LMS_VehicleDerivative__c.LMS_VDR_ModelYear__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>LMS_VehicleModel__c.LMS_VMO_BrandLogo__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -11618,11 +11912,6 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>LMS_VistaOrder__c.LMS_VOR_GVSCommonTypeOfSale__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>LMS_VistaOrder__c.LMS_VOR_InvoiceDate__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -11888,11 +12177,6 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Opportunity.ExpectedRevenue</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Opportunity.GOL_Is_Hybrid_Virtual__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -12587,11 +12871,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Task.ActivityDate</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>Task.Description</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -12723,11 +13002,6 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Task.LMS_EVT_FuelLevel__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Task.LMS_EVT_HOB_Email_Logo__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -12882,6 +13156,31 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>User.Access_All_Markets__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>User.Application_Using__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>User.DB_Region__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>User.Exclude_user_from_Auto_Deactivation__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>User.LMS_GTM_Region__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>User.LMS_USR_ExternalId__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -12907,7 +13206,22 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>User.LMS_USR_LanguageIndicatorSearch__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>User.LMS_USR_Luxembourg_Check__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>User.LMS_USR_NewCarApprover__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>User.LMS_USR_QuoteExpiration__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -12923,6 +13237,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>User.LMS_USR_RetailerFax__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>User.LMS_USR_RetailerFullName__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -12953,6 +13272,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>User.LMS_USR_RetailerZipPostalCode__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>User.LMS_USR_SalesCountryCode__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -13012,7 +13336,112 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>User.LMS_USR_TurnOffProcessBuilders__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>User.LMS_USR_TurnOffTriggers__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>User.LMS_USR_TurnOffValidationRules__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>User.LMS_USR_TurnOffWorkflows__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>User.LMS_USR_UsedCarApprover__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>User.LMS_USR_UserRetailerGroupName__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>User.Mode__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>User.Profile_Name__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>User.Qualified_for_Auto_Deactivation_on_Date__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>User.Qualifies_for_Auto_Deactivation__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>User.Reminder_Days_For_Email_Template__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>User.VME_Add_Group__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>User.VME_ApprovalStatus__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>User.VME_Area_Manager_code__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>User.VME_Area_change__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>User.VME_Country_Code__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>User.VME_Data_Access__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>User.VME_Discretionary_Amount_Limit__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>User.VME_Previous_Area__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>User.VME_Sales_Manager__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>User.VME_USR_RetailerId__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>User.X18_Digit_ID__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
@@ -13412,15 +13841,6 @@
         <allowRead>true</allowRead>
         <modifyAllRecords>false</modifyAllRecords>
         <object>LMS_Management__c</object>
-        <viewAllRecords>false</viewAllRecords>
-    </objectPermissions>
-    <objectPermissions>
-        <allowCreate>false</allowCreate>
-        <allowDelete>false</allowDelete>
-        <allowEdit>false</allowEdit>
-        <allowRead>true</allowRead>
-        <modifyAllRecords>false</modifyAllRecords>
-        <object>LMS_ModelYear__c</object>
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
     <objectPermissions>
@@ -14035,6 +14455,22 @@
         <apexPage>smagicinteract__videoPreview</apexPage>
         <enabled>true</enabled>
     </pageAccesses>
+    <recordTypeVisibilities>
+        <recordType>Account.LMS_ACC_Individual</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <recordType>Account.LMS_ACC_IndividualToBeAssigned</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <recordType>Account.LMS_ACC_Organisational</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <recordType>Account.LMS_ACC_OrganisationalToBeAssigned</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
     <recordTypeVisibilities>
         <recordType>ERPT_FinanceItem__c.ERPT_FII_Arval_Additional_Fields</recordType>
         <visible>true</visible>

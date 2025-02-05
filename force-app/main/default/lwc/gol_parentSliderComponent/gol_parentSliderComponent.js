@@ -127,7 +127,15 @@ export default class gol_parentSliderComponent extends LightningElement {
     this.getProductIds();
     this.setDefaultSelectedProductId();
     this.setupSliders();
-
+    const providerData = this.getSelectedProduct();
+    if (providerData && providerData.inputFields) {
+      this.selectedSliderValues.set(this.selectedProductId, {});
+      Object.entries(providerData.inputFields).forEach(([key, field]) => {
+        if (!this.selectedSliderValues.get(this.selectedProductId)[key]) {
+          this.selectedSliderValues.get(this.selectedProductId)[key] = field.defaultValue;
+        }
+      });
+    }
     setTimeout(() => {
       this.childSliderComponent = true;
     }, 100);
@@ -143,7 +151,8 @@ export default class gol_parentSliderComponent extends LightningElement {
         .filter(([key]) => 
           allowedFields.includes(key) &&
           key !== "downPaymentRateRange" &&
-          key !== "finalTermRateRange"
+          key !== "finalTermRateRange" &&
+          key !== "interestRateRange"
         )
         .map(([key, field]) => {
           let storedValue = this.selectedSliderValues.get(this.selectedProductId)?.[key];
@@ -336,6 +345,18 @@ export default class gol_parentSliderComponent extends LightningElement {
   }
 
   handleCalculateFinancingClick() {
+    const providerData = this.getSelectedProduct();
+    if (providerData && providerData.inputFields) {
+      const selectedValues = this.selectedSliderValues.get(this.selectedProductId) || {};
+
+      Object.entries(providerData.inputFields).forEach(([key, field]) => {
+        if (!selectedValues[key]) {
+          selectedValues[key] = field.defaultValue;
+        }
+      });
+
+      this.selectedSliderValues.set(this.selectedProductId, selectedValues);
+    }
     this.updateFlowVariables();
     this.dispatchEvent(new FlowNavigationNextEvent());
   }
@@ -369,7 +390,7 @@ export default class gol_parentSliderComponent extends LightningElement {
       const sliderDetails = this.sliders.find(slider => slider.id === sliderId);
       if (sliderDetails) {
         selectedFields[sliderId] = {
-          selectedValue: selectedValue || sliderDetails.defaultValue || 0 ,
+          selectedValue: selectedValue ?? sliderDetails.defaultValue,
           step: sliderDetails.step || 0,
           defaultValue: sliderDetails.defaultValue || 0,
           minValue: sliderDetails.min || 0,

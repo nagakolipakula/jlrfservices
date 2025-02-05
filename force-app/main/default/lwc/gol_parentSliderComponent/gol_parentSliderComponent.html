@@ -16,6 +16,9 @@
       </template>
     </div>
   </template>
+  <template if:true={hasNoFinancialProducts}>
+    <p class="no-products-message">{label.GOL_No_Financial_products_available}</p>
+  </template>
   <!--Insurance and Services Section Start-->
   <template if:true={childSliderComponent}>
     <div class="insurancelabelcss">

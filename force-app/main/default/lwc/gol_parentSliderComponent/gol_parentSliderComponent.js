@@ -1,6 +1,7 @@
 import { LightningElement, api } from 'lwc';
 import GOL_Select_Financial_Product from '@salesforce/label/c.GOL_Select_Financial_Product';
 import GOL_Adjust_parameters from '@salesforce/label/c.GOL_Adjust_parameters';
+import GOL_No_Financial_products_available from '@salesforce/label/c.GOL_No_Financial_products_available';
 import GOL_Calculate_Financing from '@salesforce/label/c.GOL_Calculate_Financing';
 import GOL_Finance_Insurance_and_Services from '@salesforce/label/c.GOL_Finance_Insurance_and_Services';
 import { FlowAttributeChangeEvent, FlowNavigationNextEvent, FlowNavigationBackEvent, FlowNavigationFinishEvent } from 'lightning/flowSupport';
@@ -12,6 +13,7 @@ export default class gol_parentSliderComponent extends LightningElement {
   @api ContactId;
   @api ContactId2;
   selectedSliderValues = new Map();
+  hasNoFinancialProducts = false;
   //   isSubmitted = false;
   sliders = [];
   namesWithIds = [];
@@ -20,26 +22,38 @@ export default class gol_parentSliderComponent extends LightningElement {
   childSliderComponent = false;
   label = {
     GOL_Select_Financial_Product,
+    GOL_No_Financial_products_available,
     GOL_Adjust_parameters,
     GOL_Calculate_Financing,
     GOL_Finance_Insurance_and_Services
   }
 
   connectedCallback() {
-  console.log('First Finance Info Record in connectedCallback:', this.ContactId);
-  console.log('Second Finance Info Record in connectedCallback:', this.ContactId2);
+    console.log('First Finance Info Record:', this.ContactId);
+    console.log('Second Finance Info Record:', this.ContactId2);
     try {
-      if (!this.response) {
+      if (!this.response || this.response.trim() === '') {
         console.warn('Response is empty or not defined');
+        this.hasNoFinancialProducts = true;
         return;
       }
       const tidyUpResponse = this.response.replace(/<\/?[^>]+(>|$)/g, '').trim();
       this.parsedResponse = JSON.parse(tidyUpResponse);
-      console.log('Connected Callback - Parsed Response:', JSON.stringify(this.parsedResponse, null, 2));
+      
+      if (!this.parsedResponse || this.parsedResponse.length === 0) {
+        console.warn('No financial products available in response');
+        this.hasNoFinancialProducts = true;
+        return;
+      }
+
+      this.hasNoFinancialProducts = false;
+      console.log('Parsed Response:', JSON.stringify(this.parsedResponse, null, 2));
       this.initializeSliders();
+  
     } catch (error) {
       console.error('Error in connectedCallback:', error.message);
       console.error('Raw Response:', this.response);
+      this.hasNoFinancialProducts = true;
     }
   }
 

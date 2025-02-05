@@ -49,6 +49,10 @@
     color: #0C121C;
 }
 
+.no-products-message {
+    margin-left: 25px;
+}
+
 .button-container {
     display: flex;
     padding: 3% 0% 3% 0%;

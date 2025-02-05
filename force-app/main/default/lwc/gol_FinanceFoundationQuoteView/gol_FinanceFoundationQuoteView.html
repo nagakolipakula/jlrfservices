@@ -77,19 +77,103 @@
         <div class="alternative-finance">
             <h2 class="alternative-title"><strong>{label.GOL_Alternative_finance_calculation}</strong></h2>
             <div class='custom-container'>
-                <button class="custom-button" onclick={handleNavigationBackFromNewCalculator}>
-                <span class="icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
-                            <line x1="12" y1="5" x2="12" y2="19"></line>
-                            <line x1="5" y1="12" x2="19" y2="12"></line>
-                        </svg>
-                </span>{label.GOL_Open_New_Calculator_Button}
-            </button>
-            </div>
-            <div class="id-container">
-                <span class="id-label">{label.GOL_JLR_Id} {ContactId2}</span>
+                <template if:false={showAlternativeFinance}>
+                    <button class="custom-button" onclick={handleNavigationBackFromNewCalculator}>
+                    <span class="icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                                <line x1="12" y1="5" x2="12" y2="19"></line>
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                            </svg>
+                    </span>{label.GOL_Open_New_Calculator_Button}
+                    </button>
+                </template>
             </div>
         </div>
     </div>
-
+    <template if:true={showAlternativeFinance}>
+        <div class="id-container">
+            <span class="id-label">{label.GOL_JLR_Id} {alternativeFinanceInformationRecord.GOL_JLR_ID__c}</span>
+        </div>
+        <div class="summary-and-button-container">
+            <div class="container">
+                <div class="summary-card">
+                    <div class="lease-info">
+                        <p class="lease-title">
+                            <strong>{label.GOL_Lease}</strong>
+                            <span class="label-text"></span>
+                            <lightning-formatted-number 
+                                value={alternativeFinanceInformationRecord.ERPT_FIN_InstallmentIntGrossAmt__c}
+                                format-style="currency">
+                            </lightning-formatted-number>
+                            <span class="label-text">{label.GOL_monthly}</span>
+                        </p>
+                        <div class="vat-toggle-row">
+                            <input type="checkbox" id="vatToggle1" />
+                            <label for="vatToggle" class="vat-label">{label.GOL_VAT_label}</label>
+                        </div>
+                    </div>
+                    <div class="details">
+                        <div class="detail-row">
+                            <span>{label.GOL_Final_price_with_trade_in}</span>
+                            <span> <lightning-formatted-number value={alternativeFinanceInformationRecord.ERPT_FIN_TotalGrossAmt__c} format-style="currency"> </lightning-formatted-number></span>
+                        </div>
+                        <div class="detail-row">
+                            <span>{label.GOL_Deposits}</span>
+                            <span> <lightning-formatted-number value={alternativeFinanceInformationRecord.LMS_FIN_Deposit__c} format-style="currency"> </lightning-formatted-number></span>
+                        </div>
+                        <div class="detail-row">
+                            <span>{label.GOL_Agreement_duration}</span>
+                            <span> <lightning-formatted-number value={alternativeFinanceInformationRecord.LMS_FIN_Term__c}> </lightning-formatted-number> months</span>
+                        </div>
+                        <div class="detail-row">
+                            <span>{label.GOL_Mileage_per_annum}</span>
+                            <span> <lightning-formatted-number value={alternativeFinanceInformationRecord.LMS_FIN_Annual_Contract_Mileage__c} > </lightning-formatted-number> km</span>
+                        </div>
+                        <div class="detail-row">
+                            <span>{label.GOL_Effective_rate}</span>
+                            <span> <lightning-formatted-number value={alternativeFinanceInformationRecord.ERPT_FIN_EffectiveRate__c} format-style="percent"> </lightning-formatted-number></span>
+                        </div>
+                        <div class="detail-row">
+                            <span>{label.GOL_Nominal_rate}</span>
+                            <span> <lightning-formatted-number value={alternativeFinanceInformationRecord.ERPT_FIN_NominalRate__c} format-style="percent"> </lightning-formatted-number></span>
+                        </div>
+                        <div class="detail-row">
+                            <span>{label.GOL_Management_fees}</span>
+                            <span> <lightning-formatted-number value={alternativeFinanceInformationRecord.ERPT_FIN_TotalGrossAmt__c} format-style="currency"> </lightning-formatted-number></span>
+                        </div>
+                        <div class="divider"></div>
+                        <div class="total-row">
+                            <span>{label.GOL_Total_lease_amount}</span>
+                            <span> <lightning-formatted-number value={alternativeFinanceInformationRecord.ERPT_FIN_TotalGrossAmt__c} format-style="currency"> </lightning-formatted-number></span>
+                        </div>
+                    </div>
+                    <div class="monthly-payment">
+                        <h3>{label.GOL_Monthly_payment}</h3>
+                        <p class="payment-amount"><span> <lightning-formatted-number value={alternativeFinanceInformationRecord.ERPT_FIN_InstallmentIntGrossAmt__c} format-style="currency"> </lightning-formatted-number></span></p>
+                    </div>
+                    <p class="description">
+                        {label.GOL_Lorem_Text}
+                    </p>
+                    <div class="modify-button">
+                        <button type="button" class="slds-button slds-button_neutral" onclick={handleBackToFianceCalculator}>{label.GOL_Modify_button}</button>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="alternative-finance">
+                <h2 class="alternative-title"><strong>{label.GOL_Alternative_finance_calculation}</strong></h2>
+                <div class='custom-container'>
+                    <template if:false={showAlternativeFinance}>
+                        <button class="custom-button" onclick={handleNavigationBackFromNewCalculator}>
+                        <span class="icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                </svg>
+                        </span>{label.GOL_Open_New_Calculator_Button}
+                        </button>
+                    </template>
+                </div>
+            </div> -->
+        </div>
+    </template>
 </template>

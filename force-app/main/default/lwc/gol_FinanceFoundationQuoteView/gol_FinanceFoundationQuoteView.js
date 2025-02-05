@@ -28,6 +28,7 @@ export default class gol_FinanceFoundationQuoteView extends LightningElement {
     @api QuotePrice;
     @api financeInfoRecord;
     @api financeInformationRecord;
+    @api alternativeFinanceInformationRecord;
    
     label = {
         GOL_Lease,
@@ -52,10 +53,18 @@ export default class gol_FinanceFoundationQuoteView extends LightningElement {
 
     
     connectedCallback() {
-        console.log('financeInformationId', this.financeInformationId);
-        console.log('ContactId', this.ContactId);
-        console.log('Finance Record',this.financeInformationId.CurrencyIsoCode);
-    }
+        console.log('financeInformation NK', this.financeInformationRecord?.GOL_JLR_ID__c);
+    
+        if (this.alternativeFinanceInformationRecord) {
+            console.log('alternativeFinanceInformationRecord exists');
+            console.log('Alternative Finance Information NK', this.alternativeFinanceInformationRecord?.GOL_JLR_ID__c);
+            console.log('Finance Record Currency', this.alternativeFinanceInformationRecord?.CurrencyIsoCode);
+            this.showAlternativeFinance = true;
+        } else {
+            console.log('alternativeFinanceInformationRecord does not exist');
+            this.showAlternativeFinance = false;
+        }
+    }    
 
     handleBackToFianceCalculator() {
         console.log('Dispatching ContactId and FlowNavigationNextEvent', this.ContactId);

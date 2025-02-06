@@ -87,7 +87,7 @@ export default class gol_FinanceFoundationQuoteView extends LightningElement {
         // this.ContactId = null;
     }
 
-    // handleGoToOverviewClick() {
-    //     console.log('Go to Overview clicked');
-    // }
+    handleGoToOverviewClick() {
+        console.log('Go to Overview clicked');
+    }
 }

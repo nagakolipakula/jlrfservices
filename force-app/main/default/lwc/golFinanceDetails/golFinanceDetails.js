@@ -14,7 +14,7 @@ export default class golFinanceDetails extends LightningElement {
             }
         });
         const flowNavigationEvent = new FlowNavigationNextEvent();
-        this.dispatchEvent(flowNavigationEvent);
         this.dispatchEvent(modifyFSRecordEvent);
+        this.dispatchEvent(flowNavigationEvent);
     }
 }

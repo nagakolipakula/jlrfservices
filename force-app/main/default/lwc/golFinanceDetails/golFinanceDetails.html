@@ -8,13 +8,14 @@
                 <div class="lease-info">
                     <p class="lease-title">
                         <strong>{label.GOL_Lease}</strong>
-                        <span class="label-text"></span>
-                        <lightning-formatted-number 
-                            value={financeRecord.ERPT_FIN_InstallmentIntGrossAmt__c}
-                            format-style="currency">
-                        </lightning-formatted-number>
+                        <span class="lease-amount">
+                            <lightning-formatted-number 
+                                value={financeRecord.ERPT_FIN_InstallmentIntGrossAmt__c}
+                                format-style="currency">
+                            </lightning-formatted-number>
+                        </span>
                         <span class="label-text">{label.GOL_monthly}</span>
-                    </p>
+                    </p>                    
                     <div class="vat-toggle-row">
                         <input type="checkbox" id="vatToggle" />
                         <label for="vatToggle" class="vat-label">{label.GOL_VAT_label}</label>

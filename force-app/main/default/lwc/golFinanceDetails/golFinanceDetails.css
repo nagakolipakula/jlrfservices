@@ -69,9 +69,9 @@
 }
 
 .lease-title {
-    font-size: 15px;
-    color: #333;
-    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 6px;
 }
 
 .vat-toggle-row {

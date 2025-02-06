@@ -1,34 +1,35 @@
 <template>
-    <!-- <div class="header">
-        <h1 class="vehicle-title">RANGE ROVER VELAR DYNAMIC SE</h1>
-        <p class="vehicle-subtitle"><strong>Hybride Électrique PHEV</strong> &nbsp;&nbsp;&nbsp; {QuotePrice}</p>
-    </div> -->
+    <div class="finance-container">
+        <div class="finance-flex-container">
+            <div class="finance-section">
+                <h2 class="finance-title"><strong>{label.GOL_Finance_Calculation}</strong></h2>
+                <c-gol-finance-details finance-record={financeInformationRecord} label={label}></c-gol-finance-details>
+            </div>
 
-    <div class="finance-section">
-        <h2 class="finance-title"><strong>{label.GOL_Finance_Calculation}</strong></h2>
-    </div>
-
-    <c-gol-finance-details finance-record={financeInformationRecord} label={label}></c-gol-finance-details>
-
-    <div class="alternative-finance">
-        <h2 class="alternative-title"><strong>{label.GOL_Alternative_finance_calculation}</strong></h2>
-    </div>
-
-    <template if:true={showAlternativeFinance}>
-        <c-gol-finance-details finance-record={alternativeFinanceInformationRecord} label={label}></c-gol-finance-details>
-    </template>
-
-    <template if:false={showAlternativeFinance}>
-        <div class="custom-container">
-            <button class="custom-button" onclick={handleNavigationBackFromNewCalculator}>
-                <span class="icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
-                        <line x1="12" y1="5" x2="12" y2="19"></line>
-                        <line x1="5" y1="12" x2="19" y2="12"></line>
-                    </svg>
-                </span>
-                {label.GOL_Open_New_Calculator_Button}
-            </button>
+            <div class="alternative-section">
+                <h2 class="alternative-title"><strong>{label.GOL_Alternative_finance_calculation}</strong></h2>
+                <template if:true={showAlternativeFinance}>
+                    <c-gol-finance-details finance-record={alternativeFinanceInformationRecord} label={label}></c-gol-finance-details>
+                </template>
+                <template if:false={showAlternativeFinance}>
+                    <div class="custom-container">
+                        <button class="custom-button" onclick={handleNavigationBackFromNewCalculator}>
+                            <span class="icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">
+                                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                </svg>
+                            </span>
+                            {label.GOL_Open_New_Calculator_Button}
+                        </button>
+                    </div>
+                </template>
+            </div>
+            <div class="button-container-overview">
+                <button class="go-to-overview" onclick={handleGoToOverviewClick}>
+                    {label.GOL_Go_To_Overview}
+                </button>
+            </div>
         </div>
-    </template>
+    </div>
 </template>

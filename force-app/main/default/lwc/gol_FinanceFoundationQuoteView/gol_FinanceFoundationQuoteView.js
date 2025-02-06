@@ -17,6 +17,7 @@ import GOL_Modify_button from '@salesforce/label/c.GOL_Modify_button';
 import GOL_Open_New_Calculator_Button from '@salesforce/label/c.GOL_Open_New_Calculator_Button';
 import GOL_Finance_Calculation from '@salesforce/label/c.GOL_Finance_Calculation';
 import GOL_Alternative_finance_calculation from '@salesforce/label/c.GOL_Alternative_finance_calculation';
+import GOL_Go_To_Overview from '@salesforce/label/c.GOL_Go_To_Overview';
 import { FlowAttributeChangeEvent, FlowNavigationNextEvent, FlowNavigationBackEvent, FlowNavigationFinishEvent } from 'lightning/flowSupport';
 
 
@@ -48,7 +49,8 @@ export default class gol_FinanceFoundationQuoteView extends LightningElement {
         GOL_Modify_button,
         GOL_Open_New_Calculator_Button,
         GOL_Finance_Calculation,
-        GOL_Alternative_finance_calculation
+        GOL_Alternative_finance_calculation,
+        GOL_Go_To_Overview
     }
 
     
@@ -85,5 +87,9 @@ export default class gol_FinanceFoundationQuoteView extends LightningElement {
         this.dispatchEvent(new FlowAttributeChangeEvent('ContactId2', this.ContactId2));
         this.dispatchEvent(flowNavigationEvent);
         // this.ContactId = null;
+    }
+
+    handleGoToOverviewClick() {
+        console.log('Go to Overview clicked');
     }
 }

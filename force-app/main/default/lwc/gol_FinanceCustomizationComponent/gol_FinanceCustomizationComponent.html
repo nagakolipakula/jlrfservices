@@ -1,0 +1,79 @@
+<template>
+    
+    <div class="slds-section slds-is-close " data-id="customization">
+        <div class="slds-p-top_large slds-p-bottom_medium slds-border_bottom">
+            <div data-divid="customization" onclick={toggleSection} style="display: flex;width: 100%; cursor: pointer;">
+                <div style="flex: 1;">
+                    <div class="title-container">
+                        <span class="slds-truncate slds-text-align_left section-header title-label" title={label.GOL_Customization}>{label.GOL_Customization}</span>
+                        <!-- <div class="circle-fill"></div> -->
+                        <div class="circle-outline"></div>
+                        <div class="circle-outline"></div>
+                    </div>
+                </div>
+                <div class="slds-text-align_right" >
+                    <lightning-icon icon-name="utility:add" alternative-text="button icon" size="small" 
+                        class="slds-section__title-action-icon slds-button__icon_right slds-text-align_right" data-id="icon-customization"></lightning-icon>
+                </div>
+
+                <!-- <div class="slds-border_bottom"></div> -->
+            </div>  
+            <div class="slds-section__content slds-p-top_medium" data-divid="customization" style={retailerdiscounthcss}>
+                <lightning-layout multiple-rows>
+                    <lightning-layout-item size="12" small-device-size="6" medium-device-size="6" large-device-size="7">
+                        <div class="retailer-discount-label" >{label.GOL_Retailer_Discount}</div>
+                    </lightning-layout-item>
+                    <lightning-layout-item size="12" small-device-size="6" medium-device-size="6" large-device-size="5">
+                        <div class="slds-grid slds-gutters">
+                            <div class="slds-col percentagecss">
+                                <div class="retailer-discount-percentage-label" >{label.GOL_Percentage}</div>
+                                <lightning-input class="right-aligned input-box" type="number" formatter="percent-fixed" min="0" max="100" maxlength="6" variant="label-hidden" step="0.01" value={percentVal} onchange={handelPercentageChange} ></lightning-input> 
+                            </div>
+                            <div class="slds-col amountinclvatcss">
+                                <div class="retailer-discount-amount-label" >{label.GOL_Amount_incl_VAT}</div>
+                                <lightning-input class="right-aligned input-box" type="number" formatter="currency" step="0.01" variant="label-hidden"  value={amountInclVal} onchange={handelAmountInclValChange}></lightning-input>
+                            </div>
+                            <div class="slds-col retailerdiscountbtncss">
+                                <button class="retailer-discount-btn" onclick={handleRetailerDiscountClick}>
+                                    Update
+                                </button>
+                            </div>
+                            </div>
+                    </lightning-layout-item>
+                </lightning-layout>
+            </div>
+                <!-- <div class="slds-grid slds-wrap">
+                    <div class="slds-col slds-size_6-of-12"> 
+                        <div class="" >{label.GOL_Retailer_Discount}</div>
+                    </div>
+                    <div class="slds-col slds-size_2-of-12">
+                        <div class="" >{label.GOL_Percentage}</div>
+                        <lightning-input class="right-aligned" type="number" formatter="percent-fixed" min="0" max="100" maxlength="6" variant="label-hidden" step="0.01" value={percentVal} onchange={handelPercentageChange} ></lightning-input>            
+                    </div>
+                    <div class="slds-col slds-size_2-of-12">
+                        <div class="" >{label.GOL_Amount_incl_VAT}</div>
+                        <lightning-input type="number" formatter="currency" step="0.01" variant="label-hidden" class="right-aligned" value={amountInclVal} onchange={handelAmountInclValChange}></lightning-input>
+                    </div>
+                    <div class="slds-col slds-size_2-of-12">
+                        <div class="" ></div>
+                        <button class="retailer-discount-btn" onclick={handleRetailerDiscountClick}>
+                            Update
+                        </button>
+                    </div> -->
+                   <!--<div class="slds-col slds-size_8-of-12 slds-p-top_medium">
+                        <span class="slds-truncate slds-text-align_left sub-title-label slds-p-left_x-large" >{label.GOL_JLR_Support}</span>
+                    </div>
+                    <div class="slds-col slds-size_4-of-12 slds-p-top_medium slds-text-align_right">
+                        <span class="slds-truncate slds-text-align_left table-header-label" >{label.GOL_Excl_VAT} €0,000</span>
+                    </div>
+
+                    <div class="slds-col slds-size_12-of-12  slds-text-align_right">
+                        <lightning-button label={label.GOL_Modify_in_Everest} variant="base" title={label.GOL_Modify_in_Everest} onclick={handleModifyInEverest}></lightning-button>
+                    </div>
+                
+                </div>
+            </div> -->
+        </div>
+    </div>
+
+</template>

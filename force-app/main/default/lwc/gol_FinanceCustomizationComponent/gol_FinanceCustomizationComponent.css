@@ -1,0 +1,132 @@
+.title-label {
+    font-family: 'Avenir Next', sans-serif;
+    font-style: bold;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 18px;
+    letter-spacing: 0.9px;
+    color: #0C121C;
+    margin-right: 40px;
+}
+.title-container {
+    display: flex; 
+    align-items: center; 
+    gap: 12px;
+  }
+
+.circle-fill {
+    width: 12px; 
+    height: 12px;
+    background-color: #0C121C; 
+    border-radius: 50%; 
+  }
+
+  .circle-outline {
+    width: 12px;
+    height: 12px;
+    background-color: transparent;
+    border: 2px solid #0C121C; 
+    border-radius: 50%; 
+  }
+  .sub-title-label{
+    /* display: flex; */
+    align-items: left;
+    font-family: 'Avenir Next', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    width: 20%;
+    height: 18px;
+    /* cursor: pointer;
+    transition: color 0.3s; */
+    gap: 2px;
+  }
+
+  .table-header-label{
+    /* display: flex; */
+    align-items: lef  ;
+    font-family: 'Avenir Next', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    width: 20%;
+    height: 18px;
+    /* cursor: pointer;
+    transition: color 0.3s; */
+    gap: 2px;
+  }
+  /* .right-aligned {
+    text-align: right;
+    /* width: 60%; */
+/* } */
+
+  /* .right-aligned input {
+    text-align: right;
+} */ 
+.input-box input {
+    text-align: center;
+    font-size: 14px;
+    border: 1px solid rgb(12, 18, 28, 0.3); 
+    border-radius: 0; 
+}
+.input-box:focus{
+    border:2px solid black;
+    border-radius: 0; 
+    outline: none;
+}
+.retailer-discount-label{
+    font-family: Avenir Next, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 19px;
+    letter-spacing: 0.2px;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: #0C121C;
+}
+.retailer-discount-percentage-label{
+    font-family: Avenir Next, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 19px;
+    letter-spacing: 0.2px;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: #0C121C;
+}
+.retailer-discount-amount-label{
+    font-family: Avenir Next, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 19px;
+    letter-spacing: 0.2px;
+    text-align: left;
+    text-underline-position: from-font;
+    text-decoration-skip-ink: none;
+    color: #0C121C;
+}
+.retailer-discount-btn {
+    background-color: #000;
+    color: #fff;
+    border: 1px solid #000;
+    padding: 11px 30px;
+    font-size: 11px;
+    font-family:'Avenir Next', sans-serif;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    cursor: pointer;
+}
+
+.retailer-discount-btn:hover {
+    background-color: #fff;
+    color: #000;
+}
+.percentagecss{
+    padding: 0% 3% 0% 0%;
+}
+.amountinclvatcss{
+    padding: 0% 3% 0% 3%;
+}
+.retailerdiscountbtncss{
+    padding: 4% 2% 0% 3%;
+}

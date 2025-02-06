@@ -4,6 +4,7 @@ import GOL_Adjust_parameters from '@salesforce/label/c.GOL_Adjust_parameters';
 import GOL_No_Financial_products_available from '@salesforce/label/c.GOL_No_Financial_products_available';
 import GOL_Calculate_Financing from '@salesforce/label/c.GOL_Calculate_Financing';
 import GOL_Finance_Insurance_and_Services from '@salesforce/label/c.GOL_Finance_Insurance_and_Services';
+import GOL_Amount_incl_VAT from '@salesforce/label/c.GOL_Amount_incl_VAT';
 import { FlowAttributeChangeEvent, FlowNavigationNextEvent, FlowNavigationBackEvent, FlowNavigationFinishEvent } from 'lightning/flowSupport';
 
 export default class gol_parentSliderComponent extends LightningElement {
@@ -25,7 +26,8 @@ export default class gol_parentSliderComponent extends LightningElement {
     GOL_No_Financial_products_available,
     GOL_Adjust_parameters,
     GOL_Calculate_Financing,
-    GOL_Finance_Insurance_and_Services
+    GOL_Finance_Insurance_and_Services,
+    GOL_Amount_incl_VAT
   }
 
   connectedCallback() {

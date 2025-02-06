@@ -106,3 +106,9 @@
     max-width: 530px;
     box-sizing: border-box;
 }
+
+.customizationscreencss {
+    width: 100%;
+    max-width: 1200px;
+    margin-left: 20px;
+}

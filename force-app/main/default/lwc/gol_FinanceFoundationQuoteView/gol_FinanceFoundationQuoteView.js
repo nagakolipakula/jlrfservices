@@ -55,32 +55,30 @@ export default class gol_FinanceFoundationQuoteView extends LightningElement {
 
     
     connectedCallback() {
-        console.log('financeInformation NK', this.financeInformationRecord?.GOL_JLR_ID__c);
-    
         if (this.alternativeFinanceInformationRecord) {
-            console.log('alternativeFinanceInformationRecord exists');
-            console.log('Alternative Finance Information NK', this.alternativeFinanceInformationRecord?.GOL_JLR_ID__c);
-            console.log('Finance Record Currency', this.alternativeFinanceInformationRecord?.CurrencyIsoCode);
+            // console.log('alternativeFinanceInformationRecord exists');
+            // console.log('Alternative Finance Information NK', this.alternativeFinanceInformationRecord?.GOL_JLR_ID__c);
+            // console.log('Finance Record Currency', this.alternativeFinanceInformationRecord?.CurrencyIsoCode);
             this.showAlternativeFinance = true;
         } else {
-            console.log('alternativeFinanceInformationRecord does not exist');
+            // console.log('alternativeFinanceInformationRecord does not exist');
             this.showAlternativeFinance = false;
         }
     }    
 
-    handleBackToFianceCalculator() {
-        console.log('Dispatching ContactId and FlowNavigationNextEvent', this.ContactId);
-        this.dispatchEvent(new FlowAttributeChangeEvent('ContactId', this.ContactId));
-        this.dispatchEvent(new FlowAttributeChangeEvent('ContactId2', this.ContactId2));
-        console.log('ContactId1', this.ContactId1);
-        console.log('ContactId2', this.ContactId2);
-        this.handleNavigationBack();
-    }
+    // handleBackToFianceCalculator() {
+    //     console.log('Dispatching ContactId and FlowNavigationNextEvent', this.ContactId);
+    //     this.dispatchEvent(new FlowAttributeChangeEvent('ContactId', this.ContactId));
+    //     this.dispatchEvent(new FlowAttributeChangeEvent('ContactId2', this.ContactId2));
+    //     console.log('ContactId1', this.ContactId1);
+    //     console.log('ContactId2', this.ContactId2);
+    //     this.handleNavigationBack();
+    // }
     
-    handleNavigationBack(){
-        const flowNavigationEvent = new FlowNavigationNextEvent();
-        this.dispatchEvent(flowNavigationEvent);
-    }
+    // handleNavigationBack(){
+    //     const flowNavigationEvent = new FlowNavigationNextEvent();
+    //     this.dispatchEvent(flowNavigationEvent);
+    // }
 
     handleNavigationBackFromNewCalculator(){
         const flowNavigationEvent = new FlowNavigationNextEvent();
@@ -89,7 +87,7 @@ export default class gol_FinanceFoundationQuoteView extends LightningElement {
         // this.ContactId = null;
     }
 
-    handleGoToOverviewClick() {
-        console.log('Go to Overview clicked');
-    }
+    // handleGoToOverviewClick() {
+    //     console.log('Go to Overview clicked');
+    // }
 }

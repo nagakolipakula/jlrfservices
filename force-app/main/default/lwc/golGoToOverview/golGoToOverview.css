@@ -1,0 +1,19 @@
+.go-to-overview {
+    background-color: rgba(12, 18, 28, 1);
+    color: rgba(255, 255, 255, 1);
+    border: 1px solid rgba(12, 18, 28, 1);
+    padding: 14px 20px;
+    font-size: 11px;
+    letter-spacing: 2px;
+    font-family: 'Avenir Next', sans-serif;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: -40px;
+    width: 175px;
+    height: 46px;
+}
+
+.go-to-overview:hover {
+    background-color: rgba(255, 255, 255, 1);
+    color: rgba(12, 18, 28, 1);
+}

@@ -32,6 +32,7 @@
 				name="ContactId2" 
 				type="String"
 				label="2nd Contact Id"/>
+			<property name="vehicleQli" type="@salesforce/schema/LMS_QuoteLineItem__c" label="Vehicle Quote Line Item"/>
         </targetConfig>
     </targetConfigs>
 </LightningComponentBundle>

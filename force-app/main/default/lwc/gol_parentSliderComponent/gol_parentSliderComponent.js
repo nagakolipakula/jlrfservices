@@ -13,6 +13,7 @@ export default class gol_parentSliderComponent extends LightningElement {
   @api quoteExternalId;
   @api ContactId;
   @api ContactId2;
+  @api vehicleQli;
   selectedSliderValues = new Map();
   hasNoFinancialProducts = false;
   //   isSubmitted = false;

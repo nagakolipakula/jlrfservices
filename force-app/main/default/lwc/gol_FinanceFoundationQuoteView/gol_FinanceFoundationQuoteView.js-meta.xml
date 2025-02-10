@@ -32,6 +32,7 @@
 				label="Finance Info Record"/>
 			<property name="financeInformationRecord" type="@salesforce/schema/LMS_FinanceInformation__c" label="Finance Information quote record"/>
 			<property name="alternativeFinanceInformationRecord" type="@salesforce/schema/LMS_FinanceInformation__c" label="Alternative Finance Information quote record"/>
+			<property name="buttonAction" label="Button Action" type="String" role="outputOnly"/>
         </targetConfig>
     </targetConfigs>
 </LightningComponentBundle>

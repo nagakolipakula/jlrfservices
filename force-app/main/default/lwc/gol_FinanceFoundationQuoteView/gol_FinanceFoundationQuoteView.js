@@ -30,6 +30,7 @@ export default class gol_FinanceFoundationQuoteView extends LightningElement {
     @api financeInfoRecord;
     @api financeInformationRecord;
     @api alternativeFinanceInformationRecord;
+    @api buttonAction;
    
     label = {
         GOL_Lease,
@@ -81,13 +82,37 @@ export default class gol_FinanceFoundationQuoteView extends LightningElement {
     // }
 
     handleNavigationBackFromNewCalculator(){
-        const flowNavigationEvent = new FlowNavigationNextEvent();
-        this.dispatchEvent(new FlowAttributeChangeEvent('ContactId2', this.ContactId2));
-        this.dispatchEvent(flowNavigationEvent);
+        // const flowNavigationEvent = new FlowNavigationNextEvent();
+        // this.dispatchEvent(new FlowAttributeChangeEvent('ContactId2', this.ContactId2));
+        
+        // this.dispatchEvent(flowNavigationEvent);
+        const action = new FlowAttributeChangeEvent('buttonAction', 'newCalculator');
+        this.dispatchEvent(action);
+        const nextEvent = new FlowNavigationNextEvent();
+        this.dispatchEvent(nextEvent);
         // this.ContactId = null;
     }
 
     handleGoToOverviewClick() {
         console.log('Go to Overview clicked');
+        // const flowNavigationEvent = new FlowNavigationNextEvent();
+        // this.dispatchEvent(new FlowAttributeChangeEvent('ContactId2', this.ContactId2));
+        // this.dispatchEvent(flowNavigationEvent);
+
+        const action = new FlowAttributeChangeEvent('buttonAction', 'goToOverView');
+        this.dispatchEvent(action);
+        const nextEvent = new FlowNavigationNextEvent();
+        this.dispatchEvent(nextEvent);
     }
+
+    modifyFSRecordEvent
+
+    handleModifyClick() {
+        // console.log('Modify button clicked for JLR ID:
+        const action = new FlowAttributeChangeEvent('buttonAction', 'gotoModify');
+        this.dispatchEvent(action);
+        const nextEvent = new FlowNavigationNextEvent();
+        this.dispatchEvent(nextEvent);
+    }
+
 }

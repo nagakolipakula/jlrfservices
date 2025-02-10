@@ -13,8 +13,8 @@ export default class golFinanceDetails extends LightningElement {
                 financeId: this.financeRecord?.GOL_JLR_ID__c
             }
         });
-        const flowNavigationEvent = new FlowNavigationNextEvent();
+        // const flowNavigationEvent = new FlowNavigationNextEvent();
         this.dispatchEvent(modifyFSRecordEvent);
-        this.dispatchEvent(flowNavigationEvent);
+        // this.dispatchEvent(flowNavigationEvent);
     }
 }

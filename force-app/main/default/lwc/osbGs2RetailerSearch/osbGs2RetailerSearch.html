@@ -1,0 +1,68 @@
+<!--
+  @description       : Parent Component to search retailers using postcode or city/town
+  @author            : naga.kolipakula@emeal.nttdata.com
+  @group             : 
+  @last modified on  : 02-05-2025
+  @last modified by  : saikrushna11.panigrahi@emeal.nttdata.com
+-->
+<template>
+    <c-osb-gs2-progress-tracker 
+        active-step-number={activeStepNumber}
+        onstepchange={handleStepChange}>
+    </c-osb-gs2-progress-tracker>
+    <div class="slds-grid slds-wrap parent-container">
+        <!-- Top section -->
+        <div class="slds-col slds-size_1-of-1">
+            <div class="slds-p-around_medium slds-theme_default">
+                <h2 class="slds-text-heading_medium slds-m-bottom_medium">{customLabels.Service_booking}</h2>
+                <div class="slds-grid slds-gutters">
+                    <div class="slds-col slds-size_1-of-6 slds-m-right_small custom-input" style="width: 260px;">
+                        <label for="postcode" class="slds-form-element__label">{customLabels.Enter_a_postcode_or_city}:</label>
+                        <input type="text" id="postcode" name="postcode" value={postcode} onchange={handleInputChange} class="uniform-height slds-input">
+                    </div>
+                    <div class="slds-col slds-size_1-of-6 slds-m-right_small custom-input" style="width: 260px;">
+                        <label for="selectedDate" class="slds-form-element__label">{customLabels.Select_date}:</label>
+                        <input type="date" id="selectedDate" value={selectedDate} onchange={handleDateChange} class="uniform-height slds-input" placeholder="" min={minDate}>
+                    <template if:true={errorMessage}>
+                        <div class="error-message">{errorMessage}</div>
+                    </template>
+                    </div>
+                    <div class="slds-col slds-size_1-of-8 slds-align-bottom" >
+                        <button style={searchBtnCss} onclick={handleSearch} disabled={disabledSearchbutton} class={searchButtonClass}>{customLabels.Search}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Bottom sections -->
+        <div class="slds-col slds-size_1-of-1">
+            <template if:true={searchButtonClicked}>
+                <div class="accordion-section">
+                    <c-osb-gs2-display-retailers omni-json-data={omniJsonData} postcode={postcode} places={places} selected-date={selectedDate} ontimeslotselected={handleTimeSlotSelected} labels={customLabels}></c-osb-gs2-display-retailers>
+                </div>
+            </template>
+        </div>
+        <div class="slds-col slds-size_1-of-1">
+            <div class={mobilitySection}>
+                <template if:true={searchButtonClicked}>
+                    <div class="accordion-section">
+                        <c-osb-gs2-display-mobility omni-json-data={omniJsonData} postcode={postcode} places={places} selected-date={selectedDate} onmobilityselected={handleMobilitySelected} selected-location-date={omniJsonData.selectedLocationDate} labels={customLabels}></c-osb-gs2-display-mobility>
+                    </div>
+                </template>
+            </div>
+        </div>
+        <div class="slds-col slds-size_1-of-1">
+            <div class={dropOffSection}>
+                <template if:true={searchButtonClicked}>
+                    <div class="accordion-section">
+                        <c-osb-gs2-drop-of-option omni-json-data={omniJsonData} postcode={postcode} places={places} selected-date={selectedDate} onalldataready={handleDataReady} labels={customLabels}></c-osb-gs2-drop-of-option>
+                    </div>
+                </template>
+            </div>
+        </div>
+    </div>
+
+    <c-osb-gs2-show-toast></c-osb-gs2-show-toast>
+
+    <c-osb-gs2-Display-Footer omni-json-data={omniJsonData} lwcref="child" disableinfo={disabledNextbutton} labels={customLabels}></c-osb-gs2-Display-Footer>
+
+</template>

@@ -1,0 +1,418 @@
+input[type='date']:in-range::-webkit-datetime-edit-year-field,
+input[type='date']:in-range::-webkit-datetime-edit-month-field,
+input[type='date']:in-range::-webkit-datetime-edit-day-field,
+input[type='date']:in-range::-webkit-datetime-edit-text {
+    color: black;
+}
+
+.custom-input .slds-input {
+    border-radius: 0;
+}
+
+.custom-input .slds-form-element__label {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.small-input .slds-form-element__label {
+    margin-bottom: 10px;
+}
+
+.slds-m-right_small {
+    margin-right: 0.5rem;
+}
+
+.slds-form-element__label {
+    margin-bottom: 0.75rem;
+    display: block;
+    font-family: Avenir Next;
+    font-size: 12px;
+}
+
+.uniform-height {
+    height: 40px;
+    border-radius: 0;
+    border-color: #d0d3d3;
+}
+
+.slds-align-bottom {
+    display: flex;
+    align-items: flex-end;
+}
+
+/* Footer */
+.BackToMyBookingsBtnCSS {
+    line-height: 12px;
+    letter-spacing: 1px;
+    color: #0C121C;
+    display: flex;
+    align-items: center;
+    border: none !important;
+    padding-top: 1%;
+    font-family: 'Avenir Next', sans-serif;
+    font-style: normal;
+    border: none;
+    background-color: transparent;
+    padding-top: 20px;
+    justify-content: center;
+}
+
+.footerCSS {
+    padding: 10% 1% 0% 1%;
+}
+
+.uniform-height {
+    height: 40px;
+    line-height: 40px;
+}
+
+.tab {
+    border-bottom: none;
+}
+
+/* Controlling Grey out from Main Component */
+.grayed-out {
+    opacity: 0.5;
+    pointer-events: none;
+    background: #0C121C 30%;
+}
+
+.enabled-section {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.parent-container .slds-col {
+    margin-bottom: 0.25rem;
+}
+
+.accordion-section {
+    padding: 0rem;
+    border: 0 px solid #d8dde6;
+    border-radius: 0.25rem;
+    background-color: #f4f6f9;
+    width: 100%;
+    margin-bottom: 0.5rem;
+}
+
+/*Tablets styling */
+@media (max-width: 768px) and (min-width: 481px) {
+    .slds-grid.slds-gutters {
+        flex-direction: row;
+        align-items: left;
+        width: 50%;
+    }
+
+    .uniform-height {
+        height: 40px;
+        line-height: 40px;
+        width: 81%;
+        margin-left: -15px;
+    }
+
+    .custom-input {
+        width: 90%;
+        margin-bottom: 1.5rem;
+    }
+
+    .custom-input .slds-form-element__label {
+        margin-left: -12px;
+    }
+
+    .slds-text-heading_medium {
+        margin-left: -12px;
+    }
+
+    .slds-align-bottom {
+        width: 100%;
+        display: inline-flex;
+        justify-content: left;
+        padding-top: 2rem;
+    }
+
+    .slds-float_left,
+    .slds-float_right {
+        float: none !important;
+    }
+
+    .footerCSS {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 0;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    .BackToMyBookingsBtnCSS {
+        font-size: 12px;
+        width: auto;
+        text-align: center;
+        justify-content: center;
+        margin-left: -13px;
+        margin-top: -9px;
+    }
+
+    .NextBtnCSS {
+        float: right;
+        margin-left: auto;
+        width: 20%;
+        padding: 1rem 2rem;
+        
+    }
+
+    .SearchBtnCSS {
+        background: black !important;
+        color: white !important;
+        margin-right: -92px;
+        width: 50%;
+        margin-left: -45px;
+        padding: 9px;
+        text-transform: uppercase;
+    }
+
+    .keepbookingBtnCSS {
+        background-color: white;
+        color: black;
+        border: 1px solid black;
+        width: 275px;
+        height: 50px;
+        line-height: 50px;
+        font-size: 12px;
+        margin-left: 0rem;
+        margin-right: -4px;
+    }
+
+    .confirmcancellationBtnCSS {
+        background-color: black;
+        color: white;
+        border: 1px solid black;
+        width: 275px;
+        height: 50px;
+        line-height: 50px;
+        font-size: 12px;
+        margin-left: 10px;
+        margin-right: 4px;
+        margin-top: 10px;
+    }
+
+    .slds-float_left,
+    .slds-float_right {
+        float: none !important;
+    }
+}
+
+/*Mobile styling */
+@media (max-width: 480px) {
+    .slds-grid.slds-gutters {
+        flex-direction: column;
+        align-items: left;
+        width: 50%;
+    }
+
+    .uniform-height {
+        height: 40px;
+        line-height: 40px;
+        width: 167%;
+        margin-left: -13px;
+    }
+
+    .custom-input {
+        width: 90%;
+        margin-bottom: 1.5rem;
+    }
+
+    .custom-input .slds-form-element__label {
+        margin-left: -12px;
+    }
+
+    .slds-text-heading_medium {
+        margin-left: -12px;
+    }
+
+    .slds-align-bottom {
+        width: 100%;
+        display: inline-flex;
+        justify-content: left;
+        padding-top: 2rem;
+    }
+
+    .slds-float_left,
+    .slds-float_right {
+        float: none !important;
+    }
+
+    .footerCSS {
+        display: flex;
+        flex-direction: column-reverse;
+        align-items: center;
+        padding: 1rem 0;
+        width: 97%;
+        margin-left: 2px;
+    }
+
+    .NextBtnCSS {
+        width: 100%;
+        text-align: center;
+        padding: 1.5rem;
+        background-color: #E9ECEC;
+        font-size: 1.2rem;
+        border: none;
+    }
+
+    .SearchBtnCSS {
+        background: black !important;
+        color: white !important;
+        margin-right: -237px;
+        width: 241%;
+        margin-left: -14px;
+        padding: 8px;
+        text-transform: uppercase;
+    }
+
+    .BackToMyBookingsBtnCSS {
+        margin-top: 1rem;
+        width: auto;
+        color: black;
+        font-size: 1rem;
+        text-align: center;
+        padding-bottom: 1rem;
+    }
+
+    .keepbookingBtnCSS {
+        background-color: white;
+        color: black;
+        border: 1px solid black;
+        width: 275px;
+        height: 50px;
+        line-height: 50px;
+        font-size: 12px;
+        margin-left: 0rem;
+        margin-right: -4px;
+    }
+
+    .confirmcancellationBtnCSS {
+        background-color: black;
+        color: white;
+        border: 1px solid black;
+        width: 275px;
+        height: 50px;
+        line-height: 50px;
+        font-size: 12px;
+        margin-left: 10px;
+        margin-right: 4px;
+        margin-top: 10px;
+    }
+
+    .slds-float_left,
+    .slds-float_right {
+        float: none !important;
+    }
+}
+
+/* Desktops (screens above 1024px) */
+@media screen and (min-width: 1025px) {
+    .footerCSS {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1rem 0;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    .BackToMyBookingsBtnCSS {
+        font-size: 12px;
+        width: auto;
+        text-align: center;
+        justify-content: center;
+    }
+
+    .NextBtnCSS {
+        float: right;
+        margin-left: auto;
+        width: auto;
+        padding: 1rem 2rem;
+    }
+
+    .SearchBtnCSS {
+        background: black !important;
+        color: white !important;
+        padding: 9px;
+        width: 160px;
+        text-transform: uppercase;
+    }
+}
+
+.textbodycss {
+    text-align: center;
+    padding: 10px;
+}
+
+.keepbookingcss {
+    font-size: 24px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.keepbookingtextcss {
+    text-align: center;
+    font-size: 16px;
+    margin: 20px 0px 40px 0px;
+}
+
+.keepbookingBtnCSS {
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+    width: 275px;
+    height: 50px;
+    line-height: 50px;
+    font-size: 12px;
+}
+
+.keepbookingBtnCSS,
+.confirmcancellationBtnCSS {
+    width: 100%;
+    max-width: 275px;
+    height: 50px;
+    font-size: 12px;
+    text-align: center;
+}
+
+.confirmcancellationBtnCSS {
+    background-color: black;
+    color: white;
+    border: 1px solid black;
+    width: 275px;
+    height: 50px;
+    line-height: 50px;
+    font-size: 12px;
+    margin-left: 10px;
+}
+
+.confirmcancellationBtnCSS {
+    background-color: black;
+    color: white;
+    border: 1px solid black;
+    margin-left: 1 rem;
+}
+
+.utilityclosediv {
+    padding: 0% 0% 10% 0%;
+}
+
+.utilityclosebtn {
+    float: right;
+}
+
+.slds-modal__container {
+    margin: 0 auto;
+    width: 50%;
+    max-width: 40rem;
+    min-width: 20rem;
+    height: auto;
+    top: 5%;
+    height: auto;
+}

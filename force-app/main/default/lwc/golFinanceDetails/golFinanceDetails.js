@@ -10,11 +10,11 @@ export default class golFinanceDetails extends LightningElement {
         console.log('Modify button clicked for JLR ID:', JSON.stringify(this.financeRecord, null, 2));
         const modifyFSRecordEvent = new CustomEvent('modify', {
             detail: {
-                financeId: this.financeRecord?.GOL_JLR_ID__c
+                financeId: this.financeRecord
             }
         });
-        const flowNavigationEvent = new FlowNavigationNextEvent();
+        // const flowNavigationEvent = new FlowNavigationNextEvent();
         this.dispatchEvent(modifyFSRecordEvent);
-        this.dispatchEvent(flowNavigationEvent);
+        // this.dispatchEvent(flowNavigationEvent);
     }
 }

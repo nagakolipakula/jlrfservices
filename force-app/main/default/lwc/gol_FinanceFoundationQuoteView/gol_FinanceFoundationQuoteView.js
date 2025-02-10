@@ -83,15 +83,15 @@ export default class gol_FinanceFoundationQuoteView extends LightningElement {
 
     handleNavigationBackFromNewCalculator() {
         console.log('Before financeInformationId:', this.financeInformationId);
-        console.log('ContactId:', this.ContactId);
-        console.log('ContactId2:', this.ContactId2);
-        console.log('financeInfoRecord:', this.financeInfoRecord);
-        console.log('financeInformationRecord:', this.financeInformationRecord);
-        console.log('alternativeFinanceInformationRecord:', this.alternativeFinanceInformationRecord);
-        console.log('buttonAction:', this.buttonAction);
+        // console.log('ContactId:', this.ContactId);
+        // console.log('ContactId2:', this.ContactId2);
+        // console.log('financeInfoRecord:', this.financeInfoRecord);
+        // console.log('financeInformationRecord:', this.financeInformationRecord);
+        // console.log('alternativeFinanceInformationRecord:', this.alternativeFinanceInformationRecord);
+        // console.log('buttonAction:', this.buttonAction);
 
         // const flowNavigationEvent = new FlowNavigationNextEvent();
-        // this.dispatchEvent(new FlowAttributeChangeEvent('ContactId2', this.ContactId2));
+        this.dispatchEvent(new FlowAttributeChangeEvent('ContactId2', this.ContactId2));
         
         // this.dispatchEvent(flowNavigationEvent);
         console.log('Dispatching ContactId2 and FlowNavigationNextEvent', this.ContactId2);
@@ -99,13 +99,13 @@ export default class gol_FinanceFoundationQuoteView extends LightningElement {
         this.dispatchEvent(action);
         const nextEvent = new FlowNavigationNextEvent();
         this.dispatchEvent(nextEvent);
-        console.log('After financeInformationId:', this.financeInformationId);
-        console.log('ContactId:', this.ContactId);
-        console.log('ContactId2:', this.ContactId2);
-        console.log('financeInfoRecord:', this.financeInfoRecord);
-        console.log('financeInformationRecord:', this.financeInformationRecord);
-        console.log('alternativeFinanceInformationRecord:', this.alternativeFinanceInformationRecord);
-        console.log('buttonAction:', this.buttonAction);
+        // console.log('After financeInformationId:', this.financeInformationId);
+        // console.log('ContactId:', this.ContactId);
+        // console.log('ContactId2:', this.ContactId2);
+        // console.log('financeInfoRecord:', this.financeInfoRecord);
+        // console.log('financeInformationRecord:', this.financeInformationRecord);
+        // console.log('alternativeFinanceInformationRecord:', this.alternativeFinanceInformationRecord);
+       console.log('buttonAction:', this.buttonAction);
 
         // this.ContactId = null;
     }
@@ -122,12 +122,22 @@ export default class gol_FinanceFoundationQuoteView extends LightningElement {
         this.dispatchEvent(nextEvent);
     }
 
-    // handleModifyClick() {
-    //     console.log('Modify button clicked for JLR ID:
-    //     const action = new FlowAttributeChangeEvent('buttonAction', 'gotoModify');
-    //     this.dispatchEvent(action);
-    //     const nextEvent = new FlowNavigationNextEvent();
-    //     this.dispatchEvent(nextEvent);
-    // }
+    handleModifyClick() {
+        console.log('Modify button clicked for JLR ID');
+        alert('123');
+        // const action = new FlowAttributeChangeEvent('buttonAction', 'gotoModify');
+        // this.dispatchEvent(action);
+        // const nextEvent = new FlowNavigationNextEvent();
+        // this.dispatchEvent(nextEvent);
+    }
+
+    handleModifyEvent(event) {
+        console.log('Modify event received in parent for JLR ID:', event.detail.financeId);
+    
+        const action = new FlowAttributeChangeEvent('buttonAction', 'gotoModify');
+        this.dispatchEvent(action);
+        const nextEvent = new FlowNavigationNextEvent();
+        this.dispatchEvent(nextEvent);
+    }
 
 }

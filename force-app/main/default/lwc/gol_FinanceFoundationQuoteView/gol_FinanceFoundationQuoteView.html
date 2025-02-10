@@ -9,7 +9,7 @@
             <div class="alternative-section">
                 <h2 class="alternative-title"><strong>{label.GOL_Alternative_finance_calculation}</strong></h2>
                 <template if:true={showAlternativeFinance}>
-                    <c-gol-finance-details finance-record={alternativeFinanceInformationRecord} label={label}></c-gol-finance-details>
+                    <c-gol-finance-details finance-record={alternativeFinanceInformationRecord} label={label} onmodify={handleModifyEvent}></c-gol-finance-details>
                 </template>
                 <template if:false={showAlternativeFinance}>
                     <div class="custom-container">

@@ -81,15 +81,32 @@ export default class gol_FinanceFoundationQuoteView extends LightningElement {
     //     this.dispatchEvent(flowNavigationEvent);
     // }
 
-    handleNavigationBackFromNewCalculator(){
+    handleNavigationBackFromNewCalculator() {
+        console.log('Before financeInformationId:', this.financeInformationId);
+        console.log('ContactId:', this.ContactId);
+        console.log('ContactId2:', this.ContactId2);
+        console.log('financeInfoRecord:', this.financeInfoRecord);
+        console.log('financeInformationRecord:', this.financeInformationRecord);
+        console.log('alternativeFinanceInformationRecord:', this.alternativeFinanceInformationRecord);
+        console.log('buttonAction:', this.buttonAction);
+
         // const flowNavigationEvent = new FlowNavigationNextEvent();
         // this.dispatchEvent(new FlowAttributeChangeEvent('ContactId2', this.ContactId2));
         
         // this.dispatchEvent(flowNavigationEvent);
+        console.log('Dispatching ContactId2 and FlowNavigationNextEvent', this.ContactId2);
         const action = new FlowAttributeChangeEvent('buttonAction', 'newCalculator');
         this.dispatchEvent(action);
         const nextEvent = new FlowNavigationNextEvent();
         this.dispatchEvent(nextEvent);
+        console.log('After financeInformationId:', this.financeInformationId);
+        console.log('ContactId:', this.ContactId);
+        console.log('ContactId2:', this.ContactId2);
+        console.log('financeInfoRecord:', this.financeInfoRecord);
+        console.log('financeInformationRecord:', this.financeInformationRecord);
+        console.log('alternativeFinanceInformationRecord:', this.alternativeFinanceInformationRecord);
+        console.log('buttonAction:', this.buttonAction);
+
         // this.ContactId = null;
     }
 
@@ -105,14 +122,12 @@ export default class gol_FinanceFoundationQuoteView extends LightningElement {
         this.dispatchEvent(nextEvent);
     }
 
-    modifyFSRecordEvent
-
-    handleModifyClick() {
-        // console.log('Modify button clicked for JLR ID:
-        const action = new FlowAttributeChangeEvent('buttonAction', 'gotoModify');
-        this.dispatchEvent(action);
-        const nextEvent = new FlowNavigationNextEvent();
-        this.dispatchEvent(nextEvent);
-    }
+    // handleModifyClick() {
+    //     console.log('Modify button clicked for JLR ID:
+    //     const action = new FlowAttributeChangeEvent('buttonAction', 'gotoModify');
+    //     this.dispatchEvent(action);
+    //     const nextEvent = new FlowNavigationNextEvent();
+    //     this.dispatchEvent(nextEvent);
+    // }
 
 }

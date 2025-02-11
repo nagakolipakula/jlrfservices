@@ -126,14 +126,14 @@ export default class gol_FinanceFoundationQuoteView extends LightningElement {
         this.dispatchEvent(nextEvent);
     }
 
-    handleModifyClick() {
-        console.log('Modify button clicked for JLR ID');
-        alert('123');
+    // handleModifyClick() {
+    //     console.log('Modify button clicked for JLR ID');
+    //     alert('123');
         // const action = new FlowAttributeChangeEvent('buttonAction', 'gotoModify');
         // this.dispatchEvent(action);
         // const nextEvent = new FlowNavigationNextEvent();
         // this.dispatchEvent(nextEvent);
-    }
+    // }
 
     handleModifyEvent(event) {
         console.log('Modify event received in parent for JLR ID:', event.detail.financeId);

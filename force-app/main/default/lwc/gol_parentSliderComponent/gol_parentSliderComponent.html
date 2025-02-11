@@ -1,6 +1,6 @@
 <template>
   <div>
-    <c-gol-product-selection-component products={namesWithIds} onproductchange={handleProductSelectionChange}>
+    <c-gol-product-selection-component products={namesWithIds} selected-product={selectedProductId} onproductchange={handleProductSelectionChange}>
     </c-gol-product-selection-component>
   </div>
   <template if:true={childSliderComponent}>
@@ -42,9 +42,9 @@
   </c-gol_-finance-foundation-quote-view> -->
 
   <!--Customization Section Start-->
-  <div class="customizationscreencss">
+  <!-- <div class="customizationscreencss">
     <c-gol_-finance-customization-component vehicleqlirecord={vehicleQli}></c-gol_-finance-customization-component>
-  </div>
+  </div> -->
   <!--Customization Section End-->
 
 </template>

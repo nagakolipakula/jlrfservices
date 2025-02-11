@@ -14,6 +14,8 @@ export default class gol_parentSliderComponent extends LightningElement {
   @api ContactId;
   @api ContactId2;
   @api vehicleQli;
+  @api financeInformation;
+
   selectedSliderValues = new Map();
   hasNoFinancialProducts = false;
   //   isSubmitted = false;
@@ -78,9 +80,15 @@ export default class gol_parentSliderComponent extends LightningElement {
   }
 
   setDefaultSelectedProductId() {
-    if (!this.selectedProductId && this.namesWithIds.length > 0) {
+    if(this.financeInformation &&  this.namesWithIds.length > 0  && this.isSavedProductPresent(this.financeInformation.LMS_FIN_Finance_Reference__c)){
+      this.selectedProductId = this.financeInformation.LMS_FIN_Finance_Reference__c;
+    }else if (!this.selectedProductId && this.namesWithIds.length > 0) {
       this.selectedProductId = this.namesWithIds[0].value;
     }
+  }
+
+  isSavedProductPresent(productId) {
+    return this.namesWithIds.some(item => item.value === productId);
   }
 
   getSelectedProduct() {

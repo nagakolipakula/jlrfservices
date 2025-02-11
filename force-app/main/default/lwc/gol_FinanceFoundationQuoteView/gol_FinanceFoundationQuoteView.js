@@ -18,9 +18,10 @@ import GOL_Open_New_Calculator_Button from '@salesforce/label/c.GOL_Open_New_Cal
 import GOL_Finance_Calculation from '@salesforce/label/c.GOL_Finance_Calculation';
 import GOL_Alternative_finance_calculation from '@salesforce/label/c.GOL_Alternative_finance_calculation';
 import GOL_Go_To_Overview from '@salesforce/label/c.GOL_Go_To_Overview';
+import GOL_Event_New_Calculator from '@salesforce/label/c.GOL_Event_New_Calculator';
+import GOL_Event_Go_To_Overview from '@salesforce/label/c.GOL_Event_Go_To_Overview';
+import GOL_Event_Go_To_Modify from '@salesforce/label/c.GOL_Event_Go_To_Modify';
 import { FlowAttributeChangeEvent, FlowNavigationNextEvent, FlowNavigationBackEvent, FlowNavigationFinishEvent } from 'lightning/flowSupport';
-
-
 
 export default class gol_FinanceFoundationQuoteView extends LightningElement {
     @api financeInformationId;
@@ -51,7 +52,10 @@ export default class gol_FinanceFoundationQuoteView extends LightningElement {
         GOL_Open_New_Calculator_Button,
         GOL_Finance_Calculation,
         GOL_Alternative_finance_calculation,
-        GOL_Go_To_Overview
+        GOL_Go_To_Overview,
+        GOL_Event_New_Calculator,
+        GOL_Event_Go_To_Overview,
+        GOL_Event_Go_To_Modify
     }
 
     
@@ -95,7 +99,7 @@ export default class gol_FinanceFoundationQuoteView extends LightningElement {
         
         // this.dispatchEvent(flowNavigationEvent);
         console.log('Dispatching ContactId2 and FlowNavigationNextEvent', this.ContactId2);
-        const action = new FlowAttributeChangeEvent('buttonAction', 'newCalculator');
+        const action = new FlowAttributeChangeEvent('buttonAction', this.label.GOL_Event_New_Calculator);
         this.dispatchEvent(action);
         const nextEvent = new FlowNavigationNextEvent();
         this.dispatchEvent(nextEvent);
@@ -116,7 +120,7 @@ export default class gol_FinanceFoundationQuoteView extends LightningElement {
         // this.dispatchEvent(new FlowAttributeChangeEvent('ContactId2', this.ContactId2));
         // this.dispatchEvent(flowNavigationEvent);
 
-        const action = new FlowAttributeChangeEvent('buttonAction', 'goToOverView');
+        const action = new FlowAttributeChangeEvent('buttonAction', this.label.GOL_Event_Go_To_Overview);
         this.dispatchEvent(action);
         const nextEvent = new FlowNavigationNextEvent();
         this.dispatchEvent(nextEvent);
@@ -134,7 +138,7 @@ export default class gol_FinanceFoundationQuoteView extends LightningElement {
     handleModifyEvent(event) {
         console.log('Modify event received in parent for JLR ID:', event.detail.financeId);
     
-        const action = new FlowAttributeChangeEvent('buttonAction', 'gotoModify');
+        const action = new FlowAttributeChangeEvent('buttonAction', this.label.GOL_Event_Go_To_Modify);
         this.dispatchEvent(action);
         const nextEvent = new FlowNavigationNextEvent();
         this.dispatchEvent(nextEvent);

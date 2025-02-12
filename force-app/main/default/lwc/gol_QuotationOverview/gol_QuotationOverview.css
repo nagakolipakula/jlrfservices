@@ -1,5 +1,4 @@
-.quotation-section
-{
+.quotation-section {
     background-color: #fff;
     border: none;
     padding: 20px;
@@ -7,10 +6,10 @@
     margin-top: -30px;
 }
 
-.quotation-title
-{
+.quotation-title {
     font-size: 17px;
     font-family: 'Avenir Next', sans-serif;
+    font-weight: bold;
     letter-spacing: 2px;
     margin-bottom: 10px;
 }
@@ -18,7 +17,7 @@
 .new-calculation-container {
     display: flex;
     padding: 3% 0% 3% 0%;
-    margin-top: -8px;
+    margin-top: -40px;
     margin-left: 18px;
     text-align: center;
 }
@@ -35,8 +34,43 @@
     transition: background-color 0.3s ease, color 0.3s ease;
     cursor: pointer;
 }
-.link-container
-{
-    display:flex;
-    gap:10px;
+
+.footer-button-container {
+    display: flex;
+    padding: 3% 0% 3% 0%;
+    gap: 10px;
+    margin-top: -40px;
+    margin-left: 18px;
+    text-align: center;
+}
+
+.update {
+    background-color: #fff;
+    color: #000;
+    border: 1px solid #000;
+    padding: 10px 20px;
+    font-size: 11px;
+    letter-spacing: 2px;
+    font-family: 'Avenir Next', sans-serif;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    cursor: pointer;
+}
+
+.open {
+    background-color: #fff;
+    color: #000;
+    border: 1px solid #000;
+    padding: 10px 20px;
+    font-size: 11px;
+    letter-spacing: 2px;
+    font-family: 'Avenir Next', sans-serif;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    cursor: pointer;
+}
+
+.link-container {
+    display: flex;
+    gap: 10px;
 }

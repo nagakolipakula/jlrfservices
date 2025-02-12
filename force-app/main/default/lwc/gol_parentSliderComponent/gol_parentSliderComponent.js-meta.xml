@@ -34,6 +34,12 @@
 				label="2nd Contact Id"/>
 			<property name="vehicleQli" type="@salesforce/schema/LMS_QuoteLineItem__c" label="Vehicle Quote Line Item"/>
 			<property name="financeInformation" type="@salesforce/schema/LMS_FinanceInformation__c" label="Saved Finance Information Item"/>
+			<property
+                name="inputMappingData"
+                type="String"
+                label="Input Mapping Data"
+                description="Input Mapping Data from LWC to Flow."
+                required="false" />
         </targetConfig>
     </targetConfigs>
 </LightningComponentBundle>

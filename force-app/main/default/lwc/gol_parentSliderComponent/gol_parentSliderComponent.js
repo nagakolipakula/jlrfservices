@@ -1,4 +1,4 @@
-import { LightningElement, api } from 'lwc';
+import { LightningElement, api, wire } from 'lwc';
 import GOL_Select_Financial_Product from '@salesforce/label/c.GOL_Select_Financial_Product';
 import GOL_Adjust_parameters from '@salesforce/label/c.GOL_Adjust_parameters';
 import GOL_No_Financial_products_available from '@salesforce/label/c.GOL_No_Financial_products_available';
@@ -6,6 +6,7 @@ import GOL_Calculate_Financing from '@salesforce/label/c.GOL_Calculate_Financing
 import GOL_Finance_Insurance_and_Services from '@salesforce/label/c.GOL_Finance_Insurance_and_Services';
 import GOL_Amount_incl_VAT from '@salesforce/label/c.GOL_Amount_incl_VAT';
 import { FlowAttributeChangeEvent, FlowNavigationNextEvent, FlowNavigationBackEvent, FlowNavigationFinishEvent } from 'lightning/flowSupport';
+import getInputFieldsMappingRecords from '@salesforce/apex/GOL_GetFinanceQuote.getInputFieldsMappingRecords';
 
 export default class gol_parentSliderComponent extends LightningElement {
   @api response;
@@ -15,7 +16,10 @@ export default class gol_parentSliderComponent extends LightningElement {
   @api ContactId2;
   @api vehicleQli;
   @api financeInformation;
-
+  @api inputFieldMapping;
+  @api inputMappingData;
+  mappingMetadataRecords;
+  
   selectedSliderValues = new Map();
   hasNoFinancialProducts = false;
   //   isSubmitted = false;
@@ -33,9 +37,20 @@ export default class gol_parentSliderComponent extends LightningElement {
     GOL_Amount_incl_VAT
   }
 
+  // @wire(getInputFieldsMappingRecords)
+  // wiredMetadata({ error, data }) {
+  //     if (data) {
+  //         this.mappingMetadataRecords = data;
+  //         console.log('Fetched Metadata Records:', this.mappingMetadataRecords);
+  //     } else if (error) {
+  //         console.error('Error fetching metadata:', error);
+  //     }
+  // }
+
   connectedCallback() {
     console.log('First Finance Info Record:', this.ContactId);
     console.log('Second Finance Info Record:', this.ContactId2);
+   
     try {
       if (!this.response || this.response.trim() === '') {
         console.warn('Response is empty or not defined');
@@ -62,6 +77,23 @@ export default class gol_parentSliderComponent extends LightningElement {
     }
   }
 
+  async loadMetadata() {
+    try {
+        const data = await getInputFieldsMappingRecords();
+        console.log('Data +++++++++++++'+data);
+        console.log(data);
+        this.mappingMetadataRecords = data;
+        // this.metadataRecords = data.map(record => ({
+        //     id: record.Id,
+        //     name: record.DeveloperName,
+        //     value: record.Custom_Field__c
+        // }));
+    } catch (error) {
+        console.error('Error fetching metadata:', error);
+    }
+}
+
+
   handleModify(event) {
     const contactID = event.detail;
     console.log('ContactId in handleModify:', contactID);
@@ -80,7 +112,7 @@ export default class gol_parentSliderComponent extends LightningElement {
   }
 
   setDefaultSelectedProductId() {
-    if(this.financeInformation &&  this.namesWithIds.length > 0  && this.isSavedProductPresent(this.financeInformation.LMS_FIN_Finance_Reference__c)){
+     if(this.financeInformation &&  this.namesWithIds.length > 0  && this.isSavedProductPresent(this.financeInformation.LMS_FIN_Finance_Reference__c)){
       this.selectedProductId = this.financeInformation.LMS_FIN_Finance_Reference__c;
     }else if (!this.selectedProductId && this.namesWithIds.length > 0) {
       this.selectedProductId = this.namesWithIds[0].value;
@@ -148,9 +180,11 @@ export default class gol_parentSliderComponent extends LightningElement {
       console.warn('Response is empty or not defined');
       return;
     }
+    
     this.childSliderComponent = false;
     this.getProductIds();
     this.setDefaultSelectedProductId();
+    
     this.setupSliders();
     const providerData = this.getSelectedProduct();
     if (providerData && providerData.inputFields) {
@@ -166,12 +200,18 @@ export default class gol_parentSliderComponent extends LightningElement {
     }, 100);
   }
 
-  setupSliders() {
+  async setupSliders() {
+    await this.loadMetadata();
     const providerData = this.parsedResponse.find(item => item.id === this.selectedProductId);
     if (providerData && providerData.inputFields) {
       const inputFields = providerData.inputFields;
+      console.log('**********************************');
+      // console.log(this.inputMappingData);
+      console.log(inputFields);
+     
       const allowedFields = this.getSliderNames(inputFields);
-
+      console.log(allowedFields);
+      console.log('**********************************');
       this.sliders = Object.entries(inputFields)
         .filter(([key]) => 
           allowedFields.includes(key) &&
@@ -180,9 +220,17 @@ export default class gol_parentSliderComponent extends LightningElement {
           key !== "interestRateRange"
         )
         .map(([key, field]) => {
-          let storedValue = this.selectedSliderValues.get(this.selectedProductId)?.[key];
+          //this.getStoredValue(key);
+          let storedValue = this.getStoredValue(key);;//this.selectedSliderValues.get(this.selectedProductId)?.[key];
+          console.log('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^');
+          
+          console.log('Stored Value:', storedValue);
+          console.log('key Value:', key);
+          console.log('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^');
           return this.createSliders(providerData, key, field, storedValue);
         });
+
+
         console.log('Generated Sliders:', JSON.stringify(this.sliders, null, 2));
     } else {
         console.warn('No Input Fields Found');
@@ -190,11 +238,51 @@ export default class gol_parentSliderComponent extends LightningElement {
     }
   }
 
+  getStoredValue(key) {
+    console.log('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$');
+    let returnVal;
+    if(this.financeInformation){
+      let recordMap = new Map(Object.entries(this.financeInformation));
+      this.mappingMetadataRecords.map(record => {
+        const valuesArray = record.Input_Fields_Name__c.split(',').map(value => value.trim()); // Convert to array
+        if(valuesArray.includes(key)) // Check if key exists
+        {
+          console.log('Found Key-----> ', key);
+          console.log('Found Key-----> ', record.Field_API_Name__c);
+          console.log(recordMap.get(record.Field_API_Name__c));
+          if(recordMap.get(record.Field_API_Name__c)){
+            console.log('Found all and return -----');
+            returnVal =  recordMap.get(record.Field_API_Name__c);
+          }
+        }
+      });
+      return returnVal;
+    }else{
+      return this.selectedSliderValues.get(this.selectedProductId)?.[key];
+    }
+    // console.log(this.financeInformation);
+    // console.log(key);
+   
+    // let fieldNameTemp = 'LMS_FIN_Term__c';
+    // console.log(this.mappingMetadataRecords);
+    // console.log(recordMap.get(fieldNameTemp));
+    // console.log(recordMap);
+    // console.log('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$');
+    
+    
+  }
+
   createSliders(providerData, key, field, storedValue) {
     // let sequence = 0;
     // if (key === 'downPaymentRange') sequence = 1;
     // else if (key === 'annualMileagesRange') sequence = 2;
     // else if (key === 'durationsRange') sequence = 3;
+    console.log('****************------------------------******************');
+    console.log(providerData);
+    console.log(key);
+    console.log(field);
+    console.log(storedValue);
+    console.log('******************-----------------------------****************');
     if (providerData.provider === 'ARVAL' && key === 'annualMileagesRange') {
       const durationRange = providerData.inputFields.durationsRange;
       const mileageRange = field;

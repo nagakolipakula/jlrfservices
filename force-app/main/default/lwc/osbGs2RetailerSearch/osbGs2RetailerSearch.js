@@ -21,11 +21,13 @@ export default class osbGs2RetailerSearch extends OmniscriptBaseMixin(LightningE
     customLabels;
     @track errorMessage = '';
 
+
     searchBtnCss = "background: #E9ECEC !important; color: white !important;";
     nextBtnCss = "background: #E9ECEC !important; color: white !important; padding: 1% 4% 1% 4%;";
     disabledSearchbutton = true;
     disabledNextbutton = true;
     reGoodDate;
+    updateddate;
 
     _actionUtil;
     _ns = getNamespaceDotNotation();
@@ -114,72 +116,93 @@ export default class osbGs2RetailerSearch extends OmniscriptBaseMixin(LightningE
     }
 
 
-    handleDateChange(event) {
+/*    handleDateChange(event) {
         const inputDate = event.target.value;
         const selected = new Date(inputDate);
         const today = new Date();
         today.setHours(0, 0, 0, 0);
         const selectedMidnight = new Date(selected);
         selectedMidnight.setHours(0, 0, 0, 0);
-                
+    
         if (!inputDate) {
-          //  this.errorMessage = 'Please select a date.';
             const toastComponent = this.template.querySelector('c-osb-gs2-show-toast');
             if (toastComponent) {
-                toastComponent.showToast('success', 'Please select a date.', 'utility:success', 5000);
+                toastComponent.showToast('error', 'Please select a date.', 'utility:error', 5000);
             }
             return;
         }
-
+    
         if (selectedMidnight >= today) {
             this.errorMessage = '';
             this.selectedDate = inputDate;
+    
+            setTimeout(() => {
+                const toastComponent = this.template.querySelector('c-osb-gs2-show-toast');
+                if (toastComponent) {
+                    toastComponent.showToast('success', `Selected Date: ${inputDate}`, 'utility:success', 5000);
+                }
+                this.updateButtonState();
+            }, 2000);
+    
         } else {
-         //   this.errorMessage = 'Please select a date that is today or in the future.'; 
             const toastComponent = this.template.querySelector('c-osb-gs2-show-toast');
             if (toastComponent) {
-                toastComponent.showToast('success', 'Please select a date that is today or in the future.', 'utility:success', 5000);
+                toastComponent.showToast('error', 'Please select a date that is today or in the future.', 'utility:error', 5000);
             }
         }
-        this.updateButtonState();
-    }
+    }    */
+    // changeDate(){
+    //    this.errorMessage = 'Please provide a date in the format d'; 
+    // }
+    // handleDateChange(event)
+     changeDate(event){
+        const inputDate = event.target.value;
 
-    /*handleDateChange(event) {
-    const inputDate = event.target.value;
-    const selected = new Date(inputDate);
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
+        if (!inputDate) {
+            //this.showToast('Please select a date.', 'error');
+            this.errorMessage = 'Please select a date.';
+            return;
+        } 
+            
+        // Check for valid date format
+        if (!this.isGoodDate(inputDate)) {
+          //  this.showToast('Please provide a date in the format MM/dd/YYYY', 'error');
+            this.errorMessage = 'Please provide a date in the format MM/DD/YYYY';
+           // console.log('INPUTDATE: ', inputDate);
+            return;
+        } 
+
+        const selected = new Date(inputDate);
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        const selectedMidnight = new Date(selected);
+        selectedMidnight.setHours(0, 0, 0, 0);
+        
+        if (selectedMidnight >= today) {
+            this.errorMessage = '';
+            this.selectedDate = inputDate;
+            this.updateddate = this.selectedDate;
+            this.updateButtonState();
+            
+        } else {
+            this.disabledSearchbutton = true;
+            this.searchButtonClicked = false;
+            this.disabledNextbutton = true;
+            this.datechangeconfirmation();
+            this.searchBtnCss = false
+            ? "background: black !important; color: white !important; "
+            : "background: #E9ECEC !important; color: white !important;";
+         //   this.showToast('Please select a date that is today or in the future.', 'error');
+            this.errorMessage = 'Please select a date that is today or in the future.';
+            
+        } 
     
-    // Check for valid date format
-    if (!this.isGoodDate(inputDate)) {
-        this.showToast('Please provide a date in the format MM/dd/YYYY', 'error');
-        console.log('INPUTDATE: ', inputDate);
-        return;
     }
-
-    if (!inputDate) {
-        this.showToast('Please select a date.', 'error');
-        return;
-    }
-
-    const selectedMidnight = new Date(selected);
-    selectedMidnight.setHours(0, 0, 0, 0);
-
-    if (selectedMidnight >= today) {
-        this.errorMessage = '';
-        this.selectedDate = inputDate;
-    } else {
-        this.showToast('Please select a date that is today or in the future.', 'error');
-    }
-    
-    this.updateButtonState();
-}
 
     isGoodDate(dateString) {
-       
-       const reGoodDate = /^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$/;
-       // /^((0?[1-9]|1[012])[- /.](0?[1-9]|[12][0-9]|3[01])[- /.](19|20)?[0-9]{2})*$/;
-       console.log('GoodDate: ', reGoodDate);
+        
+        const reGoodDate = /^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$/;
+        //console.log('GoodDate: ', reGoodDate);
         return reGoodDate.test(dateString);
     }
 
@@ -188,7 +211,8 @@ export default class osbGs2RetailerSearch extends OmniscriptBaseMixin(LightningE
         if (toastComponent) {
             toastComponent.showToast(type === 'error' ? 'error' : 'success', message, type === 'error' ? 'utility:error' : 'utility:success', 5000);
         }
-    }*/
+    } 
+
 
 
     updateButtonState() {
@@ -204,6 +228,8 @@ export default class osbGs2RetailerSearch extends OmniscriptBaseMixin(LightningE
         const IPInput = this.createInputObject();
         const params = this.ipInputParams(IPInput);
         this._actionUtil = new OmniscriptActionCommonUtil();
+
+        console.log('IPInput for OSBGS2_getRetailersFromPostcode:', JSON.stringify(IPInput));
 
         this._actionUtil.executeAction(params, null, this, null, null)
             .then(response => this.processResponse(response))
@@ -253,8 +279,9 @@ export default class osbGs2RetailerSearch extends OmniscriptBaseMixin(LightningE
                     displayRetailersComponent.selectedDate = this.selectedDate;
                 }
             } else {
-                this.places = [];
+                this.places = [];                
                 this.searchButtonClicked = false;
+                
                 //this.showToast('No locations found', 'No locations found in the entered postcode or city name', 'error');
                 const toastComponent = this.template.querySelector('c-osb-gs2-show-toast');
                 if (toastComponent) {
@@ -372,4 +399,13 @@ export default class osbGs2RetailerSearch extends OmniscriptBaseMixin(LightningE
         const data = Object.fromEntries(keys.map(key => [key, '']));        
         this.omniApplyCallResp(data);
     }
+
+    datechangeconfirmation () {
+        const keys = [
+            'dateSearched', 'location', 'selectedLocationDate', 'selectedLocationTimeSlot', 'selectedOption', 'details', 'selectedDropOffOption', 'hasAllData'
+        ];
+        const data = Object.fromEntries(keys.map(key => [key, '']));        
+        this.omniApplyCallResp(data);
+    }
+
 }

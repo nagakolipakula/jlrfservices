@@ -201,6 +201,16 @@ input[type='date']:in-range::-webkit-datetime-edit-text {
     .slds-float_right {
         float: none !important;
     }
+
+    .error-message {
+    color: red;
+    padding: 10px;
+    font-size: 12px;
+    font-weight: normal;
+    position: relative;
+    top: -28px;
+    margin-left: 261px;
+    }
 }
 
 /*Mobile styling */
@@ -309,6 +319,18 @@ input[type='date']:in-range::-webkit-datetime-edit-text {
     .slds-float_right {
         float: none !important;
     }
+
+    .error-message {
+        color: red;
+        padding: 10px;
+        /* border-radius: 5px; */
+        font-size: 12px;
+        font-weight: normal;
+        position: relative;
+        top: -28px;
+        margin-left: -7px;
+        margin-top: -80px;
+    }
 }
 
 /* Desktops (screens above 1024px) */
@@ -342,6 +364,17 @@ input[type='date']:in-range::-webkit-datetime-edit-text {
         padding: 9px;
         width: 160px;
         text-transform: uppercase;
+    }
+
+    .error-message {
+    color: red;
+    padding: 10px;
+    /* border-radius: 5px; */
+    font-size: 12px;
+    font-weight: normal;
+    position: relative;
+    top: -28px;
+    margin-left: 275px;
     }
 }
 

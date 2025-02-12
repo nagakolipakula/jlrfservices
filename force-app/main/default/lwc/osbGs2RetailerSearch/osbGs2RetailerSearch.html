@@ -2,7 +2,7 @@
   @description       : Parent Component to search retailers using postcode or city/town
   @author            : naga.kolipakula@emeal.nttdata.com
   @group             : 
-  @last modified on  : 02-05-2025
+  @last modified on  : 02-11-2025
   @last modified by  : saikrushna11.panigrahi@emeal.nttdata.com
 -->
 <template>
@@ -22,17 +22,25 @@
                     </div>
                     <div class="slds-col slds-size_1-of-6 slds-m-right_small custom-input" style="width: 260px;">
                         <label for="selectedDate" class="slds-form-element__label">{customLabels.Select_date}:</label>
-                        <input type="date" id="selectedDate" value={selectedDate} onchange={handleDateChange} class="uniform-height slds-input" placeholder="" min={minDate}>
-                    <template if:true={errorMessage}>
-                        <div class="error-message">{errorMessage}</div>
-                    </template>
+                        <input type="date" id="selectedDate" value={selectedDate} onchange={handleDateChange} onfocusout={changeDate} class="uniform-height slds-input" placeholder="" min={minDate} aria-required="true">
                     </div>
+                    
                     <div class="slds-col slds-size_1-of-8 slds-align-bottom" >
                         <button style={searchBtnCss} onclick={handleSearch} disabled={disabledSearchbutton} class={searchButtonClass}>{customLabels.Search}</button>
-                    </div>
+                    </div>                    
                 </div>
             </div>
         </div>
+        
+        <div>
+        <template if:true={errorMessage}>
+            <!-- Add a class instead of inline style -->
+            <div class="error-message" role="alert" aria-live="assertive">
+                {errorMessage}
+            </div>
+        </template>
+        </div>
+
         <!-- Bottom sections -->
         <div class="slds-col slds-size_1-of-1">
             <template if:true={searchButtonClicked}>

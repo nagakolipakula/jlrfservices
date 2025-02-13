@@ -1,5 +1,6 @@
 import { LightningElement, api, track } from 'lwc';
 import LOCALE from "@salesforce/i18n/locale";
+import CURRENCY from "@salesforce/i18n/currency";
 import GOL_Quotation_overview from '@salesforce/label/c.GOL_Quotation_overview';
 import GOL_New_Calculation_Button from '@salesforce/label/c.GOL_New_Calculation_Button';
 import GOL_Update_Quote_Button from '@salesforce/label/c.GOL_Update_Quote_Button';
@@ -49,13 +50,16 @@ export default class QuotationOverview extends LightningElement {
 
     formatCurrency(amount) {
         if (amount === undefined || amount === null || isNaN(amount)) return 'N/A';
+    
         try {
             return new Intl.NumberFormat(LOCALE, {
-                style: 'currency',
+                style: 'currency', 
                 currency: CURRENCY,
+                currencyDisplay: 'symbol',
+                useGrouping: true,
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 2
-            }).format(amount);
+            }).format(amount).replace(',', 'X').replace('.', ',').replace('X', '.'); 
         } catch {
             return 'Invalid Amount';
         }

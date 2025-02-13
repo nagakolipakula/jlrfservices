@@ -97,4 +97,16 @@ export default class QuotationOverview extends LightningElement {
         }));
         console.log("Update Button Clicked! Selected Records:", JSON.parse(JSON.stringify(selectedDetails)));        
     }
+
+    handleSendToBankClick() {
+        console.log("Send to Bank Button Clicked!");
+    }
+
+    handleOpenClick() {
+        console.log("Open Button Clicked!");
+    }
+
+    handleNewCalculationClick() {
+        console.log("New Calculation Button Clicked!");
+    }
 }

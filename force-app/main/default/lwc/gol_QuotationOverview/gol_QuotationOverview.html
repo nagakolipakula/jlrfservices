@@ -9,6 +9,37 @@
                     {label.GOL_New_Calculation_Button}
                 </button>
         </div>
+         <!-- Data Table Section -->
+         <div class="data-table-container">
+            <div class="scrollable-container">
+                <table class="slds-table slds-table_bordered slds-table_cell-buffer full-width-table">
+                    <thead>
+                        <tr>
+                            <th scope="col"> </th>
+                            <th scope="col">JLR ID</th>
+                            <th scope="col">Date / Time</th>
+                            <th scope="col">Campaign</th>
+                            <th scope="col">FS</th>
+                            <th scope="col">Monthly</th>
+                            <th scope="col">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template for:each={FinanceInfoRecords} for:item="record">
+                            <tr key={record.id}>
+                                <td><input type="checkbox" data-id={record.id} onchange={handleRowSelection} /></td>
+                                <td>{record.GOL_JLR_ID__c}</td>
+                                <td>{record.CreatedDate}</td>
+                                <td>{record.campaign}</td>
+                                <td>{record.fs}</td>
+                                <td>{record.ERPT_FIN_InstallmentIntGrossAmt__c}</td>
+                                <td>{record.LMS_FIN_Status__c}</td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+            </div>
+        </div>        
         <div class="footer-button-container">
             <button class="update" onclick={handleUpdateClick}>
                     {label.GOL_Update_Quote_Button}

@@ -1,58 +1,76 @@
 <template>
-        <div class="quotation-section">
-            <h2 class="quotation-title">{label.GOL_Quotation_overview}</h2>
-        </div>
-        <div class="new-calculation-container">
-            <button
-                    class="new-calculation"
-                    onclick={handleNewCalculationClick}>
-                    {label.GOL_New_Calculation_Button}
-                </button>
-        </div>
-         <!-- Data Table Section -->
-         <div class="data-table-container">
-            <div class="scrollable-container">
-                <table class="slds-table slds-table_bordered slds-table_cell-buffer full-width-table">
-                    <thead>
-                        <tr>
-                            <th scope="col"> </th>
-                            <th scope="col">JLR ID</th>
-                            <th scope="col">Date / Time</th>
-                            <th scope="col">Campaign</th>
-                            <th scope="col">FS</th>
-                            <th scope="col">Monthly</th>
-                            <th scope="col">Status</th>
+    <div class="quotation-section">
+        <h2 class="quotation-title">{label.GOL_Quotation_overview}</h2>
+    </div>
+
+    <div class="new-calculation-container">
+        <button class="new-calculation" onclick={handleNewCalculationClick}>
+            {label.GOL_New_Calculation_Button}
+        </button>
+    </div>
+
+    <!-- Data Table Section -->
+    <div class="data-table-container">
+        <div class="scrollable-container">
+            <table class="slds-table slds-table_bordered slds-table_cell-buffer full-width-table">
+                <thead>
+                    <tr>
+                        <th scope="col"> </th>
+                        <th scope="col">JLR ID</th>
+                        <th scope="col">Date / Time</th>
+                        <th scope="col">Campaign</th>
+                        <th scope="col">FS</th>
+                        <th scope="col">Monthly</th>
+                        <th scope="col">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <template for:each={formattedRecords} for:item="record">
+                        <tr key={record.id}>
+                            <td>
+                                <input type="checkbox" key={record.id} data-id={record.Id} onchange={handleRowSelection} />
+                            </td>
+                            <td>
+                                <a href="javascript:void(0);" data-recordid={record.Id} onclick={handleJlrIdClick}>
+                                    {record.GOL_JLR_ID__c}
+                                </a>
+                            </td>
+                            <td>{record.formattedDate}</td>
+                            <td>{record.campaign}</td>
+                            <td>{record.fs}</td>
+                            <td>{record.formattedMonthly}</td>
+                            <td>{record.LMS_FIN_Status__c}</td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        <template for:each={FinanceInfoRecords} for:item="record">
-                            <tr key={record.id}>
-                                <td><input type="checkbox" data-id={record.id} onchange={handleRowSelection} /></td>
-                                <td>{record.GOL_JLR_ID__c}</td>
-                                <td>{record.CreatedDate}</td>
-                                <td>{record.campaign}</td>
-                                <td>{record.fs}</td>
-                                <td>{record.ERPT_FIN_InstallmentIntGrossAmt__c}</td>
-                                <td>{record.LMS_FIN_Status__c}</td>
-                            </tr>
-                        </template>
-                    </tbody>
-                </table>
-            </div>
-        </div>        
-        <div class="footer-button-container">
-            <button class="update" onclick={handleUpdateClick}>
-                    {label.GOL_Update_Quote_Button}
-                </button>
-            <button class="open" onclick={handleOpenClick}>
-                    {label.GOL_Open_Quote_Button}
-                </button>
-            <button class="send-to-bank" onclick={handleSendToBankClick}>
-                    {label.GOL_Send_To_Bank_Button}
-                </button>
+                    </template>
+                    
+                    <template if:false={formattedRecords}>
+                        <tr>
+                            <td colspan="7" class="no-data">No records found.</td>
+                        </tr>
+                    </template>
+                </tbody>
+            </table>
         </div>
-        <div class="link-container">
-            <a target="_blank">{label.GOL_Link_To_Pf_PoS}</a>
-            <a target="_blank">{label.GOL_Link_To_Arval_Pos}</a>
-        </div>
+    </div>
+    <!-- Error message below the table -->
+    <template if:true={showError}>
+        <p class="error-message">You can't select more than two records</p>
     </template>
+
+    <div class="footer-button-container">
+        <button class="update" onclick={handleUpdateClick}>
+            {label.GOL_Update_Quote_Button}
+        </button>
+        <button class="open" onclick={handleOpenClick}>
+            {label.GOL_Open_Quote_Button}
+        </button>
+        <button class="send-to-bank" onclick={handleSendToBankClick}>
+            {label.GOL_Send_To_Bank_Button}
+        </button>
+    </div>
+
+    <div class="link-container">
+        <a target="_blank">{label.GOL_Link_To_Pf_PoS}</a>
+        <a target="_blank">{label.GOL_Link_To_Arval_Pos}</a>
+    </div>
+</template>

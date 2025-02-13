@@ -123,10 +123,6 @@
 .full-width-table td {
     height: 58px;
     text-align: left;
-    padding: 8px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
 }
 
 .scrollable-container::-webkit-scrollbar {

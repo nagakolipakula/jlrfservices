@@ -107,11 +107,10 @@
     overflow-y: scroll;
     position: relative;
     /* overflow-x: hidden; */
-    border: 1px solid rgba(182, 184, 187, 1);
-    
+    /* border: 1px solid rgba(182, 184, 187, 1); */
     border-radius: 0px;
     margin-left: 20px;
-    padding-right: 0px;
+    padding-right: 5px;
     margin-bottom: 20px;
 }
 
@@ -119,11 +118,12 @@
     width: 100%;
     border-collapse: collapse;
     table-layout: fixed;
+    border: 1px solid rgba(182, 184, 187, 1);
 }
 
 .full-width-table th,
 .full-width-table td {
-    height: 48px;
+    height: 46.2px;
     text-align: left;
 }
 

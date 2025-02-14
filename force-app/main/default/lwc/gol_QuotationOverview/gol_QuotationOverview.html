@@ -16,14 +16,26 @@
                 <thead>
                     <tr>
                         <th scope="col"> </th>
-                        <th scope="col">JLR ID</th>
-                        <th scope="col">Date / Time</th>
-                        <th scope="col">Campaign</th>
-                        <th scope="col">FS</th>
-                        <th scope="col">Monthly</th>
-                        <th scope="col">Status</th>
+                        <th scope="col">
+                            <a href="javascript:void(0);" data-field="GOL_JLR_ID__c" onclick={handleSort}>JLR ID</a>
+                        </th>
+                        <th scope="col">
+                            <a href="javascript:void(0);" data-field="LastModifiedDate" onclick={handleSort}>Date / Time</a>
+                        </th>
+                        <th scope="col">
+                            <a href="javascript:void(0);" data-field="Campaign" onclick={handleSort}>Campaign</a>
+                        </th>
+                        <th scope="col">
+                            <a href="javascript:void(0);" data-field="LMS_FIN_ProdName__c" onclick={handleSort}>FS</a>
+                        </th>
+                        <th scope="col">
+                            <a href="javascript:void(0);" data-field="ERPT_FIN_InstallmentIntGrossAmt__c" onclick={handleSort}>Monthly</a>
+                        </th>
+                        <th scope="col">
+                            <a href="javascript:void(0);" data-field="LMS_FIN_Status__c" onclick={handleSort}>Status</a>
+                        </th>
                     </tr>
-                </thead>
+                </thead>                              
                 <tbody>
                     <template for:each={formattedRecords} for:item="record">
                         <tr key={record.id}>
@@ -36,7 +48,7 @@
                                 </a>
                             </td>
                             <td>{record.formattedDate}</td>
-                            <td>{record.campaign}</td>
+                            <td>{record.formattedDate}</td>
                             <td>{record.LMS_FIN_ProdName__c}</td>
                             <td>{record.formattedMonthly}</td>
                             <td>{record.LMS_FIN_Status__c}</td>

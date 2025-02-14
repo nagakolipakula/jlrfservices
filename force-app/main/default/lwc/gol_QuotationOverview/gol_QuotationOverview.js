@@ -9,11 +9,13 @@ import GOL_Send_To_Bank_Button from '@salesforce/label/c.GOL_Send_To_Bank_Button
 import GOL_Link_To_Pf_PoS from '@salesforce/label/c.GOL_Link_To_Pf_PoS';
 import GOL_Link_To_Arval_Pos from '@salesforce/label/c.GOL_Link_To_Arval_Pos';
 
-export default class QuotationOverview extends LightningElement {
+export default class golQuotationOverview extends LightningElement {
     @api buttonActionForOverview;
     @api FinanceInfoRecords;
     selectedRecords = [];
     showError = false;
+    @track sortedField = '';
+    @track sortOrder = 'asc';
 
     label = {
         GOL_Quotation_overview,
@@ -28,11 +30,40 @@ export default class QuotationOverview extends LightningElement {
     get formattedRecords() {
         if (!this.FinanceInfoRecords) return [];
 
-        return this.FinanceInfoRecords.map(record => ({
+        let sortedRecords = [...this.FinanceInfoRecords];
+
+        if (this.sortedField) {
+            sortedRecords.sort((a, b) => {
+                let valA = a[this.sortedField] || '';
+                let valB = b[this.sortedField] || '';
+
+                if (typeof valA === 'string') {
+                    valA = valA.toLowerCase();
+                    valB = valB.toLowerCase();
+                }
+
+                if (valA < valB) return this.sortOrder === 'asc' ? -1 : 1;
+                if (valA > valB) return this.sortOrder === 'asc' ? 1 : -1;
+                return 0;
+            });
+        }
+
+        return sortedRecords.map(record => ({
             ...record,
-            formattedDate: this.formatDate(record.CreatedDate),
+            formattedDate: this.formatDate(record.LastModifiedDate),
             formattedMonthly: this.formatCurrency(record.ERPT_FIN_InstallmentIntGrossAmt__c)
         }));
+    }
+
+    handleSort(event) {
+        const field = event.target.dataset.field;
+
+        if (this.sortedField === field) {
+            this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
+        } else {
+            this.sortedField = field;
+            this.sortOrder = 'asc';
+        }
     }
 
     formatDate(dateString) {

@@ -1,4 +1,4 @@
-import { LightningElement, api, wire } from 'lwc';
+import { LightningElement, api, track } from 'lwc';
 import GOL_Select_Financial_Product from '@salesforce/label/c.GOL_Select_Financial_Product';
 import GOL_Adjust_parameters from '@salesforce/label/c.GOL_Adjust_parameters';
 import GOL_No_Financial_products_available from '@salesforce/label/c.GOL_No_Financial_products_available';
@@ -18,8 +18,14 @@ export default class gol_parentSliderComponent extends LightningElement {
   @api financeInformation;
   @api inputFieldMapping;
   @api inputMappingData;
+  @api personType;
+  @api channel;
+  @api typeOfUse;
   mappingMetadataRecords;
-  
+  parsedSerializedData;
+  @api IsUpdateRetailerDiscount = false;
+  @api retailerDiscountSerializedData;
+  retailerDiscountInputFiledAry = [];
   selectedSliderValues = new Map();
   hasNoFinancialProducts = false;
   //   isSubmitted = false;
@@ -28,6 +34,7 @@ export default class gol_parentSliderComponent extends LightningElement {
   selectedProductId;
   parsedResponse;
   childSliderComponent = false;
+  isInitialLoadInModify = false;
   label = {
     GOL_Select_Financial_Product,
     GOL_No_Financial_products_available,
@@ -37,21 +44,15 @@ export default class gol_parentSliderComponent extends LightningElement {
     GOL_Amount_incl_VAT
   }
 
-  // @wire(getInputFieldsMappingRecords)
-  // wiredMetadata({ error, data }) {
-  //     if (data) {
-  //         this.mappingMetadataRecords = data;
-  //         console.log('Fetched Metadata Records:', this.mappingMetadataRecords);
-  //     } else if (error) {
-  //         console.error('Error fetching metadata:', error);
-  //     }
-  // }
-
   connectedCallback() {
     console.log('First Finance Info Record:', this.ContactId);
     console.log('Second Finance Info Record:', this.ContactId2);
-   
+    console.log('MS retailerDiscountSerializedData==>',this.retailerDiscountSerializedData);
+    
     try {
+      if(this.retailerDiscountSerializedData !== undefined){
+        this.parsedSerializedData = JSON.parse(this.retailerDiscountSerializedData);
+      }
       if (!this.response || this.response.trim() === '') {
         console.warn('Response is empty or not defined');
         this.hasNoFinancialProducts = true;
@@ -67,7 +68,8 @@ export default class gol_parentSliderComponent extends LightningElement {
       }
 
       this.hasNoFinancialProducts = false;
-      console.log('Parsed Response:', JSON.stringify(this.parsedResponse, null, 2));
+      //console.log('Parsed Response:', JSON.stringify(this.parsedResponse, null, 2));
+      this.isInitialLoadInModify = true;
       this.initializeSliders();
   
     } catch (error) {
@@ -79,15 +81,7 @@ export default class gol_parentSliderComponent extends LightningElement {
 
   async loadMetadata() {
     try {
-        const data = await getInputFieldsMappingRecords();
-        console.log('Data +++++++++++++'+data);
-        console.log(data);
-        this.mappingMetadataRecords = data;
-        // this.metadataRecords = data.map(record => ({
-        //     id: record.Id,
-        //     name: record.DeveloperName,
-        //     value: record.Custom_Field__c
-        // }));
+      this.mappingMetadataRecords = await getInputFieldsMappingRecords();
     } catch (error) {
         console.error('Error fetching metadata:', error);
     }
@@ -111,26 +105,31 @@ export default class gol_parentSliderComponent extends LightningElement {
     console.log('Filtered Names with IDs:', this.namesWithIds);
   }
 
-  setDefaultSelectedProductId() {
-     if(this.financeInformation &&  this.namesWithIds.length > 0  && this.isSavedProductPresent(this.financeInformation.LMS_FIN_Finance_Reference__c)){
-      this.selectedProductId = this.financeInformation.LMS_FIN_Finance_Reference__c;
+  setDefaultSelectedProductId() {//Set product Ids
+    if(this.parsedSerializedData !== undefined && this.parsedSerializedData){
+        this.selectedProductId = this.parsedSerializedData.selectedProductId;
+    }else if(this.isInitialLoadInModify && this.financeInformation &&  this.namesWithIds.length > 0  && this.isSavedProductPresent(this.financeInformation.LMS_FIN_Finance_Reference__c)){
+        this.selectedProductId = this.financeInformation.LMS_FIN_Finance_Reference__c;
     }else if (!this.selectedProductId && this.namesWithIds.length > 0) {
-      this.selectedProductId = this.namesWithIds[0].value;
+        this.selectedProductId = this.namesWithIds[0].value;
     }
   }
 
   isSavedProductPresent(productId) {
-    return this.namesWithIds.some(item => item.value === productId);
+      return this.namesWithIds.some(item => item.value === productId);
   }
 
   getSelectedProduct() {
-    return this.parsedResponse.find(item => item.id === this.selectedProductId);
+      return this.parsedResponse.find(item => item.id === this.selectedProductId);
   }
 
   handleProductSelectionChange(event) {
+    this.isInitialLoadInModify = false;
     this.selectedProductId = event.detail;
-    console.log('MS parsedResponse  handleProductSelectionChange ==>' + JSON.stringify(this.parsedResponse, null, 2));
+    console.log('MS this.selectedProductId==> ',this.selectedProductId);
+    // console.log('MS parsedResponse  handleProductSelectionChange ==>' + JSON.stringify(this.parsedResponse, null, 2));
     this.initializeSliders();
+    this.handleUpdateRetailerDiscount('selectedProductId',event.detail);
   }
 
   getUnits(key, units) {
@@ -175,16 +174,22 @@ export default class gol_parentSliderComponent extends LightningElement {
   }
 
   //Dynamic Sliders
-  initializeSliders() {
+  async initializeSliders() {
     if (!this.parsedResponse) {
       console.warn('Response is empty or not defined');
       return;
     }
-    
     this.childSliderComponent = false;
     this.getProductIds();
     this.setDefaultSelectedProductId();
-    
+    if(this.isInitialLoadInModify && this.financeInformation){
+      await this.loadMetadata();
+      this.updateParsedResponseForModify();
+    }else if(this.isInitialLoadInModify && this.retailerDiscountSerializedData 
+      && this.parsedSerializedData!== undefined
+      && this.parsedSerializedData.inputFields.length>0){
+      this.updateParsedResponseForRetailerDiscount();
+    }
     this.setupSliders();
     const providerData = this.getSelectedProduct();
     if (providerData && providerData.inputFields) {
@@ -198,20 +203,15 @@ export default class gol_parentSliderComponent extends LightningElement {
     setTimeout(() => {
       this.childSliderComponent = true;
     }, 100);
+    this.isInitialLoadInModify = false;
   }
 
   async setupSliders() {
-    await this.loadMetadata();
+     
     const providerData = this.parsedResponse.find(item => item.id === this.selectedProductId);
     if (providerData && providerData.inputFields) {
       const inputFields = providerData.inputFields;
-      console.log('**********************************');
-      // console.log(this.inputMappingData);
-      console.log(inputFields);
-     
       const allowedFields = this.getSliderNames(inputFields);
-      console.log(allowedFields);
-      console.log('**********************************');
       this.sliders = Object.entries(inputFields)
         .filter(([key]) => 
           allowedFields.includes(key) &&
@@ -220,13 +220,7 @@ export default class gol_parentSliderComponent extends LightningElement {
           key !== "interestRateRange"
         )
         .map(([key, field]) => {
-          //this.getStoredValue(key);
-          let storedValue = this.getStoredValue(key);;//this.selectedSliderValues.get(this.selectedProductId)?.[key];
-          console.log('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^');
-          
-          console.log('Stored Value:', storedValue);
-          console.log('key Value:', key);
-          console.log('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^');
+          let storedValue = this.selectedSliderValues.get(this.selectedProductId)?.[key];
           return this.createSliders(providerData, key, field, storedValue);
         });
 
@@ -238,20 +232,29 @@ export default class gol_parentSliderComponent extends LightningElement {
     }
   }
 
-  getStoredValue(key) {
-    console.log('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$');
-    let returnVal;
-    if(this.financeInformation){
+  updateParsedResponseForModify(){
+    for (let i = 0; i < this.parsedResponse.length; i++) {
+      if (this.selectedProductId === this.parsedResponse[i].fullId) {
+        const inputFields = this.parsedResponse[i].inputFields;
+        const allowedFields = this.getSliderNames(inputFields);
+        let inputName;
+        for (let j = 0; j < allowedFields.length; j++) {
+          inputName = allowedFields[j];
+          inputFields[inputName].defaultValue = this.getSavedValueFromFinInformation(inputName);
+          this.parsedResponse[i].inputFields = inputFields;
+        }
+      }
+    }
+  }
+  getSavedValueFromFinInformation(key){
+     let returnVal;
+     if(this.isInitialLoadInModify && this.financeInformation){
       let recordMap = new Map(Object.entries(this.financeInformation));
       this.mappingMetadataRecords.map(record => {
-        const valuesArray = record.Input_Fields_Name__c.split(',').map(value => value.trim()); // Convert to array
-        if(valuesArray.includes(key)) // Check if key exists
+        const valuesArray = record.Input_Fields_Name__c.split(',').map(value => value.trim()); 
+        if(valuesArray.includes(key)) 
         {
-          console.log('Found Key-----> ', key);
-          console.log('Found Key-----> ', record.Field_API_Name__c);
-          console.log(recordMap.get(record.Field_API_Name__c));
           if(recordMap.get(record.Field_API_Name__c)){
-            console.log('Found all and return -----');
             returnVal =  recordMap.get(record.Field_API_Name__c);
           }
         }
@@ -260,29 +263,46 @@ export default class gol_parentSliderComponent extends LightningElement {
     }else{
       return this.selectedSliderValues.get(this.selectedProductId)?.[key];
     }
-    // console.log(this.financeInformation);
-    // console.log(key);
-   
-    // let fieldNameTemp = 'LMS_FIN_Term__c';
-    // console.log(this.mappingMetadataRecords);
-    // console.log(recordMap.get(fieldNameTemp));
-    // console.log(recordMap);
-    // console.log('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$');
-    
-    
   }
-
+  updateParsedResponseForRetailerDiscount(){ 
+    for (let i = 0; i < this.parsedResponse.length; i++) {
+      if (this.parsedSerializedData.selectedProductId == this.parsedResponse[i].fullId) {
+        const inputFields = this.parsedResponse[i].inputFields;
+        const allowedFields = this.getSliderNames(inputFields);
+        let inputName;
+        for (let j = 0; j < allowedFields.length; j++) {
+          inputName = allowedFields[j];
+          inputFields[inputName].defaultValue = this.getSavedValueFromRetailerDiscount(inputName);
+          console.log('MS-->', inputFields[inputName].defaultValue);
+          this.parsedResponse[i].inputFields = inputFields;
+        }
+      }
+    }
+  }
+  getSavedValueFromRetailerDiscount(key){
+    
+     if(this.isInitialLoadInModify && this.retailerDiscountSerializedData 
+      && this.parsedSerializedData!== undefined
+      && this.parsedSerializedData.inputFields){
+        let checkKeyId = this.parsedSerializedData.inputFields.some(x => x.hasOwnProperty(key));
+        if(checkKeyId){
+          this.parsedSerializedData.inputFields.forEach((element,index) => {
+            if(Object.keys(element) == key){
+              console.log('MS-->inputFieldsmm',this.parsedSerializedData.inputFields[index][key]);
+              return this.parsedSerializedData.inputFields[index][key];
+            }
+        });
+        }
+      return this.selectedSliderValues.get(this.parsedSerializedData.selectedProductId)?.[key];
+    }else{
+      return this.selectedSliderValues.get(this.parsedSerializedData.selectedProductId)?.[key];
+    }
+  }
   createSliders(providerData, key, field, storedValue) {
     // let sequence = 0;
     // if (key === 'downPaymentRange') sequence = 1;
     // else if (key === 'annualMileagesRange') sequence = 2;
     // else if (key === 'durationsRange') sequence = 3;
-    console.log('****************------------------------******************');
-    console.log(providerData);
-    console.log(key);
-    console.log(field);
-    console.log(storedValue);
-    console.log('******************-----------------------------****************');
     if (providerData.provider === 'ARVAL' && key === 'annualMileagesRange') {
       const durationRange = providerData.inputFields.durationsRange;
       const mileageRange = field;
@@ -324,6 +344,8 @@ export default class gol_parentSliderComponent extends LightningElement {
     this.updateDependentSlider(value);
     this.updateParsedResponse(id, value);
     this.sliders = [...this.sliders];
+    this.handleUpdateRetailerDiscount(id, value);
+
   }
 
   logSliderChange(id, value) {
@@ -429,7 +451,7 @@ export default class gol_parentSliderComponent extends LightningElement {
   }
 
   buildSerializedData() {
-    // const cpiProducts = this.buildCpiProducts();
+     // const cpiProducts = this.buildCpiProducts();
     const inputFields = this.buildInputFields();
     const providerData = this.parsedResponse.find(item => item.id === this.selectedProductId);
     console.log('-------providerData----------');
@@ -437,6 +459,9 @@ export default class gol_parentSliderComponent extends LightningElement {
     const cpiProducts = providerData.cpiProducts;
     const serializedData = {
       quoteId: this.quoteExternalId,
+      typeOfUse: this.typeOfUse,
+      personType: this.personType,
+      channel: this.channel,
       product: {
           fullId: providerData.id,
           name: providerData.name,
@@ -473,7 +498,29 @@ export default class gol_parentSliderComponent extends LightningElement {
     this.updateFlowVariables();
     this.dispatchEvent(new FlowNavigationNextEvent());
   }
+  handleUpdateRetailerDiscount(id, value) {
+    
+    let selectedData;
+    if(value!==this.selectedProductId){
+    let checkKeyId = this.retailerDiscountInputFiledAry.some(x => x.hasOwnProperty(id));
+      if(checkKeyId){
+        this.retailerDiscountInputFiledAry.forEach((element,index) => {
+          if(Object.keys(element) == id){
+            this.retailerDiscountInputFiledAry[index][id] = value;
+          }
+      });
+      }else{
+        this.retailerDiscountInputFiledAry.push({[id]: value});
+      }
+      selectedData = {'selectedProductId':this.selectedProductId,'inputFields':this.retailerDiscountInputFiledAry};
+    }else{
+      selectedData = {'selectedProductId':this.selectedProductId,'inputFields':{}};
+    }
+    console.log('MS:: selectedData==> '+JSON.stringify(selectedData));
 
+    this.dispatchEvent(new FlowAttributeChangeEvent('retailerDiscountSerializedData', JSON.stringify(selectedData)));
+  
+  }
   handleBackToFianceCalculator() {
     this.dispatchEvent(new FlowNavigationBackEvent());
   }
@@ -482,18 +529,18 @@ export default class gol_parentSliderComponent extends LightningElement {
     this.dispatchEvent(new FlowNavigationFinishEvent());
   }
 
-  buildCpiProducts() {
-    return [
-        {
-            financialProductId: 'MC',
-            name: 'EstándarEmpresa-Seguro protección pago',
-            description: 'EstándarEmpresa-Seguro protección pago',
-            id: '7037A',
-            // monthlyCost: 127400.13,
-            selected: true
-        }
-    ];
- }
+//   buildCpiProducts() {
+//     return [
+//         {
+//             financialProductId: 'MC',
+//             name: 'EstándarEmpresa-Seguro protección pago',
+//             description: 'EstándarEmpresa-Seguro protección pago',
+//             id: '7037A',
+//             // monthlyCost: 127400.13,
+//             selected: true
+//         }
+//     ];
+//  }
 
  buildInputFields() {
     const selectedFields = {};

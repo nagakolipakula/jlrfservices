@@ -69,43 +69,43 @@ export default class gol_parentSliderComponent extends LightningElement {
       this.isInitialLoadInModify = true;
 
       if (this.retailerDiscountSerializedData) {
-          console.log('retailerDiscountSerializedData EXISTS');
+      console.log('retailerDiscountSerializedData EXISTS');
 
-          let storedData;
-          try {
-              storedData = JSON.parse(this.retailerDiscountSerializedData);
-              console.log('Parsed retailerDiscountSerializedData:', storedData);
-          } catch (error) {
-              return;
-          }
+      let storedData;
+      try {
+          storedData = JSON.parse(this.retailerDiscountSerializedData);
+          console.log('Parsed retailerDiscountSerializedData:', storedData);
+      } catch (error) {
+          return;
+      }
 
-          const selectedProductId = storedData.selectedProductId;
-          console.log('Selected Product ID from retailerDiscountSerializedData:', selectedProductId);
+      const selectedProductId = storedData.selectedProductId;
+      console.log('Selected Product ID from retailerDiscountSerializedData:', selectedProductId);
 
-          let foundProduct = false;
-          for (let i = 0; i < this.parsedResponse.length; i++) {
-              console.log('Checking product ID:', this.parsedResponse[i].fullId);
+      let foundProduct = false;
+      for (let i = 0; i < this.parsedResponse.length; i++) {
+        console.log('Checking product ID:', this.parsedResponse[i].fullId);
 
-              if (this.parsedResponse[i].fullId === selectedProductId) {
-                  foundProduct = true;
-                  const inputFields = this.parsedResponse[i].inputFields;
+        if (this.parsedResponse[i].fullId === selectedProductId) {
+          foundProduct = true;
+          const inputFields = this.parsedResponse[i].inputFields;
 
-                  storedData.inputFields.forEach(field => {
-                      const key = Object.keys(field)[0];
-                      if (inputFields[key]) {
-                          inputFields[key].defaultValue = field[key];
-                          console.log(`Updated ${key} ->`, field[key]);
-                      }
-                  });
-                  this.parsedResponse[i].inputFields = inputFields;
-              }
-          }
+          storedData.inputFields.forEach(field => {
+            const key = Object.keys(field)[0];
+            if (inputFields[key]) {
+              inputFields[key].defaultValue = field[key];
+              console.log(`Updated ${key} ->`, field[key]);
+            }
+          });
+          this.parsedResponse[i].inputFields = inputFields;
+        }
+      }
       } else {
           console.warn('retailerDiscountSerializedData is undefined or empty');
       }
       this.initializeSliders();
   
-    } catch (error) {
+    }catch (error) {
       console.error('Error in connectedCallback:', error.message);
       console.error('Raw Response:', this.response);
       this.hasNoFinancialProducts = true;

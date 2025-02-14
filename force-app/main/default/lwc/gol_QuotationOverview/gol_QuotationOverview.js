@@ -14,8 +14,8 @@ export default class golQuotationOverview extends LightningElement {
     @api FinanceInfoRecords;
     selectedRecords = [];
     showError = false;
-    @track sortedField = '';
-    @track sortOrder = 'asc';
+    @track sortedField = 'LastModifiedDate';
+    @track sortOrder = 'desc';
 
     label = {
         GOL_Quotation_overview,
@@ -37,7 +37,11 @@ export default class golQuotationOverview extends LightningElement {
                 let valA = a[this.sortedField] || '';
                 let valB = b[this.sortedField] || '';
 
-                if (typeof valA === 'string') {
+                // Handle date sorting
+                if (this.sortedField === 'LastModifiedDate') {
+                    valA = new Date(valA).getTime() || 0;
+                    valB = new Date(valB).getTime() || 0;
+                } else if (typeof valA === 'string') {
                     valA = valA.toLowerCase();
                     valB = valB.toLowerCase();
                 }
@@ -47,6 +51,7 @@ export default class golQuotationOverview extends LightningElement {
                 return 0;
             });
         }
+
 
         return sortedRecords.map(record => ({
             ...record,
@@ -81,16 +86,16 @@ export default class golQuotationOverview extends LightningElement {
 
     formatCurrency(amount) {
         if (amount === undefined || amount === null || isNaN(amount)) return 'N/A';
-    
+
         try {
             return new Intl.NumberFormat(LOCALE, {
-                style: 'currency', 
+                style: 'currency',
                 currency: CURRENCY,
                 currencyDisplay: 'symbol',
                 useGrouping: true,
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 2
-            }).format(amount).replace(',', 'X').replace('.', ',').replace('X', '.'); 
+            }).format(amount).replace(',', 'X').replace('.', ',').replace('X', '.');
         } catch {
             return 'Invalid Amount';
         }
@@ -99,7 +104,7 @@ export default class golQuotationOverview extends LightningElement {
     handleRowSelection(event) {
         const recordId = event.target.dataset.id;
         let updatedSelection = [...this.selectedRecords];
-    
+
         if (event.target.checked) {
             if (updatedSelection.length >= 2) {
                 event.target.checked = false;
@@ -110,9 +115,9 @@ export default class golQuotationOverview extends LightningElement {
         } else {
             updatedSelection = updatedSelection.filter(id => id !== recordId);
         }
-    
+
         this.selectedRecords = updatedSelection;
-    }  
+    }
 
     handleJlrIdClick(event) {
         const recordId = event.target.dataset.recordid;
@@ -121,12 +126,12 @@ export default class golQuotationOverview extends LightningElement {
 
     handleUpdateClick() {
         const selectedDetails = this.formattedRecords
-        .filter(record => this.selectedRecords.includes(record.Id))
-        .map(record => ({
-            RecordID: record.Id,
-            JLR_ID: record.GOL_JLR_ID__c
-        }));
-        console.log("Update Button Clicked! Selected Records:", JSON.parse(JSON.stringify(selectedDetails)));        
+            .filter(record => this.selectedRecords.includes(record.Id))
+            .map(record => ({
+                RecordID: record.Id,
+                JLR_ID: record.GOL_JLR_ID__c
+            }));
+        console.log("Update Button Clicked! Selected Records:", JSON.parse(JSON.stringify(selectedDetails)));
     }
 
     handleSendToBankClick() {

@@ -11,7 +11,7 @@
     font-family: 'Avenir Next', sans-serif;
     font-weight: bold;
     letter-spacing: 2px;
-    margin-bottom: 10px;
+    margin-top: 20px;
 }
 
 .new-calculation-container {
@@ -20,7 +20,7 @@
     margin-top: -40px;
     margin-left: 18px;
     text-align: center;
-    margin-bottom: -20px;
+    margin-bottom: -25px;
 }
 
 .new-calculation {
@@ -42,7 +42,7 @@
     display: flex;
     padding: 3% 0% 3% 0%;
     gap: 40px;
-    margin-top: -20px;
+    margin-top: -15px;
     margin-left: 18px;
     text-align: center;
 }
@@ -93,6 +93,10 @@
     font-size: 11px;
     letter-spacing: 2px;
     font-family: 'Avenir Next', sans-serif;
+}
+
+.link-container a {
+    color: #000;
 }
 
 .data-table-container {
@@ -188,6 +192,13 @@ input[type="checkbox"]:checked::after {
     text-decoration: underline;
     font-weight: normal;
     cursor: pointer;
+}
+
+.data-table-container th a
+{
+    text-decoration: none ! important;
+    color:inherit;
+    font-weight: bold;
 }
 
 .data-table-container a:hover {

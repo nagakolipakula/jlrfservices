@@ -47,76 +47,68 @@ export default class gol_parentSliderComponent extends LightningElement {
   connectedCallback() {
     console.log('First Finance Info Record:', this.ContactId);
     console.log('Second Finance Info Record:', this.ContactId2);
-    console.log('MS retailerDiscountSerializedData (Raw):', this.retailerDiscountSerializedData);
-
+    console.log('MS retailerDiscountSerializedData==>',this.retailerDiscountSerializedData);
+    
     try {
-        if (!this.response || this.response.trim() === '') {
-            console.warn('Response is empty or not defined');
-            this.hasNoFinancialProducts = true;
-            return;
-        }
-
-        const tidyUpResponse = this.response.replace(/<\/?[^>]+(>|$)/g, '').trim();
-        this.parsedResponse = JSON.parse(tidyUpResponse);
-
-        if (!this.parsedResponse || this.parsedResponse.length === 0) {
-            console.warn('No financial products available in response');
-            this.hasNoFinancialProducts = true;
-            return;
-        }
-
-        this.hasNoFinancialProducts = false;
-        this.isInitialLoadInModify = true;
-
-        if (this.retailerDiscountSerializedData) {
-            console.log('retailerDiscountSerializedData EXISTS');
-
-            let storedData;
-            try {
-                storedData = JSON.parse(this.retailerDiscountSerializedData);
-                console.log('Parsed retailerDiscountSerializedData:', storedData);
-            } catch (error) {
-                console.error('Error parsing retailerDiscountSerializedData:', error);
-                return;
-            }
-
-            const selectedProductId = storedData.selectedProductId;
-            console.log('Selected Product ID from retailerDiscountSerializedData:', selectedProductId);
-
-            let foundProduct = false;
-            for (let i = 0; i < this.parsedResponse.length; i++) {
-                console.log('🔎 Checking product ID:', this.parsedResponse[i].fullId);
-
-                if (this.parsedResponse[i].fullId === selectedProductId) {
-                    foundProduct = true;
-                    const inputFields = this.parsedResponse[i].inputFields;
-
-                    storedData.inputFields.forEach(field => {
-                        const key = Object.keys(field)[0];
-                        if (inputFields[key]) {
-                            inputFields[key].defaultValue = field[key];
-                            console.log(`Updated ${key} ->`, field[key]);
-                        } else {
-                            console.warn(`Field "${key}" not found in inputFields.`);
-                        }
-                    });
-
-                    this.parsedResponse[i].inputFields = inputFields;
-                }
-            }
-
-            if (!foundProduct) {
-                console.warn('No matching product found in parsedResponse for:', selectedProductId);
-            }
-        } else {
-            console.warn('retailerDiscountSerializedData is undefined or empty');
-        }
-
-        this.initializeSliders();
-
-    } catch (error) {
-        console.error('Raw Response:', this.response);
+      if (!this.response || this.response.trim() === '') {
+        console.warn('Response is empty or not defined');
         this.hasNoFinancialProducts = true;
+        return;
+      }
+      const tidyUpResponse = this.response.replace(/<\/?[^>]+(>|$)/g, '').trim();
+      this.parsedResponse = JSON.parse(tidyUpResponse);
+      
+      if (!this.parsedResponse || this.parsedResponse.length === 0) {
+        console.warn('No financial products available in response');
+        this.hasNoFinancialProducts = true;
+        return;
+      }
+
+      this.hasNoFinancialProducts = false;
+      //console.log('Parsed Response:', JSON.stringify(this.parsedResponse, null, 2));
+      this.isInitialLoadInModify = true;
+
+      if (this.retailerDiscountSerializedData) {
+          console.log('retailerDiscountSerializedData EXISTS');
+
+          let storedData;
+          try {
+              storedData = JSON.parse(this.retailerDiscountSerializedData);
+              console.log('Parsed retailerDiscountSerializedData:', storedData);
+          } catch (error) {
+              return;
+          }
+
+          const selectedProductId = storedData.selectedProductId;
+          console.log('Selected Product ID from retailerDiscountSerializedData:', selectedProductId);
+
+          let foundProduct = false;
+          for (let i = 0; i < this.parsedResponse.length; i++) {
+              console.log('Checking product ID:', this.parsedResponse[i].fullId);
+
+              if (this.parsedResponse[i].fullId === selectedProductId) {
+                  foundProduct = true;
+                  const inputFields = this.parsedResponse[i].inputFields;
+
+                  storedData.inputFields.forEach(field => {
+                      const key = Object.keys(field)[0];
+                      if (inputFields[key]) {
+                          inputFields[key].defaultValue = field[key];
+                          console.log(`Updated ${key} ->`, field[key]);
+                      }
+                  });
+                  this.parsedResponse[i].inputFields = inputFields;
+              }
+          }
+      } else {
+          console.warn('retailerDiscountSerializedData is undefined or empty');
+      }
+      this.initializeSliders();
+  
+    } catch (error) {
+      console.error('Error in connectedCallback:', error.message);
+      console.error('Raw Response:', this.response);
+      this.hasNoFinancialProducts = true;
     }
   }
 

@@ -86,7 +86,9 @@ export default class gol_parentSliderComponent extends LightningElement {
       for (let i = 0; i < this.parsedResponse.length; i++) {
         console.log('Checking product ID:', this.parsedResponse[i].fullId);
 
-        if (this.parsedResponse[i].fullId === selectedProductId && storedData.inputFields.length > 0) {
+        if (this.parsedResponse[i].fullId && selectedProductId &&
+          this.parsedResponse[i].fullId === selectedProductId &&
+          storedData.inputFields?.length > 0) {
           foundProduct = true;
           const inputFields = this.parsedResponse[i].inputFields;
 

@@ -10,7 +10,7 @@
     <div class="slider-container">
       <template for:each={sliders} for:item="slider">
         <c-gol-slider-component key={slider.id} label-name={slider.label} label-for={slider.id} unit={slider.unit}
-          slider-value={slider.defaultValue} min-value={slider.min} max-value={slider.max} step-value={slider.step}
+          slider-value={slider.defaultValue} min-value={slider.min} max-value={slider.max} step={slider.step}
           onsliderchange={handleSliderChange}>
         </c-gol-slider-component>
       </template>

@@ -7,6 +7,7 @@ export default class golSliderComponent extends LightningElement {
     @api unit = '';
     @api minValue;
     @api maxValue;
+    @api step;
     _sliderValue = 0;
 
     @api
@@ -81,6 +82,7 @@ export default class golSliderComponent extends LightningElement {
 
     handleSliderChange(event) {
         const value = parseFloat(event.target.value);
+        console.log(`Slider Move Found - Value: ${value}, Step: ${this.step}`);
         this._sliderValue = value;
         this.updateSliderBackground();
         this.dispatchEvent(

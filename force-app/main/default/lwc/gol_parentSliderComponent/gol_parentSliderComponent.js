@@ -338,31 +338,36 @@ export default class gol_parentSliderComponent extends LightningElement {
     // if (key === 'downPaymentRange') sequence = 1;
     // else if (key === 'annualMileagesRange') sequence = 2;
     // else if (key === 'durationsRange') sequence = 3;
+    let sliderObject;
+    
     if (providerData.provider === 'ARVAL' && key === 'annualMileagesRange') {
-      const durationRange = providerData.inputFields.durationsRange;
-      const mileageRange = field;
+        const durationRange = providerData.inputFields.durationsRange;
+        const mileageRange = field;
 
-      return {
-        id: 'dependentMileageSlider',
-        label: mileageRange.description,
-        min: mileageRange.minimum,
-        max: this.getDynamicMaxValue(durationRange, mileageRange),
-        step: mileageRange.step,
-        defaultValue: storedValue !== undefined ? storedValue : mileageRange.defaultValue,
-        unit: this.getUnits(key, providerData.units)
-        // sequence
-      };
+        sliderObject = {
+            id: 'dependentMileageSlider',
+            label: mileageRange.description,
+            min: mileageRange.minimum,
+            max: this.getDynamicMaxValue(durationRange, mileageRange),
+            step: mileageRange.step,
+            defaultValue: storedValue !== undefined ? storedValue : mileageRange.defaultValue,
+            unit: this.getUnits(key, providerData.units)
+        };
+    } else {
+        sliderObject = {
+            id: key,
+            label: field.description,
+            min: field.minimum,
+            max: field.maximum,
+            step: field.step,
+            defaultValue: storedValue !== undefined ? storedValue : field.defaultValue,
+            unit: this.getUnits(key, providerData.units)
+        };
     }
-    return {
-      id: key,
-      label: field.description,
-      min: field.minimum,
-      max: field.maximum,
-      step: field.step,
-      defaultValue: storedValue !== undefined ? storedValue : field.defaultValue,
-      unit: this.getUnits(key, providerData.units)
-      // sequence
-    };
+
+    console.log(`Slider Object Created:`, sliderObject);
+    
+    return sliderObject;
   }
 
   handleSliderChange(event) {

@@ -338,6 +338,10 @@ export default class gol_parentSliderComponent extends LightningElement {
     // if (key === 'downPaymentRange') sequence = 1;
     // else if (key === 'annualMileagesRange') sequence = 2;
     // else if (key === 'durationsRange') sequence = 3;
+    let sliderLabel = field.description;
+    if (key === 'downPaymentRange') {
+      sliderLabel = `${field.description} ${this.label.GOL_Amount_incl_VAT}`;
+    }
     let sliderObject;
     
     if (providerData.provider === 'ARVAL' && key === 'annualMileagesRange') {
@@ -356,7 +360,7 @@ export default class gol_parentSliderComponent extends LightningElement {
     } else {
         sliderObject = {
             id: key,
-            label: field.description,
+            label: sliderLabel,
             min: field.minimum,
             max: field.maximum,
             step: field.step,

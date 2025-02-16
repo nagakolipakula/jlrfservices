@@ -81,9 +81,8 @@ export default class golSliderComponent extends LightningElement {
     }
 
     handleSliderChange(event) {
-        const value = parseFloat(event.target.value);
-        console.log(`Slider Move Found - Value: ${value}, Step: ${this.step}`);
-        this._sliderValue = value;
+        let value = parseFloat(event.target.value);
+        this._sliderValue = Math.round(value / this.step) * this.step;
         this.updateSliderBackground();
         this.dispatchEvent(
             new CustomEvent('sliderchange', {

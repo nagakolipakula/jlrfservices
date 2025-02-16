@@ -180,7 +180,7 @@ export default class gol_parentSliderComponent extends LightningElement {
     if (key.includes('Payment')) {
         return units.currencyCode === 'EUR' ? '€' : '';
     }
-    if (key.includes('RateRange')) {
+    if (key.includes('finalTermRateRange')) {
         return '%';
     }
     return '';
@@ -251,7 +251,7 @@ export default class gol_parentSliderComponent extends LightningElement {
         .filter(([key]) => 
           allowedFields.includes(key) &&
           key !== "downPaymentRateRange" &&
-          key !== "finalTermRateRange" &&
+          // key !== "finalTermRateRange" &&
           key !== "interestRateRange"
         )
         .map(([key, field]) => {
@@ -418,9 +418,12 @@ export default class gol_parentSliderComponent extends LightningElement {
 
       const dependentSlider = this.sliders.find(slider => slider.id === 'dependentMileageSlider');
       if (dependentSlider) {
+        const previousValue = dependentSlider.value;
         dependentSlider.max = matchingMileage.max;
+        dependentSlider.step = mileageRange.step;
         dependentSlider.defaultValue = mileageRange.defaultValue;
-        dependentSlider.value = Math.min(dependentSlider.defaultValue, dependentSlider.max);
+        const expectedMileage = Math.round(previousValue / mileageRange.step) * mileageRange.step;
+        dependentSlider.value = Math.min(expectedMileage, dependentSlider.max);
       }
       this.sliders = [...this.sliders];
     } else {

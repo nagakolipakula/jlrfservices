@@ -3,13 +3,14 @@
         <div class="finance-flex-container">
             <div class="finance-section">
                 <h2 class="finance-title"><strong>{label.GOL_Finance_Calculation}</strong></h2>
-                <c-gol-finance-details finance-record={financeInformationRecord} label={label} onmodify={handleModifyEvent}></c-gol-finance-details>
+                <!-- Child component that holds finance details(golFinanceDetails)-->
+                <c-gol-finance-details finance-record={financeInformationRecord} label={label} onmodify={handleQuoteModifyEvent}></c-gol-finance-details>
             </div>
 
             <div class="alternative-section">
                 <h2 class="alternative-title"><strong>{label.GOL_Alternative_finance_calculation}</strong></h2>
                 <template if:true={showAlternativeFinance}>
-                    <c-gol-finance-details finance-record={alternativeFinanceInformationRecord} label={label} onmodify={handleModifyEvent}></c-gol-finance-details>
+                    <c-gol-finance-details finance-record={alternativeFinanceInformationRecord} label={label} onmodify={handleAlternativeQuoteModifyEvent}></c-gol-finance-details>
                 </template>
                 <template if:false={showAlternativeFinance}>
                     <div class="custom-container">

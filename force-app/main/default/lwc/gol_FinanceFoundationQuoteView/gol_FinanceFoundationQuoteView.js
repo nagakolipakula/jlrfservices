@@ -21,6 +21,8 @@ import GOL_Go_To_Overview from '@salesforce/label/c.GOL_Go_To_Overview';
 import GOL_Event_New_Calculator from '@salesforce/label/c.GOL_Event_New_Calculator';
 import GOL_Event_Go_To_Overview from '@salesforce/label/c.GOL_Event_Go_To_Overview';
 import GOL_Event_Go_To_Modify from '@salesforce/label/c.GOL_Event_Go_To_Modify';
+import GOL_Event_Go_To_Alternative_Modify from '@salesforce/label/c.GOL_Event_Go_To_Alternative_Modify';
+
 import { FlowAttributeChangeEvent, FlowNavigationNextEvent, FlowNavigationBackEvent, FlowNavigationFinishEvent } from 'lightning/flowSupport';
 
 export default class gol_FinanceFoundationQuoteView extends LightningElement {
@@ -32,6 +34,7 @@ export default class gol_FinanceFoundationQuoteView extends LightningElement {
     @api financeInformationRecord;
     @api alternativeFinanceInformationRecord;
     @api buttonAction;
+    @api modifyFinanceQuoteId;
    
     label = {
         GOL_Lease,
@@ -55,7 +58,8 @@ export default class gol_FinanceFoundationQuoteView extends LightningElement {
         GOL_Go_To_Overview,
         GOL_Event_New_Calculator,
         GOL_Event_Go_To_Overview,
-        GOL_Event_Go_To_Modify
+        GOL_Event_Go_To_Modify,
+        GOL_Event_Go_To_Alternative_Modify
     }
 
     
@@ -129,17 +133,37 @@ export default class gol_FinanceFoundationQuoteView extends LightningElement {
     // handleModifyClick() {
     //     console.log('Modify button clicked for JLR ID');
     //     alert('123');
-        // const action = new FlowAttributeChangeEvent('buttonAction', 'gotoModify');
-        // this.dispatchEvent(action);
-        // const nextEvent = new FlowNavigationNextEvent();
-        // this.dispatchEvent(nextEvent);
+    //     // const action = new FlowAttributeChangeEvent('buttonAction', 'gotoModify');
+    //     // this.dispatchEvent(action);
+    //     // const nextEvent = new FlowNavigationNextEvent();
+    //     // this.dispatchEvent(nextEvent);
     // }
 
-    handleModifyEvent(event) {
+    handleQuoteModifyEvent(event) {
         console.log('Modify event received in parent for JLR ID:', event.detail.financeId);
-    
-        const action = new FlowAttributeChangeEvent('buttonAction', this.label.GOL_Event_Go_To_Modify);
+        this.dispatchModifyQuoteId(this.financeInformationRecord.Id);
+        this.dispatchModifyButtonEvent(this.label.GOL_Event_Go_To_Modify);
+        this.dispatchFlowNavigationNextEvent();
+    }
+
+    handleAlternativeQuoteModifyEvent(event) {
+        console.log('Modify event received in parent for JLR ID:', event.detail.financeId);
+        this.dispatchModifyQuoteId(this.alternativeFinanceInformationRecord.Id);
+        this.dispatchModifyButtonEvent(this.label.GOL_Event_Go_To_Alternative_Modify);
+        this.dispatchFlowNavigationNextEvent();
+    }
+
+    dispatchModifyQuoteId(id){
+        const action = new FlowAttributeChangeEvent('modifyFinanceQuoteId', id);
         this.dispatchEvent(action);
+    }
+
+    dispatchModifyButtonEvent(button){
+        const action = new FlowAttributeChangeEvent('buttonAction', button);
+        this.dispatchEvent(action);
+    }
+
+    dispatchFlowNavigationNextEvent(){
         const nextEvent = new FlowNavigationNextEvent();
         this.dispatchEvent(nextEvent);
     }

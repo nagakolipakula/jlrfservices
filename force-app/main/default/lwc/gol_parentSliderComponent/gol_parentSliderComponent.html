@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!--Child component to select products(gol_ProductSelectionComponent)-->
     <c-gol-product-selection-component products={namesWithIds} selected-product={selectedProductId} onproductchange={handleProductSelectionChange}>
     </c-gol-product-selection-component>
   </div>
@@ -9,6 +10,7 @@
     </div>
     <div class="slider-container">
       <template for:each={sliders} for:item="slider">
+        <!--Child component to select sliders(gol_SliderComponent)-->
         <c-gol-slider-component key={slider.id} label-name={slider.label} label-for={slider.id} unit={slider.unit}
           slider-value={slider.defaultValue} min-value={slider.min} max-value={slider.max} step={slider.step}
           onsliderchange={handleSliderChange}>
@@ -26,6 +28,7 @@
     </div>
     <div class="insuranceservicescss">
       <template for:each={sliders} for:item="slider" for:index="index">
+        <!--Child component to select insurance and services(gol_InsuranceServicesComponent)-->
         <c-gol_-insurance-services-component key={slider.id} indexnumber={index}>
         </c-gol_-insurance-services-component>
       </template>

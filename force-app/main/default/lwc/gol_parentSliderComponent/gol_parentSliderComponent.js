@@ -26,6 +26,7 @@ export default class gol_parentSliderComponent extends LightningElement {
   @api IsUpdateRetailerDiscount = false;
   @api retailerDiscountSerializedData;
   retailerDiscountInputFiledAry = [];
+  retailerDiscountSelectedProductId;
   selectedSliderValues = new Map();
   hasNoFinancialProducts = false;
   //   isSubmitted = false;
@@ -69,8 +70,21 @@ export default class gol_parentSliderComponent extends LightningElement {
       this.isInitialLoadInModify = true;
 
       if (this.retailerDiscountSerializedData) {
-      console.log('retailerDiscountSerializedData EXISTS');
+        this.handleRetailerDiscountSerializedData();     
+      } else {
+          console.warn('retailerDiscountSerializedData is undefined or empty');
+      }
+      this.initializeSliders();
+  
+    }catch (error) {
+      console.error('Error in connectedCallback:', error.message);
+      console.error('Raw Response:', this.response);
+      this.hasNoFinancialProducts = true;
+    }
+  }
 
+  handleRetailerDiscountSerializedData(){
+    console.log('handleRetailerDiscountSerializedData EXISTS');
       let storedData;
       try {
           storedData = JSON.parse(this.retailerDiscountSerializedData);
@@ -78,16 +92,19 @@ export default class gol_parentSliderComponent extends LightningElement {
       } catch (error) {
           return;
       }
-
-      const selectedProductId = storedData.selectedProductId;
-      console.log('Selected Product ID from retailerDiscountSerializedData:', selectedProductId);
+      if(storedData.selectedProductId){
+      this.retailerDiscountSelectedProductId =  storedData.selectedProductId;
+      this.setDefaultSelectedProductId();
+      }
+      //const selectedProductId = storedData.selectedProductId;
+      console.log('Selected Product ID from retailerDiscountSerializedData:', this.retailerDiscountSelectedProductId);
 
       let foundProduct = false;
       for (let i = 0; i < this.parsedResponse.length; i++) {
         console.log('Checking product ID:', this.parsedResponse[i].fullId);
 
-        if (this.parsedResponse[i].fullId && selectedProductId &&
-          this.parsedResponse[i].fullId === selectedProductId &&
+        if (this.parsedResponse[i].fullId && this.retailerDiscountSelectedProductId &&
+          this.parsedResponse[i].fullId === this.retailerDiscountSelectedProductId &&
           storedData.inputFields?.length > 0) {
           foundProduct = true;
           const inputFields = this.parsedResponse[i].inputFields;
@@ -102,18 +119,9 @@ export default class gol_parentSliderComponent extends LightningElement {
           this.parsedResponse[i].inputFields = inputFields;
         }
       }
-      } else {
-          console.warn('retailerDiscountSerializedData is undefined or empty');
-      }
-      this.initializeSliders();
-  
-    }catch (error) {
-      console.error('Error in connectedCallback:', error.message);
-      console.error('Raw Response:', this.response);
-      this.hasNoFinancialProducts = true;
-    }
+      this.retailerDiscountSerializedData = undefined;
+      this.retailerDiscountSelectedProductId = undefined;
   }
-
   async loadMetadata() {
     try {
       this.mappingMetadataRecords = await getInputFieldsMappingRecords();
@@ -141,8 +149,8 @@ export default class gol_parentSliderComponent extends LightningElement {
   }
 
   setDefaultSelectedProductId() {//Set product Ids
-    if(this.parsedSerializedData !== undefined && this.parsedSerializedData){
-        this.selectedProductId = this.parsedSerializedData.selectedProductId;
+    if(this.retailerDiscountSelectedProductId !== undefined && this.retailerDiscountSelectedProductId){
+        this.selectedProductId = this.retailerDiscountSelectedProductId;
     }else if(this.isInitialLoadInModify && this.financeInformation &&  this.namesWithIds.length > 0  && this.isSavedProductPresent(this.financeInformation.LMS_FIN_Finance_Reference__c)){
         this.selectedProductId = this.financeInformation.LMS_FIN_Finance_Reference__c;
     }else if (!this.selectedProductId && this.namesWithIds.length > 0) {
@@ -547,8 +555,10 @@ export default class gol_parentSliderComponent extends LightningElement {
     this.dispatchEvent(new FlowNavigationNextEvent());
   }
   handleUpdateRetailerDiscount(id, value) {
-    
+    const providerData = this.parsedResponse.find(item => item.id === this.selectedProductId);
+    console.log('MS:: providerData==> '+JSON.stringify(providerData));
     let selectedData;
+    let selectedDataMap = new Map();
     if(value!==this.selectedProductId){
     let checkKeyId = this.retailerDiscountInputFiledAry.some(x => x.hasOwnProperty(id));
       if(checkKeyId){
@@ -561,9 +571,11 @@ export default class gol_parentSliderComponent extends LightningElement {
         this.retailerDiscountInputFiledAry.push({[id]: value});
       }
       selectedData = {'selectedProductId':this.selectedProductId,'inputFields':this.retailerDiscountInputFiledAry};
+      selectedDataMap.set(this.selectedProductId,selectedData);
     }else{
       selectedData = {'selectedProductId':this.selectedProductId,'inputFields':{}};
     }
+    console.log('MS:: selectedDataMap==> '+JSON.stringify(selectedDataMap));
     console.log('MS:: selectedData==> '+JSON.stringify(selectedData));
 
     this.dispatchEvent(new FlowAttributeChangeEvent('retailerDiscountSerializedData', JSON.stringify(selectedData)));

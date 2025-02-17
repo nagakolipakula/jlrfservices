@@ -49,7 +49,7 @@ export default class golSliderComponent extends LightningElement {
     }
 
     get isDownpayment() {
-        return this.labelFor === 'downPaymentRange';
+        return this.labelFor === ('downPaymentRange' || 'downPaymentGrossAmountRange');
     }
 
     get isPercentage() {

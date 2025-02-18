@@ -5,6 +5,14 @@ public with sharing class GOL_JSON2ApexFinancialQuoteWrapper {
     public List<QuoteDetail> quoteDetails;
     public List<FixedCost> fixedCosts;
     public LegalDocument legalDocument;
+    public String typeOfUse;
+    public String channel;
+    public String personType;
+    
+    public GOL_JSON2ApexFinancialQuoteWrapper() {
+        System.debug(LoggingLevel.DEBUG, 'GOL_JSON2ApexFinancialQuoteWrapper()');
+        this.fixedCosts = new List<FixedCost>(); 
+    }
 
     public class FinancialProduct {
         public String name;

@@ -518,52 +518,53 @@ export default class gol_parentSliderComponent extends LightningElement {
     const inputFields = this.buildInputFields();
     console.log('-------providerData----------');
     console.log(providerData.cpiProducts);
-    const cpiProducts = providerData.cpiProducts;
+    const cpiProducts = providerData.cpiProducts || [];
     const serializedData = {
       quoteId: this.quoteExternalId,
-      typeOfUse: this.typeOfUse,
-      personType: this.personType,
-      channel: this.channel,
+      typeOfUse: this.typeOfUse || "",
+      personType: this.personType || "",
+      channel: this.channel || "",
       product: {
-          fullId: providerData.id,
-          name: providerData.name,
-          description: providerData.description,
+          fullId: providerData.id || "",
+          name: providerData.name || "",
+          description: providerData.description || "",
           selected: true,
-          provider:providerData.provider,
+          provider:providerData.provider || "",
           units: {
-              mileageUnit: providerData.units.mileageUnit,
-              currencyCode: providerData.units.currencyCode,
-              creditTimeUnit: providerData.units.creditTimeUnit
+              mileageUnit: providerData.units.mileageUnit || "",
+              currencyCode: providerData.units.currencyCode || "",
+              creditTimeUnit: providerData.units.creditTimeUnit || ""
           },
           cpiProducts: cpiProducts,
           inputFields: inputFields
       }
   };
-
-  console.log(serializedData);
     this.serializedData = serializedData;
     console.log("Serialized Data:", JSON.stringify(this.serializedData, null, 2));
   }
 
   handleCalculateFinancingClick() {
-    const providerData = this.getSelectedProduct();
-    if (providerData && providerData.inputFields) {
-      const selectedValues = this.selectedSliderValues.get(this.selectedProductId) || {};
+  const providerData = this.getSelectedProduct();
+  console.log("Before buildInputFields() - Selected Sliders:", JSON.stringify(this.selectedSliderValues, null, 2));
 
-      Object.entries(providerData.inputFields).forEach(([key, field]) => {
-        if (!selectedValues[key]) {
-          selectedValues[key] = field.defaultValue;
-        }
-      });
-
-      this.selectedSliderValues.set(this.selectedProductId, selectedValues);
+  if (providerData && providerData.inputFields) {
+    if (!this.selectedSliderValues.has(this.selectedProductId)) {
+      this.selectedSliderValues.set(this.selectedProductId, {});
     }
-    this.updateFlowVariables();
-    setTimeout(() => {
-      this.dispatchEvent(new FlowAttributeChangeEvent('clickedButtonName', this.label.GOL_Calculate_Financing));
-      this.dispatchEvent(new FlowNavigationNextEvent());
-    }, 100);
+    
+    Object.entries(providerData.inputFields).forEach(([key, field]) => {
+      if (!this.selectedSliderValues.get(this.selectedProductId)[key]) {
+        console.log(`⚠️ Setting default value for ${key} -> ${field.defaultValue}`);
+        this.selectedSliderValues.get(this.selectedProductId)[key] = field.defaultValue;
+      }
+    });
   }
+
+  this.updateFlowVariables();
+  console.log("Sending to Apex: ", JSON.stringify(this.serializedData, null, 2));
+  this.dispatchEvent(new FlowAttributeChangeEvent('clickedButtonName', this.label.GOL_Calculate_Financing));
+  this.dispatchEvent(new FlowNavigationNextEvent());
+}
   handleUpdateRetailerDiscount(id, value) {
     //const providerData = this.parsedResponse.find(item => item.id === this.selectedProductId);
     //console.log('MS:: providerData==> '+JSON.stringify(providerData));
@@ -635,31 +636,32 @@ export default class gol_parentSliderComponent extends LightningElement {
 //     ];
 //  }
 
- buildInputFields() {
-    const selectedFields = {};
-    const modifiedSliderValues = this.selectedSliderValues.get(this.selectedProductId);
-    let sliderAPIName;
-    Object.entries(modifiedSliderValues).forEach(([sliderId, selectedValue]) => {
-      const sliderDetails = this.sliders.find(slider => slider.id === sliderId);
-      if (sliderDetails) {
-        let sliderKey = sliderId;
-        if(sliderId === 'dependentMileageSlider'){
-          sliderKey = 'annualMileagesRange';
-        }
-        selectedFields[sliderKey] = {
-          selectedValue: selectedValue ?? sliderDetails.defaultValue,
-          step: sliderDetails.step || 0,
-          defaultValue: sliderDetails.defaultValue || 0,
-          minValue: sliderDetails.min || 0,
-          maxValue: sliderDetails.max || 0,
-          unit: sliderDetails.unit || "",
-          label: sliderDetails.label || ""
-        };
-      }
-    });
-    console.log("Selected Input Fields:", JSON.stringify(selectedFields, null, 2));
-    return selectedFields;
-  }
+buildInputFields() {
+  const selectedFields = {};
+  const modifiedSliderValues = this.selectedSliderValues.get(this.selectedProductId) || {};
+  console.log("Modified Slider Values Before Sending:", JSON.stringify(modifiedSliderValues, null, 2));
+  this.sliders.forEach((slider) => {
+    let sliderKey = slider.id;
+    if (slider.id === 'dependentMileageSlider') {
+      sliderKey = 'annualMileagesRange';
+    }
+
+    const selectedValue = modifiedSliderValues[slider.id] ?? slider.defaultValue;
+
+    selectedFields[sliderKey] = {
+      selectedValue: selectedValue || 0,
+      step: slider.step || 0,
+      defaultValue: slider.defaultValue || 0,
+      minValue: slider.min || 0,
+      maxValue: slider.max || 0,
+      unit: slider.unit || "",
+      label: slider.label || ""
+    };
+  });
+
+  console.log("Selected Input Fields:", JSON.stringify(selectedFields, null, 2));
+  return selectedFields;
+}
 
   // buildGetQuotePayload(){
     

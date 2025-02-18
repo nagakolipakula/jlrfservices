@@ -505,14 +505,17 @@ export default class gol_parentSliderComponent extends LightningElement {
     //       flowApiName: 'GOL_Screen_Flow_Finance_Tab'
     //   },
     // });
-    
-    this.dispatchEvent(new FlowAttributeChangeEvent('serializedData', JSON.stringify(this.serializedData)));
+    setTimeout(() => {
+      this.dispatchEvent(new FlowAttributeChangeEvent('serializedData', JSON.stringify(this.serializedData)));
+    },50);
   }
 
   buildSerializedData() {
      // const cpiProducts = this.buildCpiProducts();
+    //const inputFields = this.buildInputFields();
+    // const providerData = this.parsedResponse.find(item => item.id === this.selectedProductId);
+    const providerData = this.getSelectedProduct();
     const inputFields = this.buildInputFields();
-    const providerData = this.parsedResponse.find(item => item.id === this.selectedProductId);
     console.log('-------providerData----------');
     console.log(providerData.cpiProducts);
     const cpiProducts = providerData.cpiProducts;
@@ -556,8 +559,10 @@ export default class gol_parentSliderComponent extends LightningElement {
       this.selectedSliderValues.set(this.selectedProductId, selectedValues);
     }
     this.updateFlowVariables();
-    this.dispatchEvent(new FlowAttributeChangeEvent('clickedButtonName', this.label.GOL_Calculate_Financing));
-    this.dispatchEvent(new FlowNavigationNextEvent());
+    setTimeout(() => {
+      this.dispatchEvent(new FlowAttributeChangeEvent('clickedButtonName', this.label.GOL_Calculate_Financing));
+      this.dispatchEvent(new FlowNavigationNextEvent());
+    }, 100);
   }
   handleUpdateRetailerDiscount(id, value) {
     //const providerData = this.parsedResponse.find(item => item.id === this.selectedProductId);
@@ -637,10 +642,11 @@ export default class gol_parentSliderComponent extends LightningElement {
     Object.entries(modifiedSliderValues).forEach(([sliderId, selectedValue]) => {
       const sliderDetails = this.sliders.find(slider => slider.id === sliderId);
       if (sliderDetails) {
+        let sliderKey = sliderId;
         if(sliderId === 'dependentMileageSlider'){
-           sliderId = 'annualMileagesRange';
+          sliderKey = 'annualMileagesRange';
         }
-        selectedFields[sliderId] = {
+        selectedFields[sliderKey] = {
           selectedValue: selectedValue ?? sliderDetails.defaultValue,
           step: sliderDetails.step || 0,
           defaultValue: sliderDetails.defaultValue || 0,

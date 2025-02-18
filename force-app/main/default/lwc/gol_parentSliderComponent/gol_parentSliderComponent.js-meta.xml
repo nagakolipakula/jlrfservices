@@ -46,6 +46,7 @@
 			<property name="personType" type="String" label="Person Type"  description="Person Type value from flow to LWC." required="false" />
 			<property name="channel" type="String" label="Channel"  description="Channel value from flow to lwc" required="false" />
 			<property name="typeOfUse" type="String" label="TypeOfUse"  description="TypeOfUse value from flow to lwc" required="false" />
+			<property name="clickedButtonName" type="String" label="Clicked Button Name"  description="Name of the button clicked from UI" required="false" />
 
         </targetConfig>
     </targetConfigs>

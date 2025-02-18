@@ -25,6 +25,7 @@ export default class gol_parentSliderComponent extends LightningElement {
   parsedSerializedData;
   @api IsUpdateRetailerDiscount = false;
   @api retailerDiscountSerializedData;
+  @api clickedButtonName;
   retailerDiscountInputFiledAry = [];
   retailerDiscountSelectedProductId;
   selectedSliderValues = new Map();
@@ -88,7 +89,7 @@ export default class gol_parentSliderComponent extends LightningElement {
       let storedData;
       try {
           storedData = JSON.parse(this.retailerDiscountSerializedData);
-          console.log('Parsed retailerDiscountSerializedData:', storedData);
+          console.log('MS--- Parsed retailerDiscountSerializedData:', JSON.stringify(storedData));
       } catch (error) {
           return;
       }
@@ -106,11 +107,13 @@ export default class gol_parentSliderComponent extends LightningElement {
         if (this.parsedResponse[i].fullId && this.retailerDiscountSelectedProductId &&
           this.parsedResponse[i].fullId === this.retailerDiscountSelectedProductId &&
           storedData.inputFields?.length > 0) {
+            console.log('MS--- inputFields==> ', JSON.stringify(this.parsedResponse[i].inputFields));  
           foundProduct = true;
           const inputFields = this.parsedResponse[i].inputFields;
 
           storedData.inputFields.forEach(field => {
             const key = Object.keys(field)[0];
+            console.log('MS--- '+key);
             if (inputFields[key]) {
               inputFields[key].defaultValue = field[key];
               console.log(`Updated ${key} ->`, field[key]);
@@ -347,7 +350,7 @@ export default class gol_parentSliderComponent extends LightningElement {
     // else if (key === 'annualMileagesRange') sequence = 2;
     // else if (key === 'durationsRange') sequence = 3;
     let sliderLabel = field.description;
-    if (key === 'downPaymentRange') {
+    if (key === 'downPaymentRange' || key === 'downPaymentGrossAmountRange') {
       sliderLabel = `${field.description} ${this.label.GOL_Amount_incl_VAT}`;
     }
     let sliderObject;
@@ -502,6 +505,7 @@ export default class gol_parentSliderComponent extends LightningElement {
     //       flowApiName: 'GOL_Screen_Flow_Finance_Tab'
     //   },
     // });
+    
     this.dispatchEvent(new FlowAttributeChangeEvent('serializedData', JSON.stringify(this.serializedData)));
   }
 
@@ -552,34 +556,58 @@ export default class gol_parentSliderComponent extends LightningElement {
       this.selectedSliderValues.set(this.selectedProductId, selectedValues);
     }
     this.updateFlowVariables();
+    this.dispatchEvent(new FlowAttributeChangeEvent('clickedButtonName', this.label.GOL_Calculate_Financing));
     this.dispatchEvent(new FlowNavigationNextEvent());
   }
   handleUpdateRetailerDiscount(id, value) {
-    const providerData = this.parsedResponse.find(item => item.id === this.selectedProductId);
-    console.log('MS:: providerData==> '+JSON.stringify(providerData));
+    //const providerData = this.parsedResponse.find(item => item.id === this.selectedProductId);
+    //console.log('MS:: providerData==> '+JSON.stringify(providerData));
+    console.log(id+" MS::<====Id Value=====> "+value);
+    let sliderInputDefaultVal = this.buildSliderInputRetailerDiscount();
+    // var result = Object.entries(sliderInputDefaultVal);
+    // result.forEach(([key, value]) => {
+    //     this.retailerDiscountInputFiledAry.push({[key]: value});
+    //   })
+    // console.log("MS:: result:", JSON.stringify(result, null, 2));
+    // console.log("MS:: Selected Input Fields:", JSON.stringify(sliderInputDefaultVal, null, 2));
     let selectedData;
-    let selectedDataMap = new Map();
-    if(value!==this.selectedProductId){
-    let checkKeyId = this.retailerDiscountInputFiledAry.some(x => x.hasOwnProperty(id));
-      if(checkKeyId){
-        this.retailerDiscountInputFiledAry.forEach((element,index) => {
-          if(Object.keys(element) == id){
-            this.retailerDiscountInputFiledAry[index][id] = value;
-          }
-      });
-      }else{
-        this.retailerDiscountInputFiledAry.push({[id]: value});
-      }
-      selectedData = {'selectedProductId':this.selectedProductId,'inputFields':this.retailerDiscountInputFiledAry};
-      selectedDataMap.set(this.selectedProductId,selectedData);
-    }else{
-      selectedData = {'selectedProductId':this.selectedProductId,'inputFields':{}};
-    }
-    console.log('MS:: selectedDataMap==> '+JSON.stringify(selectedDataMap));
+    // if(value!==this.selectedProductId){
+    // let checkKeyId = this.retailerDiscountInputFiledAry.some(x => x.hasOwnProperty(id));
+    //   if(checkKeyId){
+    //     this.retailerDiscountInputFiledAry.forEach((element,index) => {
+    //       if(Object.keys(element) == id){
+    //         this.retailerDiscountInputFiledAry[index][id] = value;
+    //       }
+    //   });
+    //   }else{
+    //     this.retailerDiscountInputFiledAry.push({[id]: value});
+    //   }
+      selectedData = {'selectedProductId':this.selectedProductId,'inputFields':sliderInputDefaultVal};
+    // }else{
+    //   selectedData = {'selectedProductId':this.selectedProductId,'inputFields':{}};
+    // }
     console.log('MS:: selectedData==> '+JSON.stringify(selectedData));
 
     this.dispatchEvent(new FlowAttributeChangeEvent('retailerDiscountSerializedData', JSON.stringify(selectedData)));
   
+  }
+  buildSliderInputRetailerDiscount() {
+    let retailerDiscountInputFiledAry = [];
+    const selectedFields = {};
+    const modifiedSliderValues = this.selectedSliderValues.get(this.selectedProductId);
+    Object.entries(modifiedSliderValues).forEach(([sliderId, selectedValue]) => {
+      const sliderDetails = this.sliders.find(slider => slider.id === sliderId);
+      if (sliderDetails) {
+        if(sliderId === 'dependentMileageSlider'){
+           sliderId = 'annualMileagesRange';
+        }
+        selectedFields[sliderId] = selectedValue ?? sliderDetails.defaultValue;
+        let selectedVal = selectedValue ?? sliderDetails.defaultValue;
+        retailerDiscountInputFiledAry.push({[sliderId]:selectedVal});
+      }
+    });
+    console.log('MS:: retailerDiscountInputFiledAry1==> '+JSON.stringify(retailerDiscountInputFiledAry));
+    return retailerDiscountInputFiledAry;
   }
   handleBackToFianceCalculator() {
     this.dispatchEvent(new FlowNavigationBackEvent());

@@ -37,7 +37,6 @@ export default class golQuotationOverview extends LightningElement {
                 let valA = a[this.sortedField] || '';
                 let valB = b[this.sortedField] || '';
 
-                // Handle date sorting
                 if (this.sortedField === 'LastModifiedDate') {
                     valA = new Date(valA).getTime() || 0;
                     valB = new Date(valB).getTime() || 0;
@@ -125,13 +124,7 @@ export default class golQuotationOverview extends LightningElement {
     }
 
     handleUpdateClick() {
-        const selectedDetails = this.formattedRecords
-            .filter(record => this.selectedRecords.includes(record.Id))
-            .map(record => ({
-                RecordID: record.Id,
-                JLR_ID: record.GOL_JLR_ID__c
-            }));
-        console.log("Update Button Clicked! Selected Records:", JSON.parse(JSON.stringify(selectedDetails)));
+        console.log("Update Button Clicked!");
     }
 
     handleSendToBankClick() {
@@ -139,7 +132,13 @@ export default class golQuotationOverview extends LightningElement {
     }
 
     handleOpenClick() {
-        console.log("Open Button Clicked!");
+        const selectedDetails = this.formattedRecords
+            .filter(record => this.selectedRecords.includes(record.Id))
+            .map(record => ({
+                RecordID: record.Id,
+                JLR_ID: record.GOL_JLR_ID__c
+            }));
+        console.log("Open Button Clicked! Selected Records:", JSON.parse(JSON.stringify(selectedDetails)));
     }
 
     handleNewCalculationClick() {

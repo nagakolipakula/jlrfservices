@@ -3,7 +3,7 @@ import 	GOL_Select_Financial_Product from '@salesforce/label/c.GOL_Select_Financ
 
 export default class golProductSelectionComponent extends LightningElement {
     _products = [];
-    selectedProduct;
+    @api selectedProduct;
     label = {
         GOL_Select_Financial_Product
     }
@@ -23,9 +23,9 @@ export default class golProductSelectionComponent extends LightningElement {
     }
 
     connectedCallback() {
-        if (this._products.length > 0) {
-            this.selectedProduct = this._products[0].value;
-        }
+        // if (this._products.length > 0) {
+        //     this.selectedProduct = this._products[0].value;
+        // }
         this.updateProducts();
     }
 

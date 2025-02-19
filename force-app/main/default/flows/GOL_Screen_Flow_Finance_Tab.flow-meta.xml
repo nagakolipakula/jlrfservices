@@ -3,8 +3,8 @@
     <actionCalls>
         <name>Finance_Get_Product_All_Data</name>
         <label>Finance Get Product All Data</label>
-        <locationX>1628</locationX>
-        <locationY>1082</locationY>
+        <locationX>1760</locationX>
+        <locationY>974</locationY>
         <actionName>GolFinanceGetProductAllData.getProducts</actionName>
         <actionType>externalService</actionType>
         <connector>
@@ -45,8 +45,8 @@
     <actionCalls>
         <name>Invoke_Get_Quote_API_and_Create_Fin_Info_Record</name>
         <label>Invoke Get Quote API and Create Fin Info Record</label>
-        <locationX>1766</locationX>
-        <locationY>2138</locationY>
+        <locationX>2030</locationX>
+        <locationY>2030</locationY>
         <actionName>GOL_GetFinanceQuote</actionName>
         <actionType>apex</actionType>
         <connector>
@@ -78,8 +78,8 @@
     <actionCalls>
         <name>Invoke_Get_Quote_API_and_Create_Fin_Info_Record_With_1_Fin_Info_Record</name>
         <label>Invoke Get Quote API and Create Fin Info Record With 1 Fin Info Record</label>
-        <locationX>2294</locationX>
-        <locationY>2138</locationY>
+        <locationX>2558</locationX>
+        <locationY>2030</locationY>
         <actionName>GOL_GetFinanceQuote</actionName>
         <actionType>apex</actionType>
         <connector>
@@ -112,12 +112,16 @@
         <name>Invoke_Get_Quote_API_and_Upsert_Fin_Info_Record</name>
         <label>Invoke Get Quote API and Upsert Fin Info Record</label>
         <locationX>908</locationX>
-        <locationY>2030</locationY>
+        <locationY>1922</locationY>
         <actionName>GOL_GetFinanceQuote</actionName>
         <actionType>apex</actionType>
         <connector>
             <targetReference>Check_Quote_Upsert_Status</targetReference>
         </connector>
+        <faultConnector>
+            <isGoTo>true</isGoTo>
+            <targetReference>Error_Screen_API</targetReference>
+        </faultConnector>
         <flowTransactionModel>Automatic</flowTransactionModel>
         <inputParameters>
             <name>financeQuoteId</name>
@@ -146,7 +150,7 @@
         <name>Assign_Alternative_Finance_Information_Record</name>
         <label>Assign Alternative Finance Information Record</label>
         <locationX>842</locationX>
-        <locationY>2462</locationY>
+        <locationY>2354</locationY>
         <assignmentItems>
             <assignToReference>AlternativeFinanceInformationRecord</assignToReference>
             <operator>Assign</operator>
@@ -169,8 +173,8 @@
     <assignments>
         <name>Assign_Company_Name_Check_Value</name>
         <label>Assign Company Name Check Value</label>
-        <locationX>1628</locationX>
-        <locationY>974</locationY>
+        <locationX>1760</locationX>
+        <locationY>866</locationY>
         <assignmentItems>
             <assignToReference>companyNameCheck</assignToReference>
             <operator>Assign</operator>
@@ -186,7 +190,7 @@
         <name>Assign_Finance_Information_Record</name>
         <label>Assign Finance Information Record</label>
         <locationX>578</locationX>
-        <locationY>2462</locationY>
+        <locationY>2354</locationY>
         <assignmentItems>
             <assignToReference>FinanceInformationRecord</assignToReference>
             <operator>Assign</operator>
@@ -207,33 +211,10 @@
         </connector>
     </assignments>
     <assignments>
-        <name>Assign_Vehicle_Engine_And_Price</name>
-        <label>Assign Vehicle Engine And Price</label>
-        <locationX>1628</locationX>
-        <locationY>350</locationY>
-        <assignmentItems>
-            <assignToReference>VehicleEngine</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>Get_Quote_Record.ERPT_QUO_Engine__c</elementReference>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference>VehiclePrice</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>GET_Vehicle_QLI_Record.LMS_QLI_TotalGrossPrice__c</elementReference>
-            </value>
-        </assignmentItems>
-        <connector>
-            <targetReference>Check_Type_of_Vehicle_Config_or_Stock</targetReference>
-        </connector>
-    </assignments>
-    <assignments>
         <name>Config_Vehicle_Info</name>
         <label>Config Vehicle Info</label>
-        <locationX>1364</locationX>
-        <locationY>674</locationY>
+        <locationX>1496</locationX>
+        <locationY>566</locationY>
         <assignmentItems>
             <assignToReference>VehicleName</assignToReference>
             <operator>Assign</operator>
@@ -255,8 +236,8 @@
     <assignments>
         <name>Get_Product_API_Call_Fail</name>
         <label>Get Product API Call Fail</label>
-        <locationX>4098</locationX>
-        <locationY>1190</locationY>
+        <locationX>4362</locationX>
+        <locationY>1082</locationY>
         <assignmentItems>
             <assignToReference>getProductIsSuccess</assignToReference>
             <operator>Assign</operator>
@@ -278,8 +259,8 @@
     <assignments>
         <name>Get_Product_API_Call_Fail_2</name>
         <label>Get Product API Call Fail</label>
-        <locationX>1760</locationX>
-        <locationY>1298</locationY>
+        <locationX>1892</locationX>
+        <locationY>1190</locationY>
         <assignmentItems>
             <assignToReference>getProductIsSuccess</assignToReference>
             <operator>Assign</operator>
@@ -301,8 +282,8 @@
     <assignments>
         <name>Get_Product_API_Call_Success</name>
         <label>Get Product API Call Success</label>
-        <locationX>1496</locationX>
-        <locationY>1298</locationY>
+        <locationX>1628</locationX>
+        <locationY>1190</locationY>
         <assignmentItems>
             <assignToReference>getProductIsSuccess</assignToReference>
             <operator>Assign</operator>
@@ -324,8 +305,8 @@
     <assignments>
         <name>Pay_Load_is_not_present</name>
         <label>Pay Load is not present</label>
-        <locationX>1370</locationX>
-        <locationY>2030</locationY>
+        <locationX>1634</locationX>
+        <locationY>1922</locationY>
         <assignmentItems>
             <assignToReference>getProductIsSuccess</assignToReference>
             <operator>Assign</operator>
@@ -347,8 +328,8 @@
     <assignments>
         <name>Payload_From_Parent_Slider_Component</name>
         <label>Payload From Parent Slider Component</label>
-        <locationX>1628</locationX>
-        <locationY>1706</locationY>
+        <locationX>1760</locationX>
+        <locationY>1598</locationY>
         <assignmentItems>
             <assignToReference>retnResponse</assignToReference>
             <operator>Assign</operator>
@@ -384,8 +365,8 @@
     <assignments>
         <name>Populate_Selected_Button_Value</name>
         <label>Populate Selected Button Value</label>
-        <locationX>3218</locationX>
-        <locationY>2570</locationY>
+        <locationX>3482</locationX>
+        <locationY>2462</locationY>
         <assignmentItems>
             <assignToReference>companyNameCheck</assignToReference>
             <operator>Assign</operator>
@@ -402,7 +383,7 @@
         <name>Quote_Upsert_Fail</name>
         <label>Quote Upsert Fail</label>
         <locationX>1106</locationX>
-        <locationY>2246</locationY>
+        <locationY>2138</locationY>
         <assignmentItems>
             <assignToReference>getProductIsSuccess</assignToReference>
             <operator>Assign</operator>
@@ -424,8 +405,8 @@
     <assignments>
         <name>SelectedButtonValue</name>
         <label>SelectedButtonValue</label>
-        <locationX>3207</locationX>
-        <locationY>3146</locationY>
+        <locationX>3471</locationX>
+        <locationY>3038</locationY>
         <assignmentItems>
             <assignToReference>companyNameCheck</assignToReference>
             <operator>Assign</operator>
@@ -456,7 +437,7 @@
         <name>Set_Retailer_Discount_Updated_No</name>
         <label>Set Retailer Discount Updated No</label>
         <locationX>50</locationX>
-        <locationY>2030</locationY>
+        <locationY>1922</locationY>
         <assignmentItems>
             <assignToReference>IsRetailerDiscountAmountUpdated</assignToReference>
             <operator>Assign</operator>
@@ -486,8 +467,8 @@
     <assignments>
         <name>Stock_Vehicle_Info</name>
         <label>Stock Vehicle Info</label>
-        <locationX>1628</locationX>
-        <locationY>566</locationY>
+        <locationX>1760</locationX>
+        <locationY>458</locationY>
         <assignmentItems>
             <assignToReference>VehicleName</assignToReference>
             <operator>Assign</operator>
@@ -502,8 +483,8 @@
     <assignments>
         <name>Update_Alternative_Finance_Flag</name>
         <label>Update Alternative Finance Flag</label>
-        <locationX>3218</locationX>
-        <locationY>2354</locationY>
+        <locationX>3482</locationX>
+        <locationY>2246</locationY>
         <assignmentItems>
             <assignToReference>isAlternativeQuoteCalculation</assignToReference>
             <operator>Assign</operator>
@@ -518,8 +499,8 @@
     <assignments>
         <name>Update_Alternative_Finance_Flag_2</name>
         <label>Update Alternative Finance Flag</label>
-        <locationX>3482</locationX>
-        <locationY>2354</locationY>
+        <locationX>3746</locationX>
+        <locationY>2246</locationY>
         <assignmentItems>
             <assignToReference>isAlternativeQuoteCalculation</assignToReference>
             <operator>Assign</operator>
@@ -535,8 +516,8 @@
     <assignments>
         <name>Update_Selected_Button_Value</name>
         <label>Update Selected Button Value</label>
-        <locationX>2690</locationX>
-        <locationY>2354</locationY>
+        <locationX>2954</locationX>
+        <locationY>2246</locationY>
         <assignmentItems>
             <assignToReference>companyNameCheck</assignToReference>
             <operator>Assign</operator>
@@ -567,7 +548,7 @@
         <name>Update_Selected_Button_Values</name>
         <label>Update Selected Button Values</label>
         <locationX>314</locationX>
-        <locationY>1922</locationY>
+        <locationY>1814</locationY>
         <assignmentItems>
             <assignToReference>companyNameCheck</assignToReference>
             <operator>Assign</operator>
@@ -633,7 +614,7 @@
         <name>Alternative_Finance_Record_Check</name>
         <label>Alternative Finance Record Check</label>
         <locationX>710</locationX>
-        <locationY>2354</locationY>
+        <locationY>2246</locationY>
         <defaultConnector>
             <targetReference>Assign_Alternative_Finance_Information_Record</targetReference>
         </defaultConnector>
@@ -657,8 +638,8 @@
     <decisions>
         <name>Check_API_Response</name>
         <label>Check API Response</label>
-        <locationX>1628</locationX>
-        <locationY>1190</locationY>
+        <locationX>1760</locationX>
+        <locationY>1082</locationY>
         <defaultConnector>
             <targetReference>Get_Product_API_Call_Fail_2</targetReference>
         </defaultConnector>
@@ -682,8 +663,8 @@
     <decisions>
         <name>Check_Event_Name</name>
         <label>Check Event Name</label>
-        <locationX>3218</locationX>
-        <locationY>2246</locationY>
+        <locationX>3482</locationX>
+        <locationY>2138</locationY>
         <defaultConnector>
             <targetReference>SelectedButtonValue</targetReference>
         </defaultConnector>
@@ -753,8 +734,8 @@
         <description>For now checking for contact ID and need to change the logic in future</description>
         <name>Check_for_Finance_Information_Record_Id</name>
         <label>Check for Finance Information Record Id</label>
-        <locationX>2492</locationX>
-        <locationY>2030</locationY>
+        <locationX>2756</locationX>
+        <locationY>1922</locationY>
         <defaultConnector>
             <targetReference>Foundation_Quote_View_Screen</targetReference>
         </defaultConnector>
@@ -793,8 +774,8 @@
     <decisions>
         <name>Check_Get_Quote_Status</name>
         <label>Check Get Quote Status</label>
-        <locationX>1766</locationX>
-        <locationY>2246</locationY>
+        <locationX>2030</locationX>
+        <locationY>2138</locationY>
         <defaultConnector>
             <targetReference>Error_Screen</targetReference>
         </defaultConnector>
@@ -822,8 +803,8 @@
     <decisions>
         <name>Check_Get_Quote_Status_For_Alternative_Fin_Info</name>
         <label>Check Get Quote Status For Alternative Fin Info</label>
-        <locationX>2294</locationX>
-        <locationY>2246</locationY>
+        <locationX>2558</locationX>
+        <locationY>2138</locationY>
         <defaultConnector>
             <targetReference>Copy_1_of_Error_Screen</targetReference>
         </defaultConnector>
@@ -855,7 +836,7 @@
         <name>Check_Quote_Upsert_Status</name>
         <label>Check Quote Upsert Status</label>
         <locationX>908</locationX>
-        <locationY>2138</locationY>
+        <locationY>2030</locationY>
         <defaultConnector>
             <targetReference>Quote_Upsert_Fail</targetReference>
         </defaultConnector>
@@ -886,8 +867,8 @@
     <decisions>
         <name>Check_Type_of_Vehicle_Config_or_Stock</name>
         <label>Check Type of Vehicle (Config or Stock)</label>
-        <locationX>1628</locationX>
-        <locationY>458</locationY>
+        <locationX>1760</locationX>
+        <locationY>350</locationY>
         <defaultConnector>
             <targetReference>Get_Prospect_Record</targetReference>
         </defaultConnector>
@@ -926,8 +907,8 @@
     <decisions>
         <name>If_Payload_is_present</name>
         <label>If Payload is present</label>
-        <locationX>3207</locationX>
-        <locationY>1922</locationY>
+        <locationX>3471</locationX>
+        <locationY>1814</locationY>
         <defaultConnector>
             <targetReference>SelectedButtonValue</targetReference>
         </defaultConnector>
@@ -951,8 +932,8 @@
     <decisions>
         <name>Is_Payload_Present</name>
         <label>Is Payload Present</label>
-        <locationX>1139</locationX>
-        <locationY>1922</locationY>
+        <locationX>1271</locationX>
+        <locationY>1814</locationY>
         <defaultConnector>
             <targetReference>Pay_Load_is_not_present</targetReference>
         </defaultConnector>
@@ -976,8 +957,8 @@
     <decisions>
         <name>Product_Selection_Screen_Button_Actions_Check</name>
         <label>Product Selection Screen Button Actions Check</label>
-        <locationX>1628</locationX>
-        <locationY>1814</locationY>
+        <locationX>1760</locationX>
+        <locationY>1706</locationY>
         <defaultConnector>
             <targetReference>If_Payload_is_present</targetReference>
         </defaultConnector>
@@ -1063,8 +1044,8 @@
     <recordLookups>
         <name>Get_Configuration_Vehicle_Object</name>
         <label>Get Configuration Vehicle Object</label>
-        <locationX>1364</locationX>
-        <locationY>566</locationY>
+        <locationX>1496</locationX>
+        <locationY>458</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Config_Vehicle_Info</targetReference>
@@ -1086,8 +1067,8 @@
     <recordLookups>
         <name>Get_Fin_Info_Records_For_Overview</name>
         <label>Get Fin Info Records For Overview</label>
-        <locationX>2954</locationX>
-        <locationY>2354</locationY>
+        <locationX>3218</locationX>
+        <locationY>2246</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Overview_Screen</targetReference>
@@ -1108,7 +1089,7 @@
         <name>Get_Finance_Records</name>
         <label>Get Finance Records</label>
         <locationX>710</locationX>
-        <locationY>2246</locationY>
+        <locationY>2138</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Alternative_Finance_Record_Check</targetReference>
@@ -1128,8 +1109,8 @@
     <recordLookups>
         <name>Get_Finance_Records_with_Alt_Fin_Info_Record</name>
         <label>Get Finance Records with Alt Fin Info Record</label>
-        <locationX>2162</locationX>
-        <locationY>2354</locationY>
+        <locationX>2426</locationX>
+        <locationY>2246</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Copy_1_of_a</targetReference>
@@ -1149,8 +1130,8 @@
     <recordLookups>
         <name>Get_Prospect_Record</name>
         <label>Get Prospect Record</label>
-        <locationX>1628</locationX>
-        <locationY>866</locationY>
+        <locationX>1760</locationX>
+        <locationY>758</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Assign_Company_Name_Check_Value</targetReference>
@@ -1172,7 +1153,7 @@
     <recordLookups>
         <name>Get_Quote_Record</name>
         <label>Get Quote Record</label>
-        <locationX>1628</locationX>
+        <locationX>1760</locationX>
         <locationY>134</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -1196,14 +1177,13 @@
         <queriedFields>GOL_QUO_ModelFx__c</queriedFields>
         <queriedFields>ERPT_QUO_Enginefx__c</queriedFields>
         <queriedFields>LMS_QUO_TotalPromotionsAndDiscountsGross__c</queriedFields>
-        <queriedFields>ERPT_QUO_Engine__c</queriedFields>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <recordLookups>
         <name>Get_Saved_Finance_Information_Record</name>
         <label>Get Saved Finance Information Record</label>
-        <locationX>3218</locationX>
-        <locationY>2462</locationY>
+        <locationX>3482</locationX>
+        <locationY>2354</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Populate_Selected_Button_Value</targetReference>
@@ -1223,11 +1203,11 @@
     <recordLookups>
         <name>GET_Vehicle_QLI_Record</name>
         <label>GET Vehicle QLI Record</label>
-        <locationX>1628</locationX>
+        <locationX>1760</locationX>
         <locationY>242</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Assign_Vehicle_Engine_And_Price</targetReference>
+            <targetReference>Check_Type_of_Vehicle_Config_or_Stock</targetReference>
         </connector>
         <filterLogic>1 AND ( 2 OR 3 OR 4)</filterLogic>
         <filters>
@@ -1273,7 +1253,7 @@
         <name>Update_Retailer_Discount</name>
         <label>Update Retailer Discount</label>
         <locationX>50</locationX>
-        <locationY>1922</locationY>
+        <locationY>1814</locationY>
         <connector>
             <targetReference>Set_Retailer_Discount_Updated_No</targetReference>
         </connector>
@@ -1314,8 +1294,8 @@
     <screens>
         <name>Copy_1_of_a</name>
         <label>Copy 1 of a</label>
-        <locationX>2294</locationX>
-        <locationY>2546</locationY>
+        <locationX>2558</locationX>
+        <locationY>2438</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -1333,8 +1313,8 @@
     <screens>
         <name>Copy_1_of_Error_Screen</name>
         <label>Copy 1 of Error Screen</label>
-        <locationX>2426</locationX>
-        <locationY>2354</locationY>
+        <locationX>2690</locationX>
+        <locationY>2246</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -1352,8 +1332,8 @@
     <screens>
         <name>Copy_2_of_a</name>
         <label>Copy 2 of a</label>
-        <locationX>2294</locationX>
-        <locationY>2654</locationY>
+        <locationX>2558</locationX>
+        <locationY>2546</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -1371,8 +1351,8 @@
     <screens>
         <name>Error_Screen</name>
         <label>Error Screen</label>
-        <locationX>1898</locationX>
-        <locationY>2354</locationY>
+        <locationX>2162</locationX>
+        <locationY>2246</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -1385,10 +1365,31 @@
         <showHeader>false</showHeader>
     </screens>
     <screens>
+        <name>Error_Screen_API</name>
+        <label>Error Screen</label>
+        <locationX>1106</locationX>
+        <locationY>2354</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <connector>
+            <isGoTo>true</isGoTo>
+            <targetReference>Get_Quote_Record</targetReference>
+        </connector>
+        <fields>
+            <name>ErrorLabel</name>
+            <fieldText>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong style=&quot;font-size: 14px; color: rgb(215, 16, 16);&quot;&gt;{!$Label.GOL_API_Callout_Failure_Error_Message}&lt;/strong&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <nextOrFinishButtonLabel>New Calculation</nextOrFinishButtonLabel>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <screens>
         <name>Finance_Product_Selection_Screen</name>
         <label>Finance Product Selection Screen</label>
-        <locationX>1628</locationX>
-        <locationY>1598</locationY>
+        <locationX>1760</locationX>
+        <locationY>1490</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -1561,8 +1562,8 @@
     <screens>
         <name>Foundation_Quote_View_Screen</name>
         <label>Foundation Quote View Screen</label>
-        <locationX>3218</locationX>
-        <locationY>2138</locationY>
+        <locationX>3482</locationX>
+        <locationY>2030</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -1618,8 +1619,8 @@
     <screens>
         <name>Overview_Screen</name>
         <label>Overview Screen</label>
-        <locationX>2954</locationX>
-        <locationY>2462</locationY>
+        <locationX>3218</locationX>
+        <locationY>2354</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -1656,8 +1657,8 @@
     <screens>
         <name>waq</name>
         <label>waq</label>
-        <locationX>2294</locationX>
-        <locationY>2762</locationY>
+        <locationX>2558</locationX>
+        <locationY>2654</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -1669,18 +1670,18 @@
         <showHeader>true</showHeader>
     </screens>
     <start>
-        <locationX>1502</locationX>
+        <locationX>1634</locationX>
         <locationY>0</locationY>
         <connector>
             <targetReference>Get_Quote_Record</targetReference>
         </connector>
     </start>
-    <status>Obsolete</status>
+    <status>Active</status>
     <subflows>
         <name>Insert_Exception</name>
         <label>Insert Exception</label>
-        <locationX>1760</locationX>
-        <locationY>1406</locationY>
+        <locationX>1892</locationX>
+        <locationY>1298</locationY>
         <connector>
             <targetReference>Finance_Product_Selection_Screen</targetReference>
         </connector>
@@ -1707,8 +1708,8 @@
     <subflows>
         <name>Insert_Exception_for_Fault_Path</name>
         <label>Insert Exception for Fault Path</label>
-        <locationX>4098</locationX>
-        <locationY>1298</locationY>
+        <locationX>4362</locationX>
+        <locationY>1190</locationY>
         <connector>
             <isGoTo>true</isGoTo>
             <targetReference>Finance_Product_Selection_Screen</targetReference>
@@ -1736,8 +1737,8 @@
     <subflows>
         <name>Insert_Exception_for_missing_payload</name>
         <label>Insert Exception for missing payload</label>
-        <locationX>1370</locationX>
-        <locationY>2138</locationY>
+        <locationX>1634</locationX>
+        <locationY>2030</locationY>
         <connector>
             <isGoTo>true</isGoTo>
             <targetReference>Finance_Product_Selection_Screen</targetReference>
@@ -1766,10 +1767,9 @@
         <name>Insert_Exception_for_Quote_Upsert_Fail</name>
         <label>Insert Exception for Quote Upsert Fail</label>
         <locationX>1106</locationX>
-        <locationY>2354</locationY>
+        <locationY>2246</locationY>
         <connector>
-            <isGoTo>true</isGoTo>
-            <targetReference>Finance_Product_Selection_Screen</targetReference>
+            <targetReference>Error_Screen_API</targetReference>
         </connector>
         <flowName>ERPT_Insert_Exception_Log</flowName>
         <inputAssignments>
@@ -1794,13 +1794,13 @@
     <textTemplates>
         <name>ConfigVehicleEngineAndPrice</name>
         <isViewedAsPlainText>true</isViewedAsPlainText>
-        <text>&lt;p style=&quot;font-family: AvenirNextRegular;font-size: 15px;letter-spacing:2px;&quot;&gt;&lt;strong&gt;{!VehicleEngine}&lt;/strong&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;{!VehiclePrice}€&lt;/p&gt;</text>
+        <text>&lt;p style=&quot;font-family: AvenirNextRegular;font-size: 15px;letter-spacing:2px;&quot;&gt;&lt;strong&gt;{!Get_Quote_Record.ERPT_QUO_Enginefx__c}&lt;/strong&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;{!GET_Vehicle_QLI_Record.LMS_QLI_TotalGrossPrice__c}€&lt;/p&gt;</text>
     </textTemplates>
     <textTemplates>
         <name>ConfigVehicleName</name>
         <isViewedAsPlainText>true</isViewedAsPlainText>
         <text>&lt;p style=&quot;font-family: AvenirNextRegular; font-size: 19px; letter-spacing:2px;
-width: 349px;height: 35px;top: 262px;left: 90px;font-weight: 700;
+width: 100%;height: 35px;top: 262px;left: 90px;font-weight: 700;
  margin-top: 36px;;&quot;&gt;{!VehicleName}   {!VehicleDescription}&lt;/p&gt;</text>
     </textTemplates>
     <textTemplates>
@@ -1982,30 +1982,10 @@ width: 349px;height: 35px;top: 262px;left: 90px;font-weight: 700;
         <isOutput>true</isOutput>
     </variables>
     <variables>
-        <name>VehicleEngine</name>
-        <dataType>String</dataType>
-        <isCollection>false</isCollection>
-        <isInput>false</isInput>
-        <isOutput>false</isOutput>
-        <value>
-            <stringValue></stringValue>
-        </value>
-    </variables>
-    <variables>
         <name>VehicleName</name>
         <dataType>String</dataType>
         <isCollection>false</isCollection>
         <isInput>true</isInput>
         <isOutput>true</isOutput>
-    </variables>
-    <variables>
-        <name>VehiclePrice</name>
-        <dataType>String</dataType>
-        <isCollection>false</isCollection>
-        <isInput>false</isInput>
-        <isOutput>false</isOutput>
-        <value>
-            <stringValue></stringValue>
-        </value>
     </variables>
 </Flow>

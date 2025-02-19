@@ -3,13 +3,16 @@
     <actionCalls>
         <name>Finance_Get_Product_All_Data</name>
         <label>Finance Get Product All Data</label>
-        <locationX>963</locationX>
-        <locationY>350</locationY>
+        <locationX>1628</locationX>
+        <locationY>1082</locationY>
         <actionName>GolFinanceGetProductAllData.getProducts</actionName>
         <actionType>externalService</actionType>
         <connector>
-            <targetReference>Assign_Company_Name_Check_Value</targetReference>
+            <targetReference>Check_API_Response</targetReference>
         </connector>
+        <faultConnector>
+            <targetReference>Get_Product_API_Call_Fail</targetReference>
+        </faultConnector>
         <flowTransactionModel>Automatic</flowTransactionModel>
         <inputParameters>
             <name>quoteId</name>
@@ -23,6 +26,18 @@
                 <elementReference>companyNameCheckFormulaValue</elementReference>
             </value>
         </inputParameters>
+        <inputParameters>
+            <name>personType</name>
+            <value>
+                <elementReference>personType</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>channel</name>
+            <value>
+                <elementReference>channel</elementReference>
+            </value>
+        </inputParameters>
         <nameSegment>GolFinanceGetProductAllData.getProducts</nameSegment>
         <offset>0</offset>
         <storeOutputAutomatically>true</storeOutputAutomatically>
@@ -30,14 +45,20 @@
     <actionCalls>
         <name>Invoke_Get_Quote_API_and_Create_Fin_Info_Record</name>
         <label>Invoke Get Quote API and Create Fin Info Record</label>
-        <locationX>182</locationX>
-        <locationY>1298</locationY>
+        <locationX>1766</locationX>
+        <locationY>2138</locationY>
         <actionName>GOL_GetFinanceQuote</actionName>
         <actionType>apex</actionType>
         <connector>
             <targetReference>Check_Get_Quote_Status</targetReference>
         </connector>
         <flowTransactionModel>Automatic</flowTransactionModel>
+        <inputParameters>
+            <name>financeQuoteId</name>
+            <value>
+                <elementReference>Get_Saved_Finance_Information_Record.Id</elementReference>
+            </value>
+        </inputParameters>
         <inputParameters>
             <name>quoteId</name>
             <value>
@@ -57,14 +78,53 @@
     <actionCalls>
         <name>Invoke_Get_Quote_API_and_Create_Fin_Info_Record_With_1_Fin_Info_Record</name>
         <label>Invoke Get Quote API and Create Fin Info Record With 1 Fin Info Record</label>
-        <locationX>710</locationX>
-        <locationY>1298</locationY>
+        <locationX>2294</locationX>
+        <locationY>2138</locationY>
         <actionName>GOL_GetFinanceQuote</actionName>
         <actionType>apex</actionType>
         <connector>
             <targetReference>Check_Get_Quote_Status_For_Alternative_Fin_Info</targetReference>
         </connector>
         <flowTransactionModel>Automatic</flowTransactionModel>
+        <inputParameters>
+            <name>financeQuoteId</name>
+            <value>
+                <elementReference>Get_Saved_Finance_Information_Record.Id</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>quoteId</name>
+            <value>
+                <elementReference>quoteId</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>quotePayload</name>
+            <value>
+                <elementReference>ParentSliderComponent.serializedData</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>GOL_GetFinanceQuote</nameSegment>
+        <offset>0</offset>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </actionCalls>
+    <actionCalls>
+        <name>Invoke_Get_Quote_API_and_Upsert_Fin_Info_Record</name>
+        <label>Invoke Get Quote API and Upsert Fin Info Record</label>
+        <locationX>908</locationX>
+        <locationY>2030</locationY>
+        <actionName>GOL_GetFinanceQuote</actionName>
+        <actionType>apex</actionType>
+        <connector>
+            <targetReference>Check_Quote_Upsert_Status</targetReference>
+        </connector>
+        <flowTransactionModel>Automatic</flowTransactionModel>
+        <inputParameters>
+            <name>financeQuoteId</name>
+            <value>
+                <elementReference>Get_Saved_Finance_Information_Record.Id</elementReference>
+            </value>
+        </inputParameters>
         <inputParameters>
             <name>quoteId</name>
             <value>
@@ -83,10 +143,34 @@
     </actionCalls>
     <apiVersion>62.0</apiVersion>
     <assignments>
+        <name>Assign_Alternative_Finance_Information_Record</name>
+        <label>Assign Alternative Finance Information Record</label>
+        <locationX>842</locationX>
+        <locationY>2462</locationY>
+        <assignmentItems>
+            <assignToReference>AlternativeFinanceInformationRecord</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_Finance_Records</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>isAlternativeQuoteCalculation</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <isGoTo>true</isGoTo>
+            <targetReference>Foundation_Quote_View_Screen</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
         <name>Assign_Company_Name_Check_Value</name>
         <label>Assign Company Name Check Value</label>
-        <locationX>963</locationX>
-        <locationY>458</locationY>
+        <locationX>1628</locationX>
+        <locationY>974</locationY>
         <assignmentItems>
             <assignToReference>companyNameCheck</assignToReference>
             <operator>Assign</operator>
@@ -95,14 +179,176 @@
             </value>
         </assignmentItems>
         <connector>
-            <targetReference>CheckAPIConnectivity</targetReference>
+            <targetReference>Finance_Get_Product_All_Data</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Assign_Finance_Information_Record</name>
+        <label>Assign Finance Information Record</label>
+        <locationX>578</locationX>
+        <locationY>2462</locationY>
+        <assignmentItems>
+            <assignToReference>FinanceInformationRecord</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_Finance_Records</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>isAlternativeQuoteCalculation</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <isGoTo>true</isGoTo>
+            <targetReference>Foundation_Quote_View_Screen</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Assign_Vehicle_Engine_And_Price</name>
+        <label>Assign Vehicle Engine And Price</label>
+        <locationX>1628</locationX>
+        <locationY>350</locationY>
+        <assignmentItems>
+            <assignToReference>VehicleEngine</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_Quote_Record.ERPT_QUO_Engine__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>VehiclePrice</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>GET_Vehicle_QLI_Record.LMS_QLI_TotalGrossPrice__c</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Check_Type_of_Vehicle_Config_or_Stock</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Config_Vehicle_Info</name>
+        <label>Config Vehicle Info</label>
+        <locationX>1364</locationX>
+        <locationY>674</locationY>
+        <assignmentItems>
+            <assignToReference>VehicleName</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_Quote_Record.GOL_QUO_ModelFx__c</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>VehicleDescription</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_Configuration_Vehicle_Object.LMS_CVH_Derivative_Description__c</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Get_Prospect_Record</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Get_Product_API_Call_Fail</name>
+        <label>Get Product API Call Fail</label>
+        <locationX>4098</locationX>
+        <locationY>1190</locationY>
+        <assignmentItems>
+            <assignToReference>getProductIsSuccess</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>getProductErrorMessage</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Label.GOL_API_Callout_Failure_Error_Message</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Insert_Exception_for_Fault_Path</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Get_Product_API_Call_Fail_2</name>
+        <label>Get Product API Call Fail</label>
+        <locationX>1760</locationX>
+        <locationY>1298</locationY>
+        <assignmentItems>
+            <assignToReference>getProductIsSuccess</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>getProductErrorMessage</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Finance_Get_Product_All_Data.defaultExc</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Insert_Exception</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Get_Product_API_Call_Success</name>
+        <label>Get Product API Call Success</label>
+        <locationX>1496</locationX>
+        <locationY>1298</locationY>
+        <assignmentItems>
+            <assignToReference>getProductIsSuccess</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>getProductSuccessResponse</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>responseFromApiCallout</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Finance_Product_Selection_Screen</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Pay_Load_is_not_present</name>
+        <label>Pay Load is not present</label>
+        <locationX>1370</locationX>
+        <locationY>2030</locationY>
+        <assignmentItems>
+            <assignToReference>getProductIsSuccess</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>getProductErrorMessage</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Label.GOL_API_Callout_Failure_Error_Message</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Insert_Exception_for_missing_payload</targetReference>
         </connector>
     </assignments>
     <assignments>
         <name>Payload_From_Parent_Slider_Component</name>
         <label>Payload From Parent Slider Component</label>
-        <locationX>963</locationX>
-        <locationY>974</locationY>
+        <locationX>1628</locationX>
+        <locationY>1706</locationY>
         <assignmentItems>
             <assignToReference>retnResponse</assignToReference>
             <operator>Assign</operator>
@@ -110,15 +356,218 @@
                 <elementReference>ParentSliderComponent.serializedData</elementReference>
             </value>
         </assignmentItems>
+        <assignmentItems>
+            <assignToReference>IsRetailerDiscountAmountUpdated</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>CustomizationLightningComponent.isretailerdiscountamountupdate</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>serializedRetailerUpdateDataLWC</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>ParentSliderComponent.retailerDiscountSerializedData</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>CalculateFinanceButtonValue</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>ParentSliderComponent.clickedButtonName</elementReference>
+            </value>
+        </assignmentItems>
         <connector>
-            <targetReference>If_Payload_is_present</targetReference>
+            <targetReference>Product_Selection_Screen_Button_Actions_Check</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Populate_Selected_Button_Value</name>
+        <label>Populate Selected Button Value</label>
+        <locationX>3218</locationX>
+        <locationY>2570</locationY>
+        <assignmentItems>
+            <assignToReference>companyNameCheck</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_Saved_Finance_Information_Record.GOL_Type_Of_Use__c</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <isGoTo>true</isGoTo>
+            <targetReference>Finance_Get_Product_All_Data</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Quote_Upsert_Fail</name>
+        <label>Quote Upsert Fail</label>
+        <locationX>1106</locationX>
+        <locationY>2246</locationY>
+        <assignmentItems>
+            <assignToReference>getProductIsSuccess</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>getProductErrorMessage</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Invoke_Get_Quote_API_and_Upsert_Fin_Info_Record.message</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Insert_Exception_for_Quote_Upsert_Fail</targetReference>
         </connector>
     </assignments>
     <assignments>
         <name>SelectedButtonValue</name>
         <label>SelectedButtonValue</label>
-        <locationX>963</locationX>
-        <locationY>2090</locationY>
+        <locationX>3207</locationX>
+        <locationY>3146</locationY>
+        <assignmentItems>
+            <assignToReference>companyNameCheck</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>FinanceHeaderDetailButtons.companyNameCheck</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>contactIdForLWC</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_Finance_Records.Id</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>contactId2ForLWC</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Invoke_Get_Quote_API_and_Create_Fin_Info_Record_With_1_Fin_Info_Record.financeQuoteId</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <isGoTo>true</isGoTo>
+            <targetReference>Finance_Get_Product_All_Data</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Set_Retailer_Discount_Updated_No</name>
+        <label>Set Retailer Discount Updated No</label>
+        <locationX>50</locationX>
+        <locationY>2030</locationY>
+        <assignmentItems>
+            <assignToReference>IsRetailerDiscountAmountUpdated</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>No</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>companyNameCheck</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>FinanceHeaderDetailButtons.companyNameCheck</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>serializedRetailerUpdateDataLWC</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>ParentSliderComponent.retailerDiscountSerializedData</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <isGoTo>true</isGoTo>
+            <targetReference>Get_Quote_Record</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Stock_Vehicle_Info</name>
+        <label>Stock Vehicle Info</label>
+        <locationX>1628</locationX>
+        <locationY>566</locationY>
+        <assignmentItems>
+            <assignToReference>VehicleName</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_Quote_Record.GOL_QUO_ModelFx__c</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Get_Prospect_Record</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Update_Alternative_Finance_Flag</name>
+        <label>Update Alternative Finance Flag</label>
+        <locationX>3218</locationX>
+        <locationY>2354</locationY>
+        <assignmentItems>
+            <assignToReference>isAlternativeQuoteCalculation</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Get_Saved_Finance_Information_Record</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Update_Alternative_Finance_Flag_2</name>
+        <label>Update Alternative Finance Flag</label>
+        <locationX>3482</locationX>
+        <locationY>2354</locationY>
+        <assignmentItems>
+            <assignToReference>isAlternativeQuoteCalculation</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <isGoTo>true</isGoTo>
+            <targetReference>Get_Saved_Finance_Information_Record</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Update_Selected_Button_Value</name>
+        <label>Update Selected Button Value</label>
+        <locationX>2690</locationX>
+        <locationY>2354</locationY>
+        <assignmentItems>
+            <assignToReference>companyNameCheck</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>FinanceHeaderDetailButtons.companyNameCheck</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>isAlternativeQuoteCalculation</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>serializedRetailerUpdateDataLWC</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue></stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <isGoTo>true</isGoTo>
+            <targetReference>Finance_Get_Product_All_Data</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Update_Selected_Button_Values</name>
+        <label>Update Selected Button Values</label>
+        <locationX>314</locationX>
+        <locationY>1922</locationY>
         <assignmentItems>
             <assignToReference>companyNameCheck</assignToReference>
             <operator>Assign</operator>
@@ -146,18 +595,166 @@
         </connector>
     </assignments>
     <constants>
+        <name>channel</name>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>POS</stringValue>
+        </value>
+    </constants>
+    <constants>
         <name>FlowName</name>
         <dataType>String</dataType>
         <value>
             <stringValue>GOL_Screen_Flow_Finance_Tab</stringValue>
         </value>
     </constants>
+    <constants>
+        <name>QLI_CONFIG_VEHICLE_RT</name>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>LMS_QLI_ConfigurationVehicle</stringValue>
+        </value>
+    </constants>
+    <constants>
+        <name>QLI_NEW_VEHICLE_RT</name>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>LMS_QLI_NewVehicle</stringValue>
+        </value>
+    </constants>
+    <constants>
+        <name>QLI_USED_VEHICLE_RT</name>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>LMS_QLI_UsedVehicle</stringValue>
+        </value>
+    </constants>
+    <decisions>
+        <name>Alternative_Finance_Record_Check</name>
+        <label>Alternative Finance Record Check</label>
+        <locationX>710</locationX>
+        <locationY>2354</locationY>
+        <defaultConnector>
+            <targetReference>Assign_Alternative_Finance_Information_Record</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Alternative Finance Information Record</defaultConnectorLabel>
+        <rules>
+            <name>Finance_Information_Record</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>isAlternativeQuoteCalculation</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Finance_Information_Record</targetReference>
+            </connector>
+            <label>Finance Information Record</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Check_API_Response</name>
+        <label>Check API Response</label>
+        <locationX>1628</locationX>
+        <locationY>1190</locationY>
+        <defaultConnector>
+            <targetReference>Get_Product_API_Call_Fail_2</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Failure</defaultConnectorLabel>
+        <rules>
+            <name>Success</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Finance_Get_Product_All_Data.responseCode</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <numberValue>200.0</numberValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Get_Product_API_Call_Success</targetReference>
+            </connector>
+            <label>Success</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Check_Event_Name</name>
+        <label>Check Event Name</label>
+        <locationX>3218</locationX>
+        <locationY>2246</locationY>
+        <defaultConnector>
+            <targetReference>SelectedButtonValue</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Back_to_New_Calculator</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>FinanceFoundationQuoteView.buttonAction</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>$Label.GOL_Event_New_Calculator</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Selected_Button_Value</targetReference>
+            </connector>
+            <label>Back to New Calculator</label>
+        </rules>
+        <rules>
+            <name>Go_To_Overview</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>FinanceFoundationQuoteView.buttonAction</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>$Label.GOL_Event_Go_To_Overview</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Get_Fin_Info_Records_For_Overview</targetReference>
+            </connector>
+            <label>Go To Overview</label>
+        </rules>
+        <rules>
+            <name>Modify_Finance_Quote_Record</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>FinanceFoundationQuoteView.buttonAction</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>$Label.GOL_Event_Go_To_Modify</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Alternative_Finance_Flag</targetReference>
+            </connector>
+            <label>Modify Finance Quote Record</label>
+        </rules>
+        <rules>
+            <name>Modify_Alternative_Finance_Quote_Record</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>FinanceFoundationQuoteView.buttonAction</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>{!$Label.GOL_Event_Go_To_Alternative_Modify}</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Alternative_Finance_Flag_2</targetReference>
+            </connector>
+            <label>Modify Alternative Finance Quote Record</label>
+        </rules>
+    </decisions>
     <decisions>
         <description>For now checking for contact ID and need to change the logic in future</description>
         <name>Check_for_Finance_Information_Record_Id</name>
         <label>Check for Finance Information Record Id</label>
-        <locationX>644</locationX>
-        <locationY>1190</locationY>
+        <locationX>2492</locationX>
+        <locationY>2030</locationY>
         <defaultConnector>
             <targetReference>Foundation_Quote_View_Screen</targetReference>
         </defaultConnector>
@@ -184,7 +781,7 @@
                 <leftValueReference>contactIdForLWC</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
-                    <elementReference>FinanceFoundationQuoteView.ContactId</elementReference>
+                    <elementReference>FinanceFoundationQuoteView.financeInformationRecord.Id</elementReference>
                 </rightValue>
             </conditions>
             <connector>
@@ -196,8 +793,8 @@
     <decisions>
         <name>Check_Get_Quote_Status</name>
         <label>Check Get Quote Status</label>
-        <locationX>182</locationX>
-        <locationY>1406</locationY>
+        <locationX>1766</locationX>
+        <locationY>2246</locationY>
         <defaultConnector>
             <targetReference>Error_Screen</targetReference>
         </defaultConnector>
@@ -219,17 +816,14 @@
                     <booleanValue>false</booleanValue>
                 </rightValue>
             </conditions>
-            <connector>
-                <targetReference>Get_Finance_Records</targetReference>
-            </connector>
             <label>Finance Quote Created</label>
         </rules>
     </decisions>
     <decisions>
         <name>Check_Get_Quote_Status_For_Alternative_Fin_Info</name>
         <label>Check Get Quote Status For Alternative Fin Info</label>
-        <locationX>710</locationX>
-        <locationY>1406</locationY>
+        <locationX>2294</locationX>
+        <locationY>2246</locationY>
         <defaultConnector>
             <targetReference>Copy_1_of_Error_Screen</targetReference>
         </defaultConnector>
@@ -258,35 +852,82 @@
         </rules>
     </decisions>
     <decisions>
-        <name>CheckAPIConnectivity</name>
-        <label>Check API Connectivity</label>
-        <locationX>963</locationX>
-        <locationY>566</locationY>
+        <name>Check_Quote_Upsert_Status</name>
+        <label>Check Quote Upsert Status</label>
+        <locationX>908</locationX>
+        <locationY>2138</locationY>
         <defaultConnector>
-            <targetReference>Insert_Exception</targetReference>
+            <targetReference>Quote_Upsert_Fail</targetReference>
         </defaultConnector>
-        <defaultConnectorLabel>Failure</defaultConnectorLabel>
+        <defaultConnectorLabel>Quote Upsert Unsuccessfully</defaultConnectorLabel>
         <rules>
-            <name>Success</name>
+            <name>Quote_Upsert_Successfully</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>quoteId</leftValueReference>
+                <leftValueReference>Invoke_Get_Quote_API_and_Upsert_Fin_Info_Record.isSuccess</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Invoke_Get_Quote_API_and_Upsert_Fin_Info_Record.financeQuoteId</leftValueReference>
                 <operator>IsNull</operator>
                 <rightValue>
                     <booleanValue>false</booleanValue>
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Finance_Product_Selection_Screen</targetReference>
+                <targetReference>Get_Finance_Records</targetReference>
             </connector>
-            <label>Success</label>
+            <label>Quote Upsert Successfully</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Check_Type_of_Vehicle_Config_or_Stock</name>
+        <label>Check Type of Vehicle (Config or Stock)</label>
+        <locationX>1628</locationX>
+        <locationY>458</locationY>
+        <defaultConnector>
+            <targetReference>Get_Prospect_Record</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Configuration_vehicle</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Quote_Record.LMS_QUO_ConfigurationVehicle__c</leftValueReference>
+                <operator>IsBlank</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Get_Configuration_Vehicle_Object</targetReference>
+            </connector>
+            <label>Configuration vehicle</label>
+        </rules>
+        <rules>
+            <name>Stock_Vehicle</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Quote_Record.LMS_QUO_StockVehicle__c</leftValueReference>
+                <operator>IsBlank</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Stock_Vehicle_Info</targetReference>
+            </connector>
+            <label>Stock Vehicle</label>
         </rules>
     </decisions>
     <decisions>
         <name>If_Payload_is_present</name>
         <label>If Payload is present</label>
-        <locationX>963</locationX>
-        <locationY>1082</locationY>
+        <locationX>3207</locationX>
+        <locationY>1922</locationY>
         <defaultConnector>
             <targetReference>SelectedButtonValue</targetReference>
         </defaultConnector>
@@ -307,11 +948,96 @@
             <label>Yes</label>
         </rules>
     </decisions>
+    <decisions>
+        <name>Is_Payload_Present</name>
+        <label>Is Payload Present</label>
+        <locationX>1139</locationX>
+        <locationY>1922</locationY>
+        <defaultConnector>
+            <targetReference>Pay_Load_is_not_present</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>No</defaultConnectorLabel>
+        <rules>
+            <name>Is_Payload_Present_Yes</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>ParentSliderComponent.serializedData</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Invoke_Get_Quote_API_and_Upsert_Fin_Info_Record</targetReference>
+            </connector>
+            <label>Yes</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Product_Selection_Screen_Button_Actions_Check</name>
+        <label>Product Selection Screen Button Actions Check</label>
+        <locationX>1628</locationX>
+        <locationY>1814</locationY>
+        <defaultConnector>
+            <targetReference>If_Payload_is_present</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Retailer_Discount_Updated</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>IsRetailerDiscountAmountUpdated</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Yes</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Retailer_Discount</targetReference>
+            </connector>
+            <label>Retailer Discount Updated</label>
+        </rules>
+        <rules>
+            <name>Type_Of_Use_Changed_New_API_Request</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>companyNameCheck</leftValueReference>
+                <operator>NotEqualTo</operator>
+                <rightValue>
+                    <elementReference>FinanceHeaderDetailButtons.companyNameCheck</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Selected_Button_Values</targetReference>
+            </connector>
+            <label>Type Of Use Changed - (New API Request)</label>
+        </rules>
+        <rules>
+            <name>Clicked_Calculate_Finance_Button</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>CalculateFinanceButtonValue</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>$Label.GOL_Calculate_Financing</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Is_Payload_Present</targetReference>
+            </connector>
+            <label>Clicked Calculate Finance Button</label>
+        </rules>
+    </decisions>
     <environments>Default</environments>
     <formulas>
         <name>companyNameCheckFormulaValue</name>
         <dataType>String</dataType>
         <expression>IF(ISBLANK({!FinanceHeaderDetailButtons.companyNameCheck}), IF({!Get_Prospect_Record.Record_Type_Name__c} == &apos;Organisation&apos;, &apos;PROFESSIONAL&apos;, &apos;PRIVATE&apos;), {!FinanceHeaderDetailButtons.companyNameCheck})</expression>
+    </formulas>
+    <formulas>
+        <name>personType</name>
+        <dataType>String</dataType>
+        <expression>IF({!companyNameCheckFormulaValue} == &apos;PRIVATE&apos;, &apos;PHYSICAL&apos;, &apos;LEGAL&apos;)</expression>
     </formulas>
     <interviewLabel>Screen Flow : Finance Tab {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Screen Flow : Finance Tab</label>
@@ -335,20 +1061,64 @@
     </processMetadataValues>
     <processType>Flow</processType>
     <recordLookups>
-        <name>Get_Finance_Records</name>
-        <label>Get Finance Records</label>
-        <locationX>50</locationX>
-        <locationY>1514</locationY>
+        <name>Get_Configuration_Vehicle_Object</name>
+        <label>Get Configuration Vehicle Object</label>
+        <locationX>1364</locationX>
+        <locationY>566</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Foundation_Quote_View_Screen</targetReference>
+            <targetReference>Config_Vehicle_Info</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
             <field>Id</field>
             <operator>EqualTo</operator>
             <value>
-                <elementReference>Invoke_Get_Quote_API_and_Create_Fin_Info_Record.financeQuoteId</elementReference>
+                <elementReference>Get_Quote_Record.LMS_QUO_ConfigurationVehicle__r.Id</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>LMS_ConfigurationVehicle__c</object>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>LMS_CVH_Derivative_Description__c</queriedFields>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Fin_Info_Records_For_Overview</name>
+        <label>Get Fin Info Records For Overview</label>
+        <locationX>2954</locationX>
+        <locationY>2354</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Overview_Screen</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>LMS_FIN_Quote__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>quoteId</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>false</getFirstRecordOnly>
+        <object>LMS_FinanceInformation__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Finance_Records</name>
+        <label>Get Finance Records</label>
+        <locationX>710</locationX>
+        <locationY>2246</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Alternative_Finance_Record_Check</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Invoke_Get_Quote_API_and_Upsert_Fin_Info_Record.financeQuoteId</elementReference>
             </value>
         </filters>
         <getFirstRecordOnly>true</getFirstRecordOnly>
@@ -358,11 +1128,11 @@
     <recordLookups>
         <name>Get_Finance_Records_with_Alt_Fin_Info_Record</name>
         <label>Get Finance Records with Alt Fin Info Record</label>
-        <locationX>578</locationX>
-        <locationY>1514</locationY>
+        <locationX>2162</locationX>
+        <locationY>2354</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Foundation_Quote_View_Screen</targetReference>
+            <targetReference>Copy_1_of_a</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -379,11 +1149,11 @@
     <recordLookups>
         <name>Get_Prospect_Record</name>
         <label>Get Prospect Record</label>
-        <locationX>963</locationX>
-        <locationY>242</locationY>
+        <locationX>1628</locationX>
+        <locationY>866</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Finance_Get_Product_All_Data</targetReference>
+            <targetReference>Assign_Company_Name_Check_Value</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -402,11 +1172,11 @@
     <recordLookups>
         <name>Get_Quote_Record</name>
         <label>Get Quote Record</label>
-        <locationX>963</locationX>
+        <locationX>1628</locationX>
         <locationY>134</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Get_Prospect_Record</targetReference>
+            <targetReference>GET_Vehicle_QLI_Record</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -421,16 +1191,156 @@
         <queriedFields>Id</queriedFields>
         <queriedFields>EPRT_QUO_External_ID__c</queriedFields>
         <queriedFields>LMS_QUO_Account__c</queriedFields>
+        <queriedFields>LMS_QUO_ConfigurationVehicle__c</queriedFields>
+        <queriedFields>LMS_QUO_StockVehicle__c</queriedFields>
+        <queriedFields>GOL_QUO_ModelFx__c</queriedFields>
+        <queriedFields>ERPT_QUO_Enginefx__c</queriedFields>
+        <queriedFields>LMS_QUO_TotalPromotionsAndDiscountsGross__c</queriedFields>
+        <queriedFields>ERPT_QUO_Engine__c</queriedFields>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
+    <recordLookups>
+        <name>Get_Saved_Finance_Information_Record</name>
+        <label>Get Saved Finance Information Record</label>
+        <locationX>3218</locationX>
+        <locationY>2462</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Populate_Selected_Button_Value</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>FinanceFoundationQuoteView.modifyFinanceQuoteId</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>LMS_FinanceInformation__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>GET_Vehicle_QLI_Record</name>
+        <label>GET Vehicle QLI Record</label>
+        <locationX>1628</locationX>
+        <locationY>242</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Assign_Vehicle_Engine_And_Price</targetReference>
+        </connector>
+        <filterLogic>1 AND ( 2 OR 3 OR 4)</filterLogic>
+        <filters>
+            <field>LMS_QLI_Quote__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Quote_Record.Id</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>LMS_QLI_RecordDevName__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>QLI_CONFIG_VEHICLE_RT</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>LMS_QLI_RecordDevName__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>QLI_NEW_VEHICLE_RT</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>LMS_QLI_RecordDevName__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>QLI_USED_VEHICLE_RT</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>LMS_QuoteLineItem__c</object>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>LMS_QLI_TotalGrossPrice__c</queriedFields>
+        <queriedFields>LMS_QLI_DiscountPercent__c</queriedFields>
+        <queriedFields>LMS_QLI_DiscountAmount__c</queriedFields>
+        <queriedFields>LMS_QLI_DiscountNetAmount2__c</queriedFields>
+        <queriedFields>LMS_QLI_TaxAdjust__c</queriedFields>
+        <queriedFields>LMS_QLI_NetPrice__c</queriedFields>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordUpdates>
+        <name>Update_Retailer_Discount</name>
+        <label>Update Retailer Discount</label>
+        <locationX>50</locationX>
+        <locationY>1922</locationY>
+        <connector>
+            <targetReference>Set_Retailer_Discount_Updated_No</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>GET_Vehicle_QLI_Record.Id</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>LMS_QLI_DiscountAmount__c</field>
+            <value>
+                <elementReference>CustomizationLightningComponent.retailerdiscountAmount</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>LMS_QLI_DiscountNetAmount2__c</field>
+            <value>
+                <elementReference>CustomizationLightningComponent.retailerdiscountNetAmount2</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>LMS_QLI_DiscountPercent__c</field>
+            <value>
+                <elementReference>CustomizationLightningComponent.retailerdiscountpercent</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>LMS_QLI_TaxAdjust__c</field>
+            <value>
+                <elementReference>CustomizationLightningComponent.retailerdiscountamountInclVal</elementReference>
+            </value>
+        </inputAssignments>
+        <object>LMS_QuoteLineItem__c</object>
+    </recordUpdates>
     <screens>
-        <name>Copy_1_of_Error_Screen</name>
-        <label>Copy 1 of Error Screen</label>
-        <locationX>842</locationX>
-        <locationY>1514</locationY>
+        <name>Copy_1_of_a</name>
+        <label>Copy 1 of a</label>
+        <locationX>2294</locationX>
+        <locationY>2546</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
+        <connector>
+            <targetReference>Copy_2_of_a</targetReference>
+        </connector>
+        <fields>
+            <name>Copy_1_of_saasas</name>
+            <fieldText>&lt;p&gt;{!FinanceFoundationQuoteView.modifyFinanceQuoteId}&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;Alternative modify&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <name>Copy_1_of_Error_Screen</name>
+        <label>Copy 1 of Error Screen</label>
+        <locationX>2426</locationX>
+        <locationY>2354</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <connector>
+            <targetReference>Copy_1_of_a</targetReference>
+        </connector>
         <fields>
             <name>Copy_1_of_ErrorScreen</name>
             <fieldText>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong style=&quot;font-size: 16px; color: rgb(211, 17, 17);&quot;&gt;{!Invoke_Get_Quote_API_and_Create_Fin_Info_Record.message}&lt;/strong&gt;&lt;/p&gt;</fieldText>
@@ -440,10 +1350,29 @@
         <showHeader>false</showHeader>
     </screens>
     <screens>
+        <name>Copy_2_of_a</name>
+        <label>Copy 2 of a</label>
+        <locationX>2294</locationX>
+        <locationY>2654</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <connector>
+            <targetReference>waq</targetReference>
+        </connector>
+        <fields>
+            <name>Copy_2_of_saasas</name>
+            <fieldText>&lt;p&gt;{!FinanceFoundationQuoteView.modifyFinanceQuoteId}&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;{!FinanceFoundationQuoteView.buttonAction}&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
         <name>Error_Screen</name>
         <label>Error Screen</label>
-        <locationX>314</locationX>
-        <locationY>1514</locationY>
+        <locationX>1898</locationX>
+        <locationY>2354</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
@@ -458,14 +1387,19 @@
     <screens>
         <name>Finance_Product_Selection_Screen</name>
         <label>Finance Product Selection Screen</label>
-        <locationX>963</locationX>
-        <locationY>866</locationY>
+        <locationX>1628</locationX>
+        <locationY>1598</locationY>
         <allowBack>true</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>true</allowPause>
         <connector>
             <targetReference>Payload_From_Parent_Slider_Component</targetReference>
         </connector>
+        <fields>
+            <name>Vehicle_Info</name>
+            <fieldText>&lt;p&gt;{!ConfigVehicleName}&lt;/p&gt;&lt;p&gt;{!ConfigVehicleEngineAndPrice}&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
         <fields>
             <name>FinanceHeaderDetailButtons</name>
             <extensionName>c:gol_FinanceHeaderDetailButtons</extensionName>
@@ -482,27 +1416,21 @@
                     <elementReference>quoteId</elementReference>
                 </value>
             </inputParameters>
-            <inputParameters>
-                <name>productAPIResponseCode</name>
-                <value>
-                    <elementReference>Finance_Get_Product_All_Data.responseCode</elementReference>
-                </value>
-            </inputParameters>
             <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
         <fields>
             <name>ProductAPIErrorMessage</name>
-            <fieldText>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong style=&quot;color: rgb(250, 0, 0); font-size: 16px;&quot;&gt;Unexpected error !!!!&lt;/strong&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong style=&quot;color: rgb(8, 8, 8); font-size: 16px;&quot;&gt;Received status code&lt;/strong&gt;&lt;strong style=&quot;color: rgb(8, 8, 8); font-size: 16px; font-family: var(--lwc-fontFamily,-apple-system, BlinkMacSystemFont, &apos;Segoe UI&apos;, Roboto, Helvetica, Arial, sans-serif, &apos;Apple Color Emoji&apos;, &apos;Segoe UI Emoji&apos;, &apos;Segoe UI Symbol&apos;); background-color: var(--slds-g-color-neutral-base-100, var(--lwc-colorBackgroundInput,rgb(255, 255, 255)));&quot;&gt;:  &lt;/strong&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong style=&quot;font-family: var(--lwc-fontFamily,-apple-system, BlinkMacSystemFont, &apos;Segoe UI&apos;, Roboto, Helvetica, Arial, sans-serif, &apos;Apple Color Emoji&apos;, &apos;Segoe UI Emoji&apos;, &apos;Segoe UI Symbol&apos;); font-size: 16px; color: rgb(250, 0, 0); background-color: var(--slds-g-color-neutral-base-100, var(--lwc-colorBackgroundInput,rgb(255, 255, 255)));&quot;&gt;{!&lt;/strong&gt;Finance_Get_Product_All_Data&lt;strong style=&quot;font-family: var(--lwc-fontFamily,-apple-system, BlinkMacSystemFont, &apos;Segoe UI&apos;, Roboto, Helvetica, Arial, sans-serif, &apos;Apple Color Emoji&apos;, &apos;Segoe UI Emoji&apos;, &apos;Segoe UI Symbol&apos;); font-size: 16px; color: rgb(250, 0, 0); background-color: var(--slds-g-color-neutral-base-100, var(--lwc-colorBackgroundInput,rgb(255, 255, 255)));&quot;&gt;.responseCode}&lt;/strong&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong style=&quot;font-family: var(--lwc-fontFamily,-apple-system, BlinkMacSystemFont, &apos;Segoe UI&apos;, Roboto, Helvetica, Arial, sans-serif, &apos;Apple Color Emoji&apos;, &apos;Segoe UI Emoji&apos;, &apos;Segoe UI Symbol&apos;); font-size: 16px; color: var(--slds-g-color-neutral-base-30, var(--lwc-colorTextWeak,rgb(68, 68, 68))); background-color: var(--slds-g-color-neutral-base-100, var(--lwc-colorBackgroundInput,rgb(255, 255, 255)));&quot;&gt;﻿&lt;/strong&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong style=&quot;font-family: var(--lwc-fontFamily,-apple-system, BlinkMacSystemFont, &apos;Segoe UI&apos;, Roboto, Helvetica, Arial, sans-serif, &apos;Apple Color Emoji&apos;, &apos;Segoe UI Emoji&apos;, &apos;Segoe UI Symbol&apos;); font-size: 16px; color: rgb(18, 17, 17); background-color: var(--slds-g-color-neutral-base-100, var(--lwc-colorBackgroundInput,rgb(255, 255, 255)));&quot;&gt;Error message: &lt;/strong&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong style=&quot;font-family: var(--lwc-fontFamily,-apple-system, BlinkMacSystemFont, &apos;Segoe UI&apos;, Roboto, Helvetica, Arial, sans-serif, &apos;Apple Color Emoji&apos;, &apos;Segoe UI Emoji&apos;, &apos;Segoe UI Symbol&apos;); font-size: 16px; color: rgb(250, 0, 0); background-color: var(--slds-g-color-neutral-base-100, var(--lwc-colorBackgroundInput,rgb(255, 255, 255)));&quot;&gt;{!&lt;/strong&gt;Finance_Get_Product_All_Data&lt;strong style=&quot;font-family: var(--lwc-fontFamily,-apple-system, BlinkMacSystemFont, &apos;Segoe UI&apos;, Roboto, Helvetica, Arial, sans-serif, &apos;Apple Color Emoji&apos;, &apos;Segoe UI Emoji&apos;, &apos;Segoe UI Symbol&apos;); font-size: 16px; color: rgb(250, 0, 0); background-color: var(--slds-g-color-neutral-base-100, var(--lwc-colorBackgroundInput,rgb(255, 255, 255)));&quot;&gt;.defaultExc}&lt;/strong&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong style=&quot;font-family: var(--lwc-fontFamily,-apple-system, BlinkMacSystemFont, &apos;Segoe UI&apos;, Roboto, Helvetica, Arial, sans-serif, &apos;Apple Color Emoji&apos;, &apos;Segoe UI Emoji&apos;, &apos;Segoe UI Symbol&apos;); font-size: 16px; color: rgb(250, 0, 0); background-color: var(--slds-g-color-neutral-base-100, var(--lwc-colorBackgroundInput,rgb(255, 255, 255)));&quot;&gt;﻿&lt;/strong&gt;&lt;/p&gt;</fieldText>
+            <fieldText>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong style=&quot;font-size: 18px; color: rgb(250, 0, 0);&quot;&gt;{!getProductErrorMessage}&lt;/strong&gt;&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
             <visibilityRule>
                 <conditionLogic>and</conditionLogic>
                 <conditions>
-                    <leftValueReference>Finance_Get_Product_All_Data.responseCode</leftValueReference>
-                    <operator>NotEqualTo</operator>
+                    <leftValueReference>getProductIsSuccess</leftValueReference>
+                    <operator>EqualTo</operator>
                     <rightValue>
-                        <numberValue>200.0</numberValue>
+                        <booleanValue>false</booleanValue>
                     </rightValue>
                 </conditions>
             </visibilityRule>
@@ -514,7 +1442,7 @@
             <inputParameters>
                 <name>response</name>
                 <value>
-                    <elementReference>responseFromApiCallout</elementReference>
+                    <elementReference>getProductSuccessResponse</elementReference>
                 </value>
             </inputParameters>
             <inputParameters>
@@ -535,16 +1463,94 @@
                     <elementReference>contactId2ForLWC</elementReference>
                 </value>
             </inputParameters>
+            <inputParameters>
+                <name>vehicleQli</name>
+                <value>
+                    <elementReference>GET_Vehicle_QLI_Record</elementReference>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>personType</name>
+                <value>
+                    <elementReference>personType</elementReference>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>channel</name>
+                <value>
+                    <elementReference>channel</elementReference>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>typeOfUse</name>
+                <value>
+                    <elementReference>companyNameCheckFormulaValue</elementReference>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>financeInformation</name>
+                <value>
+                    <elementReference>Get_Saved_Finance_Information_Record</elementReference>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>retailerDiscountSerializedData</name>
+                <value>
+                    <elementReference>serializedRetailerUpdateDataLWC</elementReference>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>serializedData</name>
+                <value>
+                    <elementReference>retnResponse</elementReference>
+                </value>
+            </inputParameters>
             <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
             <visibilityRule>
                 <conditionLogic>and</conditionLogic>
                 <conditions>
-                    <leftValueReference>Finance_Get_Product_All_Data.responseCode</leftValueReference>
+                    <leftValueReference>getProductIsSuccess</leftValueReference>
                     <operator>EqualTo</operator>
                     <rightValue>
-                        <numberValue>200.0</numberValue>
+                        <booleanValue>true</booleanValue>
+                    </rightValue>
+                </conditions>
+            </visibilityRule>
+        </fields>
+        <fields>
+            <name>CustomizationLightningComponent</name>
+            <extensionName>c:gol_FinanceParentCustomizationComponent</extensionName>
+            <fieldType>ComponentInstance</fieldType>
+            <inputParameters>
+                <name>quoteId</name>
+                <value>
+                    <elementReference>quoteId</elementReference>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>qliRecord</name>
+                <value>
+                    <elementReference>GET_Vehicle_QLI_Record</elementReference>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>TotalPromotionsAndDiscountsGross</name>
+                <value>
+                    <elementReference>Get_Quote_Record.LMS_QUO_TotalPromotionsAndDiscountsGross__c</elementReference>
+                </value>
+            </inputParameters>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+            <isRequired>true</isRequired>
+            <storeOutputAutomatically>true</storeOutputAutomatically>
+            <visibilityRule>
+                <conditionLogic>and</conditionLogic>
+                <conditions>
+                    <leftValueReference>getProductIsSuccess</leftValueReference>
+                    <operator>EqualTo</operator>
+                    <rightValue>
+                        <booleanValue>true</booleanValue>
                     </rightValue>
                 </conditions>
             </visibilityRule>
@@ -555,14 +1561,19 @@
     <screens>
         <name>Foundation_Quote_View_Screen</name>
         <label>Foundation Quote View Screen</label>
-        <locationX>644</locationX>
-        <locationY>1898</locationY>
+        <locationX>3218</locationX>
+        <locationY>2138</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
         <connector>
-            <targetReference>SelectedButtonValue</targetReference>
+            <targetReference>Check_Event_Name</targetReference>
         </connector>
+        <fields>
+            <name>Vehicle_InfoTwo</name>
+            <fieldText>&lt;p&gt;{!ConfigVehicleName}&lt;/p&gt;&lt;p&gt;{!ConfigVehicleEngineAndPrice}&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
         <fields>
             <name>FinanceFoundationQuoteView</name>
             <extensionName>c:gol_FinanceFoundationQuoteView</extensionName>
@@ -570,19 +1581,7 @@
             <inputParameters>
                 <name>financeInformationId</name>
                 <value>
-                    <elementReference>Get_Finance_Records.Id</elementReference>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>ContactId</name>
-                <value>
-                    <elementReference>Get_Finance_Records.Id</elementReference>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>ContactId2</name>
-                <value>
-                    <elementReference>Invoke_Get_Quote_API_and_Create_Fin_Info_Record_With_1_Fin_Info_Record.financeQuoteId</elementReference>
+                    <elementReference>FinanceInformationRecord.Id</elementReference>
                 </value>
             </inputParameters>
             <inputParameters>
@@ -594,7 +1593,19 @@
             <inputParameters>
                 <name>financeInformationRecord</name>
                 <value>
-                    <elementReference>Get_Finance_Records</elementReference>
+                    <elementReference>FinanceInformationRecord</elementReference>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>alternativeFinanceInformationRecord</name>
+                <value>
+                    <elementReference>AlternativeFinanceInformationRecord</elementReference>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>financeInfoRecord</name>
+                <value>
+                    <elementReference>FinanceInformationRecord.Id</elementReference>
                 </value>
             </inputParameters>
             <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
@@ -604,19 +1615,72 @@
         <showFooter>false</showFooter>
         <showHeader>false</showHeader>
     </screens>
+    <screens>
+        <name>Overview_Screen</name>
+        <label>Overview Screen</label>
+        <locationX>2954</locationX>
+        <locationY>2462</locationY>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <connector>
+            <targetReference>SelectedButtonValue</targetReference>
+        </connector>
+        <fields>
+            <name>goToOverview</name>
+            <fieldText>&lt;p&gt;{!ConfigVehicleName}&lt;/p&gt;&lt;p&gt;{!ConfigVehicleEngineAndPrice}&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>GOL_QuoteOverviewTable</name>
+            <dataTypeMappings>
+                <typeName>T</typeName>
+                <typeValue>LMS_FinanceInformation__c</typeValue>
+            </dataTypeMappings>
+            <extensionName>c:gol_QuotationOverview</extensionName>
+            <fieldType>ComponentInstance</fieldType>
+            <inputParameters>
+                <name>FinanceInfoRecords</name>
+                <value>
+                    <elementReference>Get_Fin_Info_Records_For_Overview</elementReference>
+                </value>
+            </inputParameters>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+            <isRequired>true</isRequired>
+            <storeOutputAutomatically>true</storeOutputAutomatically>
+        </fields>
+        <nextOrFinishButtonLabel>NEW CALCULATION</nextOrFinishButtonLabel>
+        <showFooter>true</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <screens>
+        <name>waq</name>
+        <label>waq</label>
+        <locationX>2294</locationX>
+        <locationY>2762</locationY>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <fields>
+            <name>ds</name>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
     <start>
-        <locationX>837</locationX>
+        <locationX>1502</locationX>
         <locationY>0</locationY>
         <connector>
             <targetReference>Get_Quote_Record</targetReference>
         </connector>
     </start>
-    <status>Active</status>
+    <status>Obsolete</status>
     <subflows>
         <name>Insert_Exception</name>
         <label>Insert Exception</label>
-        <locationX>1051</locationX>
-        <locationY>674</locationY>
+        <locationX>1760</locationX>
+        <locationY>1406</locationY>
         <connector>
             <targetReference>Finance_Product_Selection_Screen</targetReference>
         </connector>
@@ -640,12 +1704,129 @@
             </value>
         </inputAssignments>
     </subflows>
+    <subflows>
+        <name>Insert_Exception_for_Fault_Path</name>
+        <label>Insert Exception for Fault Path</label>
+        <locationX>4098</locationX>
+        <locationY>1298</locationY>
+        <connector>
+            <isGoTo>true</isGoTo>
+            <targetReference>Finance_Product_Selection_Screen</targetReference>
+        </connector>
+        <flowName>ERPT_Insert_Exception_Log</flowName>
+        <inputAssignments>
+            <name>exMessage</name>
+            <value>
+                <stringValue>Get Product API Call Failed.</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>exStackTrace</name>
+            <value>
+                <elementReference>$Flow.FaultMessage</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>exType</name>
+            <value>
+                <elementReference>FlowName</elementReference>
+            </value>
+        </inputAssignments>
+    </subflows>
+    <subflows>
+        <name>Insert_Exception_for_missing_payload</name>
+        <label>Insert Exception for missing payload</label>
+        <locationX>1370</locationX>
+        <locationY>2138</locationY>
+        <connector>
+            <isGoTo>true</isGoTo>
+            <targetReference>Finance_Product_Selection_Screen</targetReference>
+        </connector>
+        <flowName>ERPT_Insert_Exception_Log</flowName>
+        <inputAssignments>
+            <name>exMessage</name>
+            <value>
+                <stringValue>Get Quote API Payload is missing</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>exStackTrace</name>
+            <value>
+                <stringValue>Get Quote API Payload is missing</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>exType</name>
+            <value>
+                <elementReference>FlowName</elementReference>
+            </value>
+        </inputAssignments>
+    </subflows>
+    <subflows>
+        <name>Insert_Exception_for_Quote_Upsert_Fail</name>
+        <label>Insert Exception for Quote Upsert Fail</label>
+        <locationX>1106</locationX>
+        <locationY>2354</locationY>
+        <connector>
+            <isGoTo>true</isGoTo>
+            <targetReference>Finance_Product_Selection_Screen</targetReference>
+        </connector>
+        <flowName>ERPT_Insert_Exception_Log</flowName>
+        <inputAssignments>
+            <name>exMessage</name>
+            <value>
+                <elementReference>Invoke_Get_Quote_API_and_Upsert_Fin_Info_Record.message</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>exStackTrace</name>
+            <value>
+                <elementReference>Invoke_Get_Quote_API_and_Upsert_Fin_Info_Record.message</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <name>exType</name>
+            <value>
+                <elementReference>FlowName</elementReference>
+            </value>
+        </inputAssignments>
+    </subflows>
+    <textTemplates>
+        <name>ConfigVehicleEngineAndPrice</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>&lt;p style=&quot;font-family: AvenirNextRegular;font-size: 15px;letter-spacing:2px;&quot;&gt;&lt;strong&gt;{!VehicleEngine}&lt;/strong&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;{!VehiclePrice}€&lt;/p&gt;</text>
+    </textTemplates>
+    <textTemplates>
+        <name>ConfigVehicleName</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>&lt;p style=&quot;font-family: AvenirNextRegular; font-size: 19px; letter-spacing:2px;
+width: 349px;height: 35px;top: 262px;left: 90px;font-weight: 700;
+ margin-top: 36px;;&quot;&gt;{!VehicleName}   {!VehicleDescription}&lt;/p&gt;</text>
+    </textTemplates>
     <textTemplates>
         <description>Response from Muelsoft Get Product API Callout</description>
         <name>responseFromApiCallout</name>
         <isViewedAsPlainText>false</isViewedAsPlainText>
-        <text>&lt;p&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(68, 68, 68);&quot;&gt;{!Finance_Get_Product_All_Data.200}&lt;/span&gt;&lt;/p&gt;</text>
+        <text>&lt;p&gt;{!Finance_Get_Product_All_Data.200}&lt;/p&gt;</text>
     </textTemplates>
+    <variables>
+        <name>AlternativeFinanceInformationRecord</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>LMS_FinanceInformation__c</objectType>
+    </variables>
+    <variables>
+        <name>CalculateFinanceButtonValue</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <value>
+            <stringValue></stringValue>
+        </value>
+    </variables>
     <variables>
         <name>companyNameCheck</name>
         <dataType>String</dataType>
@@ -671,6 +1852,14 @@
         <isOutput>true</isOutput>
     </variables>
     <variables>
+        <name>FinanceInformationRecord</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>LMS_FinanceInformation__c</objectType>
+    </variables>
+    <variables>
         <name>FinInfoRecords</name>
         <dataType>String</dataType>
         <isCollection>true</isCollection>
@@ -678,11 +1867,68 @@
         <isOutput>true</isOutput>
     </variables>
     <variables>
+        <name>getProductErrorMessage</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <value>
+            <stringValue></stringValue>
+        </value>
+    </variables>
+    <variables>
+        <name>getProductIsSuccess</name>
+        <dataType>Boolean</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <value>
+            <booleanValue>false</booleanValue>
+        </value>
+    </variables>
+    <variables>
+        <name>getProductSuccessResponse</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <value>
+            <stringValue></stringValue>
+        </value>
+    </variables>
+    <variables>
         <name>GetQuotePrice</name>
         <dataType>String</dataType>
         <isCollection>false</isCollection>
         <isInput>true</isInput>
         <isOutput>true</isOutput>
+    </variables>
+    <variables>
+        <name>isAlternativeQuoteCalculation</name>
+        <dataType>Boolean</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <value>
+            <booleanValue>false</booleanValue>
+        </value>
+    </variables>
+    <variables>
+        <name>IsRetailerDiscountAmountUpdated</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+        <value>
+            <stringValue>No</stringValue>
+        </value>
+    </variables>
+    <variables>
+        <name>QLIRecordType</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
     </variables>
     <variables>
         <name>quoteId</name>
@@ -716,6 +1962,47 @@
         <dataType>String</dataType>
         <isCollection>false</isCollection>
         <isInput>true</isInput>
+        <isOutput>false</isOutput>
+        <value>
+            <stringValue></stringValue>
+        </value>
+    </variables>
+    <variables>
+        <name>serializedRetailerUpdateDataLWC</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>VehicleDescription</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+    <variables>
+        <name>VehicleEngine</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <value>
+            <stringValue></stringValue>
+        </value>
+    </variables>
+    <variables>
+        <name>VehicleName</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>true</isOutput>
+    </variables>
+    <variables>
+        <name>VehiclePrice</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
         <isOutput>false</isOutput>
         <value>
             <stringValue></stringValue>

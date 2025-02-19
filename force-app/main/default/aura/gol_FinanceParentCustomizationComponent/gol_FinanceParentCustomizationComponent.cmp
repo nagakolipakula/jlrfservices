@@ -1,0 +1,66 @@
+<aura:component implements="lightning:availableForFlowScreens" access="global" >
+<aura:attribute name="quoteId" type="String" default="" />
+<aura:attribute name="qliRecord" type="LMS_QuoteLineItem__c" />
+<aura:handler name="init" value="{!this}" action="{!c.onInit}"/>
+<aura:attribute name="customizationfirsticon" type="string" default="utility:add"/>
+<aura:attribute name="customizationsecondicon" type="string" default="utility:add"/>
+<aura:attribute name="customizationfirstcircle" type="string" default="circle-outline"/>
+<aura:attribute name="customizationsecondcircle" type="string" default="circle-outline"/>
+<aura:attribute name="TotalPromotionsAndDiscountsGross" type="Decimal" default= "0" />
+<aura:attribute name="isretailerdiscountamountupdate" type="string" default="No"/>
+<aura:attribute name="retailerdiscountpercent" type="Decimal" default="0"/>
+<aura:attribute name="retailerdiscountAmount" type="Decimal" default="0"/>
+<aura:attribute name="retailerdiscountNetAmount2" type="Decimal" default= "0" />
+<aura:attribute name="retailerdiscountamountInclVal" type="Decimal" default= "0" />
+    
+    <div class="customizationscreencss">
+    <!--<c:gol_FinanceCustomizationComponent 
+    quoteId ="{!v.quoteId}"
+    vehicleqlirecord="{!v.qliRecord}" />-->
+        
+            <div class="accordioncss slds-p-top_large slds-p-bottom_medium slds-border_bottom">
+				<details>
+					<summary onclick="{!c.toggleSection}" name="toggleSectionC" data-mid="customizationjlr" class="customizationlabelcss titlelabelcss" >
+                        <div style="flex: 1;">
+                            <div class="title-container">
+                                <span class="slds-truncate slds-text-align_left section-header title-label" >{!$Label.c.GOL_Customization}</span>
+                                <!-- <div class="circle-fill"></div> -->
+                                <div class="{!v.customizationfirstcircle}"></div>
+                                <div class="{!v.customizationsecondcircle}"></div>
+                            </div>
+                        </div>
+                        <div class="slds-text-align_right customizationfirsticoncss" >
+                                <lightning:icon aura:id="customizationfirsticonid" iconName="{!v.customizationfirsticon}" size="small" alternativeText="button icon"/>								
+                        </div>
+                    </summary>
+                    <br />
+                    <div>
+                    	<c:gol_FinanceCustomizationComponent 
+                        quoteId ="{!v.quoteId}"
+                        vehicleqlirecord="{!v.qliRecord}" 
+                        onretailerdiscountchange="{!c.getRetailerDiscountValueFromLwc}"/>
+                    </div>
+                    
+                    <details class="jlrsupportdetail">
+                    <summary onclick="{!c.toggleJlrSupportSection}" data-mid="customizationjlrsupport" class="jlrsupportlabelcss" >
+                        {!$Label.c.GOL_JLR_Support}                           
+                        <span class="slds-text-align_right" style="float: right;">
+                        		<lightning:icon aura:id="customizationsecondiconid" iconName="{!v.customizationsecondicon}" size="small" alternativeText="button icon"/>
+                        </span>
+                        <span class="slds-text-align_right jlrsupportexclvatcss" style="float: right;margin: 3.5px 25px 0px 0px;">
+                            {!$Label.c.GOL_Excl_VAT}&nbsp;<lightning:formattedNumber value="{!v.TotalPromotionsAndDiscountsGross}" style="currency" />
+                        </span>
+                    </summary>
+                    <br />
+                    <div class="golpromotioncss">
+                        <c:gol_Promotion
+                        quoteId ="{!v.quoteId}"
+                        isNotGolFinance ="false"/>
+                    </div>
+                    </details>
+                </details>
+            </div>       
+           
+    </div>
+    
+</aura:component>

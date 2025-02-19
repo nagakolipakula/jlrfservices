@@ -1,0 +1,58 @@
+.THIS {
+}
+.THIS.customizationscreencss{
+    width: 100%;
+    max-width: 1200px;
+    margin-left: 20px;
+}
+.THIS .titlelabelcss{
+    cursor: pointer;
+}
+.THIS .title-container {
+    display: flex; 
+    align-items: center; 
+    gap: 12px;
+  }
+.THIS .title-label {
+    font-family: 'Avenir Next', sans-serif;
+    font-style: bold;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 18px;
+    letter-spacing: 0.9px;
+    color: #0C121C;
+    margin-right: 40px;
+}
+.THIS .circle-fill {
+    width: 12px; 
+    height: 12px;
+    background-color: #0C121C; 
+    border-radius: 50%; 
+  }
+
+.THIS .circle-outline {
+    width: 12px;
+    height: 12px;
+    background-color: transparent;
+    border: 2px solid #0C121C; 
+    border-radius: 50%; 
+  }
+.THIS .jlrsupportdetail{
+    margin: 5% 0% 2% 0%;
+}
+.THIS .jlrsupportlabelcss{
+    cursor: pointer;
+    font-family: 'Avenir Next', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 19px;
+    letter-spacing: 0.2px;
+    color: #0C121C;
+}
+.THIS .customizationfirsticoncss{
+    margin-top: -2%;
+}
+.THIS .golpromotioncss{
+    position: relative;
+    left: -1%;
+}

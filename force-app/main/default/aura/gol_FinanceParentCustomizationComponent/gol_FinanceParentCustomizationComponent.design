@@ -1,0 +1,10 @@
+<design:component >
+<design:attribute name="quoteId" label="Quote Id" /> 
+<design:attribute name="qliRecord" label="Vehicle Quote Line Item" description="Vehicle Quote Line Item Record" />
+<design:attribute name="TotalPromotionsAndDiscountsGross" label="Total Promotions and Discounts Gross" />
+<design:attribute name="isretailerdiscountamountupdate" label="Is Retailer Discount Updated" /> 
+<design:attribute name="retailerdiscountpercent" label="Retailer Discount Percentage" />
+<design:attribute name="retailerdiscountAmount" label="Gross Amount Discount" />
+<design:attribute name="retailerdiscountNetAmount2" label="Net Amount Discount" /> 
+<design:attribute name="retailerdiscountamountInclVal" label="Adjusted Price" />    
+</design:component>

@@ -1,0 +1,16 @@
+.inputboxcss .slds-input{
+	font-family: 'Avenir Next', sans-serif !important;
+	font-size: 14px !important;
+	font-weight: 500 !important;
+	line-height: 19px !important;
+	letter-spacing: 0.2px !important;
+	text-align: right !important;
+	text-underline-position: from-font !important;
+	text-decoration-skip-ink: none !important;
+	color: #4A4F54 !important;
+
+}
+.inputboxcss .slds-input:focus, .inputboxcss .slds-input:active, .inputboxcss .slds-input:hover {
+    border: 2px solid black;
+    box-shadow: none;
+}

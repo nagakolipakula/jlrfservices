@@ -24,17 +24,17 @@ export default class Gol_FinanceHeaderDetailButtons extends LightningElement {
         //this.dispatchEvent(new FlowAttributeChangeEvent('companyNameCheck', 'PRIVATE')); 
         //this.navigateFlow();
         console.log(this.label.GOL_Finance_Value_PRIVATE+'<==this.companyNameCheck==>'+this.companyNameCheck);
-        if(this.companyNameCheck === this.label.GOL_Finance_Value_PROFESSIONAL){
+        if(this.companyNameCheck === this.label.GOL_Finance_Value_PRIVATE){
             this.personalPerchaseStyle = 'btn-client-select';
             this.companyPerchaseStyle = 'btn-client-deselect';
-        }else if(this.companyNameCheck === this.label.GOL_Finance_Value_PRIVATE){
+        }else if(this.companyNameCheck === this.label.GOL_Finance_Value_PROFESSIONAL){
             this.personalPerchaseStyle = 'btn-client-deselect';
             this.companyPerchaseStyle = 'btn-client-select';
         }
     }
 
     handleReconfigure (event){
-        if(this.companyNameCheck !== event.target.value || this.productAPIResponseCode != 200){
+        if(this.companyNameCheck !== event.target.value ){
         const selectedButton = event.target.dataset.id;
         if (selectedButton === 'personal') {
                 this.personalPerchaseStyle = 'btn-client-select';

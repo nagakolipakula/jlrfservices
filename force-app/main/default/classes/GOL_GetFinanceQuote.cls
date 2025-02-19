@@ -11,9 +11,10 @@ public with sharing class GOL_GetFinanceQuote {
             lstResponse.add(results);
             return lstResponse;
         }
-
         String quoteId = lstRequestData.get(0).quoteId;
         String quotePayload = lstRequestData.get(0).quotePayload;
+        String financeQuoteIdOld = lstRequestData.get(0).financeQuoteId;
+    
 
         //quotePayload = quotePayload.replace('44250.003', '44250');//Remove this later
 
@@ -22,9 +23,11 @@ public with sharing class GOL_GetFinanceQuote {
             
             if (response.getStatusCode() == 200) {
                 GOL_JSON2ApexFinancialQuoteWrapper parsedResponse = GOL_JSON2ApexFinancialQuoteWrapper.parse(response.getBody());
-                Id financeRecordId = createFinanceInformationRecord(quoteId, parsedResponse);
-                createFinanceItemsFixedCosts(financeRecordId, parsedResponse.fixedCosts);
-              
+                Id financeRecordId = createFinanceInformationRecord(quoteId, parsedResponse,financeQuoteIdOld);
+                deleteFinanceItems(financeRecordId);
+                if(parsedResponse.fixedCosts != null && parsedResponse.fixedCosts.size() > 0){
+                    createFinanceItemsFixedCosts(financeRecordId, parsedResponse.fixedCosts);
+                }
                 results.isSuccess = (financeRecordId != null);
                 results.financeQuoteId = financeRecordId;
             } else {
@@ -54,30 +57,44 @@ public with sharing class GOL_GetFinanceQuote {
         return http.send(request);
     }
 
-    private static Id createFinanceInformationRecord(String quoteId, GOL_JSON2ApexFinancialQuoteWrapper parsedResponse) {
+    private static Id createFinanceInformationRecord(String quoteId, GOL_JSON2ApexFinancialQuoteWrapper parsedResponse,String financeQuoteIdOld) {
         if (parsedResponse == null) {
             return null;
         }
         
         LMS_FinanceInformation__c financeInformation = new LMS_FinanceInformation__c();
+        financeInformation.Id = financeQuoteIdOld;
         financeInformation.LMS_FIN_Quote__c = quoteId;
         financeInformation.RecordTypeId = Schema.SObjectType.LMS_FinanceInformation__c.getRecordTypeInfosByDeveloperName().get(GOL_Constants.LMS_FIN_CENTRAL_FINANCING_RT).getRecordTypeId();
-        financeInformation.LMS_FIN_Lead__c = getSalesLead(quoteId);
-        financeInformation.LMS_FIN_Term__c = parsedResponse.Quote.duration;
-        financeInformation.LMS_FIN_ProdName__c = parsedResponse.FinancialProduct.name;
-        financeInformation.LMS_FIN_FinanceInstitution__c = 'BNPP'; //Need to check this value
-        financeInformation.LMS_FIN_Finance_Reference__c = parsedResponse.FinancialProduct.fullId;
-        financeInformation.LMS_FIN_Finance_Provider__c = GOL_Constants.LMS_FIN_FINANCE_PROVIDER;
-        financeInformation.LMS_FIN_Annual_Contract_Mileage__c = parsedResponse.Quote.annualMileage;
-        financeInformation.ERPT_FIN_TotalGrossAmt__c = parsedResponse.Quote.totalGrossAmount;
-        financeInformation.ERPT_FIN_LegalTitle__c = parsedResponse.LegalDocument.title;
-        financeInformation.ERPT_FIN_LegalText__c = parsedResponse.LegalDocument.body;
-        financeInformation.ERPT_FIN_InstallmentIntGrossAmt__c = parsedResponse.Quote.installmentGrossAmount;
-        financeInformation.ERPT_FIN_CreditTimeUoM__c = parsedResponse.FinancialProduct.creditTimeUnit;
-        financeInformation.CurrencyIsoCode = parsedResponse.FinancialProduct.currencyCode;
+        if(financeQuoteIdOld == null ){
+            financeInformation.LMS_FIN_Lead__c = getSalesLead(quoteId);
+        }
         
-        insert financeInformation;
+        financeInformation.LMS_FIN_Term__c = parsedResponse.Quote.duration;//Months (duration)
+        financeInformation.LMS_FIN_ProdName__c = parsedResponse.FinancialProduct.name; //Product Name
+        financeInformation.LMS_FIN_FinanceInstitution__c = parsedResponse.FinancialProduct.provider; //Need to check this value
+        financeInformation.LMS_FIN_Finance_Reference__c = parsedResponse.FinancialProduct.fullId; //Product Id
+        financeInformation.LMS_FIN_Finance_Provider__c = GOL_Constants.LMS_FIN_FINANCE_PROVIDER;
+        financeInformation.LMS_FIN_Annual_Contract_Mileage__c = parsedResponse.Quote.annualMileage;//Anual Milege
+        financeInformation.ERPT_FIN_TotalGrossAmt__c = parsedResponse.Quote.totalGrossAmount; //Gross Amount
+        financeInformation.ERPT_FIN_LegalTitle__c = parsedResponse.LegalDocument.title;//Legal 
+        financeInformation.ERPT_FIN_LegalText__c = parsedResponse.LegalDocument.body;//Legal 
+        financeInformation.ERPT_FIN_InstallmentIntGrossAmt__c = parsedResponse.Quote.installmentGrossAmount;//Monthly Gross amount
+        financeInformation.ERPT_FIN_CreditTimeUoM__c = parsedResponse.FinancialProduct.creditTimeUnit;//Months
+        financeInformation.CurrencyIsoCode = parsedResponse.FinancialProduct.currencyCode;//Currency code
+        financeInformation.LMS_FIN_Deposit__c = parsedResponse.Quote.downPaymentGrossAmount; //Deposit
+        financeInformation.GOL_Type_Of_Use__c = parsedResponse.typeOfUse; 
+        financeInformation.GOL_Person_Type__c  = parsedResponse.personType;
+        financeInformation.GOL_Channel__c = parsedResponse.channel;
+        
+        upsert financeInformation;
         return financeInformation.Id;
+    }
+    private static void deleteFinanceItems(String financeInformationId){
+        List<ERPT_FinanceItem__c> lstFinanceItems = [SELECT Id FROM ERPT_FinanceItem__c WHERE ERPT_FII_FinanceInformation__c = :financeInformationId];
+        if(!lstFinanceItems.isEmpty()){
+            delete lstFinanceItems;
+        }
     }
 
     private static void createFinanceItemsFixedCosts(String financeInformationId,List<GOL_JSON2ApexFinancialQuoteWrapper.FixedCost> fixedCosts) {
@@ -104,12 +121,20 @@ public with sharing class GOL_GetFinanceQuote {
         return (quoList.isEmpty()) ? null : quoList[0].LMS_QUO_Opportunity__c;
     }
 
+    @AuraEnabled(cacheable=true)
+    public static List<GOL_Record_vs_Input_Fields_Mapping__mdt> getInputFieldsMappingRecords() {
+        return [SELECT DeveloperName, Field_API_Name__c,Input_Fields_Name__c,Object_API_Name__c FROM GOL_Record_vs_Input_Fields_Mapping__mdt];
+    }
+
     public class Request {
         @InvocableVariable
         public Id quoteId;
         
         @InvocableVariable
         public String quotePayload;
+
+        @InvocableVariable
+        public Id financeQuoteId;
     }
 
     public class Response {

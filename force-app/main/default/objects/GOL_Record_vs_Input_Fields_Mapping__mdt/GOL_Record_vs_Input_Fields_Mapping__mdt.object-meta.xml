@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>This custom metadata used to keep the mapping between Finance Information object and get Product API input fields</description>
+    <label>GOL Record vs Input Fields Mapping</label>
+    <pluralLabel>GOL Record vs Input Fields Mappings</pluralLabel>
+    <visibility>Public</visibility>
+</CustomObject>

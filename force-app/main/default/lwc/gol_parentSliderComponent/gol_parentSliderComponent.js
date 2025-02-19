@@ -262,7 +262,7 @@ export default class gol_parentSliderComponent extends LightningElement {
         .filter(([key]) => 
           allowedFields.includes(key) &&
           key !== "downPaymentRateRange" &&
-          // key !== "finalTermRateRange" &&
+          key !== "loanGrossAmountRange" &&
           key !== "interestRateRange"
         )
         .map(([key, field]) => {

@@ -505,25 +505,37 @@ export default class gol_parentSliderComponent extends LightningElement {
     //       flowApiName: 'GOL_Screen_Flow_Finance_Tab'
     //   },
     // });
-    setTimeout(() => {
+    if (!this.serializedData || Object.keys(this.serializedData).length === 0) {
+      console.error("serializedData is not set properly");
+      return;
+    }
+    //setTimeout(() => {
       this.dispatchEvent(new FlowAttributeChangeEvent('serializedData', JSON.stringify(this.serializedData)));
-    },50);
+   // },50);
   }
 
   buildSerializedData() {
      // const cpiProducts = this.buildCpiProducts();
     //const inputFields = this.buildInputFields();
     // const providerData = this.parsedResponse.find(item => item.id === this.selectedProductId);
-    const providerData = this.getSelectedProduct();
+    const providerData = this.parsedResponse.find(item => item.id === this.selectedProductId);
+    if (!providerData) {
+      console.error("No provider data found for selected product!");
+      return;
+    }
     const inputFields = this.buildInputFields();
+    if (!inputFields || Object.keys(inputFields).length === 0) {
+      console.error("No input fields found!");
+      return;
+    }
     console.log('-------providerData----------');
     console.log(providerData.cpiProducts);
     const cpiProducts = providerData.cpiProducts || [];
     const serializedData = {
       quoteId: this.quoteExternalId,
-      typeOfUse: this.typeOfUse || "",
-      personType: this.personType || "",
-      channel: this.channel || "",
+      typeOfUse: this.typeOfUse || "PRIVATE",
+      personType: this.personType || "PHYSICAL",
+      channel: this.channel || "POS",
       product: {
           fullId: providerData.id || "",
           name: providerData.name || "",
@@ -639,26 +651,18 @@ export default class gol_parentSliderComponent extends LightningElement {
 buildInputFields() {
   const selectedFields = {};
   const modifiedSliderValues = this.selectedSliderValues.get(this.selectedProductId) || {};
-  console.log("Modified Slider Values Before Sending:", JSON.stringify(modifiedSliderValues, null, 2));
   this.sliders.forEach((slider) => {
-    let sliderKey = slider.id;
-    if (slider.id === 'dependentMileageSlider') {
-      sliderKey = 'annualMileagesRange';
-    }
-
-    const selectedValue = modifiedSliderValues[slider.id] ?? slider.defaultValue;
-
-    selectedFields[sliderKey] = {
-      selectedValue: selectedValue || 0,
-      step: slider.step || 0,
-      defaultValue: slider.defaultValue || 0,
-      minValue: slider.min || 0,
-      maxValue: slider.max || 0,
-      unit: slider.unit || "",
-      label: slider.label || ""
+    const sliderId = slider.id === 'dependentMileageSlider' ? 'annualMileagesRange' : slider.id;
+    selectedFields[sliderId] = {
+        selectedValue: modifiedSliderValues[sliderId] ?? slider.defaultValue,
+        step: slider.step ?? 1,
+        defaultValue: slider.defaultValue ?? 0,
+        minValue: slider.min ?? 0,
+        maxValue: slider.max ?? 0,
+        unit: slider.unit || '',
+        label: slider.label || ''
     };
   });
-
   console.log("Selected Input Fields:", JSON.stringify(selectedFields, null, 2));
   return selectedFields;
 }

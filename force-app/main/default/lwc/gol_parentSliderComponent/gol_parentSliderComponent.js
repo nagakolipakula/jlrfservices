@@ -67,7 +67,7 @@ export default class gol_parentSliderComponent extends LightningElement {
       }
 
       this.hasNoFinancialProducts = false;
-      //console.log('Parsed Response:', JSON.stringify(this.parsedResponse, null, 2));
+      console.log('Parsed Response:', JSON.stringify(this.parsedResponse, null, 2));
       this.isInitialLoadInModify = true;
 
       if (this.retailerDiscountSerializedData) {

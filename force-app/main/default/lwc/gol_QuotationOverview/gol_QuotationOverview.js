@@ -123,7 +123,7 @@ export default class golQuotationOverview extends LightningElement {
     handleJlrIdClick(event) {
         const recordId = event.target.dataset.recordid;
         console.log('Clicked JLR ID - Record ID:', recordId);
-        const action = new FlowAttributeChangeEvent('buttonAction', 'Row Clicked');
+        const action = new FlowAttributeChangeEvent('buttonActionForOverview', 'Row Clicked');
         this.dispatchEvent(action);
         const nextEvent = new FlowNavigationNextEvent();
         this.dispatchEvent(nextEvent);
@@ -131,7 +131,7 @@ export default class golQuotationOverview extends LightningElement {
 
     handleUpdateClick() {
         // console.log("Update Button Clicked!");
-        const action = new FlowAttributeChangeEvent('buttonAction', 'Update Button Clicked');
+        const action = new FlowAttributeChangeEvent('buttonActionForOverview', 'Update Button Clicked');
         this.dispatchEvent(action);
         const nextEvent = new FlowNavigationNextEvent();
         this.dispatchEvent(nextEvent);
@@ -139,7 +139,7 @@ export default class golQuotationOverview extends LightningElement {
 
     handleSendToBankClick() {
         console.log("Send to Bank Button Clicked!");
-        const action = new FlowAttributeChangeEvent('buttonAction', 'Send to Bank Button Clicked');
+        const action = new FlowAttributeChangeEvent('buttonActionForOverview', 'Send to Bank Button Clicked');
         this.dispatchEvent(action);
         const nextEvent = new FlowNavigationNextEvent();
         this.dispatchEvent(nextEvent);
@@ -153,7 +153,7 @@ export default class golQuotationOverview extends LightningElement {
                 JLR_ID: record.GOL_JLR_ID__c
             }));
         // console.log("Open Button Clicked! Selected Records:", JSON.parse(JSON.stringify(selectedDetails)));
-        const action = new FlowAttributeChangeEvent('buttonAction', 'Open Button Clicked');
+        const action = new FlowAttributeChangeEvent('buttonActionForOverview', 'Open Button Clicked');
         this.dispatchEvent(action);
         const nextEvent = new FlowNavigationNextEvent();
         this.dispatchEvent(nextEvent);
@@ -161,7 +161,7 @@ export default class golQuotationOverview extends LightningElement {
 
     handleNewCalculationClick() {
         // console.log("New Calculation Button Clicked");
-        const action = new FlowAttributeChangeEvent('buttonAction', 'New Calculation Button Clicked');
+        const action = new FlowAttributeChangeEvent('buttonActionForOverview', 'New Calculation Button Clicked');
         // console.log("Dispatching FlowAttributeChangeEvent:", JSON.stringify(action, null, 2));
         this.dispatchEvent(action);
         const nextEvent = new FlowNavigationNextEvent();

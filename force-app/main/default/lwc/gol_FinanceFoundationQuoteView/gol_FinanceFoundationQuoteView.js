@@ -26,11 +26,11 @@ import GOL_Event_Go_To_Alternative_Modify from '@salesforce/label/c.GOL_Event_Go
 import { FlowAttributeChangeEvent, FlowNavigationNextEvent, FlowNavigationBackEvent, FlowNavigationFinishEvent } from 'lightning/flowSupport';
 
 export default class gol_FinanceFoundationQuoteView extends LightningElement {
-    @api financeInformationId;
-    @api ContactId;
-    @api ContactId2;
-    @api QuotePrice;
-    @api financeInfoRecord;
+    @api financeInformationId;//Not use
+    @api ContactId;//Not use
+    @api ContactId2;//Not use
+    @api QuotePrice;//Not use
+    @api financeInfoRecord;//Not use
     @api financeInformationRecord;
     @api alternativeFinanceInformationRecord;
     @api buttonAction;

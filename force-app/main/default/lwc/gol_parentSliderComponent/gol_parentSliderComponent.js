@@ -9,6 +9,7 @@ import { FlowAttributeChangeEvent, FlowNavigationNextEvent, FlowNavigationBackEv
 import getInputFieldsMappingRecords from '@salesforce/apex/GOL_GetFinanceQuote.getInputFieldsMappingRecords';
 
 export default class gol_parentSliderComponent extends LightningElement {
+  @api buttonActionForOverview;
   @api response;
   @api serializedData;
   @api quoteExternalId;
@@ -566,7 +567,7 @@ export default class gol_parentSliderComponent extends LightningElement {
     
     Object.entries(providerData.inputFields).forEach(([key, field]) => {
       if (!this.selectedSliderValues.get(this.selectedProductId)[key]) {
-        console.log(`⚠️ Setting default value for ${key} -> ${field.defaultValue}`);
+        console.log(`Setting default value for ${key} -> ${field.defaultValue}`);
         this.selectedSliderValues.get(this.selectedProductId)[key] = field.defaultValue;
       }
     });

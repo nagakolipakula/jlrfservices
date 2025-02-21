@@ -47,7 +47,7 @@
 			<property name="channel" type="String" label="Channel"  description="Channel value from flow to lwc" required="false" />
 			<property name="typeOfUse" type="String" label="TypeOfUse"  description="TypeOfUse value from flow to lwc" required="false" />
 			<property name="clickedButtonName" type="String" label="Clicked Button Name"  description="Name of the button clicked from UI" required="false" />
-
+			<property name="buttonActionForOverview" label="Button Action" type="String" role="outputOnly"/>
         </targetConfig>
     </targetConfigs>
 </LightningComponentBundle>

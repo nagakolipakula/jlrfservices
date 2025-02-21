@@ -8,6 +8,12 @@ import GOL_Open_Quote_Button from '@salesforce/label/c.GOL_Open_Quote_Button';
 import GOL_Send_To_Bank_Button from '@salesforce/label/c.GOL_Send_To_Bank_Button';
 import GOL_Link_To_Pf_PoS from '@salesforce/label/c.GOL_Link_To_Pf_PoS';
 import GOL_Link_To_Arval_Pos from '@salesforce/label/c.GOL_Link_To_Arval_Pos';
+import GOL_Row_Clicked_Event from '@salesforce/label/c.GOL_Row_Clicked_Event';
+import GOL_Update_Button_Clicked_Event from '@salesforce/label/c.GOL_Update_Button_Clicked_Event';
+import GOL_Send_to_Bank_Button_Clicked_Event from '@salesforce/label/c.GOL_Send_to_Bank_Button_Clicked_Event';
+import GOL_Open_Button_Clicked_Event from '@salesforce/label/c.GOL_Open_Button_Clicked_Event';
+import GOL_New_Calculation_Button_Clicked_Event from '@salesforce/label/c.GOL_New_Calculation_Button_Clicked_Event';
+
 import { FlowAttributeChangeEvent, FlowNavigationNextEvent, FlowNavigationBackEvent, FlowNavigationFinishEvent } from 'lightning/flowSupport';
 
 export default class golQuotationOverview extends LightningElement {
@@ -25,7 +31,13 @@ export default class golQuotationOverview extends LightningElement {
         GOL_Open_Quote_Button,
         GOL_Send_To_Bank_Button,
         GOL_Link_To_Pf_PoS,
-        GOL_Link_To_Arval_Pos
+        GOL_Link_To_Arval_Pos,
+        GOL_Row_Clicked_Event,
+        GOL_Update_Button_Clicked_Event,
+        GOL_Send_to_Bank_Button_Clicked_Event,
+        GOL_Open_Button_Clicked_Event,
+        GOL_New_Calculation_Button_Clicked_Event
+
     };
 
     get formattedRecords() {
@@ -123,7 +135,7 @@ export default class golQuotationOverview extends LightningElement {
     handleJlrIdClick(event) {
         const recordId = event.target.dataset.recordid;
         console.log('Clicked JLR ID - Record ID:', recordId);
-        const action = new FlowAttributeChangeEvent('buttonActionForOverview', 'Row Clicked');
+        const action = new FlowAttributeChangeEvent('buttonActionForOverview',this.label.GOL_Row_Clicked_Event);
         this.dispatchEvent(action);
         const nextEvent = new FlowNavigationNextEvent();
         this.dispatchEvent(nextEvent);
@@ -131,7 +143,7 @@ export default class golQuotationOverview extends LightningElement {
 
     handleUpdateClick() {
         // console.log("Update Button Clicked!");
-        const action = new FlowAttributeChangeEvent('buttonActionForOverview', 'Update Button Clicked');
+        const action = new FlowAttributeChangeEvent('buttonActionForOverview', this.label.GOL_Update_Button_Clicked_Event);
         this.dispatchEvent(action);
         const nextEvent = new FlowNavigationNextEvent();
         this.dispatchEvent(nextEvent);
@@ -139,7 +151,7 @@ export default class golQuotationOverview extends LightningElement {
 
     handleSendToBankClick() {
         console.log("Send to Bank Button Clicked!");
-        const action = new FlowAttributeChangeEvent('buttonActionForOverview', 'Send to Bank Button Clicked');
+        const action = new FlowAttributeChangeEvent('buttonActionForOverview', this.label.GOL_Send_to_Bank_Button_Clicked_Event);
         this.dispatchEvent(action);
         const nextEvent = new FlowNavigationNextEvent();
         this.dispatchEvent(nextEvent);
@@ -153,7 +165,7 @@ export default class golQuotationOverview extends LightningElement {
                 JLR_ID: record.GOL_JLR_ID__c
             }));
         // console.log("Open Button Clicked! Selected Records:", JSON.parse(JSON.stringify(selectedDetails)));
-        const action = new FlowAttributeChangeEvent('buttonActionForOverview', 'Open Button Clicked');
+        const action = new FlowAttributeChangeEvent('buttonActionForOverview', this.label.GOL_Open_Button_Clicked_Event);
         this.dispatchEvent(action);
         const nextEvent = new FlowNavigationNextEvent();
         this.dispatchEvent(nextEvent);
@@ -161,7 +173,7 @@ export default class golQuotationOverview extends LightningElement {
 
     handleNewCalculationClick() {
         // console.log("New Calculation Button Clicked");
-        const action = new FlowAttributeChangeEvent('buttonActionForOverview', 'New Calculation Button Clicked');
+        const action = new FlowAttributeChangeEvent('buttonActionForOverview', this.label.GOL_New_Calculation_Button_Clicked_Event);
         // console.log("Dispatching FlowAttributeChangeEvent:", JSON.stringify(action, null, 2));
         this.dispatchEvent(action);
         const nextEvent = new FlowNavigationNextEvent();

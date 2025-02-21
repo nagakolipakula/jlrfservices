@@ -51,8 +51,12 @@ export default class gol_parentSliderComponent extends LightningElement {
     console.log('First Finance Info Record:', this.ContactId);
     console.log('Second Finance Info Record:', this.ContactId2);
     console.log('MS retailerDiscountSerializedData==>',this.retailerDiscountSerializedData);
-    
+    console.log("Connected",this.buttonActionForOverview);
     try {
+      if (this.buttonActionForOverview === undefined) {
+        console.log('Resetting Parent Component for New Calculation From Overview');
+        this.resetComponent();
+      }
       if (!this.response || this.response.trim() === '') {
         console.warn('Response is empty or not defined');
         this.hasNoFinancialProducts = true;
@@ -83,6 +87,19 @@ export default class gol_parentSliderComponent extends LightningElement {
       console.error('Raw Response:', this.response);
       this.hasNoFinancialProducts = true;
     }
+  }
+
+  resetComponent() {
+    this.selectedSliderValues = new Map();
+    this.selectedProductId = undefined;
+    this.sliders = [];
+    this.namesWithIds = [];
+    this.parsedSerializedData = undefined;
+    this.retailerDiscountSerializedData = undefined;
+    this.retailerDiscountInputFiledAry = [];
+    this.retailerDiscountSelectedProductId = undefined;
+    this.hasNoFinancialProducts = false;
+    this.isInitialLoadInModify = false;
   }
 
   handleRetailerDiscountSerializedData(){
@@ -132,8 +149,7 @@ export default class gol_parentSliderComponent extends LightningElement {
     } catch (error) {
         console.error('Error fetching metadata:', error);
     }
-}
-
+  }
 
   handleModify(event) {
     const contactID = event.detail;

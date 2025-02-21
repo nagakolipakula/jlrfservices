@@ -174,7 +174,7 @@ export default class golQuotationOverview extends LightningElement {
     handleNewCalculationClick() {
         // console.log("New Calculation Button Clicked");
         const action = new FlowAttributeChangeEvent('buttonActionForOverview', this.label.GOL_New_Calculation_Button_Clicked_Event);
-        // console.log("Dispatching FlowAttributeChangeEvent:", JSON.stringify(action, null, 2));
+        console.log("Dispatching FlowAttributeChangeEvent:", JSON.stringify(action, null, 2));
         this.dispatchEvent(action);
         const nextEvent = new FlowNavigationNextEvent();
         this.dispatchEvent(nextEvent);

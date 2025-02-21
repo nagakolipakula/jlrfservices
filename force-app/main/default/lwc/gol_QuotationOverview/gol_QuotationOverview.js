@@ -124,22 +124,25 @@ export default class golQuotationOverview extends LightningElement {
         const recordId = event.target.dataset.recordid;
         console.log('Clicked JLR ID - Record ID:', recordId);
         const action = new FlowAttributeChangeEvent('buttonAction', 'Row Clicked');
-        console.log("Dispatching FlowAttributeChangeEvent:", JSON.stringify(action, null, 2));
         this.dispatchEvent(action);
+        const nextEvent = new FlowNavigationNextEvent();
+        this.dispatchEvent(nextEvent);
     }
 
     handleUpdateClick() {
         // console.log("Update Button Clicked!");
         const action = new FlowAttributeChangeEvent('buttonAction', 'Update Button Clicked');
-        console.log("Dispatching FlowAttributeChangeEvent:", JSON.stringify(action, null, 2));
         this.dispatchEvent(action);
+        const nextEvent = new FlowNavigationNextEvent();
+        this.dispatchEvent(nextEvent);
     }
 
     handleSendToBankClick() {
         console.log("Send to Bank Button Clicked!");
         const action = new FlowAttributeChangeEvent('buttonAction', 'Send to Bank Button Clicked');
-        console.log("Dispatching FlowAttributeChangeEvent:", JSON.stringify(action, null, 2));
         this.dispatchEvent(action);
+        const nextEvent = new FlowNavigationNextEvent();
+        this.dispatchEvent(nextEvent);
     }
 
     handleOpenClick() {
@@ -151,16 +154,17 @@ export default class golQuotationOverview extends LightningElement {
             }));
         // console.log("Open Button Clicked! Selected Records:", JSON.parse(JSON.stringify(selectedDetails)));
         const action = new FlowAttributeChangeEvent('buttonAction', 'Open Button Clicked');
-        console.log("Dispatching FlowAttributeChangeEvent:", JSON.stringify(action, null, 2));
         this.dispatchEvent(action);
-
+        const nextEvent = new FlowNavigationNextEvent();
+        this.dispatchEvent(nextEvent);
     }
 
     handleNewCalculationClick() {
         // console.log("New Calculation Button Clicked");
         const action = new FlowAttributeChangeEvent('buttonAction', 'New Calculation Button Clicked');
-        console.log("Dispatching FlowAttributeChangeEvent:", JSON.stringify(action, null, 2));
+        // console.log("Dispatching FlowAttributeChangeEvent:", JSON.stringify(action, null, 2));
         this.dispatchEvent(action);
-
+        const nextEvent = new FlowNavigationNextEvent();
+        this.dispatchEvent(nextEvent);
     }
 }

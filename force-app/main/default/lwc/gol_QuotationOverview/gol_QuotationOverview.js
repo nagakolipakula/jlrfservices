@@ -85,17 +85,18 @@ export default class golQuotationOverview extends LightningElement {
 
     formatCurrency(amount) {
         if (amount === undefined || amount === null || isNaN(amount)) return 'N/A';
-
         try {
-            return new Intl.NumberFormat(LOCALE, {
+            const formattedAmount = new Intl.NumberFormat(LOCALE, {
                 style: 'currency',
                 currency: CURRENCY,
                 currencyDisplay: 'symbol',
                 useGrouping: true,
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 2
-            }).format(amount).replace(',', 'X').replace('.', ',').replace('X', '.');
-        } catch {
+            }).format(amount);
+            return formattedAmount;
+        } catch (error) {
+            console.error('Error formatting currency:', error);
             return 'Invalid Amount';
         }
     }

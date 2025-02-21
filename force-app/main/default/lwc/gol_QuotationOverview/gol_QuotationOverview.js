@@ -142,6 +142,6 @@ export default class golQuotationOverview extends LightningElement {
     }
 
     handleNewCalculationClick() {
-        console.log("New Calculation Button Clicked!");
+        console.log("New Calculation Button Clicked");
     }
 }

@@ -15,6 +15,8 @@
 			<property name="FinanceInfoRecords" label="Finance Info Record Collection" type="{T[]}" role="inputOnly" description="Record Collection variable containing the records to display in Overview data table."/>
 			<property name="financeInformationRecordFromOverview" type="@salesforce/schema/LMS_FinanceInformation__c" label="Finance Information quote record"/>
 			<property name="modifyFinanceQuoteIdFromOverview" label="Finance quote id going to view" type="String" role="outputOnly"/>
+			<property name="openFinanceQuoteIdOne" label="Finance quote id going to open 01" type="String" role="outputOnly"/>
+			<property name="openFinanceQuoteIdTwo" label="Finance quote id going to Open 02" type="String" role="outputOnly"/>
 		</targetConfig>
     </targetConfigs>
 </LightningComponentBundle>

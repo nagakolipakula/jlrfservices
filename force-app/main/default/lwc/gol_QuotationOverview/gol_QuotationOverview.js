@@ -21,6 +21,8 @@ export default class golQuotationOverview extends LightningElement {
     @api modifyFinanceQuoteIdFromOverview;
     @api financeInformationRecordFromOverview;
     @api FinanceInfoRecords;
+    @api openFinanceQuoteIdOne;
+    @api openFinanceQuoteIdTwo;
     selectedRecords = [];
     showError = false;
     @track sortedField = 'LastModifiedDate';
@@ -169,14 +171,39 @@ export default class golQuotationOverview extends LightningElement {
         const selectedDetails = this.formattedRecords
             .filter(record => this.selectedRecords.includes(record.Id))
             .map(record => ({
-                RecordID: record.Id,
-                JLR_ID: record.GOL_JLR_ID__c
+                RecordID: record.Id
             }));
+        // const tempIds = 'a1RVc000000kk1RMAQ,a1RVc000000kjzpMAA';
         console.log("Open Button Clicked! Selected Records:", JSON.parse(JSON.stringify(selectedDetails)));
-        const action = new FlowAttributeChangeEvent('buttonActionForOverview', this.label.GOL_Open_Button_Clicked_Event);
+        
+        if (selectedDetails.length > 0) {
+            console.log('Dispatching OpenFinanceQuoteId',selectedDetails[0]);
+            let a = selectedDetails[0].RecordID;
+            console.log('a '+a);
+            const actionOne = new FlowAttributeChangeEvent('openFinanceQuoteIdOne', a);
+            this.dispatchEvent(actionOne);
+           // this.dispatchOpenFinanceQuoteId(selectedDetails[0], 'openFinanceQuoteIdOne');
+        }
+        
+        if (selectedDetails.length > 1) {
+            console.log('Dispatching OpenFinanceQuoteId',selectedDetails[1]);
+            let b = selectedDetails[1];
+            console.log('b '+b);
+            const actionTwo = new FlowAttributeChangeEvent('openFinanceQuoteIdTwo', selectedDetails[1].RecordID);
+            this.dispatchEvent(actionTwo);
+            //this.dispatchOpenFinanceQuoteId(selectedDetails[1], 'openFinanceQuoteIdTwo');
+        }
+       const action = new FlowAttributeChangeEvent('buttonActionForOverview', this.label.GOL_Open_Button_Clicked_Event);
+        // const action = new FlowAttributeChangeEvent('buttonActionForOverview', 'a1RVc000000kkELMAY');
         this.dispatchEvent(action);
         const nextEvent = new FlowNavigationNextEvent();
         this.dispatchEvent(nextEvent);
+    }
+
+    dispatchOpenFinanceQuoteId(id) {
+        // console.log('Dispatching Event { ${propertyName}: "${id}" }');
+        const action = new FlowAttributeChangeEvent(id);
+        this.dispatchEvent(action);
     }
 
     handleNewCalculationClick() {

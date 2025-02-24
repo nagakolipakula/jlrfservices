@@ -25,6 +25,8 @@ export default class golQuotationOverview extends LightningElement {
     @api openFinanceQuoteIdTwo;
     showMaxSelectionError;
     showMinSelectionError;
+    showMaxUpdateError;
+    showMinUpdateError;
     selectedRecords = [];
     showError = false;
     @track sortedField = 'LastModifiedDate';
@@ -158,7 +160,22 @@ export default class golQuotationOverview extends LightningElement {
     }    
 
     handleUpdateClick() {
-        // console.log("Update Button Clicked!");
+        if(this.selectedRecords.length === 0) {
+            this.showMinUpdateError = true;
+            setTimeout(() => {
+                this.showMinUpdateError = false;
+            }, 3000);
+            return;
+        } else if (this.selectedRecords.length > 1) {
+            this.showMaxUpdateError = true;
+            setTimeout(() => {
+                this.showMaxUpdateError = false;
+            }, 3000);
+            return;
+        }
+        const selectedRecordId = this.selectedRecords[0];
+        this.dispatchModifyQuoteId(selectedRecordId);
+        console.log("Update Button Clicked!");
         const action = new FlowAttributeChangeEvent('buttonActionForOverview', this.label.GOL_Update_Button_Clicked_Event);
         this.dispatchEvent(action);
         const nextEvent = new FlowNavigationNextEvent();
@@ -166,6 +183,21 @@ export default class golQuotationOverview extends LightningElement {
     }
 
     handleSendToBankClick() {
+        if(this.selectedRecords.length === 0) {
+            this.showMinUpdateError = true;
+            setTimeout(() => {
+                this.showMinUpdateError = false;
+            }, 3000);
+            return;
+        } else if (this.selectedRecords.length > 1) {
+            this.showMaxUpdateError = true;
+            setTimeout(() => {
+                this.showMaxUpdateError = false;
+            }, 3000);
+            return;
+        }
+        const selectedRecordId = this.selectedRecords[0];
+        this.dispatchModifyQuoteId(selectedRecordId);
         console.log("Send to Bank Button Clicked!");
         const action = new FlowAttributeChangeEvent('buttonActionForOverview', this.label.GOL_Send_to_Bank_Button_Clicked_Event);
         this.dispatchEvent(action);

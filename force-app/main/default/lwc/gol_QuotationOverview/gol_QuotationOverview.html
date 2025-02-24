@@ -67,12 +67,22 @@
     <!-- Error message below the table -->
     <template if:true={showMaxSelectionError}>
         <div class="error-container">
-            <p class="error-message">You can't select more than two records.</p>
+            <p class="error-message">You can't select more than two calculations</p>
         </div>
     </template>
     <template if:true={showMinSelectionError}>
         <div class="error-container">
-            <p class="error-message">Please select a maximum of two calculations to open.</p>
+            <p class="error-message">Please select a maximum of two calculations to open</p>
+        </div>
+    </template>
+    <template if:true={showMaxUpdateError}>
+        <div class="error-container">
+            <p class="error-message">You can't select more than one calculation</p>
+        </div>
+    </template>
+    <template if:true={showMinUpdateError}>
+        <div class="error-container">
+            <p class="error-message">Please select one calculation to update</p>
         </div>
     </template>
     <div class="footer-button-container">

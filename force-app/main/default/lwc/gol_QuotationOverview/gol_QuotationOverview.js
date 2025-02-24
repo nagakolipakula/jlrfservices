@@ -23,6 +23,8 @@ export default class golQuotationOverview extends LightningElement {
     @api FinanceInfoRecords;
     @api openFinanceQuoteIdOne;
     @api openFinanceQuoteIdTwo;
+    showMaxSelectionError;
+    showMinSelectionError;
     selectedRecords = [];
     showError = false;
     @track sortedField = 'LastModifiedDate';
@@ -126,6 +128,7 @@ export default class golQuotationOverview extends LightningElement {
             if (updatedSelection.length >= 2) {
                 event.target.checked = false;
                 console.error("Cannot select more than 2 records");
+                this.showMaxSelectionError = true;
                 return;
             }
             updatedSelection.push(recordId);
@@ -134,6 +137,9 @@ export default class golQuotationOverview extends LightningElement {
         }
 
         this.selectedRecords = updatedSelection;
+        if (this.selectedRecords.length <= 2) {
+            this.showMaxSelectionError = false;
+        }
     }
 
     handleJlrIdClick(event) {
@@ -168,6 +174,15 @@ export default class golQuotationOverview extends LightningElement {
     }
 
     handleOpenClick() {
+        if (this.selectedRecords.length === 0) {
+            this.showMinSelectionError = true;
+            setTimeout(() => {
+                this.showMinSelectionError = false;
+            }, 3000);
+            return;
+        } else {
+            this.showMinSelectionError = false;
+        }
         const selectedDetails = this.formattedRecords
             .filter(record => this.selectedRecords.includes(record.Id))
             .map(record => ({
@@ -193,11 +208,17 @@ export default class golQuotationOverview extends LightningElement {
             this.dispatchEvent(actionTwo);
             //this.dispatchOpenFinanceQuoteId(selectedDetails[1], 'openFinanceQuoteIdTwo');
         }
-       const action = new FlowAttributeChangeEvent('buttonActionForOverview', this.label.GOL_Open_Button_Clicked_Event);
+
+        const action = new FlowAttributeChangeEvent('buttonActionForOverview', this.label.GOL_Open_Button_Clicked_Event);
         // const action = new FlowAttributeChangeEvent('buttonActionForOverview', 'a1RVc000000kkELMAY');
         this.dispatchEvent(action);
         const nextEvent = new FlowNavigationNextEvent();
         this.dispatchEvent(nextEvent);
+    }
+
+    showErrorMessage(message) {
+        this.showError = true;
+        console.error(message);
     }
 
     dispatchOpenFinanceQuoteId(id) {

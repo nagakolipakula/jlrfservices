@@ -65,10 +65,16 @@
         </div>
     </div>
     <!-- Error message below the table -->
-    <template if:true={showError}>
-        <p class="error-message">You can't select more than two records</p>
+    <template if:true={showMaxSelectionError}>
+        <div class="error-container">
+            <p class="error-message">You can't select more than two records.</p>
+        </div>
     </template>
-
+    <template if:true={showMinSelectionError}>
+        <div class="error-container">
+            <p class="error-message">Please select a maximum of two calculations to open.</p>
+        </div>
+    </template>
     <div class="footer-button-container">
         <button class="update" onclick={handleUpdateClick}>
             {label.GOL_Update_Quote_Button}

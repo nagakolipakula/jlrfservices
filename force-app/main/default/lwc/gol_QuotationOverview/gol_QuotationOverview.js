@@ -18,6 +18,8 @@ import { FlowAttributeChangeEvent, FlowNavigationNextEvent, FlowNavigationBackEv
 
 export default class golQuotationOverview extends LightningElement {
     @api buttonActionForOverview;
+    @api modifyFinanceQuoteIdFromOverview;
+    @api financeInformationRecordFromOverview;
     @api FinanceInfoRecords;
     selectedRecords = [];
     showError = false;
@@ -133,13 +135,19 @@ export default class golQuotationOverview extends LightningElement {
     }
 
     handleJlrIdClick(event) {
-        const recordId = event.target.dataset.recordid;
-        console.log('Clicked JLR ID - Record ID:', recordId);
-        const action = new FlowAttributeChangeEvent('buttonActionForOverview',this.label.GOL_Row_Clicked_Event);
+        const financeInformationRecordFromOverview = event.target.dataset.recordid;
+        console.log('Clicked JLR ID - Record ID:', financeInformationRecordFromOverview);
+        this.dispatchModifyQuoteId(financeInformationRecordFromOverview);
+        const action = new FlowAttributeChangeEvent('buttonActionForOverview', this.label.GOL_Row_Clicked_Event);
         this.dispatchEvent(action);
         const nextEvent = new FlowNavigationNextEvent();
         this.dispatchEvent(nextEvent);
     }
+    
+    dispatchModifyQuoteId(id) {
+        const action = new FlowAttributeChangeEvent('modifyFinanceQuoteIdFromOverview', id);
+        this.dispatchEvent(action);
+    }    
 
     handleUpdateClick() {
         // console.log("Update Button Clicked!");
@@ -164,7 +172,7 @@ export default class golQuotationOverview extends LightningElement {
                 RecordID: record.Id,
                 JLR_ID: record.GOL_JLR_ID__c
             }));
-        // console.log("Open Button Clicked! Selected Records:", JSON.parse(JSON.stringify(selectedDetails)));
+        console.log("Open Button Clicked! Selected Records:", JSON.parse(JSON.stringify(selectedDetails)));
         const action = new FlowAttributeChangeEvent('buttonActionForOverview', this.label.GOL_Open_Button_Clicked_Event);
         this.dispatchEvent(action);
         const nextEvent = new FlowNavigationNextEvent();

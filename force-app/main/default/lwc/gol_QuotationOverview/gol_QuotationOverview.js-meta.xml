@@ -13,6 +13,8 @@
 			<property name="buttonActionForOverview" label="Button Action" type="String" role="outputOnly"/>
 			<propertyType name="T" extends="SObject" label="Finance Information Object API Name" description="Select the API Name of the Finance Information SObject"/>
 			<property name="FinanceInfoRecords" label="Finance Info Record Collection" type="{T[]}" role="inputOnly" description="Record Collection variable containing the records to display in Overview data table."/>
-        </targetConfig>
+			<property name="financeInformationRecordFromOverview" type="@salesforce/schema/LMS_FinanceInformation__c" label="Finance Information quote record"/>
+			<property name="modifyFinanceQuoteIdFromOverview" label="Finance quote id going to view" type="String" role="outputOnly"/>
+		</targetConfig>
     </targetConfigs>
 </LightningComponentBundle>

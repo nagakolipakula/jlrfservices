@@ -163,8 +163,8 @@ export default class gol_parentSliderComponent extends LightningElement {
   //Radio buttons
   getProductIds() {
     this.namesWithIds = this.parsedResponse
-      .filter(item => item.name && item.id)
-      .map(item => ({ label: item.name, value: item.id }));
+      .filter(item => item.description && item.id)
+      .map(item => ({ label: item.description, value: item.id }));
     console.log('Filtered Names with IDs:', this.namesWithIds);
   }
 

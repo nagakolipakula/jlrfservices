@@ -8,10 +8,13 @@ public with sharing class GOL_JSON2ApexFinancialQuoteWrapper {
     public String typeOfUse;
     public String channel;
     public String personType;
+    public CpiProducts cpiProducts;
+    public List<NonCpiProducts> nonCpiProducts;
     
     public GOL_JSON2ApexFinancialQuoteWrapper() {
         System.debug(LoggingLevel.DEBUG, 'GOL_JSON2ApexFinancialQuoteWrapper()');
         this.fixedCosts = new List<FixedCost>(); 
+        this.nonCpiProducts = new List<NonCpiProducts>();
     }
 
     public class FinancialProduct {
@@ -50,6 +53,22 @@ public with sharing class GOL_JSON2ApexFinancialQuoteWrapper {
     public class LegalDocument {
         public String title;
         public String body;
+    }
+
+    public class CpiProducts {
+        public String financialProductId;
+        public String name;
+        public String description;
+        public String id;
+        //public Decimal monthlyCost;
+    }
+
+    public class NonCpiProducts {
+        public String financialProductId;
+        public String name;
+        public String description;
+        public String id;
+        //public Decimal monthlyCost;
     }
 
     public static GOL_JSON2ApexFinancialQuoteWrapper parse(String json) {

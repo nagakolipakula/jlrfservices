@@ -28,6 +28,12 @@ public with sharing class GOL_GetFinanceQuote {
                 if(parsedResponse.fixedCosts != null && parsedResponse.fixedCosts.size() > 0){
                     createFinanceItemsFixedCosts(financeRecordId, parsedResponse.fixedCosts);
                 }
+                if(parsedResponse.cpiProducts != null){
+                    createFinanceItemsCpiProducts(financeRecordId, parsedResponse.cpiProducts);
+                }
+                if(parsedResponse.nonCpiProducts != null && parsedResponse.nonCpiProducts.size() > 0){
+                    createFinanceItemsNonCpiProducts(financeRecordId, parsedResponse.nonCpiProducts);
+                }
                 results.isSuccess = (financeRecordId != null);
                 results.financeQuoteId = financeRecordId;
             } else {
@@ -63,13 +69,14 @@ public with sharing class GOL_GetFinanceQuote {
         }
         
         LMS_FinanceInformation__c financeInformation = new LMS_FinanceInformation__c();
-        financeInformation.Id = financeQuoteIdOld;
-        financeInformation.LMS_FIN_Quote__c = quoteId;
-        financeInformation.RecordTypeId = Schema.SObjectType.LMS_FinanceInformation__c.getRecordTypeInfosByDeveloperName().get(GOL_Constants.LMS_FIN_CENTRAL_FINANCING_RT).getRecordTypeId();
-        if(financeQuoteIdOld == null ){
+        if(!String.isEmpty(financeQuoteIdOld)){
+            financeInformation.Id = financeQuoteIdOld;
+        }else{
             financeInformation.LMS_FIN_Lead__c = getSalesLead(quoteId);
         }
         
+        financeInformation.LMS_FIN_Quote__c = quoteId;
+        financeInformation.RecordTypeId = Schema.SObjectType.LMS_FinanceInformation__c.getRecordTypeInfosByDeveloperName().get(GOL_Constants.LMS_FIN_CENTRAL_FINANCING_RT).getRecordTypeId();
         financeInformation.LMS_FIN_Term__c = parsedResponse.Quote.duration;//Months (duration)
         financeInformation.LMS_FIN_ProdName__c = parsedResponse.FinancialProduct.name; //Product Name
         financeInformation.LMS_FIN_FinanceInstitution__c = parsedResponse.FinancialProduct.provider; //Need to check this value
@@ -86,6 +93,7 @@ public with sharing class GOL_GetFinanceQuote {
         financeInformation.GOL_Type_Of_Use__c = parsedResponse.typeOfUse; 
         financeInformation.GOL_Person_Type__c  = parsedResponse.personType;
         financeInformation.GOL_Channel__c = parsedResponse.channel;
+        financeInformation.LMS_FIN_Status__c = GOL_Constants.LMS_FIN_Status_FINANCE_Created;
         
         upsert financeInformation;
         return financeInformation.Id;
@@ -103,17 +111,47 @@ public with sharing class GOL_GetFinanceQuote {
         // }
         List<ERPT_FinanceItem__c> lstFinanceItems = new List<ERPT_FinanceItem__c>();
         for(GOL_JSON2ApexFinancialQuoteWrapper.FixedCost fixedCost : fixedCosts) {
-            ERPT_FinanceItem__c financeInformation = new ERPT_FinanceItem__c();
-            financeInformation.ERPT_FII_FinanceInformation__c = financeInformationId;
-            financeInformation.RecordTypeId = Schema.SObjectType.ERPT_FinanceItem__c.getRecordTypeInfosByDeveloperName().get(GOL_Constants.ERPT_FII_FIXEDCOST_RT).getRecordTypeId();
-            financeInformation.ERPT_FII_Description__c = fixedCost.name;
-            financeInformation.ERPT_FII_FullName__c = fixedCost.name;
-            financeInformation.ERPT_FII_GrossAmount__c = fixedCost.grossAmount;
-            lstFinanceItems.add(financeInformation);
+            ERPT_FinanceItem__c financeItem = new ERPT_FinanceItem__c();
+            financeItem.ERPT_FII_FinanceInformation__c = financeInformationId;
+            financeItem.RecordTypeId = Schema.SObjectType.ERPT_FinanceItem__c.getRecordTypeInfosByDeveloperName().get(GOL_Constants.ERPT_FII_FIXEDCOST_RT).getRecordTypeId();
+            financeItem.ERPT_FII_Description__c = fixedCost.name;
+            financeItem.ERPT_FII_FullName__c = fixedCost.name;
+            financeItem.ERPT_FII_GrossAmount__c = fixedCost.grossAmount;
+            lstFinanceItems.add(financeItem);
         }
         if (!lstFinanceItems.isEmpty()) {
             insert lstFinanceItems;
         }
+    }
+
+    private static void createFinanceItemsCpiProducts(String financeInformationId,GOL_JSON2ApexFinancialQuoteWrapper.CpiProducts cpiProducts) {
+        ERPT_FinanceItem__c financeItem = new ERPT_FinanceItem__c();
+        financeItem.ERPT_FII_FinanceInformation__c = financeInformationId;
+        financeItem.RecordTypeId = Schema.SObjectType.ERPT_FinanceItem__c.getRecordTypeInfosByDeveloperName().get(GOL_Constants.ERPT_FII_CPIPRODUCT_RT).getRecordTypeId();
+        financeItem.ERPT_FII_ExternalRef__c = cpiProducts.id;
+        financeItem.ERPT_FII_financialProductRef__c = cpiProducts.financialProductId;
+        financeItem.ERPT_FII_FullName__c = cpiProducts.name;
+        //financeItem.ERPT_FII_premiumPeriodAmount__c = cpiProducts.monthlyCost;
+        insert financeItem;
+    }
+
+    private static void createFinanceItemsNonCpiProducts(String financeInformationId,List<GOL_JSON2ApexFinancialQuoteWrapper.NonCpiProducts> nonCpiProducts) {
+        List<ERPT_FinanceItem__c> lstFinanceItems = new List<ERPT_FinanceItem__c>();
+        for(GOL_JSON2ApexFinancialQuoteWrapper.NonCpiProducts nonCpiProduct : nonCpiProducts) {
+            ERPT_FinanceItem__c financeItem = new ERPT_FinanceItem__c();
+            financeItem.ERPT_FII_FinanceInformation__c = financeInformationId;
+            financeItem.RecordTypeId = Schema.SObjectType.ERPT_FinanceItem__c.getRecordTypeInfosByDeveloperName().get(GOL_Constants.ERPT_FII_NONCPIPRODUCT_RT).getRecordTypeId();
+            financeItem.ERPT_FII_ExternalRef__c = nonCpiProduct.id;
+            financeItem.ERPT_FII_financialProductRef__c = nonCpiProduct.financialProductId;
+            financeItem.ERPT_FII_FullName__c = nonCpiProduct.name;
+            //financeItem.ERPT_FII_premiumPeriodAmount__c = nonCpiProduct.monthlyCost;
+            lstFinanceItems.add(financeItem);
+        }
+        
+        if (!lstFinanceItems.isEmpty()){
+            insert lstFinanceItems;
+        }
+       
     }
 
     private static Id getSalesLead(Id quoteId) {
@@ -134,7 +172,7 @@ public with sharing class GOL_GetFinanceQuote {
         public String quotePayload;
 
         @InvocableVariable
-        public Id financeQuoteId;
+        public String financeQuoteId;
     }
 
     public class Response {

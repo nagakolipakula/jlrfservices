@@ -4,7 +4,7 @@ public class GOL_SendInfoToBank {
     public String channel;
     public String personType;
     public Quote quote;
-    public List<QuoteDetail> quoteDetails;
+    public List<GOL_QuoteDetail> quoteDetails;
     public FinancialProduct financialProduct;
     public Products products;
 
@@ -19,11 +19,11 @@ public class GOL_SendInfoToBank {
         public Decimal installmentGrossAmount;
     }
 
-    public class QuoteDetail {
-        public String id;
-        public String label;
-        public Decimal value;
-    }
+    // public static class QuoteDetail {
+    //     public String id;
+    //     public String label;
+    //     public Decimal value;
+    // }
 
     public class FinancialProduct {
         public String id;
@@ -67,14 +67,21 @@ public class GOL_SendInfoToBank {
         public String id;
     }
 
+    public void sortData() {
+        if (quoteDetails != null) {
+            quoteDetails.sort();
+        }
+        if (financialProduct != null && financialProduct.rateType != null) {
+            financialProduct.rateType.sort();
+        }
+    }
+
     public String toJson() {
         return JSON.serialize(this);
     }
 
+    // Deserialize JSON to object
     public static GOL_SendInfoToBank fromJson(String jsonString) {
         return (GOL_SendInfoToBank) JSON.deserialize(jsonString, GOL_SendInfoToBank.class);
     }
 }
-
-
-

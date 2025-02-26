@@ -10,11 +10,15 @@ public with sharing class GOL_JSON2ApexFinancialQuoteWrapper {
     public String personType;
     public CpiProducts cpiProducts;
     public List<NonCpiProducts> nonCpiProducts;
+    public String quoteId;
+    public Products products;
     
     public GOL_JSON2ApexFinancialQuoteWrapper() {
         System.debug(LoggingLevel.DEBUG, 'GOL_JSON2ApexFinancialQuoteWrapper()');
         this.fixedCosts = new List<FixedCost>(); 
         this.nonCpiProducts = new List<NonCpiProducts>();
+        this.quoteDetails = new List<QuoteDetail>();
+        this.products = new Products();
     }
 
     public class FinancialProduct {
@@ -40,7 +44,7 @@ public with sharing class GOL_JSON2ApexFinancialQuoteWrapper {
     public class QuoteDetail {
         public String id;
         public String label;
-        public String value;
+        public Decimal value;
     }
 
     public class FixedCost {
@@ -71,7 +75,35 @@ public with sharing class GOL_JSON2ApexFinancialQuoteWrapper {
         //public Decimal monthlyCost;
     }
 
+    public class Products {
+        public InputFields inputFields;
+        public Units units;
+        public Product cpiProducts;
+        public Product nonCpiProducts;
+    }
+
+    public class InputFields {
+        public AmountRange downPaymentGrossAmountRange;
+        public AmountRange downPaymentNetAmountRange;
+    }
+
+    public class AmountRange {
+        public Decimal selectedValue;
+    }
+
+    public class Units {
+        public String currencyCode;
+        public String durationTimeUnit;
+    }
+
+    public class Product {
+        public String financialProductId;
+        public String name;
+        public String description;
+        public String id;
+    }
+
     public static GOL_JSON2ApexFinancialQuoteWrapper parse(String json) {
-		return (GOL_JSON2ApexFinancialQuoteWrapper) System.JSON.deserialize(json, GOL_JSON2ApexFinancialQuoteWrapper.class);
-	}
+        return (GOL_JSON2ApexFinancialQuoteWrapper) System.JSON.deserialize(json, GOL_JSON2ApexFinancialQuoteWrapper.class);
+    }
 }

@@ -75,3 +75,6 @@ public class GOL_SendInfoToBank {
         return (GOL_SendInfoToBank) JSON.deserialize(jsonString, GOL_SendInfoToBank.class);
     }
 }
+
+
+

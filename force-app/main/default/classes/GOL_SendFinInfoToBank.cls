@@ -48,7 +48,7 @@ public with sharing class GOL_SendFinInfoToBank {
                 ERPT_FIN_InstallmentIntGrossAmt__c,
                 GOL_Type_Of_Use__c,
                 GOL_Channel__c, 
-                GOL_Person_Type__c 
+                GOL_Person_Type__c
             FROM LMS_FinanceInformation__c 
             WHERE Id = :financeInfoId 
             LIMIT 1
@@ -59,10 +59,16 @@ public with sharing class GOL_SendFinInfoToBank {
     private static GOL_JSON2ApexFinancialQuoteWrapper mapFinanceRecordToPayload(LMS_FinanceInformation__c financeRecord) {
         GOL_JSON2ApexFinancialQuoteWrapper payload = new GOL_JSON2ApexFinancialQuoteWrapper();
 
-        payload.quoteId = financeRecord.LMS_FIN_Quote__c != null ? financeRecord.LMS_FIN_Quote__c : '';
-        payload.typeOfUse = financeRecord.GOL_Type_Of_Use__c != null ? financeRecord.GOL_Type_Of_Use__c : '';
+        String externalQuoteId = '';
+        if (financeRecord.LMS_FIN_Quote__c != null) {
+            LMS_Quote__c quoteRecord = [SELECT EPRT_QUO_External_ID__c FROM LMS_Quote__c WHERE Id = :financeRecord.LMS_FIN_Quote__c LIMIT 1];
+            externalQuoteId = quoteRecord.EPRT_QUO_External_ID__c != null ? quoteRecord.EPRT_QUO_External_ID__c : '';
+        }
+        payload.quoteId = externalQuoteId;
+        //payload.quoteId = financeRecord.LMS_FIN_Quote__c != null ? financeRecord.LMS_FIN_Quote__c : '';
+        payload.typeOfUse = financeRecord.GOL_Type_Of_Use__c != null ? financeRecord.GOL_Type_Of_Use__c : 'PROFESSIONAL';
         payload.channel = financeRecord.GOL_Channel__c != null ? financeRecord.GOL_Channel__c : '';
-        payload.personType = financeRecord.GOL_Person_Type__c != null ? financeRecord.GOL_Person_Type__c : '';
+        payload.personType = financeRecord.GOL_Person_Type__c != null ? financeRecord.GOL_Person_Type__c : 'LEGAL';
 
         //Quote details
         payload.quote = new GOL_JSON2ApexFinancialQuoteWrapper.Quote();

@@ -31,12 +31,13 @@ public with sharing class GOL_SendFinInfoToBank {
         try {
             Http http = new Http();
             HttpRequest request = new HttpRequest();
-            String endpoint = 'callout:GOL_MS_Finance/' + Label.GOL_Get_Finance_Quote_End_Point + financeInfoId + '/context';
+            String endpoint = 'callout:GOL_MS_Finance/' + Label.GOL_Get_Finance_Quote_End_Point + '/' + financeInfoId + '/context';
             request.setEndpoint(endpoint);
             request.setMethod('POST');
             request.setTimeout(20000);
             request.setBody(requestBody);
             request.setHeader('Content-Type', 'application/json;charset=UTF-8');
+            // System.debug('Endpoint URL: ' + endpoint);
             return http.send(request);
         } catch (CalloutException e) {
             System.debug('Callout failed: ' + e.getMessage());

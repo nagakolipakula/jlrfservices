@@ -99,7 +99,10 @@
     margin-bottom: 20px;
     line-height: 13px;
 }
-
+.legaltextdescription{
+    font-family: 'Avenir Next', sans-serif;
+    margin-bottom: 20px;
+}
 .modify-button {
     text-align: center;
     margin-top: 30px;

@@ -7,7 +7,7 @@
             <div class="summary-card">
                 <div class="lease-info">
                     <p class="lease-title">
-                        <strong>{label.GOL_Lease}</strong>
+                        <strong>{financeRecord.LMS_FIN_ProdName__c}</strong>
                         <span class="lease-amount">
                             <lightning-formatted-number 
                                 value={financeRecord.ERPT_FIN_InstallmentIntGrossAmt__c}
@@ -52,7 +52,7 @@
                     </div>
                     <div class="divider"></div>
                     <div class="total-row">
-                        <span>{label.GOL_Total_lease_amount}</span>
+                        <span>{label.GOL_Total} {financeRecord.LMS_FIN_ProdName__c} {label.GOL_Amount}</span>
                         <span> <lightning-formatted-number value={financeRecord.ERPT_FIN_TotalGrossAmt__c} format-style="currency"> </lightning-formatted-number></span>
                     </div>
                 </div>
@@ -60,11 +60,16 @@
                     <h3>{label.GOL_Monthly_payment}</h3>
                     <p class="payment-amount"><span> <lightning-formatted-number value={financeRecord.ERPT_FIN_InstallmentIntGrossAmt__c} format-style="currency"> </lightning-formatted-number></span></p>
                 </div>
-                <p class="description">
+                <!-- <p class="description">
                     {label.GOL_Lorem_Text}
-                </p>
+                </p> -->
+                <div class="legaltextdescription">
+                    <lightning-formatted-rich-text
+                        value={legaltext}
+                    ></lightning-formatted-rich-text>
+                </div>
                 <div class="modify-button">
-                    <button type="button" class="slds-button slds-button_neutral" data-id={financeRecord.GOL_JLR_ID__c} onclick={handleModifyClick}>{label.GOL_Modify_button}</button>
+                    <button type="button" disabled={IsNotCreated} class="slds-button slds-button_neutral" data-id={financeRecord.GOL_JLR_ID__c} onclick={handleModifyClick}>{label.GOL_Modify_button}</button>
                 </div>
             </div>
         </div>

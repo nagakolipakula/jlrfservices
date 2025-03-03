@@ -51,7 +51,7 @@ export default class gol_parentSliderComponent extends LightningElement {
     console.log('First Finance Info Record:', this.ContactId);
     console.log('Second Finance Info Record:', this.ContactId2);
     console.log('MS retailerDiscountSerializedData==>',this.retailerDiscountSerializedData);
-    console.log("Connected",this.buttonActionForOverview);
+    console.log("Full response",this.response);
     try {
       if (this.buttonActionForOverview === undefined) {
         console.log('Resetting Parent Component for New Calculation From Overview');

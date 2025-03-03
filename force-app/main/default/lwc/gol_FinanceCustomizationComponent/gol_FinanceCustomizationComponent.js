@@ -83,17 +83,30 @@ export default class Gol_FinanceCustomizationComponent extends LightningElement 
         }
     }
 
-    handelAmountInclValChange(event) {//Adjusted Price
-        if(this.amountInclVal == event.target.value){
+    // handelAmountInclValChange(event) {//Adjusted Price
+    //     if(this.amountInclVal == event.target.value){
+    //         return;
+    //     }
+    //     this.amountInclVal = event.target.value;
+    //     if(this.vehicleqlirecord.LMS_QLI_TotalGrossPrice__c !== undefined && this.vehicleqlirecord.LMS_QLI_TotalGrossPrice__c != null){
+    //     let discAmt = this.vehicleqlirecord.LMS_QLI_TotalGrossPrice__c-this.amountInclVal;
+    //     this.discountAmount = discAmt.toFixed(2);
+    //     let perce = 100*this.discountAmount/this.vehicleqlirecord.LMS_QLI_TotalGrossPrice__c;
+    //     this.percentVal = perce.toFixed(2);
+    //     }
+    // }
+    handelGrossAmtDiscChange(event) {
+        if(this.discountAmount == event.target.value){
             return;
         }
-        this.amountInclVal = event.target.value;
-        if(this.vehicleqlirecord.LMS_QLI_TotalGrossPrice__c !== undefined && this.vehicleqlirecord.LMS_QLI_TotalGrossPrice__c != null){
-        let discAmt = this.vehicleqlirecord.LMS_QLI_TotalGrossPrice__c-this.amountInclVal;
-        this.discountAmount = discAmt.toFixed(2);
-        let perce = 100*this.discountAmount/this.vehicleqlirecord.LMS_QLI_TotalGrossPrice__c;
-        this.percentVal = perce.toFixed(2);
-        }
+        this.discountAmount = event.target.value;
+        let perCal = 100*this.discountAmount/this.vehicleqlirecord.LMS_QLI_TotalGrossPrice__c;
+        this.percentVal = perCal.toFixed(2);
+        let discNet2 = this.vehicleqlirecord.LMS_QLI_NetPrice__c*this.percentVal/100;
+        this.discountNetAmount2 = discNet2.toFixed(2);
+        console.log('discountNetAmount2 %% : ' + this.discountNetAmount2);
+        let adjAmt = this.vehicleqlirecord.LMS_QLI_TotalGrossPrice__c-this.discountAmount;
+        this.amountInclVal = adjAmt.toFixed(2);
     }
     // handelAmountInclValChange(event) {
     //     if(this.amountInclVal == event.target.value){

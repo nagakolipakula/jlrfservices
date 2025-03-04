@@ -1,0 +1,27 @@
+.button-container {
+    display: flex;
+}
+
+.btn-client-select {
+	font-family: 'Avenir Next', sans-serif;
+	font-size: 11px;
+	background-color: #FFFFFF;
+    border: 1.5px solid #000;
+    letter-spacing: 2px;
+    border-radius: 0.5px;
+	margin-left: 20px;
+}
+
+.btn-client-deselect{
+	font-family: 'Avenir Next', sans-serif;
+	font-size: 11px;
+	background-color: #E9ECEC;
+    border: 0px;
+    padding: 12px 42px;
+    letter-spacing: 2px;
+    border-radius: 0.5px;
+	margin-left: 20px;
+}
+.btn-client-deselect:hover {
+	background-color: #E9ECEC;
+  }

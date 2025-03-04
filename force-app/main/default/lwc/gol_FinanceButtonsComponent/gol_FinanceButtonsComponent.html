@@ -1,0 +1,9 @@
+<template>
+    <div class="button-container" style={buttonContainer}>
+        <template for:each={buttonDetailsVal} for:item="btn" for:index="index">
+            <button key={btn.Label} class={btn.Class} value={btn.Label} style={btn.Style} onclick={handleButtonClick}>
+                {btn.Label}
+            </button>
+        </template>
+    </div>
+</template>

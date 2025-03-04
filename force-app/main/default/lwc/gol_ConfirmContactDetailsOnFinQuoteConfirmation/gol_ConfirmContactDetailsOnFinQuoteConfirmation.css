@@ -1,0 +1,73 @@
+@import "c/gol_CssLibrary";
+
+.slds-fade-in-open {
+	/* background-color: #FFFFFF;
+    opacity: 50%;  */
+}
+.confirmation-icon {
+	--slds-c-icon-color-foreground: #000000; 
+}
+
+.confirmation-text{
+color: #f4ecec;
+/* color: #0C121C; */
+font-size: 18px;
+font-weight: 900;
+line-height: 18px;
+letter-spacing: 0.8px;
+text-align: center;
+
+}
+
+
+.CtnBtnStyle{
+  color:#FFFFFF;  
+  background-color:#0C121C;
+  font-family:LandRoverAvenirNext;
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 14px;
+  letter-spacing: 3px;
+  text-align: left;
+  width: -webkit-fill-available;
+  height: 50%;
+  border: 0.1px solid #0C121C;
+  padding: 20px;
+  width: 400px;
+}
+
+.CtnBtnStyle:hover{
+  background-color: #FFFFFF;
+  color: #0C121C; 
+  /*border: 0.1px solid #0C121C;
+  stroke: #4A4F544C; */
+}
+
+
+.CancelBtnStyle{
+  color:#0C121C;  
+  background-color:#FFFFFF;
+  font-family:LandRoverAvenirNext;
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 14px;
+  letter-spacing: 3px;
+  text-align: left;
+  width: -webkit-fill-available;
+  height: 50%;
+  border: 0.1px solid  #4A4F544D;
+  padding: 20px;
+  width: 400px;
+}
+
+.CancelBtnStyle:hover{
+  
+  /* background-color: #FFFFFF;
+  color: #0C121C;  */
+  border: 0.1px solid #0C121C;
+  stroke: #4A4F544C; 
+}
+
+.CancelBtnStyle:hover .icon-container{ 
+  filter: contrast(0.5); 
+}

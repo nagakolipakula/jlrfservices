@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>63.0</apiVersion>
+    <isExposed>true</isExposed>
+	<targets>
+		<target>lightning__FlowScreen</target>
+	</targets>
+	<!-- <targetConfigs>
+        <targetConfig targets="lightning__FlowScreen">
+            <property name="showModal" type="Boolean" label="Show modal"/>
+			<property name="firstName" type="String" label="First Name"/>
+			<property name="quoteId" type="String" label="Quote Id"/>
+			<property name="status" type="Boolean" label="Status"/>
+			<property name="sendEmailTaxModel" type="Boolean" label="Send Email Model"/>
+			<property name="isHold" type="Boolean" label="Hold"/>
+			
+        </targetConfig> 
+    </targetConfigs>-->
+</LightningComponentBundle>

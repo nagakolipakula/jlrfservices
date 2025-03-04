@@ -3,82 +3,82 @@ public class GOL_SendInfoToBank {
     public String typeOfUse;
     public String channel;
     public String personType;
-    public Quote quote;
-    public List<GOL_QuoteDetail> quoteDetails;
-    public FinancialProduct financialProduct;
-    public Products products;
+    // public Quote quote;
+    // public List<GOL_QuoteDetail> quoteDetails;
+    // public FinancialProduct financialProduct;
+    // public Products products;
 
-    public class Quote {
-        public Integer annualMileage;
-        public Integer duration;
-        public Decimal downPaymentGrossAmount;
-        public Decimal dealerPriceNetAmount;
-        public Decimal dealerPriceGrossAmount;
-        public Decimal totalGrossAmount;
-        public Decimal totalNetAmount;
-        public Decimal installmentGrossAmount;
-    }
-
-    // public static class QuoteDetail {
-    //     public String id;
-    //     public String label;
-    //     public Decimal value;
+    // public class Quote {
+    //     public Integer annualMileage;
+    //     public Integer duration;
+    //     public Decimal downPaymentGrossAmount;
+    //     public Decimal dealerPriceNetAmount;
+    //     public Decimal dealerPriceGrossAmount;
+    //     public Decimal totalGrossAmount;
+    //     public Decimal totalNetAmount;
+    //     public Decimal installmentGrossAmount;
     // }
 
-    public class FinancialProduct {
-        public String id;
-        public String name;
-        public String currencyCode;
-        public List<String> rateType;
-        public FinancialProductCategory financialProductCategory;
-    }
+    // // public static class QuoteDetail {
+    // //     public String id;
+    // //     public String label;
+    // //     public Decimal value;
+    // // }
 
-    public class FinancialProductCategory {
-        public String code;
-        public String name;
-        public String description;
-    }
+    // public class FinancialProduct {
+    //     public String id;
+    //     public String name;
+    //     public String currencyCode;
+    //     public List<String> rateType;
+    //     public FinancialProductCategory financialProductCategory;
+    // }
 
-    public class Products {
-        public InputFields inputFields;
-        public Units units;
-        public Product cpiProducts;
-        public Product nonCpiProducts;
-    }
+    // public class FinancialProductCategory {
+    //     public String code;
+    //     public String name;
+    //     public String description;
+    // }
 
-    public class InputFields {
-        public AmountRange downPaymentGrossAmountRange;
-        public AmountRange downPaymentNetAmountRange;
-    }
+    // public class Products {
+    //     public InputFields inputFields;
+    //     public Units units;
+    //     public Product cpiProducts;
+    //     public Product nonCpiProducts;
+    // }
 
-    public class AmountRange {
-        public Decimal selectedValue;
-    }
+    // public class InputFields {
+    //     public AmountRange downPaymentGrossAmountRange;
+    //     public AmountRange downPaymentNetAmountRange;
+    // }
 
-    public class Units {
-        public String currencyCode;
-        public String durationTimeUnit;
-    }
+    // public class AmountRange {
+    //     public Decimal selectedValue;
+    // }
 
-    public class Product {
-        public String financialProductId;
-        public String name;
-        public String description;
-        public String id;
-    }
+    // public class Units {
+    //     public String currencyCode;
+    //     public String durationTimeUnit;
+    // }
 
-    public void sortData() {
-        if (quoteDetails != null) {
-            quoteDetails.sort();
-        }
-        if (financialProduct != null && financialProduct.rateType != null) {
-            financialProduct.rateType.sort();
-        }
-    }
+    // public class Product {
+    //     public String financialProductId;
+    //     public String name;
+    //     public String description;
+    //     public String id;
+    // }
 
-    public String toJson() {
-        return JSON.serialize(this);
-    }
+    // public void sortData() {
+    //     if (quoteDetails != null) {
+    //         quoteDetails.sort();
+    //     }
+    //     if (financialProduct != null && financialProduct.rateType != null) {
+    //         financialProduct.rateType.sort();
+    //     }
+    // }
+
+    // public String toJson() {
+    //     return JSON.serialize(this);
+    // }
 
     // Deserialize JSON to object
     public static GOL_SendInfoToBank fromJson(String jsonString) {

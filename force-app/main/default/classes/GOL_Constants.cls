@@ -27,6 +27,8 @@ public with sharing class GOL_Constants {
     public static final String LMS_FIN_CENTRAL_FINANCING_RT = 'LMS_FIN_CentralFinancing';
     public static final String LMS_FIN_FINANCE_PROVIDER = 'Jaguar Land Rover Financial Services';
     public static final String ERPT_FII_FIXEDCOST_RT = 'ERPT_FII_FixedCost';
-
+	public static final String LMS_FIN_Status_FINANCE_Created = 'Created';
+    public static final String ERPT_FII_CPIPRODUCT_RT = 'ERPT_FII_CPIProduct';
+    public static final String ERPT_FII_NONCPIPRODUCT_RT = 'ERPT_FII_NonCPIProduct';
 
 }

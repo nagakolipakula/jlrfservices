@@ -28,7 +28,7 @@ public with sharing class GOL_GetFinanceQuote {
                 if(parsedResponse.fixedCosts != null && parsedResponse.fixedCosts.size() > 0){
                     createFinanceItemsFixedCosts(financeRecordId, parsedResponse.fixedCosts);
                 }
-                if(parsedResponse.cpiProducts != null){
+                if(parsedResponse.cpiProducts != null && parsedResponse.cpiProducts.size() > 0){
                     createFinanceItemsCpiProducts(financeRecordId, parsedResponse.cpiProducts);
                 }
                 if(parsedResponse.nonCpiProducts != null && parsedResponse.nonCpiProducts.size() > 0){
@@ -124,15 +124,22 @@ public with sharing class GOL_GetFinanceQuote {
         }
     }
 
-    private static void createFinanceItemsCpiProducts(String financeInformationId,GOL_JSON2ApexFinancialQuoteWrapper.CpiProducts cpiProducts) {
-        ERPT_FinanceItem__c financeItem = new ERPT_FinanceItem__c();
-        financeItem.ERPT_FII_FinanceInformation__c = financeInformationId;
-        financeItem.RecordTypeId = Schema.SObjectType.ERPT_FinanceItem__c.getRecordTypeInfosByDeveloperName().get(GOL_Constants.ERPT_FII_CPIPRODUCT_RT).getRecordTypeId();
-        financeItem.ERPT_FII_ExternalRef__c = cpiProducts.id;
-        financeItem.ERPT_FII_financialProductRef__c = cpiProducts.financialProductId;
-        financeItem.ERPT_FII_FullName__c = cpiProducts.name;
-        //financeItem.ERPT_FII_premiumPeriodAmount__c = cpiProducts.monthlyCost;
-        insert financeItem;
+    private static void createFinanceItemsCpiProducts(String financeInformationId,List<GOL_JSON2ApexFinancialQuoteWrapper.CpiProducts> cpiProducts) {
+        List<ERPT_FinanceItem__c> lstFinanceItems = new List<ERPT_FinanceItem__c>();
+        for(GOL_JSON2ApexFinancialQuoteWrapper.CpiProducts cpiProduct : cpiProducts) {
+            ERPT_FinanceItem__c financeItem = new ERPT_FinanceItem__c();
+            financeItem.ERPT_FII_FinanceInformation__c = financeInformationId;
+            financeItem.RecordTypeId = Schema.SObjectType.ERPT_FinanceItem__c.getRecordTypeInfosByDeveloperName().get(GOL_Constants.ERPT_FII_CPIPRODUCT_RT).getRecordTypeId();
+            financeItem.ERPT_FII_ExternalRef__c = cpiProduct.id;
+            financeItem.ERPT_FII_financialProductRef__c = cpiProduct.financialProductId;
+            financeItem.ERPT_FII_FullName__c = cpiProduct.name;
+            //financeItem.ERPT_FII_premiumPeriodAmount__c = cpiProduct.monthlyCost;
+
+            lstFinanceItems.add(financeItem);
+        }
+        if (!lstFinanceItems.isEmpty()){
+            insert lstFinanceItems;
+        }
     }
 
     private static void createFinanceItemsNonCpiProducts(String financeInformationId,List<GOL_JSON2ApexFinancialQuoteWrapper.NonCpiProducts> nonCpiProducts) {
@@ -145,6 +152,7 @@ public with sharing class GOL_GetFinanceQuote {
             financeItem.ERPT_FII_financialProductRef__c = nonCpiProduct.financialProductId;
             financeItem.ERPT_FII_FullName__c = nonCpiProduct.name;
             //financeItem.ERPT_FII_premiumPeriodAmount__c = nonCpiProduct.monthlyCost;
+            
             lstFinanceItems.add(financeItem);
         }
         

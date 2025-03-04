@@ -23,7 +23,6 @@ public with sharing class GOL_SendFinInfoToBank {
         if (response.getStatusCode() == 200) {
             processSuccessfulResponse(financeInfoId, response.getBody());
         }
-    
         return response.getBody();
     }
     

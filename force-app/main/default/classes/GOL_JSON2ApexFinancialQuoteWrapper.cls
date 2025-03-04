@@ -8,7 +8,7 @@ public with sharing class GOL_JSON2ApexFinancialQuoteWrapper {
     public String typeOfUse;
     public String channel;
     public String personType;
-    public CpiProducts cpiProducts;
+    public List<CpiProducts> cpiProducts;
     public List<NonCpiProducts> nonCpiProducts;
     public String quoteId;
     public Products products;
@@ -16,21 +16,27 @@ public with sharing class GOL_JSON2ApexFinancialQuoteWrapper {
     public GOL_JSON2ApexFinancialQuoteWrapper() {
         System.debug(LoggingLevel.DEBUG, 'GOL_JSON2ApexFinancialQuoteWrapper()');
         this.fixedCosts = new List<FixedCost>(); 
+        this.cpiProducts = new List<CpiProducts>();
         this.nonCpiProducts = new List<NonCpiProducts>();
         this.quoteDetails = new List<QuoteDetail>();
         this.products = new Products();
     }
 
     public class FinancialProduct {
+        public String id;
         public String name;
-        public String description;
-        public String mileageUnit;
-        public List<String> baremeCodes;
         public String currencyCode;
-        // public String rateType;
-        public String creditTimeUnit;
+        public List<String> rateType;
+        public FinancialProductCategory financialProductCategory;
         public String provider;
         public String fullId;
+        public String creditTimeUnit;
+    }
+
+    public class FinancialProductCategory {
+        public String code;
+        public String name;
+        public String description;
     }
 
     public class Quote {
@@ -44,7 +50,7 @@ public with sharing class GOL_JSON2ApexFinancialQuoteWrapper {
     public class QuoteDetail {
         public String id;
         public String label;
-        public Decimal value;
+        public String value;
     }
 
     public class FixedCost {

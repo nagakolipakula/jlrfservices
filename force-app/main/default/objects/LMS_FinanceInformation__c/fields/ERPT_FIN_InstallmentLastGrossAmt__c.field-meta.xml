@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ERPT_FIN_InstallmentLastGrossAmt__c</fullName>
+    <description>Installment Last Gross Amount</description>
+    <inlineHelpText>Installment Last Gross Amount</inlineHelpText>
+    <label>Inst Last Gross Amt</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

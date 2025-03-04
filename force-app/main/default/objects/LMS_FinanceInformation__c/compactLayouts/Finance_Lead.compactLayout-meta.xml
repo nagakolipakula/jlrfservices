@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CompactLayout xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Finance_Lead</fullName>
+    <fields>Name</fields>
+    <fields>LMS_FIN_Lead__c</fields>
+    <label>Finance Lead</label>
+</CompactLayout>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LMS_PreventNewFINRecordAfterQuoteAccept</fullName>
+    <active>true</active>
+    <errorConditionFormula>ISNEW() &amp;&amp; !ISNULL(LMS_FIN_Quote__c) &amp;&amp;  LMS_FIN_Quote__r.LMS_QUO_NoOfFinancialInformation__c &gt; 0</errorConditionFormula>
+    <errorMessage>You are unable to create a new Finance Quote as there is already an accepted/activated Finance Quote.</errorMessage>
+</ValidationRule>

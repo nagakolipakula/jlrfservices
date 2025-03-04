@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LMS_FIN_CentralFinancingCantBeEdited</fullName>
+    <active>false</active>
+    <description>Central Financing Cant Be Edited</description>
+    <errorConditionFormula>$User.LMS_USR_TurnOffValidationRules__c =false
+&amp;&amp;
+ RecordType.DeveloperName=&quot;LMS_FIN_CentralFinancing&quot;
+&amp;&amp;(
+ISPICKVAL($User.LMS_USR_JobRole__c, &quot;Exec&quot;)
+||
+ISPICKVAL($User.LMS_USR_JobRole__c, &quot;Admin&quot;)
+||
+ISPICKVAL($User.LMS_USR_JobRole__c, &quot;Manager&quot;))</errorConditionFormula>
+    <errorMessage>You do not have permission to edit this record.</errorMessage>
+</ValidationRule>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LMS_FIN_Installment_Amount__c</fullName>
+    <description>Value of instalment repayments.</description>
+    <inlineHelpText>Value of instalment repayments.</inlineHelpText>
+    <label>Installment Amount</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Currency</type>
+</CustomField>

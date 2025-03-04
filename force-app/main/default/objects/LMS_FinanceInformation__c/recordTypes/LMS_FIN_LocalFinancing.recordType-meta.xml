@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LMS_FIN_LocalFinancing</fullName>
+    <active>true</active>
+    <compactLayoutAssignment>Central_Financing</compactLayoutAssignment>
+    <description>Locally recorded non-leasing details of finance offer (Non-white label financing offers)</description>
+    <label>Local Financing</label>
+    <picklistValues>
+        <picklist>GOL_Channel__c</picklist>
+        <values>
+            <fullName>ONLINE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>POS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>TELESALES</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>GOL_Person_Type__c</picklist>
+        <values>
+            <fullName>LEGAL</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PHYSICAL</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SELF-EMPLOYED</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>GOL_Type_Of_Use__c</picklist>
+        <values>
+            <fullName>PRIVATE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PROFESSIONAL</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>LMS_FIN_Finance_Product__c</picklist>
+        <values>
+            <fullName>Advance Payment Plan</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Annual Installment</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Balloon Hire Purchase</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Contract Hire</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Lease</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Personal Contract Hire</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Personal Contract Plan</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Personal Loan</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Post Dated Cheque</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Single Paid Lease</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Standard Hire Purchase</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Standard Lease</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Standard Loan</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Subvented Lease</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Subvented Loan</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>LMS_FIN_Finance_Provider__c</picklist>
+        <values>
+            <fullName>ALD</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>FCA BANK</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>FGA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Jaguar Land Rover Financial Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>LEX AUTOLEASE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ST JAMES</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>WOORI</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>LMS_FIN_Status__c</picklist>
+        <values>
+            <fullName>Accepted</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Activated</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Proposal</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Quotation</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Rejected</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

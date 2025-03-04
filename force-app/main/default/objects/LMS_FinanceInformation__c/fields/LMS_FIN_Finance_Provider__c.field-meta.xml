@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LMS_FIN_Finance_Provider__c</fullName>
+    <description>Company name of the Financial Partner providing the financial product.</description>
+    <inlineHelpText>Company name of the Financial Partner providing the financial product.</inlineHelpText>
+    <label>Finance Provider</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>FGA</fullName>
+                <default>false</default>
+                <label>FGA</label>
+            </value>
+            <value>
+                <fullName>ST JAMES</fullName>
+                <default>false</default>
+                <label>ST JAMES</label>
+            </value>
+            <value>
+                <fullName>WOORI</fullName>
+                <default>false</default>
+                <label>WOORI</label>
+            </value>
+            <value>
+                <fullName>LEX AUTOLEASE</fullName>
+                <default>false</default>
+                <label>LEX AUTOLEASE</label>
+            </value>
+            <value>
+                <fullName>FCA BANK</fullName>
+                <default>false</default>
+                <label>FCA BANK</label>
+            </value>
+            <value>
+                <fullName>ALD</fullName>
+                <default>false</default>
+                <label>ALD</label>
+            </value>
+            <value>
+                <fullName>Jaguar Land Rover Financial Services</fullName>
+                <default>false</default>
+                <label>Jaguar Land Rover Financial Services</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

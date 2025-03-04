@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LMS_FIN_Flat_Rate__c</fullName>
+    <description>Interest rate of contract expressed as flat rate. Used to calculate credit charges (interest on contract).  Only applicable if NO residual.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>Interest rate of contract expressed as flat rate. Used to calculate credit charges (interest on contract).  Only applicable if NO residual.</inlineHelpText>
+    <label>Flat Rate</label>
+    <precision>18</precision>
+    <required>false</required>
+    <scale>2</scale>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

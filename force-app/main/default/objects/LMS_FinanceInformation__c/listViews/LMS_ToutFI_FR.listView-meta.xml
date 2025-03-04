@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LMS_ToutFI_FR</fullName>
+    <columns>LMS_FIN_CentralFinancing__c</columns>
+    <columns>LMS_FIN_Invoice_Price__c</columns>
+    <columns>LMS_FIN_Deposit__c</columns>
+    <columns>LMS_FIN_Contract_Start_Date__c</columns>
+    <columns>NAME</columns>
+    <filterScope>Everything</filterScope>
+    <label>Tout</label>
+    <language>en_US</language>
+    <sharedTo>
+        <group>JLRFR0010Y00001XKdYs</group>
+        <role>NSC_France</role>
+    </sharedTo>
+</ListView>

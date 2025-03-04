@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>LMS_FIN_Finance_Product__c</fullName>
+    <description>Type of finance product.</description>
+    <inlineHelpText>Type of finance product.</inlineHelpText>
+    <label>Finance Product</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Long term hire</fullName>
+                <default>false</default>
+                <label>Long term hire</label>
+            </value>
+            <value>
+                <fullName>Hire purchase agreement</fullName>
+                <default>false</default>
+                <label>Hire purchase agreement</label>
+            </value>
+            <value>
+                <fullName>Banker&apos;s draft</fullName>
+                <default>false</default>
+                <label>Banker&apos;s draft</label>
+            </value>
+            <value>
+                <fullName>Conventional Loan</fullName>
+                <default>false</default>
+                <label>Conventional Loan</label>
+            </value>
+            <value>
+                <fullName>Standard Hire Purchase</fullName>
+                <default>false</default>
+                <label>Standard Hire Purchase</label>
+            </value>
+            <value>
+                <fullName>Contract Hire</fullName>
+                <default>false</default>
+                <label>Contract Hire</label>
+            </value>
+            <value>
+                <fullName>Balloon Hire Purchase</fullName>
+                <default>false</default>
+                <label>Balloon Hire Purchase</label>
+            </value>
+            <value>
+                <fullName>Personal Contract Plan</fullName>
+                <default>false</default>
+                <label>Personal Contract Plan</label>
+            </value>
+            <value>
+                <fullName>Personal Contract Hire</fullName>
+                <default>false</default>
+                <label>Personal Contract Hire</label>
+            </value>
+            <value>
+                <fullName>Standard Loan</fullName>
+                <default>false</default>
+                <label>Standard Loan</label>
+            </value>
+            <value>
+                <fullName>Subvented Loan</fullName>
+                <default>false</default>
+                <label>Subvented Loan</label>
+            </value>
+            <value>
+                <fullName>Lease</fullName>
+                <default>false</default>
+                <label>Lease</label>
+            </value>
+            <value>
+                <fullName>Standard Lease</fullName>
+                <default>false</default>
+                <label>Standard Lease</label>
+            </value>
+            <value>
+                <fullName>Subvented Lease</fullName>
+                <default>false</default>
+                <label>Subvented Lease</label>
+            </value>
+            <value>
+                <fullName>Single Paid Lease</fullName>
+                <default>false</default>
+                <label>Single Paid Lease</label>
+            </value>
+            <value>
+                <fullName>Advance Payment Plan</fullName>
+                <default>false</default>
+                <label>Advance Payment Plan</label>
+            </value>
+            <value>
+                <fullName>Annual Installment</fullName>
+                <default>false</default>
+                <label>Annual Installment</label>
+            </value>
+            <value>
+                <fullName>Post Dated Cheque</fullName>
+                <default>false</default>
+                <label>Post Dated Cheque</label>
+            </value>
+            <value>
+                <fullName>Personal Loan</fullName>
+                <default>false</default>
+                <label>Personal Loan</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

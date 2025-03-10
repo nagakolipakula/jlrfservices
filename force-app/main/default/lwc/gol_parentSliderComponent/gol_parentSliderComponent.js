@@ -63,7 +63,8 @@ export default class gol_parentSliderComponent extends LightningElement {
         return;
       }
       const tidyUpResponse = this.response.replace(/<\/?[^>]+(>|$)/g, '').trim();
-      this.parsedResponse = JSON.parse(tidyUpResponse);
+      let rawParsedResponse  = JSON.parse(tidyUpResponse);
+      this.parsedResponse = this.removeSetFlags(rawParsedResponse);
       
       if (!this.parsedResponse || this.parsedResponse.length === 0) {
         console.warn('No financial products available in response');
@@ -87,6 +88,21 @@ export default class gol_parentSliderComponent extends LightningElement {
       console.error('Raw Response:', this.response);
       this.hasNoFinancialProducts = true;
     }
+  }
+
+  removeSetFlags(data) {
+    if (Array.isArray(data)) {
+      return data.map(item => this.removeSetFlags(item));
+    } else if (typeof data === "object" && data !== null) {
+      let cleanedObj = {};
+      Object.keys(data).forEach(key => {
+        if (!key.endsWith("_set")) {
+          cleanedObj[key] = this.removeSetFlags(data[key]);
+        }
+      });
+      return cleanedObj;
+    }
+    return data;
   }
 
   resetComponent() {
@@ -548,6 +564,7 @@ export default class gol_parentSliderComponent extends LightningElement {
     console.log('-------providerData----------');
     console.log(providerData.cpiProducts);
     const cpiProducts = providerData.cpiProducts || [];
+    const nonCpiProducts = providerData.nonCpiProducts || [];
     const serializedData = {
       quoteId: this.quoteExternalId,
       typeOfUse: this.typeOfUse || "PRIVATE",
@@ -565,6 +582,7 @@ export default class gol_parentSliderComponent extends LightningElement {
               creditTimeUnit: providerData.units.creditTimeUnit || ""
           },
           cpiProducts: cpiProducts,
+          nonCpiProducts: nonCpiProducts,
           inputFields: inputFields
       }
   };

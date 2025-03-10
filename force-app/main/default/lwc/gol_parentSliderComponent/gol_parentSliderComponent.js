@@ -37,6 +37,7 @@ export default class gol_parentSliderComponent extends LightningElement {
   selectedProductId;
   parsedResponse;
   childSliderComponent = false;
+  childInsuranceProductComponent = false;
   isInitialLoadInModify = false;
   label = {
     GOL_Select_Financial_Product,
@@ -46,6 +47,7 @@ export default class gol_parentSliderComponent extends LightningElement {
     GOL_Finance_Insurance_and_Services,
     GOL_Amount_incl_VAT
   }
+  insuranceProducts;
 
   connectedCallback() {
     console.log('First Finance Info Record:', this.ContactId);
@@ -82,7 +84,7 @@ export default class gol_parentSliderComponent extends LightningElement {
           console.warn('retailerDiscountSerializedData is undefined or empty');
       }
       this.initializeSliders();
-  
+      this.initializeInsuranceProduct();
     }catch (error) {
       console.error('Error in connectedCallback:', error.message);
       console.error('Raw Response:', this.response);
@@ -172,9 +174,9 @@ export default class gol_parentSliderComponent extends LightningElement {
     console.log('ContactId in handleModify:', contactID);
   }
 
-  renderedCallback() {
-    console.log('ContactId in rendered Callback:', this.ContactId);
-  }
+  // renderedCallback() {
+  //   console.log('ContactId in rendered Callback:', this.ContactId);
+  // }
 
   //Radio buttons
   getProductIds() {
@@ -208,6 +210,7 @@ export default class gol_parentSliderComponent extends LightningElement {
     console.log('MS this.selectedProductId==> ',this.selectedProductId);
     // console.log('MS parsedResponse  handleProductSelectionChange ==>' + JSON.stringify(this.parsedResponse, null, 2));
     this.initializeSliders();
+    this.initializeInsuranceProduct();
     this.handleUpdateRetailerDiscount('selectedProductId',event.detail);
   }
 
@@ -296,7 +299,10 @@ export default class gol_parentSliderComponent extends LightningElement {
           allowedFields.includes(key) &&
           key !== "downPaymentRateRange" &&
           key !== "loanGrossAmountRange" &&
-          key !== "interestRateRange"
+          key !== "interestRateRange" &&
+          key !== "paymentDelayRange" &&
+          key !== "commissionGrossAmountRange"
+          // key !== "finalTermRateRange"
         )
         .map(([key, field]) => {
           let storedValue = this.selectedSliderValues.get(this.selectedProductId)?.[key];
@@ -426,20 +432,68 @@ export default class gol_parentSliderComponent extends LightningElement {
       }
       this.selectedSliderValues.get(this.selectedProductId)[id] = value;
     }
+
+    const product = this.getSelectedProduct();
+    if (product) {
+        if (product.provider === 'BNPP' && id === 'durationsRange') {
+            this.updateBNPPMileage(value);
+        } else if (product.provider === 'ARVAL' && id === 'durationsRange') {
+            this.updateDependentSlider(value);
+        }
+    }
     // if (id === 'durationsRange') {
     //     this.updateDependentSlider(value);
     // }
-    this.updateDependentSlider(value);
+    //this.updateDependentSlider(value);
     this.updateParsedResponse(id, value);
     this.sliders = [...this.sliders];
     this.handleUpdateRetailerDiscount(id, value);
-
   }
 
   logSliderChange(id, value) {
     console.log(`Slider changed: ${id} -> ${value}`);
     console.log(`${id} <== MS Slider changed MS ==> ${value}`);
     console.log(`${this.selectedProductId} <== this.selectedProductId this.parsedResponse MS ==> ${this.parsedResponse.length}`);
+  }
+
+  updateBNPPMileage(selectedDuration) {
+    const product = this.getSelectedProduct();
+    if (!product || !product.inputFields || !product.inputFields.annualMileagesRange) {
+        console.warn('BNPP Mileage Update Skipped: Missing required fields in response');
+        return;
+    }
+
+    let maxMileage = product.inputFields.annualMileagesRange.maximum;
+
+    if (product.inputFields.finalTermRateRange && product.inputFields.finalTermRateRange.conditions) {
+        for (const condition of product.inputFields.finalTermRateRange.conditions) {
+            if (condition.numberConstraints) {
+                for (const constraint of condition.numberConstraints) {
+                    if (
+                        constraint.constrainingPropertyName === "DURATION" &&
+                        constraint.constrainingOperator === "EQUALS" &&
+                        constraint.constrainingValueRangeInf === selectedDuration &&
+                        constraint.constrainingValueRangeSup === selectedDuration
+                    ) {
+                        maxMileage = condition.constrainedValueRangeSup;
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    console.log(`BNPP Corrected Mileage Update: ${maxMileage} for Duration ${selectedDuration}`);
+
+    const mileageSlider = this.sliders.find(slider => slider.id === 'annualMileagesRange');
+    if (mileageSlider) {
+        mileageSlider.max = maxMileage;
+        mileageSlider.defaultValue = Math.min(mileageSlider.defaultValue, maxMileage);
+    }
+
+    setTimeout(() => {
+        this.sliders = [...this.sliders];
+    }, 50);
   }
 
   updateDependentSlider(value) {
@@ -615,7 +669,7 @@ export default class gol_parentSliderComponent extends LightningElement {
   handleUpdateRetailerDiscount(id, value) {
     //const providerData = this.parsedResponse.find(item => item.id === this.selectedProductId);
     //console.log('MS:: providerData==> '+JSON.stringify(providerData));
-    console.log(id+" MS::<====Id Value=====> "+value);
+    // console.log(id+" MS::<====Id Value=====> "+value);
     let sliderInputDefaultVal = this.buildSliderInputRetailerDiscount();
     // var result = Object.entries(sliderInputDefaultVal);
     // result.forEach(([key, value]) => {
@@ -639,7 +693,7 @@ export default class gol_parentSliderComponent extends LightningElement {
     // }else{
     //   selectedData = {'selectedProductId':this.selectedProductId,'inputFields':{}};
     // }
-    console.log('MS:: selectedData==> '+JSON.stringify(selectedData));
+    // console.log('MS:: selectedData==> '+JSON.stringify(selectedData));
 
     this.dispatchEvent(new FlowAttributeChangeEvent('retailerDiscountSerializedData', JSON.stringify(selectedData)));
   
@@ -659,7 +713,7 @@ export default class gol_parentSliderComponent extends LightningElement {
         retailerDiscountInputFiledAry.push({[sliderId]:selectedVal});
       }
     });
-    console.log('MS:: retailerDiscountInputFiledAry1==> '+JSON.stringify(retailerDiscountInputFiledAry));
+    // console.log('MS:: retailerDiscountInputFiledAry1==> '+JSON.stringify(retailerDiscountInputFiledAry));
     return retailerDiscountInputFiledAry;
   }
   handleBackToFianceCalculator() {
@@ -702,6 +756,27 @@ buildInputFields() {
   return selectedFields;
 }
 
+//Dynamic Insurance Product
+async initializeInsuranceProduct() {
+  if (!this.parsedResponse) {
+    console.warn('Response is empty or not defined');
+    return;
+  }
+  this.childInsuranceProductComponent = false;
+  this.insuranceProducts = this.getSelectedProduct();
+  console.log('MS++ initializeInsuranceProduct==> '+JSON.stringify(this.insuranceProducts));
+   // if (providerData && providerData.inputFields) {
+    //   this.selectedSliderValues.set(this.selectedProductId, {});
+    //   Object.entries(providerData.inputFields).forEach(([key, field]) => {
+    //     if (!this.selectedSliderValues.get(this.selectedProductId)[key]) {
+    //       this.selectedSliderValues.get(this.selectedProductId)[key] = field.defaultValue;
+    //     }
+    //   });
+    // }
+    setTimeout(() => {
+      this.childInsuranceProductComponent = true;
+    }, 200);
+}
   // buildGetQuotePayload(){
     
 

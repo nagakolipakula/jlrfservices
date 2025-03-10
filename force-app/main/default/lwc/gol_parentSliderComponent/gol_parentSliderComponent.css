@@ -91,21 +91,21 @@
 }
 
 .insuranceservicescss {
-    display: inline-flex;
+    /* display: inline-flex;
     flex-wrap: wrap;
     gap: 40px;
-    justify-content: space-between;
+    justify-content: space-between; */
     width: 100%;
     max-width: 1200px;
     margin-left: 20px;
 }
 
-.insuranceservicescss>c-gol_-insurance-services-component {
+/* .insuranceservicescss>c-gol_-insurance-services-component {
     flex: 1 1 calc(50% - 40px);
     min-width: 300px;
     max-width: 530px;
     box-sizing: border-box;
-}
+} */
 
 .customizationscreencss {
     width: 100%;

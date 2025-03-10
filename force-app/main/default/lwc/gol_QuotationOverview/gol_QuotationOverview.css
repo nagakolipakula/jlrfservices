@@ -107,8 +107,8 @@
 
 .scrollable-container {
     width: 95%;
-    height: 465px;
-    overflow-y: scroll;
+    max-height: 465px;
+    overflow-y: auto;
     position: relative;
     /* overflow-x: hidden; */
     /* border: 1px solid rgba(182, 184, 187, 1); */

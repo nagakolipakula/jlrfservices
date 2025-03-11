@@ -1,11 +1,40 @@
 <template>
+    <lightning-layout class="layoutcss" multiple-rows>
+        <template  if:true={isInsuranceProducts.cpiProducts}>
+        <lightning-layout-item class="layoutitemcss" size="12" small-device-size="6" medium-device-size="5" large-device-size="5">
             <div class="insuranceboxcss">
-                <div for="insurance" class="insuranceproductnamecss">Insurance product {indexnumber}</div>
+                <div class="checkboxheadercss" >{label.GOL_Finance_Insurance_product_1}</div>
+                    <template for:each={cpiProducts} for:item="cp" for:index="index">
+                    <div key={cp.name}  class="checkboxdivcss">
+                        <input id={cp.name} value={cp.name} type="checkbox" checked={cp.checked}>
+                        <label class="checkboxlabelcss" for={cp.name}> {cp.name}</label>
+                    </div>
+                    </template>             
+            </div>
+        </lightning-layout-item>
+        </template>
+        <template  if:true={isInsuranceProducts.nonCpiProducts}>
+        <lightning-layout-item class="layoutitemcss" size="12" small-device-size="6" medium-device-size="5" large-device-size="5">
+            <div class="insuranceboxcss">
+                <div class="checkboxheadercss">{label.GOL_Finance_Insurance_product_2}</div>
+                    <template for:each={nonCpiProducts} for:item="ncp" for:index="index">
+                    <div key={ncp.name} class="checkboxdivcss">
+                        <input id={ncp.name} value={ncp.name} type="checkbox" checked={ncp.checked}>
+                        <label class="checkboxlabelcss" for={ncp.name}> {ncp.name}</label>
+                    </div>
+                    </template>
+            </div>
+        </lightning-layout-item>
+        </template>
+    </lightning-layout>
+            
+            <!-- <div class="insuranceboxcss">
+               <div for="insurance" class="insuranceproductnamecss">Insurance product</div>
                 <select name="insurance" id="insurance" class="selectcss">
                     <option value="volvo">Insurance product name A</option>
                     <option value="volvo">Insurance product B</option>
                     <option value="volvo">Insurance product name C</option>
                     <option value="volvo">Insurance product D</option>
-                </select>
-            </div>
+                </select> 
+            </div> -->
 </template>

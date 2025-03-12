@@ -617,8 +617,8 @@ export default class gol_parentSliderComponent extends LightningElement {
     }
     console.log('-------providerData----------');
     console.log(providerData.cpiProducts);
-    const cpiProducts = providerData.cpiProducts || [];
-    const nonCpiProducts = providerData.nonCpiProducts || [];
+    const cpiProducts = providerData.cpiProducts.filter((ele,index) => ele.checked == true) || [];
+    const nonCpiProducts = providerData.nonCpiProducts.filter((ele,index) => ele.checked == true) || [];
     const serializedData = {
       quoteId: this.quoteExternalId,
       typeOfUse: this.typeOfUse || "PRIVATE",
@@ -780,6 +780,30 @@ async initializeInsuranceProduct() {
 handleInsuranceProductChange(event){
   let parameters = event.detail;
   console.log('MS+++ handleInsuranceProductChange==> '+JSON.stringify(parameters));
+  if(this.parsedResponse){
+    //this.selectedProductId
+    for(let i=0;i<this.parsedResponse.length;i++){
+    if(this.parsedResponse[i].fullId === this.selectedProductId){
+      if(parameters.productHeaderName === 'cpiProducts'){
+      this.parsedResponse[i].cpiProducts.forEach((childelement)=>{
+      if(childelement.id === parameters.productId){
+        childelement.checked = parameters.selectedProduct;
+      }
+    });
+    }
+    if(parameters.productHeaderName === 'nonCpiProducts'){
+      this.parsedResponse[i].nonCpiProducts.forEach((schildelement)=>{
+      if(schildelement.id === parameters.productId){
+        schildelement.checked = parameters.selectedProduct;
+      }
+    });
+    }
+    if(parameters.productHeaderName === 'services'){
+      console.log('services call');
+    }
+}
+}
+}
   // if (this.selectedProductId) {
 
   // }

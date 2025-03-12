@@ -101,7 +101,16 @@ input[type="checkbox"]:checked::after {
 .arvallayoutitemcss{
     padding-bottom: 4%;
 }
-@media screen and (min-width: 1025px) and (max-width: 1280px) {
+@media only screen and (max-width: 1024px) {
+    .layoutitemcss{
+        min-width: 47% !important;
+        max-width: 50% !important;
+    }
+    .layoutcss{
+        gap: 6% !important;
+    }
+}
+@media screen and (min-width: 1280px) and (max-width: 1366px) {
     .layoutitemcss{
         min-width: 46% !important;
         max-width: 50% !important;

@@ -25,7 +25,9 @@ export default class Gol_InsuranceServicesComponent extends LightningElement {
         if(insuranceProductsVal.cpiProducts && insuranceProductsVal.cpiProducts.length>0){ 
             this.isInsuranceProducts.cpiProducts = true;
             insuranceProductsVal.cpiProducts.forEach((element) => {
-                element.checked = false;
+                if(element.checked === undefined){
+                    element.checked = false;
+                }                
                 if(element.description !== undefined){
                     element.checkboxLabel = element.description;
                 }else if(element.name){
@@ -40,7 +42,9 @@ export default class Gol_InsuranceServicesComponent extends LightningElement {
         if(insuranceProductsVal.nonCpiProducts && insuranceProductsVal.nonCpiProducts.length>0){
             this.isInsuranceProducts.nonCpiProducts = true;
             insuranceProductsVal.nonCpiProducts.forEach((element) => {
-                element.checked = false;
+                if(element.checked === undefined){
+                    element.checked = false;
+                }   
                 if(element.description !== undefined){
                     element.checkboxLabel = element.description;
                 }else if(element.name){

@@ -39,6 +39,9 @@
 			<property name="showFinancingTab" 
                        type="Boolean" 
                        label="Show Financing Tab" />
+			<property name="ShowFullFinanceTab" 
+                       type="Boolean" 
+                       label="Show Full Finance Tab" />
         </targetConfig>
     </targetConfigs>
 </LightningComponentBundle>

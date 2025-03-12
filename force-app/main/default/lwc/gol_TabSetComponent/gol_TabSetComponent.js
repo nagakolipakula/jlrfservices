@@ -9,13 +9,14 @@ import GOL_F1_EXTRAS from '@salesforce/label/c.GOL_F1_EXTRAS';
 import GOL_F1_TRADE_IN from '@salesforce/label/c.GOL_F1_TRADE_IN';
 import GOL_F1_FINANCING from '@salesforce/label/c.GOL_F1_FINANCING';
 import GOL_F1_ADMINISTRATION from '@salesforce/label/c.GOL_F1_ADMINISTRATION';
-
+import GOL_F1_FULL_FINANCING from '@salesforce/label/c.GOL_F1_FULL_FINANCING';
 
 export default class Gol_TabSetComponent extends LightningElement {
   @api quoteId;
   @api retUrl;
   @api readOnly;
   @api showFinancingTab;        //GOL-2142
+  @api ShowFullFinanceTab;      //GOL-3483
   @track tabItems = [];         //GOL-2142
   // currentPageReference = null; 
 
@@ -35,7 +36,7 @@ export default class Gol_TabSetComponent extends LightningElement {
     console.log('default Tab : ' + this.defaulttab);
     
     if (this.defaulttab === undefined) {
-      this.defaulttab = 'tab-default-Financing';
+      this.defaulttab = 'tab-default-Summary';
     }
     this.tabItems.forEach(tab => {
       if(tab.TabId === this.defaulttab){
@@ -73,16 +74,17 @@ export default class Gol_TabSetComponent extends LightningElement {
 
   //GOL-2142 start
   tabSetItemshandler() {
+    let nextTabIndex = 5;
     this.tabItems.push(
       {
         Title: GOL_F1_SUMMARY,
         HeaderFlowName: "GOL_Screen_Flow_Summary_Tab_Header_Car_Image",
         FlowName: "GOL_Screen_Flow_Summary_Tab",
-        ItemClass: 'slds-tabs_default__item',
-        ContentClass: 'slds-tabs_default__content slds-hide',
+        ItemClass: 'slds-tabs_default__item slds-is-active',
+        ContentClass: 'slds-tabs_default__content slds-show',
         TabItemStyle: '',
         TabIndex: 0,
-        IsActive: false,
+        IsActive: true,
         TabId: 'tab-default-Summary',
         IsFinanceTab:false,
         IsTradeInTab:false
@@ -141,47 +143,50 @@ export default class Gol_TabSetComponent extends LightningElement {
       });
 
       if (this.showFinancingTab) {
+          this.tabItems.push({
+          Title: GOL_F1_FINANCING,
+          HeaderFlowName: "",
+          FlowName: "",
+          ItemClass: 'slds-tabs_default__item',
+          ContentClass: 'slds-tabs_default__content slds-hide',
+          TabItemStyle: '',
+          TabIndex: nextTabIndex,
+          IsActive: false,
+          TabId: 'tab-default-Financing',
+          IsFinanceTab:true,
+          IsTradeInTab:false
+        });
+        nextTabIndex++;
+      }
+      if(this.ShowFullFinanceTab){
         this.tabItems.push({
-        Title: GOL_F1_FINANCING,
-        HeaderFlowName: "",
-        FlowName: "GOL_Screen_Flow_Finance_Tab",
-        ItemClass: 'slds-tabs_default__item slds-is-active',
-        ContentClass: 'slds-tabs_default__content slds-show',
-        TabItemStyle: '',
-        TabIndex: 5,
-        IsActive: true,
-        TabId: 'tab-default-Financing',
-        IsFinanceTab:false,
-        IsTradeInTab:false
-      },
-      {
+          Title: GOL_F1_FULL_FINANCING,
+          HeaderFlowName: "",
+          FlowName: "GOL_Screen_Flow_Finance_Tab",
+          ItemClass: 'slds-tabs_default__item',
+          ContentClass: 'slds-tabs_default__content slds-hide',
+          TabItemStyle: '',
+          TabIndex: nextTabIndex,
+          IsActive: false,
+          TabId: 'tab-default-full-Financing',
+          IsFinanceTab:false,
+          IsTradeInTab:false
+        });
+        nextTabIndex++;
+      }
+      this.tabItems.push({
         Title: GOL_F1_ADMINISTRATION,
         HeaderFlowName: "",
         FlowName: "W_G_Screen_Flow_Administration_Tab",
         ItemClass: 'slds-tabs_default__item',
         ContentClass: 'slds-tabs_default__content slds-hide',
         TabItemStyle : 'margin-left: auto;margin-right:20px',
-        TabIndex: 6,
+        TabIndex: nextTabIndex,
         IsActive: false,
         TabId: 'tab-default-Administration',
         IsFinanceTab:false,
         IsTradeInTab:false
       });
-      } else {
-        this.tabItems.push({
-          Title: GOL_F1_ADMINISTRATION,
-          HeaderFlowName: "",
-          FlowName: "W_G_Screen_Flow_Administration_Tab",
-          ItemClass: 'slds-tabs_default__item',
-          ContentClass: 'slds-tabs_default__content slds-hide',
-          TabItemStyle : 'margin-left: auto;margin-right:20px',
-          TabIndex: 6,
-          IsActive: false,
-          TabId: 'tab-default-Administration',
-          IsFinanceTab:false,
-          IsTradeInTab:false
-        });
-      }
   }
   //GOL-2142 ends
 

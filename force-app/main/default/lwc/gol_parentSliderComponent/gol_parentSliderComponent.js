@@ -777,6 +777,13 @@ async initializeInsuranceProduct() {
       this.childInsuranceProductComponent = true;
     }, 200);
 }
+handleInsuranceProductChange(event){
+  let parameters = event.detail;
+  console.log('MS+++ handleInsuranceProductChange==> '+JSON.stringify(parameters));
+  // if (this.selectedProductId) {
+
+  // }
+}
   // buildGetQuotePayload(){
     
 

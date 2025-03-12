@@ -30,7 +30,8 @@
       <!-- <template for:each={sliders} for:item="slider" for:index="index"> -->
         <!--Child component to select insurance and services(gol_InsuranceServicesComponent)-->
         <c-gol_-insurance-services-component 
-            insurance-products={insuranceProducts}>
+            insurance-products={insuranceProducts}
+            oninsuranceproductchange={handleInsuranceProductChange}>
         </c-gol_-insurance-services-component>
       <!-- </template> -->
     </div>

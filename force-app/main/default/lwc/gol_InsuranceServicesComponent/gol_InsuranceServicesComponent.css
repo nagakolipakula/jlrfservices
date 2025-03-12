@@ -35,3 +35,78 @@
     text-decoration-skip-ink: none;
     color: #0C121C;
 }
+input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 1px solid #0C121C;
+    border-radius: 4px;
+    /* display: flex; */
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+input[type="checkbox"]:checked {
+    background-color: #fff;
+    border: 2px solid #0C121C;
+    border-color: #0C121C;
+    position: relative;
+}
+
+input[type="checkbox"]:checked::after {
+    content: url('data:image/svg+xml;utf8,<svg width="14" height="11" viewBox="0 0 14 11" xmlns="http://www.w3.org/2000/svg"><path d="M4.80892 10.061C4.54373 10.0609 4.28941 9.95555 4.10192 9.768L0.792915 6.459C0.610757 6.2704 0.509966 6.01779 0.512245 5.7556C0.514523 5.4934 0.619683 5.24259 0.805092 5.05718C0.9905 4.87178 1.24132 4.7666 1.50352 4.76433C1.76571 4.76205 2.01831 4.86284 2.20692 5.045L4.79192 7.63L11.7769 0.310001C11.8676 0.21499 11.9761 0.138769 12.0962 0.085691C12.2164 0.0326128 12.3458 0.00371617 12.4771 0.000651839C12.6084 -0.00241249 12.739 0.0204145 12.8615 0.0678306C12.984 0.115247 13.0959 0.186322 13.1909 0.277C13.2859 0.367678 13.3622 0.476182 13.4152 0.596317C13.4683 0.716451 13.4972 0.845865 13.5003 0.977167C13.5033 1.10847 13.4805 1.23909 13.4331 1.36157C13.3857 1.48405 13.3146 1.59599 13.2239 1.691L5.53191 9.749C5.4399 9.84554 5.32951 9.9227 5.20724 9.97593C5.08496 10.0292 4.95328 10.0574 4.81992 10.059L4.80892 10.061Z" fill="%230C121C"/></svg>');
+    display: block;
+    width: 14px;
+    height: 11px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.layoutitemcss{
+    min-width: 44% !important;
+    max-width: 50% !important;
+}
+.layoutcss{
+    gap: 12%;
+    /* justify-content: space-between; */
+}
+.checkboxlabelcss{
+    position: relative;
+    bottom: 5px;
+    left: 10px;
+    font-family: 'Avenir Next', sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 22px;
+    letter-spacing: 0.2px;
+    color: #0C121C;
+
+}
+.checkboxheadercss{
+    font-family: 'Avenir Next', sans-serif; 
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 19px;
+    letter-spacing: 0.2px;
+    color: #0C121C;
+    padding: 0px 0px 22px 0px;
+}
+.checkboxdivcss{
+    padding: 0px 0px 8px 0px;
+}
+.arvallayoutitemcss{
+    padding-bottom: 4%;
+}
+@media screen and (min-width: 1025px) and (max-width: 1280px) {
+    .layoutitemcss{
+        min-width: 46% !important;
+        max-width: 50% !important;
+    }
+    .layoutcss{
+        gap: 8% !important;
+    }
+}

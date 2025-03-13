@@ -617,8 +617,8 @@ export default class gol_parentSliderComponent extends LightningElement {
     }
     console.log('-------providerData----------');
     console.log(providerData.cpiProducts);
-    const cpiProducts = providerData.cpiProducts.filter((ele,index) => ele.checked == true) || [];
-    const nonCpiProducts = providerData.nonCpiProducts.filter((ele,index) => ele.checked == true) || [];
+    const cpiProducts = providerData.cpiProducts ? providerData.cpiProducts.filter((ele,index) => ele.checked == true) : [];
+    const nonCpiProducts = providerData.nonCpiProducts ? providerData.nonCpiProducts.filter((ele,index) => ele.checked == true) : [];
     const serializedData = {
       quoteId: this.quoteExternalId,
       typeOfUse: this.typeOfUse || "PRIVATE",

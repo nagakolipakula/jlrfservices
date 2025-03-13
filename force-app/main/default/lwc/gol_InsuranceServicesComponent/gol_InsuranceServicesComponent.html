@@ -9,7 +9,18 @@
                         <input id={cp.name} data-name={cp.financialProductId} data-id={cp.id} data-mid="cpiProducts" value={cp.name} type="checkbox" checked={cp.checked} onchange={handleInsuranceProductSelection}>
                         <label class="checkboxlabelcss" for={cp.name}> {cp.checkboxLabel}</label>
                     </div>
-                    </template>             
+                    </template>
+                    <div class="clientagedivcss">
+                        <div for="clientage" class="clientagelabelcss">{label.GOL_Finance_Client_age}</div>
+                        <select data-mid="clientage" data-id="clientage" name="clientage" id="clientage" class="clientagecss" onchange={handleInsuranceProductSelection}>
+                        <!-- <template for:each={service.validValues} for:item="servicevalue" for:index="indexchild"> -->
+                            <option value="18-40">18-40</option>
+                            <option value="41-50">41-50</option>
+                            <option value="51-60">51-60</option>
+                            <option value="61-70">61-70</option>
+                        <!-- </template>    -->
+                        </select>  
+                    </div>           
             </div>
         </lightning-layout-item>
         </template>
@@ -23,6 +34,17 @@
                         <label class="checkboxlabelcss" for={ncp.name}> {ncp.checkboxLabel}</label>
                     </div>
                     </template>
+                    <div class="zipcodedivcss">
+                        <div class="zipcodelabelcss" for="zipcode">{label.GOL_Finance_Zip_Postal_code}</div>
+                        <input
+                        value={zipCode}
+                        data-mid="zipcode"
+                        data-id="zipcode"
+                        id="zipcode"
+                        type="text"
+                        onchange={handleInsuranceProductSelection}
+                        class="input-box" />
+                    </div>
             </div>
         </lightning-layout-item>
         </template>

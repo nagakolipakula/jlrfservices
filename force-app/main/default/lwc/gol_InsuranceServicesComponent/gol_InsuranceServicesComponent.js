@@ -2,17 +2,23 @@ import { LightningElement, api } from 'lwc';
 import 	GOL_Finance_Insurance_and_Services from '@salesforce/label/c.GOL_Finance_Insurance_and_Services';
 import 	GOL_Finance_Insurance_product_1 from '@salesforce/label/c.GOL_Finance_Insurance_product_1';
 import 	GOL_Finance_Insurance_product_2 from '@salesforce/label/c.GOL_Finance_Insurance_product_2';
+import 	GOL_Finance_Zip_Postal_code from '@salesforce/label/c.GOL_Finance_Zip_Postal_code';
+import 	GOL_Finance_Client_age from '@salesforce/label/c.GOL_Finance_Client_age';
+
 export default class Gol_InsuranceServicesComponent extends LightningElement {
     
     @api insuranceProducts;
     cpiProducts = [];
     nonCpiProducts = [];
+    zipCode = "";
     services = [];
     isInsuranceProducts = {'cpiProducts':false,'nonCpiProducts':false,'services':false};
     label = {
         GOL_Finance_Insurance_and_Services,
         GOL_Finance_Insurance_product_1,
-        GOL_Finance_Insurance_product_2
+        GOL_Finance_Insurance_product_2,
+        GOL_Finance_Zip_Postal_code,
+        GOL_Finance_Client_age
     }
     connectedCallback(){
         console.log('MS++ Insurance Products==> ',JSON.stringify(this.insuranceProducts,null,2));
@@ -22,6 +28,9 @@ export default class Gol_InsuranceServicesComponent extends LightningElement {
     }
     insuranceProductsCheck(){
         var insuranceProductsVal = JSON.parse(JSON.stringify(this.insuranceProducts));
+        if(insuranceProductsVal.zipCode){
+            this.zipCode = insuranceProductsVal.zipCode;
+        }
         if(insuranceProductsVal.cpiProducts && insuranceProductsVal.cpiProducts.length>0){ 
             this.isInsuranceProducts.cpiProducts = true;
             insuranceProductsVal.cpiProducts.forEach((element) => {
@@ -77,7 +86,7 @@ export default class Gol_InsuranceServicesComponent extends LightningElement {
         const productHeaderName = event.target.dataset.mid;
        
         const productId = event.target.dataset.id;
-        if(productHeaderName === 'services'){
+        if(productHeaderName === 'services' || productHeaderName === 'zipcode'){
             selectedProduct = event.target.value;
         }else{
             selectedProduct = event.target.checked;

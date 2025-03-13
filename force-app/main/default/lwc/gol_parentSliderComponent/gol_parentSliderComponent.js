@@ -619,6 +619,8 @@ export default class gol_parentSliderComponent extends LightningElement {
     console.log(providerData.cpiProducts);
     const cpiProducts = providerData.cpiProducts ? providerData.cpiProducts.filter((ele,index) => ele.checked == true) : [];
     const nonCpiProducts = providerData.nonCpiProducts ? providerData.nonCpiProducts.filter((ele,index) => ele.checked == true) : [];
+    const zipCode = providerData.zipCode || '';
+    
     const serializedData = {
       quoteId: this.quoteExternalId,
       typeOfUse: this.typeOfUse || "PRIVATE",
@@ -637,6 +639,7 @@ export default class gol_parentSliderComponent extends LightningElement {
           },
           cpiProducts: cpiProducts,
           nonCpiProducts: nonCpiProducts,
+          zipCode: zipCode,
           inputFields: inputFields
       }
   };
@@ -784,6 +787,9 @@ handleInsuranceProductChange(event){
     //this.selectedProductId
     for(let i=0;i<this.parsedResponse.length;i++){
     if(this.parsedResponse[i].fullId === this.selectedProductId){
+      if(parameters.productHeaderName === 'zipcode'){
+        this.parsedResponse[i].zipCode = parameters.selectedProduct;
+      }
       if(parameters.productHeaderName === 'cpiProducts'){
       this.parsedResponse[i].cpiProducts.forEach((childelement)=>{
       if(childelement.id === parameters.productId){

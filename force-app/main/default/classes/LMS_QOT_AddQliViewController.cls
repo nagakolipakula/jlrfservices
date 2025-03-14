@@ -951,7 +951,14 @@ public without sharing class LMS_QOT_AddQliViewController {
                     //     vmeValue.add(quote.LMS_QUO_StockVehicle__r.LMS_VHC_MasterVehicle__r.LMS_VHC_OrderNumber__c );
                     //     result = getCampaignSMART(vmeValue,code.VME_Car_Line_Abbreviation__c);
                     // } // Commented by Koku VME Promotions data setup
-                    result = [SELECT Id,toLabel(VME_Channel__c),VME_Type__c,toLabel(VME_Sales_Channel__c),VME_Percentage__c,VME_Invoice_segment__c,VME_Campaign__r.VME_WBS__r.VME_WBS_Key__c,VME_Amount__c,Name,VME_Quarter__c,VME_Retailer_Upload_Required__c,toLabel(VME_Document_Evidence__c),VME_Calculation_Basis__c,VME_Start_Date__c,VME_End_Date__c FROM VME_Campaign_Specifications__c];//Added by Koku (Please remove)
+                    User currentUser = [
+                                    SELECT VME_Country_Code__c 
+                                        FROM User 
+                                        WHERE Id = :UserInfo.getUserId()
+                                        LIMIT 1
+                                    ];
+                    String userCountryCode = currentUser.VME_Country_Code__c;
+                    result = [SELECT Id,toLabel(VME_Channel__c),VME_Type__c,toLabel(VME_Sales_Channel__c),VME_Percentage__c,VME_Invoice_segment__c,VME_Campaign__r.VME_WBS__r.VME_WBS_Key__c,VME_Amount__c,Name,VME_Quarter__c,VME_Retailer_Upload_Required__c,toLabel(VME_Document_Evidence__c),VME_Calculation_Basis__c,VME_Start_Date__c,VME_End_Date__c FROM VME_Campaign_Specifications__c WHERE VME_Campaign__r.VME_Market_Code__c = :userCountryCode];//Added by Koku (Please remove)
                     System.debug('Result===============' + result);
                     if (result != null && !result.isEmpty()) {
                         String query = 'SELECT Id, Name,VME_Start_Date__c, VME_End_Date__c,VME_Audience__c, VME_Calculation_Trigger__c, VME_Document_Type__c, '

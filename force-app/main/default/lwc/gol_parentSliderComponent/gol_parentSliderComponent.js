@@ -17,6 +17,7 @@ export default class gol_parentSliderComponent extends LightningElement {
   @api ContactId2;
   @api vehicleQli;
   @api financeInformation;
+  @api financeitem;
   @api inputFieldMapping;
   @api inputMappingData;
   @api personType;
@@ -50,6 +51,7 @@ export default class gol_parentSliderComponent extends LightningElement {
   insuranceProducts;
 
   connectedCallback() {
+    console.log('Finance Item==> '+JSON.stringify(this.financeitem,null,2));
     console.log('First Finance Info Record:', this.ContactId);
     console.log('Second Finance Info Record:', this.ContactId2);
     console.log('MS retailerDiscountSerializedData==>',this.retailerDiscountSerializedData);
@@ -84,7 +86,6 @@ export default class gol_parentSliderComponent extends LightningElement {
           console.warn('retailerDiscountSerializedData is undefined or empty');
       }
       this.initializeSliders();
-      this.initializeInsuranceProduct();
     }catch (error) {
       console.error('Error in connectedCallback:', error.message);
       console.error('Raw Response:', this.response);
@@ -262,6 +263,7 @@ export default class gol_parentSliderComponent extends LightningElement {
       return;
     }
     this.childSliderComponent = false;
+    this.childInsuranceProductComponent = false;
     this.getProductIds();
     this.setDefaultSelectedProductId();
     if(this.isInitialLoadInModify && this.financeInformation){
@@ -273,6 +275,7 @@ export default class gol_parentSliderComponent extends LightningElement {
       this.updateParsedResponseForRetailerDiscount();
     }
     this.setupSliders();
+    this.initializeInsuranceProduct();
     const providerData = this.getSelectedProduct();
     if (providerData && providerData.inputFields) {
       this.selectedSliderValues.set(this.selectedProductId, {});
@@ -284,6 +287,7 @@ export default class gol_parentSliderComponent extends LightningElement {
     }
     setTimeout(() => {
       this.childSliderComponent = true;
+      this.childInsuranceProductComponent = true;
     }, 100);
     this.isInitialLoadInModify = false;
   }
@@ -318,8 +322,10 @@ export default class gol_parentSliderComponent extends LightningElement {
   }
 
   updateParsedResponseForModify(){
+    console.log('MS updateParsedResponseForModify call ==>'+ this.selectedProductId);
     for (let i = 0; i < this.parsedResponse.length; i++) {
       if (this.selectedProductId === this.parsedResponse[i].fullId) {
+        console.log( this.parsedResponse[i].fullId +'<==MS updateParsedResponseForModify call2 ==>'+ this.selectedProductId);
         const inputFields = this.parsedResponse[i].inputFields;
         const allowedFields = this.getSliderNames(inputFields);
         let inputName;
@@ -327,6 +333,35 @@ export default class gol_parentSliderComponent extends LightningElement {
           inputName = allowedFields[j];
           inputFields[inputName].defaultValue = this.getSavedValueFromFinInformation(inputName) ?? 0;
           this.parsedResponse[i].inputFields = inputFields;
+        }
+
+        //Finance Item
+        if(this.financeitem){
+          let financeitemParsed = JSON.parse(JSON.stringify(this.financeitem));
+          console.log('MS updateParsedResponseForModify financeitem call');
+          for(let x=0; x<financeitemParsed.length; x++){
+            console.log(financeitemParsed[x].GOL_Record_Type_Name__c+' <==MS updateParsedResponseForModify financeitem loop call==> '+financeitemParsed[x].ERPT_FII_ExternalRef__c);
+              if(financeitemParsed[x].GOL_Record_Type_Name__c === 'ERPT_FII_CPIProduct'){
+                console.log('MS updateParsedResponseForModify CPIProduct call2');
+                if(this.parsedResponse[i].cpiProducts){
+                  this.parsedResponse[i].cpiProducts.forEach((e)=>{
+                    if(e.id == financeitemParsed[x].ERPT_FII_ExternalRef__c){
+                      e.checked = true;
+                    }
+                  });
+                }
+              }else if(financeitemParsed[x].GOL_Record_Type_Name__c === 'ERPT_FII_NonCPIProduct'){
+                console.log('MS updateParsedResponseForModify nonCpiProducts call');
+                if(this.parsedResponse[i].nonCpiProducts){
+                  this.parsedResponse[i].nonCpiProducts.forEach((e1)=>{
+                    if(e1.id == financeitemParsed[x].ERPT_FII_ExternalRef__c){
+                      e1.checked = true;
+                    }
+                  });
+                }
+              }
+
+          }
         }
       }
     }
@@ -619,6 +654,7 @@ export default class gol_parentSliderComponent extends LightningElement {
     console.log(providerData.cpiProducts);
     const cpiProducts = providerData.cpiProducts ? providerData.cpiProducts.filter((ele,index) => ele.checked == true) : [];
     const nonCpiProducts = providerData.nonCpiProducts ? providerData.nonCpiProducts.filter((ele,index) => ele.checked == true) : [];
+    const ageRange = (providerData.ageRange && providerData.ageRangeSelected) ? providerData.ageRange.filter((ele,index) => ele.name == providerData.ageRangeSelected) : [];
     const zipCode = providerData.zipCode || '';
     
     const serializedData = {
@@ -639,6 +675,7 @@ export default class gol_parentSliderComponent extends LightningElement {
           },
           cpiProducts: cpiProducts,
           nonCpiProducts: nonCpiProducts,
+          ageRange: ageRange,
           zipCode: zipCode,
           inputFields: inputFields
       }
@@ -761,11 +798,11 @@ buildInputFields() {
 
 //Dynamic Insurance Product
 async initializeInsuranceProduct() {
-  if (!this.parsedResponse) {
-    console.warn('Response is empty or not defined');
-    return;
-  }
-  this.childInsuranceProductComponent = false;
+  // if (!this.parsedResponse) {
+  //   console.warn('Response is empty or not defined');
+  //   return;
+  // }
+  // this.childInsuranceProductComponent = false;
   this.insuranceProducts = this.getSelectedProduct();
   console.log('MS++ initializeInsuranceProduct==> '+JSON.stringify(this.insuranceProducts));
    // if (providerData && providerData.inputFields) {
@@ -776,9 +813,9 @@ async initializeInsuranceProduct() {
     //     }
     //   });
     // }
-    setTimeout(() => {
-      this.childInsuranceProductComponent = true;
-    }, 200);
+    // setTimeout(() => {
+    //   this.childInsuranceProductComponent = true;
+    // }, 200);
 }
 handleInsuranceProductChange(event){
   let parameters = event.detail;
@@ -787,6 +824,10 @@ handleInsuranceProductChange(event){
     //this.selectedProductId
     for(let i=0;i<this.parsedResponse.length;i++){
     if(this.parsedResponse[i].fullId === this.selectedProductId){
+      
+      if(parameters.productHeaderName === 'clientage'){
+        this.parsedResponse[i].ageRangeSelected = parameters.selectedProduct;
+      }
       if(parameters.productHeaderName === 'zipcode'){
         this.parsedResponse[i].zipCode = parameters.selectedProduct;
       }

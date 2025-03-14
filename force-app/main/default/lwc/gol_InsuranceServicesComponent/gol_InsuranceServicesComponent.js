@@ -11,8 +11,10 @@ export default class Gol_InsuranceServicesComponent extends LightningElement {
     cpiProducts = [];
     nonCpiProducts = [];
     zipCode = "";
+    ageRange = [];
+    ageRangeSelected;
     services = [];
-    isInsuranceProducts = {'cpiProducts':false,'nonCpiProducts':false,'services':false};
+    isInsuranceProducts = {'cpiProducts':false,'nonCpiProducts':false,'services':false,'ageRange':false,'zipcode':false};
     label = {
         GOL_Finance_Insurance_and_Services,
         GOL_Finance_Insurance_product_1,
@@ -29,6 +31,7 @@ export default class Gol_InsuranceServicesComponent extends LightningElement {
     insuranceProductsCheck(){
         var insuranceProductsVal = JSON.parse(JSON.stringify(this.insuranceProducts));
         if(insuranceProductsVal.zipCode){
+            this.isInsuranceProducts.zipcode = true;
             this.zipCode = insuranceProductsVal.zipCode;
         }
         if(insuranceProductsVal.cpiProducts && insuranceProductsVal.cpiProducts.length>0){ 
@@ -63,11 +66,53 @@ export default class Gol_InsuranceServicesComponent extends LightningElement {
                 }
             });
             this.nonCpiProducts = insuranceProductsVal.nonCpiProducts;
-          }       
+          }
+        if(insuranceProductsVal.ageRange && insuranceProductsVal.ageRange.length>0){
+            this.isInsuranceProducts.ageRange = true;
+            this.ageRange = insuranceProductsVal.ageRange;
+        } 
+        if(insuranceProductsVal.ageRangeSelected !== undefined){
+            this.ageRangeSelected = insuranceProductsVal.ageRangeSelected;
+        }
         if(insuranceProductsVal.inputFields &&  insuranceProductsVal.inputFields.services && insuranceProductsVal.inputFields.services.length>0){
             this.isInsuranceProducts.services = true;
             this.services = insuranceProductsVal.inputFields.services;
           }
+    }
+    get ageRangeOptions(){
+        if(this.ageRange && this.ageRange.length>0){
+            this.ageRange.forEach((element)=>{
+                    if(element.name === this.ageRangeSelected){
+                        element.selected = true;
+                    }else{
+                        element.selected = false;
+                    }
+            });
+            return this.ageRange;
+        }else{
+            return [
+                {
+                    "lowerBound": 18,
+                    "upperBound": 40,
+                    "name": "18-40"
+                },
+                {
+                    "lowerBound": 41,
+                    "upperBound": 50,
+                    "name": "41-50"
+                },
+                {
+                    "lowerBound": 51,
+                    "upperBound": 60,
+                    "name": "51-60"
+                },
+                {
+                    "lowerBound": 61,
+                    "upperBound": 70,
+                    "name": "61-70"
+                }
+            ];
+        }
     }
     get options() {
         this.services.forEach((element)=>{
@@ -86,7 +131,7 @@ export default class Gol_InsuranceServicesComponent extends LightningElement {
         const productHeaderName = event.target.dataset.mid;
        
         const productId = event.target.dataset.id;
-        if(productHeaderName === 'services' || productHeaderName === 'zipcode'){
+        if(productHeaderName === 'services' || productHeaderName === 'zipcode' || productHeaderName === 'clientage'){
             selectedProduct = event.target.value;
         }else{
             selectedProduct = event.target.checked;

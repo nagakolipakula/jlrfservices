@@ -1,9 +1,6 @@
 import { LightningElement, api, track } from 'lwc';
-// import { FlowAttributeChangeEvent ,FlowNavigationNextEvent } from 'lightning/flowSupport';
-import {
-    FlowNavigationBackEvent,
-    FlowNavigationNextEvent
-  } from "lightning/flowSupport";
+import { FlowAttributeChangeEvent ,FlowNavigationNextEvent } from 'lightning/flowSupport';
+
 export default class Gol_FinanceButtonsComponent extends LightningElement {
     @api buttonDetails;
     @api buttonValue;
@@ -28,19 +25,17 @@ export default class Gol_FinanceButtonsComponent extends LightningElement {
         }
     }
     handleButtonClick(event){
-    //     let buttonValue = event.target.value;
-    //     if(this.buttonDetailsVal){
-    //         for(var i=0; i<this.buttonDetailsVal.length; i++){
-    //             if(buttonValue === this.buttonDetailsVal[i].Label){
-    //                 this.buttonDetailsVal[i].Class = 'btn-client-select';
-    //             }else{
-    //                 this.buttonDetailsVal[i].Class = 'btn-client-deselect';
-    //             }
-    //         }
-    //     }
-    // console.log('buttonValue==> '+buttonValue);    
-    // this.dispatchEvent(new FlowAttributeChangeEvent('buttonValue', event.target.value));
-    const navigateBackEvent = new FlowNavigationBackEvent();
-      this.dispatchEvent(navigateBackEvent);
+        let buttonValue = event.target.value;
+        if(this.buttonDetailsVal){
+            for(var i=0; i<this.buttonDetailsVal.length; i++){
+                if(buttonValue === this.buttonDetailsVal[i].Label){
+                    this.buttonDetailsVal[i].Class = 'btn-client-select';
+                }else{
+                    this.buttonDetailsVal[i].Class = 'btn-client-deselect';
+                }
+            }
+        }
+    console.log('buttonValue==> '+buttonValue);    
+    this.dispatchEvent(new FlowAttributeChangeEvent('buttonValue', event.target.value));
     }
 }

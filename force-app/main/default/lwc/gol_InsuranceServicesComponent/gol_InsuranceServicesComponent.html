@@ -13,12 +13,9 @@
                     <div class="clientagedivcss">
                         <div for="clientage" class="clientagelabelcss">{label.GOL_Finance_Client_age}</div>
                         <select data-mid="clientage" data-id="clientage" name="clientage" id="clientage" class="clientagecss" onchange={handleInsuranceProductSelection}>
-                        <!-- <template for:each={service.validValues} for:item="servicevalue" for:index="indexchild"> -->
-                            <option value="18-40">18-40</option>
-                            <option value="41-50">41-50</option>
-                            <option value="51-60">51-60</option>
-                            <option value="61-70">61-70</option>
-                        <!-- </template>    -->
+                        <template for:each={ageRangeOptions} for:item="ageRange" for:index="index">
+                            <option selected={ageRange.selected} key={ageRange.name} value={ageRange.name}>{ageRange.name}</option>
+                        </template>   
                         </select>  
                     </div>           
             </div>

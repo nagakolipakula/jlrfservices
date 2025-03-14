@@ -48,6 +48,8 @@
 			<property name="typeOfUse" type="String" label="TypeOfUse"  description="TypeOfUse value from flow to lwc" required="false" />
 			<property name="clickedButtonName" type="String" label="Clicked Button Name"  description="Name of the button clicked from UI" required="false" />
 			<property name="buttonActionForOverview" label="Button Action" type="String" role="outputOnly"/>
+			<propertyType name="T" extends="SObject" label="Finance Item Object API Name" description="Select the API Name of the Finance Item SObject"/>
+            <property name="financeitem" label="Finance Item Record Collection" type="{T[]}" role="inputOnly" description="Finance Item Records"/>
         </targetConfig>
     </targetConfigs>
 </LightningComponentBundle>

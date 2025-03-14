@@ -1,4 +1,4 @@
-import { LightningElement, api, track } from 'lwc';
+import { LightningElement, api} from 'lwc';
 import GOL_Select_Financial_Product from '@salesforce/label/c.GOL_Select_Financial_Product';
 import GOL_Adjust_parameters from '@salesforce/label/c.GOL_Adjust_parameters';
 import GOL_No_Financial_products_available from '@salesforce/label/c.GOL_No_Financial_products_available';
@@ -51,11 +51,11 @@ export default class gol_parentSliderComponent extends LightningElement {
   insuranceProducts;
 
   connectedCallback() {
-    console.log('Finance Item==> '+JSON.stringify(this.financeitem,null,2));
-    console.log('First Finance Info Record:', this.ContactId);
-    console.log('Second Finance Info Record:', this.ContactId2);
+    // console.log('Finance Item==> '+JSON.stringify(this.financeitem,null,2));
+    // console.log('First Finance Info Record:', this.ContactId);
+    // console.log('Second Finance Info Record:', this.ContactId2);
     console.log('MS retailerDiscountSerializedData==>',this.retailerDiscountSerializedData);
-    console.log("Full response",this.response);
+    // console.log("Full response",this.response);
     try {
       if (this.buttonActionForOverview === undefined) {
         console.log('Resetting Parent Component for New Calculation From Overview');
@@ -66,9 +66,11 @@ export default class gol_parentSliderComponent extends LightningElement {
         this.hasNoFinancialProducts = true;
         return;
       }
-      const tidyUpResponse = this.response.replace(/<\/?[^>]+(>|$)/g, '').trim();
-      let rawParsedResponse  = JSON.parse(tidyUpResponse);
-      this.parsedResponse = this.removeSetFlags(rawParsedResponse);
+      // const tidyUpResponse = this.response.replace(/<\/?[^>]+(>|$)/g, '').trim();
+      // let rawParsedResponse  = JSON.parse(tidyUpResponse);
+      // this.parsedResponse = this.removeSetFlags(rawParsedResponse);
+      let rawParsedResponse = JSON.parse(this.response);
+      this.parsedResponse = rawParsedResponse;
       
       if (!this.parsedResponse || this.parsedResponse.length === 0) {
         console.warn('No financial products available in response');
@@ -93,20 +95,20 @@ export default class gol_parentSliderComponent extends LightningElement {
     }
   }
 
-  removeSetFlags(data) {
-    if (Array.isArray(data)) {
-      return data.map(item => this.removeSetFlags(item));
-    } else if (typeof data === "object" && data !== null) {
-      let cleanedObj = {};
-      Object.keys(data).forEach(key => {
-        if (!key.endsWith("_set")) {
-          cleanedObj[key] = this.removeSetFlags(data[key]);
-        }
-      });
-      return cleanedObj;
-    }
-    return data;
-  }
+  // removeSetFlags(data) {
+  //   if (Array.isArray(data)) {
+  //     return data.map(item => this.removeSetFlags(item));
+  //   } else if (typeof data === "object" && data !== null) {
+  //     let cleanedObj = {};
+  //     Object.keys(data).forEach(key => {
+  //       if (!key.endsWith("_set")) {
+  //         cleanedObj[key] = this.removeSetFlags(data[key]);
+  //       }
+  //     });
+  //     return cleanedObj;
+  //   }
+  //   return data;
+  // }
 
   resetComponent() {
     this.selectedSliderValues = new Map();
@@ -170,10 +172,10 @@ export default class gol_parentSliderComponent extends LightningElement {
     }
   }
 
-  handleModify(event) {
-    const contactID = event.detail;
-    console.log('ContactId in handleModify:', contactID);
-  }
+  // handleModify(event) {
+  //   const contactID = event.detail;
+  //   console.log('ContactId in handleModify:', contactID);
+  // }
 
   // renderedCallback() {
   //   console.log('ContactId in rendered Callback:', this.ContactId);

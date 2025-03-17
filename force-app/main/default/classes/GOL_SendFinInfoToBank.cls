@@ -27,9 +27,29 @@ public with sharing class GOL_SendFinInfoToBank {
         HttpResponse response = executeHttpPost(financeInfoId, requestBody);
 
         if (response != null && response.getStatusCode() == 200) {
-            updateFinanceSystemLink(financeInfoId, 'Updated Successfully');
+            String systemLinkUrl = getRouteOutUrl(response.getBody());
+            if (systemLinkUrl != null) {
+                updateFinanceSystemLink(financeInfoId, systemLinkUrl);
+            } else {
+                System.debug('No valid system link URL found in response.');
+            }
         }
     }
+
+    private static String getRouteOutUrl(String responseBody) {
+        try {
+            Map<String, Object> responseMap = (Map<String, Object>) JSON.deserializeUntyped(responseBody);
+            if (responseMap != null && responseMap.containsKey('routeOut')) {
+                Map<String, Object> routeOut = (Map<String, Object>) responseMap.get('routeOut');
+                if (routeOut.containsKey('url')) {
+                    return (String) routeOut.get('url');
+                }
+            }
+        } catch (Exception e) {
+            System.debug('Error parsing JSON response: ' + e.getMessage());
+        }
+        return null;
+    }    
 
     private static HttpResponse executeHttpPost(String financeInfoId, String requestBody) {
         try {

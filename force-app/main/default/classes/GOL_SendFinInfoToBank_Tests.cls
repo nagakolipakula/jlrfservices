@@ -12,6 +12,36 @@ public with sharing class GOL_SendFinInfoToBank_Tests {
 
         LMS_FinanceInformation__c updatedRecord = [SELECT LMS_FIN_SysLink__c FROM LMS_FinanceInformation__c WHERE Id = :financeInfo.Id];
         System.assertNotEquals(null, updatedRecord.LMS_FIN_SysLink__c, 'Field should be updated');
+        System.assertEquals('https://webautotest.cetelem.es/jlr?token=1506621930093', updatedRecord.LMS_FIN_SysLink__c,
+                            'LMS_FIN_SysLink__c should match the expected URL from response');
+    }
+
+    @isTest
+    static void isFailure() {
+        Test.setMock(HttpCalloutMock.class, new MockHttpResponseError());
+
+        LMS_FinanceInformation__c financeInfo = [SELECT Id, LMS_FIN_SysLink__c FROM LMS_FinanceInformation__c LIMIT 1];
+
+        Test.startTest();
+        GOL_SendFinInfoToBank.sendFinanceContextRequestAsync(financeInfo.Id);
+        Test.stopTest();
+
+        LMS_FinanceInformation__c updatedRecord = [SELECT LMS_FIN_SysLink__c FROM LMS_FinanceInformation__c WHERE Id = :financeInfo.Id];
+        System.assertEquals(null, updatedRecord.LMS_FIN_SysLink__c, 'Field should not be updated when the callout fails');
+    }
+
+    @isTest
+    static void isSuccessWithNoRouteOutUrl() {
+        Test.setMock(HttpCalloutMock.class, new MockHttpResponseNoRouteOutUrl());
+
+        LMS_FinanceInformation__c financeInfo = [SELECT Id, LMS_FIN_SysLink__c FROM LMS_FinanceInformation__c LIMIT 1];
+
+        Test.startTest();
+        GOL_SendFinInfoToBank.sendFinanceContextRequestAsync(financeInfo.Id);
+        Test.stopTest();
+
+        LMS_FinanceInformation__c updatedRecord = [SELECT LMS_FIN_SysLink__c FROM LMS_FinanceInformation__c WHERE Id = :financeInfo.Id];
+        System.assertEquals(null, updatedRecord.LMS_FIN_SysLink__c, 'Field should remain null when no routeOut.url is provided');
     }
 
     @testSetup
@@ -74,6 +104,29 @@ public with sharing class GOL_SendFinInfoToBank_Tests {
                     '{"frontToolId": "1",'
                         + '"routeOut": {'
                         + '"url": "https://webautotest.cetelem.es/jlr?token=1506621930093",'
+                        + '"httpVerb": "POST"'
+                        + '},'
+                        + '"quoteId": "ab01s236-0101-7010-0145-RSabdeuABABC",'
+                        + '"fId": "a1RUD000000aFjh2AE"}');
+            return res;
+        }
+    }
+
+    private class MockHttpResponseError implements HttpCalloutMock {
+        public HTTPResponse respond(HTTPRequest req) {
+            HttpResponse res = new HttpResponse();
+            res.setStatusCode(500);
+            res.setBody('{"error": "Internal Server Error"}');
+            return res;
+        }
+    }
+
+    private class MockHttpResponseNoRouteOutUrl implements HttpCalloutMock {
+        public HTTPResponse respond(HTTPRequest req) {
+            HttpResponse res = new HttpResponse();
+            res.setStatusCode(200);
+            res.setBody('{"frontToolId": "1",'
+                        + '"routeOut": {'
                         + '"httpVerb": "POST"'
                         + '},'
                         + '"quoteId": "ab01s236-0101-7010-0145-RSabdeuABABC",'

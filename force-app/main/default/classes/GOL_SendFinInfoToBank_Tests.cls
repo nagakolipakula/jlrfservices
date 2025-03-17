@@ -28,6 +28,9 @@ public with sharing class GOL_SendFinInfoToBank_Tests {
 
         LMS_FinanceInformation__c updatedRecord = [SELECT LMS_FIN_SysLink__c FROM LMS_FinanceInformation__c WHERE Id = :financeInfo.Id];
         System.assertEquals(null, updatedRecord.LMS_FIN_SysLink__c, 'Field should not be updated when the callout fails');
+
+        LMS_Exception__c loggedError = [SELECT LMS_EXC_Message__c FROM LMS_Exception__c LIMIT 1];
+        System.assert(loggedError.LMS_EXC_Message__c.contains('Callout failed'), 'Callout failure should be logged in LMS_Exception__c');
     }
 
     @isTest
@@ -42,6 +45,21 @@ public with sharing class GOL_SendFinInfoToBank_Tests {
 
         LMS_FinanceInformation__c updatedRecord = [SELECT LMS_FIN_SysLink__c FROM LMS_FinanceInformation__c WHERE Id = :financeInfo.Id];
         System.assertEquals(null, updatedRecord.LMS_FIN_SysLink__c, 'Field should remain null when no routeOut.url is provided');
+
+        LMS_Exception__c loggedError = [SELECT LMS_EXC_Message__c FROM LMS_Exception__c LIMIT 1];
+        System.assert(loggedError.LMS_EXC_Message__c.contains('No valid system link URL in response'), 'Missing routeOut URL should be logged');
+    }
+
+    @isTest
+    static void invalidFinanceRecord() {
+        Test.startTest();
+        GOL_SendFinInfoToBank.sendFinanceContextRequestAsync(null);
+        Test.stopTest();
+
+        List<LMS_Exception__c> loggedErrors = [SELECT LMS_EXC_Message__c FROM LMS_Exception__c];
+        System.assert(loggedErrors.size() > 0, 'An exception should be logged in LMS_Exception__c for an invalid finance record.');
+        System.assert(loggedErrors[0].LMS_EXC_Message__c.contains('Finance record not found'), 
+                    'Invalid finance record should be logged in LMS_Exception__c');
     }
 
     @testSetup

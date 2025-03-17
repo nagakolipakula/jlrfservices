@@ -5,6 +5,7 @@ public with sharing class GOL_SendFinInfoToBank {
         LMS_FinanceInformation__c financeRecord = fetchFinanceRecord(financeInfoId);
         if (financeRecord == null) {
             System.debug('Finance record not found for Id: ' + financeInfoId);
+            insertExceptionLog(financeInfoId, 'Finance record not found', 'financeRecord returned null');
             return;
         }
 
@@ -32,7 +33,24 @@ public with sharing class GOL_SendFinInfoToBank {
                 updateFinanceSystemLink(financeInfoId, systemLinkUrl);
             } else {
                 System.debug('No valid system link URL found in response.');
-            }
+                insertExceptionLog(financeInfoId, 'No valid system link URL in response', response.getBody());
+            } 
+        } else {
+            String errorMessage = response != null ? response.getStatus() : 'No response received';
+            insertExceptionLog(financeInfoId, 'Callout failed', errorMessage);
+        }
+    }
+
+    private static void insertExceptionLog(String financeInfoId, String message, String stackTrace) {
+        try {
+            LMS_Exception__c lms_exc = new LMS_Exception__c(
+                LMS_EXC_Message__c    = 'FinanceInfo ID : ' + financeInfoId + ' -: ' + message,
+                LMS_EXC_Type__c       = 'GOL_SendFinInfoToBank',
+                LMS_EXC_StackTrace__c = stackTrace
+            );
+            insert lms_exc;
+        } catch (Exception e) {
+            System.debug('Failed to log exception: ' + e.getMessage());
         }
     }
 
@@ -47,6 +65,7 @@ public with sharing class GOL_SendFinInfoToBank {
             }
         } catch (Exception e) {
             System.debug('Error parsing JSON response: ' + e.getMessage());
+            insertExceptionLog(null, 'JSON Parsing Error', e.getStackTraceString());
         }
         return null;
     }    
@@ -77,6 +96,7 @@ public with sharing class GOL_SendFinInfoToBank {
             System.debug('Successfully updated LMS_FIN_SysLink__c: ' + systemLinkUrl);
         } catch (Exception e) {
             System.debug('Failed to update LMS_FIN_SysLink__c: ' + e.getMessage());
+            insertExceptionLog(financeInfoId, 'Failed to update LMS_FIN_SysLink__c', e.getStackTraceString());
         }
     }
 

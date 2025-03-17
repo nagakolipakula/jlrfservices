@@ -5,15 +5,10 @@
 	<targets>
 		<target>lightning__FlowScreen</target>
 	</targets>
-	<!-- <targetConfigs>
+	<targetConfigs>
         <targetConfig targets="lightning__FlowScreen">
             <property name="showModal" type="Boolean" label="Show modal"/>
-			<property name="firstName" type="String" label="First Name"/>
-			<property name="quoteId" type="String" label="Quote Id"/>
-			<property name="status" type="Boolean" label="Status"/>
-			<property name="sendEmailTaxModel" type="Boolean" label="Send Email Model"/>
-			<property name="isHold" type="Boolean" label="Hold"/>
-			
+			<property name="message" type="String" label="Message"/>
         </targetConfig> 
-    </targetConfigs>-->
+    </targetConfigs>
 </LightningComponentBundle>

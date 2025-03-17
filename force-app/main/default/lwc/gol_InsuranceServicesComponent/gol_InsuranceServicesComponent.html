@@ -10,6 +10,7 @@
                         <label class="checkboxlabelcss" for={cp.name}> {cp.checkboxLabel}</label>
                     </div>
                     </template>
+                    <template if:true={isInsuranceProducts.ageRange}>
                     <div class="clientagedivcss">
                         <div for="clientage" class="clientagelabelcss">{label.GOL_Finance_Client_age}</div>
                         <select data-mid="clientage" data-id="clientage" name="clientage" id="clientage" class="clientagecss" onchange={handleInsuranceProductSelection}>
@@ -17,7 +18,8 @@
                             <option selected={ageRange.selected} key={ageRange.name} value={ageRange.name}>{ageRange.name}</option>
                         </template>   
                         </select>  
-                    </div>           
+                    </div>    
+                    </template>       
             </div>
         </lightning-layout-item>
         </template>

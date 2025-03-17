@@ -1,4 +1,4 @@
-import { LightningElement, api} from 'lwc';
+import { LightningElement, api, wire} from 'lwc';
 import GOL_Select_Financial_Product from '@salesforce/label/c.GOL_Select_Financial_Product';
 import GOL_Adjust_parameters from '@salesforce/label/c.GOL_Adjust_parameters';
 import GOL_No_Financial_products_available from '@salesforce/label/c.GOL_No_Financial_products_available';
@@ -7,6 +7,9 @@ import GOL_Finance_Insurance_and_Services from '@salesforce/label/c.GOL_Finance_
 import GOL_Amount_incl_VAT from '@salesforce/label/c.GOL_Amount_incl_VAT';
 import { FlowAttributeChangeEvent, FlowNavigationNextEvent, FlowNavigationBackEvent, FlowNavigationFinishEvent } from 'lightning/flowSupport';
 import getInputFieldsMappingRecords from '@salesforce/apex/GOL_GetFinanceQuote.getInputFieldsMappingRecords';
+import { getRecord } from 'lightning/uiRecordApi';
+import LMS_USR_SalesCountryCode from '@salesforce/schema/User.LMS_USR_SalesCountryCode__c';
+import User_Id from '@salesforce/user/Id';
 
 export default class gol_parentSliderComponent extends LightningElement {
   @api buttonActionForOverview;
@@ -49,9 +52,26 @@ export default class gol_parentSliderComponent extends LightningElement {
     GOL_Amount_incl_VAT
   }
   insuranceProducts;
+  User_SalesCountryCode;
+  UserError;
+
+  @wire(getRecord, {
+    recordId: User_Id,
+    fields: [LMS_USR_SalesCountryCode]
+  }) wireuser({
+      error,
+      data
+  }) {
+      if (error) {
+        this.UserError = error ; 
+      } else if (data) {
+          this.User_SalesCountryCode = data.fields.LMS_USR_SalesCountryCode__c.value;
+      }
+  }
 
   connectedCallback() {
-    // console.log('Finance Item==> '+JSON.stringify(this.financeitem,null,2));
+    console.log(this.UserError+'<==logged in user country==>'+this.User_SalesCountryCode);
+     console.log('Finance Item==> '+JSON.stringify(this.financeitem,null,2));
     // console.log('First Finance Info Record:', this.ContactId);
     // console.log('Second Finance Info Record:', this.ContactId2);
     console.log('MS retailerDiscountSerializedData==>',this.retailerDiscountSerializedData);
@@ -213,7 +233,7 @@ export default class gol_parentSliderComponent extends LightningElement {
     console.log('MS this.selectedProductId==> ',this.selectedProductId);
     // console.log('MS parsedResponse  handleProductSelectionChange ==>' + JSON.stringify(this.parsedResponse, null, 2));
     this.initializeSliders();
-    this.initializeInsuranceProduct();
+    // this.initializeInsuranceProduct();
     this.handleUpdateRetailerDiscount('selectedProductId',event.detail);
   }
 
@@ -654,9 +674,11 @@ export default class gol_parentSliderComponent extends LightningElement {
     }
     console.log('-------providerData----------');
     console.log(providerData.cpiProducts);
-    const cpiProducts = providerData.cpiProducts ? providerData.cpiProducts.filter((ele,index) => ele.checked == true) : [];
-    const nonCpiProducts = providerData.nonCpiProducts ? providerData.nonCpiProducts.filter((ele,index) => ele.checked == true) : [];
-    const ageRange = (providerData.ageRange && providerData.ageRangeSelected) ? providerData.ageRange.filter((ele,index) => ele.name == providerData.ageRangeSelected) : [];
+    // const cpiProducts = providerData.cpiProducts ? providerData.cpiProducts.filter((ele,index) => ele.checked == true) : [];
+    // const nonCpiProducts = providerData.nonCpiProducts ? providerData.nonCpiProducts.filter((ele,index) => ele.checked == true) : [];
+    const cpiProducts = providerData.cpiProducts ? providerData.cpiProducts : [];
+    const nonCpiProducts = providerData.nonCpiProducts ? providerData.nonCpiProducts : [];
+    const ageRange = (providerData.ageRange && providerData.ageRangeSelected) ? providerData.ageRange.filter((ele,index) => ele.name == providerData.ageRangeSelected) : providerData.ageRange[0] ? providerData.ageRange[0] : [];
     const zipCode = providerData.zipCode || '';
     
     const serializedData = {
@@ -665,7 +687,7 @@ export default class gol_parentSliderComponent extends LightningElement {
       personType: this.personType || "PHYSICAL",
       channel: this.channel || "POS",
       product: {
-          fullId: providerData.id || "",
+          fullId: providerData.fullId || "",
           name: providerData.name || "",
           description: providerData.description || "",
           selected: true,

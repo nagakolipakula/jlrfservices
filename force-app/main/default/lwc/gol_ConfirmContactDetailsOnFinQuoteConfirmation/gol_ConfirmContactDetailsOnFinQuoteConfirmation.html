@@ -1,36 +1,31 @@
 <template>
-    <!-- <template if:true={showModal}> -->
+    <template if:true={showModal}>
        
         
-            <section aria-modal="true" class="slds-modal slds-fade-in-open">
-                <div class="slds-modal__container my-contaner">
-                    <div class="slds-align_absolute-center" style="height:100px;">
-                    </div>
-                    <div class="slds-align_absolute-center">
-                        <lightning-icon icon-name="utility:success" alternative-text="Success image" title="Success" variant="inverse"  size="large"  class="confirmation-icon" ></lightning-icon>
-                    </div>
-                    <div class="slds-align_absolute-center">
-                            <div data-id="message-div" class="confirmation-text">{errorMessage}</div>
-                    </div>
-                
-                    <div class="slds-align_absolute-center slds-border_bottom" style="width:400px"> </div>    
-                        <template if:false={sendEmailTaxModel}>
-                            <div class="slds-align_absolute-center">
-                                <button onclick={handleContinueButtonClick} class="CtnBtnStyle slds-align_absolute-center slds-text-heading_small slds-box slds-box_small"  value="CONTINUE">
-                                    {continueButton}
-                                </button>
-                            </div>
-                        </template>
+        <section aria-modal="true" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container my-contaner">
+                <div class="slds-align_absolute-center" style="height:100px;">
+                </div>
+                <div class="slds-align_absolute-center">
+                    <lightning-icon icon-name="utility:success" alternative-text="Success image" title="Success" variant="inverse"  size="large"  class="confirmation-icon" ></lightning-icon>
+                </div>
+                <div class="slds-align_absolute-center">
+                        <div data-id="message-div" class="confirmation-text">{message}</div>
+                </div>
+            
+                <div class="slds-align_absolute-center slds-border_bottom" style="width:400px"> </div>    
+                    <template if:false={sendEmailTaxModel}>
                         <div class="slds-align_absolute-center">
-                            <button onclick={handleCancelButtonClick} class="CancelBtnStyle slds-align_absolute-center slds-text-heading_small slds-box slds-box_small"  value="Test">
-                                {cancelButton}
+                            <button onclick={handleContinueButtonClick} class="CtnBtnStyle slds-align_absolute-center slds-text-heading_small slds-box slds-box_small"  value={labels.GOL_Present_Quote_Continue_Button}>
+                                {labels.GOL_Present_Quote_Continue_Button}
                             </button>
                         </div>
-                    <div class="slds-align_absolute-center" style="height:100px;">
-                    </div>
+                    </template>
+                <div class="slds-align_absolute-center" style="height:100px;">
                 </div>
-            </section> 
-            <div class="slds-backdrop slds-backdrop_open"></div> 
-       
-    <!-- </template> -->
+            </div>
+        </section> 
+        <div class="slds-backdrop slds-backdrop_open"></div> 
+    </template>
+    
 </template>

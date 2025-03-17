@@ -80,7 +80,7 @@ export default class Gol_InsuranceServicesComponent extends LightningElement {
           }
     }
     get ageRangeOptions(){
-        if(this.ageRange && this.ageRange.length>0){
+        // if(this.ageRange && this.ageRange.length>0){
             this.ageRange.forEach((element)=>{
                     if(element.name === this.ageRangeSelected){
                         element.selected = true;
@@ -89,30 +89,31 @@ export default class Gol_InsuranceServicesComponent extends LightningElement {
                     }
             });
             return this.ageRange;
-        }else{
-            return [
-                {
-                    "lowerBound": 18,
-                    "upperBound": 40,
-                    "name": "18-40"
-                },
-                {
-                    "lowerBound": 41,
-                    "upperBound": 50,
-                    "name": "41-50"
-                },
-                {
-                    "lowerBound": 51,
-                    "upperBound": 60,
-                    "name": "51-60"
-                },
-                {
-                    "lowerBound": 61,
-                    "upperBound": 70,
-                    "name": "61-70"
-                }
-            ];
-        }
+        // }
+        // }else{
+        //     return [
+        //         {
+        //             "lowerBound": 18,
+        //             "upperBound": 40,
+        //             "name": "18-40"
+        //         },
+        //         {
+        //             "lowerBound": 41,
+        //             "upperBound": 50,
+        //             "name": "41-50"
+        //         },
+        //         {
+        //             "lowerBound": 51,
+        //             "upperBound": 60,
+        //             "name": "51-60"
+        //         },
+        //         {
+        //             "lowerBound": 61,
+        //             "upperBound": 70,
+        //             "name": "61-70"
+        //         }
+        //     ];
+        // }
     }
     get options() {
         this.services.forEach((element)=>{

@@ -1,8 +1,8 @@
 @isTest
-public with sharing class GOL_SendFinInfoToBank_Tests {
+public with sharing class GOL_GetFinanceQuote_Test {
 
     @testSetup
-    static void dataSetup() {
+    static void dataSetup(){
         
         LMS_TriggerHandler.turnOffTriggers = true;
         
@@ -17,7 +17,7 @@ public with sharing class GOL_SendFinInfoToBank_Tests {
         retAcc.Type = 'Virtual';
         insert retAcc;    
         
-        Account indAcc = ERPT_DataFactory.createAccount('Test Italy Individual Account','LMS_ACC_Individual');
+        Account indAcc = ERPT_DataFactory.createAccount('Test Italy Indvidual Account','LMS_ACC_Individual');
         indAcc.LMS_ACC_NSC_Reference__c = 'IT';
         indAcc.Type = 'Virtual';
         insert indAcc;     
@@ -26,45 +26,93 @@ public with sharing class GOL_SendFinInfoToBank_Tests {
         shwroom.LMS_SWR_Retailer__c = retAcc.Id;
         insert shwroom;
         
-        Opportunity newOpp = ERPT_DataFactory.createOpportunityWithAccount('Test Opp', indAcc);
+        Opportunity newOpp = ERPT_DataFactory.createOpportunityWithAccount('Test Opp',indAcc);
         insert newOpp;
         
         LMS_Quote__C quote = LMS_DataFactory.createQuote(newOpp.Id);
         quote.LMS_QUO_ShowroomId__c = shwroom.Id;
         quote.LMS_QUO_Status__c = LMS_QuoteHelper.STATUS_DRAFT;
         quote.LMS_QUO_ExpirationDate__c = System.today() + 1;
-        quote.EPRT_QUO_External_ID__c = 'ab01s236-0101-7010-0145-RSabdeuABABC';
+        quote.EPRT_QUO_External_ID__c = 'AGJGDFD975443DD';
         insert quote;
-
-        LMS_FinanceInformation__c financeInfo = new LMS_FinanceInformation__c(
-            LMS_FIN_Quote__c = quote.Id,
-            GOL_Type_Of_Use__c = 'PRIVATE',
-            GOL_Channel__c = 'POS',
-            GOL_Person_Type__c = 'PHYSICAL',
-            LMS_FIN_SysLink__c = null
-        );
-        insert financeInfo;
+        
+        LMS_FiscalPlan__c newFiscalPlan =ERPT_DataFactory.createFiscalPlan('Test Fiscal Plan');
+        newFiscalPlan.LMS_FPL_Market__c = 'IT';
+        newFiscalPlan.LMS_FPL_Valid__c = true;
+        newFiscalPlan.LMS_FPL_LastFiscalDate__c = Date.today().addDays(1);
+        insert newFiscalPlan;  
     }
 
     @isTest
-    static void testSuccessfulCallout() {
-        Test.setMock(HttpCalloutMock.class, new MockHttpResponseSuccess());
-
-        LMS_FinanceInformation__c financeInfo = [SELECT Id FROM LMS_FinanceInformation__c LIMIT 1];
-
+    static void testInvokeGetFinanceQuoteAPI_Success() {
+        Test.setMock(HttpCalloutMock.class, new MockHttpResponse());
+        LMS_Quote__c quote = [SELECT Id FROM LMS_Quote__c LIMIT 1];
+       
+        
+        GOL_GetFinanceQuote.Request request = new GOL_GetFinanceQuote.Request();
+        request.quoteId = quote.Id;
+        request.quotePayload = '{"quoteId": "' + quote.Id + '", "amount": 50000}';
+        
+        List<GOL_GetFinanceQuote.Request> requestList = new List<GOL_GetFinanceQuote.Request>{request};
+        
         Test.startTest();
-        GOL_SendFinInfoToBank.sendFinanceContextRequestAsync(financeInfo.Id);
+        List<GOL_GetFinanceQuote.Response> responseList = GOL_GetFinanceQuote.invokeGetFinanceQuoteAPI(requestList);
         Test.stopTest();
-
-        LMS_FinanceInformation__c updatedRecord = [SELECT LMS_FIN_SysLink__c FROM LMS_FinanceInformation__c WHERE Id = :financeInfo.Id];
-        System.assertNotEquals(null, updatedRecord.LMS_FIN_SysLink__c, 'Field should be updated');
+        
+        LMS_FinanceInformation__c financeInformation = [SELECT Id FROM LMS_FinanceInformation__c LIMIT 1];
+        System.assertNotEquals(null, responseList);
+        System.assertEquals(1, responseList.size());
+        System.assertEquals(responseList[0].financeQuoteId, financeInformation.Id);
+    }
+    
+    @isTest
+    static void testInvokeGetFinanceQuoteAPI_InvalidInput() {
+        GOL_GetFinanceQuote.Request request = new GOL_GetFinanceQuote.Request();
+        List<GOL_GetFinanceQuote.Request> requestList = new List<GOL_GetFinanceQuote.Request>{request};
+        
+        List<GOL_GetFinanceQuote.Response> responseList = GOL_GetFinanceQuote.invokeGetFinanceQuoteAPI(requestList);
+        
+        System.assertNotEquals(null, responseList);
+        System.assertEquals(1, responseList.size());
+        System.assertEquals(false, responseList[0].isSuccess);
+        System.assertEquals('Invalid input: quoteId or quotePayload is missing', responseList[0].message);
+    }
+    
+    @isTest
+    static void testInvokeGetFinanceQuoteAPI_APIError() {
+        Test.setMock(HttpCalloutMock.class, new MockHttpResponseError());
+        LMS_Quote__c quote = [SELECT Id FROM LMS_Quote__c LIMIT 1];
+        
+        GOL_GetFinanceQuote.Request request = new GOL_GetFinanceQuote.Request();
+        request.quoteId = quote.Id;
+        request.quotePayload = '{"quoteId": "' + quote.Id + '", "amount": 50000}';
+        
+        List<GOL_GetFinanceQuote.Request> requestList = new List<GOL_GetFinanceQuote.Request>{request};
+        
+        Test.startTest();
+        List<GOL_GetFinanceQuote.Response> responseList = GOL_GetFinanceQuote.invokeGetFinanceQuoteAPI(requestList);
+        Test.stopTest();
+        
+        System.assertNotEquals(null, responseList);
+        System.assertEquals(1, responseList.size());
+        System.assertEquals(false, responseList[0].isSuccess);
+        System.assert(responseList[0].message.contains('API Error'));
     }
 
-    private class MockHttpResponseSuccess implements HttpCalloutMock {
+    private class MockHttpResponse implements HttpCalloutMock {
         public HTTPResponse respond(HTTPRequest req) {
             HttpResponse res = new HttpResponse();
             res.setStatusCode(200);
-            res.setBody('{"routeOut": {"url": "https://webautotest.cetelem.es/jlr?token=1506621930093"}}');
+            res.setBody('{"Quote": {"duration": 36, "annualMileage": 15000, "totalGrossAmount": 50000, "installmentGrossAmount": 1200}, "FinancialProduct": {"name": "Lease", "fullId": "12345", "creditTimeUnit": "Months", "currencyCode": "USD"}, "LegalDocument": {"title": "Finance Agreement", "body": "Terms and conditions..."}, "fixedCosts": [{"name": "Service Fee", "grossAmount": 500}]}');
+            return res;
+        }
+    }
+    
+    private class MockHttpResponseError implements HttpCalloutMock {
+        public HTTPResponse respond(HTTPRequest req) {
+            HttpResponse res = new HttpResponse();
+            res.setStatusCode(500);
+            res.setBody('{"error": "Internal Server Error"}');
             return res;
         }
     }

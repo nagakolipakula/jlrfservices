@@ -1,5 +1,18 @@
 @isTest
 public with sharing class GOL_SendFinInfoToBank_Tests {
+    @isTest
+    static void isSuccess() {
+        Test.setMock(HttpCalloutMock.class, new MockHttpResponseSuccess());
+
+        LMS_FinanceInformation__c financeInfo = [SELECT Id FROM LMS_FinanceInformation__c LIMIT 1];
+
+        Test.startTest();
+        GOL_SendFinInfoToBank.sendFinanceContextRequestAsync(financeInfo.Id);
+        Test.stopTest();
+
+        LMS_FinanceInformation__c updatedRecord = [SELECT LMS_FIN_SysLink__c FROM LMS_FinanceInformation__c WHERE Id = :financeInfo.Id];
+        System.assertNotEquals(null, updatedRecord.LMS_FIN_SysLink__c, 'Field should be updated');
+    }
 
     @testSetup
     static void dataSetup() {
@@ -51,27 +64,20 @@ public with sharing class GOL_SendFinInfoToBank_Tests {
             LMS_FIN_SysLink__c = null
         );
         insert financeInfo;
-        }
-
-    @isTest
-    static void testSuccessfulCallout() {
-        Test.setMock(HttpCalloutMock.class, new MockHttpResponseSuccess());
-
-        LMS_FinanceInformation__c financeInfo = [SELECT Id FROM LMS_FinanceInformation__c LIMIT 1];
-
-        Test.startTest();
-        GOL_SendFinInfoToBank.sendFinanceContextRequestAsync(financeInfo.Id);
-        Test.stopTest();
-
-        LMS_FinanceInformation__c updatedRecord = [SELECT LMS_FIN_SysLink__c FROM LMS_FinanceInformation__c WHERE Id = :financeInfo.Id];
-        System.assertNotEquals(null, updatedRecord.LMS_FIN_SysLink__c, 'Field should be updated');
     }
 
     private class MockHttpResponseSuccess implements HttpCalloutMock {
         public HTTPResponse respond(HTTPRequest req) {
             HttpResponse res = new HttpResponse();
             res.setStatusCode(200);
-            res.setBody('{"routeOut": {"url": "https://webautotest.cetelem.es/jlr?token=1506621930093"}}');
+            res.setBody(
+                    '{"frontToolId": "1",'
+                        + '"routeOut": {'
+                        + '"url": "https://webautotest.cetelem.es/jlr?token=1506621930093",'
+                        + '"httpVerb": "POST"'
+                        + '},'
+                        + '"quoteId": "ab01s236-0101-7010-0145-RSabdeuABABC",'
+                        + '"fId": "a1RUD000000aFjh2AE"}');
             return res;
         }
     }

@@ -26,7 +26,7 @@ public without sharing class LMS_QOT_AddQliViewController {
         }
         return result;
     }
-    @TestVisible
+
     private static String getCountryCode(Id recordId) {
         String object_name = recordId.getSObjectType().getDescribe().getName();
         if (object_name.equalsIgnoreCase(LMS_Constants.QUOTE)) {
@@ -485,7 +485,6 @@ public without sharing class LMS_QOT_AddQliViewController {
      */
     @AuraEnabled
     public static void saveQLI(Id quoteId, String changedRecords, String recType , Map<Id,LMS_Accessory__c> passByGsReset, string gsReset) {
-        System.debug('Under the passByGsReset' + passByGsReset);
         recType = recType.replace('ACS', 'QLI');
         Decimal fittingCost = 0;
         String country_code = getCountryCode(quoteId);
@@ -498,7 +497,7 @@ public without sharing class LMS_QOT_AddQliViewController {
             if (recType == LMS_Constants.QLI_ACCESSORY_RT) {
                 fittingCost = accessory.LMS_ACS_FittingTime__c != null ? accessory.LMS_ACS_FittingTime__c * retailerRate : null;
             }
-            Boolean nonTaxVal = false;
+             Boolean nonTaxVal = false;
             Boolean nonTaxCheckAsPerMarket = false;
             if(!String.IsEmpty(gsReset) && gsReset.contains('true')){
                 System.debug('Under the if' + accessory);
@@ -510,7 +509,6 @@ public without sharing class LMS_QOT_AddQliViewController {
                 }
                 nonTaxVal = passByGsReset.containsKey(accessory.Id) ? passByGsReset.get(accessory.Id).LMS_ACS_IsNonTaxable__c : nonTaxCheckAsPerMarket;
             }
-            System.debug('========<<>>>'+nonTaxVal);
             LMS_QuoteLineItem__c qli = new LMS_QuoteLineItem__c(
                 LMS_QLI_Quote__c =  quoteId,
                 LMS_QLI_Quantity__c = quantity,
@@ -521,7 +519,7 @@ public without sharing class LMS_QOT_AddQliViewController {
                 LMS_QLI_AccessoryMSRP__c = accessory.LMS_ACS_MSRP__c,
                 LMS_QLI_AccessoryName__c = accessory.Name,
                 LMS_QLI_AccessoryPartNumber__c = accessory.LMS_ACS_PartNumber__c,
-                LMS_QLI_SalesPrice__c = accessory.LMS_ACS_PriceValue__c, //accessory.LMS_ACS_PriceValue__c, is 1500 eur and qli is czk, that becomes 60 eurs. Needs to be converted
+                LMS_QLI_SalesPrice__c = accessory.LMS_ACS_PriceValue__c,
                 LMS_QLI_AccessoryFittingCost__c = fittingCost,
                 RecordTypeId = recTypeId,
                 LMS_QLI_PercentageCharge__c = accessory.LMS_ACS_PercentageCharge__c,
@@ -529,7 +527,8 @@ public without sharing class LMS_QOT_AddQliViewController {
                 LMS_QLI_AddByDefault__c = accessory.LMS_ACS_AddByDefault__c,
                 LMS_QLI_IsNonTaxable__c = nonTaxVal 
             );
-            if(!String.IsEmpty(gsReset) && gsReset.contains('true')){
+
+           if(!String.IsEmpty(gsReset) && gsReset.contains('true')){
               system.debug('Do nothing changes is for Smart 1.0');
             }else{
             if(country_code == 'AT'){
@@ -537,7 +536,7 @@ public without sharing class LMS_QOT_AddQliViewController {
             }else{
                 qli.LMS_QLI_IsNonTaxable__c = accessory.LMS_ACS_IsNonTaxable__c;
             }
-            }           
+           } 
             if (qli.LMS_QLI_Quantity__c > 1) {
                 qli.LMS_QLI_AccessoryMinimumSalesPrice__c = qli.LMS_QLI_AccessoryMinimumSalesPrice__c * qli.LMS_QLI_Quantity__c;
             }
@@ -655,8 +654,7 @@ public without sharing class LMS_QOT_AddQliViewController {
 	public static List<LMS_QuoteLineItem__c> getAllOtherTaxQLI(Id recordId){
 		return  [select id, Name, LMS_QLI_OtherTax__r.Name, LMS_QLI_LineItemDescription__c, LMS_QLI_TaxInfo__c, LMS_QLI_OtherTaxAutomatic__c, LMS_QLI_TaxAdjust__c,
 				LMS_QLI_TaxBase__c, LMS_QLI_BPMSubtraction__c, LMS_QLI_NetPrice__c, LMS_QLI_SalesPrice__c, LMS_QLI_TaxPercent__c, LMS_QLI_OtherTax__r.LMS_OTX_Adjustable__c
-                from LMS_QuoteLineItem__c where LMS_QLI_Quote__c =: recordId AND recordType.DeveloperName =: LMS_Constants.QLI_OTHERTAX_RT
-                AND LMS_QLI_SalesCountryCode__c != 'DE'];
+                from LMS_QuoteLineItem__c where LMS_QLI_Quote__c =: recordId AND recordType.DeveloperName =: LMS_Constants.QLI_OTHERTAX_RT];
     }
 
     @AuraEnabled
@@ -939,26 +937,18 @@ public without sharing class LMS_QOT_AddQliViewController {
                 ];
                 System.debug('codes===============:'+codes);
                 if (!codes.isEmpty()) {
-                    // VME_5000_Codes__c code = codes.get(0); // Commented by Koku VME Promotions data setup
-                    // System.debug('code===============:'+code);// Commented by Koku VME Promotions data setup
+                    VME_5000_Codes__c code = codes.get(0);
+                    System.debug('code===============:'+code);
                     List<VME_Campaign_Specifications__c> result = new List<VME_Campaign_Specifications__c>();
-                    // set<string> vmeValue = new  set<string>();  // Commented by Koku VME Promotions data setup
-                    // if (quote.LMS_QUO_ConfigurationVehicle__c != null) {
-                    //     vmeValue.add(vehicleCode);
-                    //     result = getCampaignSMART(vmeValue,code.VME_Car_Line_Abbreviation__c);
-                    // } else if (quote.LMS_QUO_StockVehicle__c != null) {
-                    //     vmeValue.add(quote.LMS_QUO_StockVehicle__r.LMS_VHC_VehicleVIN__c);
-                    //     vmeValue.add(quote.LMS_QUO_StockVehicle__r.LMS_VHC_MasterVehicle__r.LMS_VHC_OrderNumber__c );
-                    //     result = getCampaignSMART(vmeValue,code.VME_Car_Line_Abbreviation__c);
-                    // } // Commented by Koku VME Promotions data setup
-                    User currentUser = [
-                                    SELECT VME_Country_Code__c 
-                                        FROM User 
-                                        WHERE Id = :UserInfo.getUserId()
-                                        LIMIT 1
-                                    ];
-                    String userCountryCode = currentUser.VME_Country_Code__c;
-                    result = [SELECT Id,toLabel(VME_Channel__c),VME_Type__c,toLabel(VME_Sales_Channel__c),VME_Percentage__c,VME_Invoice_segment__c,VME_Campaign__r.VME_WBS__r.VME_WBS_Key__c,VME_Amount__c,Name,VME_Quarter__c,VME_Retailer_Upload_Required__c,toLabel(VME_Document_Evidence__c),VME_Calculation_Basis__c,VME_Start_Date__c,VME_End_Date__c FROM VME_Campaign_Specifications__c WHERE VME_Campaign__r.VME_Market_Code__c = :userCountryCode];//Added by Koku (Please remove)
+                    set<string> vmeValue = new  set<string>();
+                    if (quote.LMS_QUO_ConfigurationVehicle__c != null) {
+                        vmeValue.add(vehicleCode);
+                        result = getCampaignSMART(vmeValue,code.VME_Car_Line_Abbreviation__c);
+                    } else if (quote.LMS_QUO_StockVehicle__c != null) {
+                        vmeValue.add(quote.LMS_QUO_StockVehicle__r.LMS_VHC_VehicleVIN__c);
+                        vmeValue.add(quote.LMS_QUO_StockVehicle__r.LMS_VHC_MasterVehicle__r.LMS_VHC_OrderNumber__c );
+                        result = getCampaignSMART(vmeValue,code.VME_Car_Line_Abbreviation__c);
+                    }
                     System.debug('Result===============' + result);
                     if (result != null && !result.isEmpty()) {
                         String query = 'SELECT Id, Name,VME_Start_Date__c, VME_End_Date__c,VME_Audience__c, VME_Calculation_Trigger__c, VME_Document_Type__c, '

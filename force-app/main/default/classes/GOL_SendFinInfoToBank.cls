@@ -84,12 +84,12 @@ public with sharing class GOL_SendFinInfoToBank {
     private static LMS_FinanceInformation__c fetchFinanceRecord(String financeInfoId) {
         return [
             SELECT 
-                LMS_FIN_Quote__c,
-                LMS_FIN_Term__c,
-                LMS_FIN_Deposit__c,
-                LMS_FIN_Annual_Contract_Mileage__c,
-                ERPT_FIN_TotalGrossAmt__c,
-                ERPT_FIN_InstallmentIntGrossAmt__c,
+                // LMS_FIN_Quote__c,
+                // LMS_FIN_Term__c,
+                // LMS_FIN_Deposit__c,
+                // LMS_FIN_Annual_Contract_Mileage__c,
+                // ERPT_FIN_TotalGrossAmt__c,
+                // ERPT_FIN_InstallmentIntGrossAmt__c,
                 GOL_Type_Of_Use__c,
                 GOL_Channel__c, 
                 GOL_Person_Type__c
@@ -111,51 +111,51 @@ public with sharing class GOL_SendFinInfoToBank {
         payload.quoteId = externalQuoteId;
         //payload.quoteId = financeRecord.LMS_FIN_Quote__c != null ? financeRecord.LMS_FIN_Quote__c : '';
         payload.typeOfUse = financeRecord.GOL_Type_Of_Use__c != null ? financeRecord.GOL_Type_Of_Use__c : 'PROFESSIONAL';
-        payload.channel = financeRecord.GOL_Channel__c != null ? financeRecord.GOL_Channel__c : '';
         payload.personType = financeRecord.GOL_Person_Type__c != null ? financeRecord.GOL_Person_Type__c : 'LEGAL';
+        payload.channel = financeRecord.GOL_Channel__c != null ? financeRecord.GOL_Channel__c : '';
 
         //Quote details
-        payload.quote = new GOL_SendFinInfoToBankWrapper.Quote();
-        payload.quote.annualMileage = financeRecord.LMS_FIN_Annual_Contract_Mileage__c != null ? Integer.valueOf(financeRecord.LMS_FIN_Annual_Contract_Mileage__c) : 0;
-        payload.quote.duration = financeRecord.LMS_FIN_Term__c != null ? Integer.valueOf(financeRecord.LMS_FIN_Term__c) : 0;
-        payload.quote.downPaymentGrossAmount = financeRecord.LMS_FIN_Deposit__c != null ? financeRecord.LMS_FIN_Deposit__c : 0;
-        payload.quote.totalGrossAmount = financeRecord.ERPT_FIN_TotalGrossAmt__c != null ? financeRecord.ERPT_FIN_TotalGrossAmt__c : 0;
-        payload.quote.installmentGrossAmount = financeRecord.ERPT_FIN_InstallmentIntGrossAmt__c != null ? financeRecord.ERPT_FIN_InstallmentIntGrossAmt__c : 0;
+        // payload.quote = new GOL_SendFinInfoToBankWrapper.Quote();
+        // payload.quote.annualMileage = financeRecord.LMS_FIN_Annual_Contract_Mileage__c != null ? Integer.valueOf(financeRecord.LMS_FIN_Annual_Contract_Mileage__c) : 0;
+        // payload.quote.duration = financeRecord.LMS_FIN_Term__c != null ? Integer.valueOf(financeRecord.LMS_FIN_Term__c) : 0;
+        // payload.quote.downPaymentGrossAmount = financeRecord.LMS_FIN_Deposit__c != null ? financeRecord.LMS_FIN_Deposit__c : 0;
+        // payload.quote.totalGrossAmount = financeRecord.ERPT_FIN_TotalGrossAmt__c != null ? financeRecord.ERPT_FIN_TotalGrossAmt__c : 0;
+        // payload.quote.installmentGrossAmount = financeRecord.ERPT_FIN_InstallmentIntGrossAmt__c != null ? financeRecord.ERPT_FIN_InstallmentIntGrossAmt__c : 0;
         
         //FinancialProduct
-        payload.financialProduct = new GOL_SendFinInfoToBankWrapper.FinancialProduct();
-        payload.financialProduct.id = '';
-        payload.financialProduct.name = '';
-        payload.financialProduct.currencyCode = '';
-        payload.financialProduct.rateType = new List<String>();
-        payload.financialProduct.financialProductCategory = new GOL_SendFinInfoToBankWrapper.FinancialProductCategory();
-        payload.financialProduct.financialProductCategory.code = '';
-        payload.financialProduct.financialProductCategory.name = '';
-        payload.financialProduct.financialProductCategory.description = '';
+        // payload.financialProduct = new GOL_SendFinInfoToBankWrapper.FinancialProduct();
+        // payload.financialProduct.id = '';
+        // payload.financialProduct.name = '';
+        // payload.financialProduct.currencyCode = '';
+        // payload.financialProduct.rateType = new List<String>();
+        // payload.financialProduct.financialProductCategory = new GOL_SendFinInfoToBankWrapper.FinancialProductCategory();
+        // payload.financialProduct.financialProductCategory.code = '';
+        // payload.financialProduct.financialProductCategory.name = '';
+        // payload.financialProduct.financialProductCategory.description = '';
         
         //Products
-        payload.products = new GOL_SendFinInfoToBankWrapper.Products();
-        payload.products.inputFields = new GOL_SendFinInfoToBankWrapper.InputFields();
-        payload.products.inputFields.downPaymentGrossAmountRange = new GOL_SendFinInfoToBankWrapper.AmountRange();
-        payload.products.inputFields.downPaymentGrossAmountRange.selectedValue = 0;
-        payload.products.inputFields.downPaymentNetAmountRange = new GOL_SendFinInfoToBankWrapper.AmountRange();
-        payload.products.inputFields.downPaymentNetAmountRange.selectedValue = 0;
-        payload.products.units = new GOL_SendFinInfoToBankWrapper.Units();
-        payload.products.units.currencyCode = '';
-        payload.products.units.durationTimeUnit = '';
+        // payload.products = new GOL_SendFinInfoToBankWrapper.Products();
+        // payload.products.inputFields = new GOL_SendFinInfoToBankWrapper.InputFields();
+        // payload.products.inputFields.downPaymentGrossAmountRange = new GOL_SendFinInfoToBankWrapper.AmountRange();
+        // payload.products.inputFields.downPaymentGrossAmountRange.selectedValue = 0;
+        // payload.products.inputFields.downPaymentNetAmountRange = new GOL_SendFinInfoToBankWrapper.AmountRange();
+        // payload.products.inputFields.downPaymentNetAmountRange.selectedValue = 0;
+        // payload.products.units = new GOL_SendFinInfoToBankWrapper.Units();
+        // payload.products.units.currencyCode = '';
+        // payload.products.units.durationTimeUnit = '';
 
         // Map CPI and Non-CPI Products
-        payload.products.cpiProducts = new GOL_SendFinInfoToBankWrapper.Product();
-        payload.products.cpiProducts.financialProductId = '';
-        payload.products.cpiProducts.name = '';
-        payload.products.cpiProducts.description = '';
-        payload.products.cpiProducts.id = '';
+        // payload.products.cpiProducts = new GOL_SendFinInfoToBankWrapper.Product();
+        // payload.products.cpiProducts.financialProductId = '';
+        // payload.products.cpiProducts.name = '';
+        // payload.products.cpiProducts.description = '';
+        // payload.products.cpiProducts.id = '';
         
-        payload.products.nonCpiProducts = new GOL_SendFinInfoToBankWrapper.Product();
-        payload.products.nonCpiProducts.financialProductId = '';
-        payload.products.nonCpiProducts.name = '';
-        payload.products.nonCpiProducts.description = '';
-        payload.products.nonCpiProducts.id = '';
+        // payload.products.nonCpiProducts = new GOL_SendFinInfoToBankWrapper.Product();
+        // payload.products.nonCpiProducts.financialProductId = '';
+        // payload.products.nonCpiProducts.name = '';
+        // payload.products.nonCpiProducts.description = '';
+        // payload.products.nonCpiProducts.id = '';
         
         return payload;
     }

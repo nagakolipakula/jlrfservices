@@ -10,10 +10,11 @@ public with sharing class GOL_SendFinInfoToBank_Tests {
         GOL_SendFinInfoToBank.sendFinanceContextRequestAsync(financeInfo.Id);
         Test.stopTest();
 
-        LMS_FinanceInformation__c updatedRecord = [SELECT LMS_FIN_SysLink__c FROM LMS_FinanceInformation__c WHERE Id = :financeInfo.Id];
+        LMS_FinanceInformation__c updatedRecord = [SELECT LMS_FIN_SysLink__c, LMS_FIN_Status__c FROM LMS_FinanceInformation__c WHERE Id = :financeInfo.Id];
         System.assertNotEquals(null, updatedRecord.LMS_FIN_SysLink__c, 'Field should be updated');
         System.assertEquals('https://webautotest.cetelem.es/jlr?token=1506621930093', updatedRecord.LMS_FIN_SysLink__c,
                             'LMS_FIN_SysLink__c should match the expected URL from response');
+        System.assertEquals('Sent to POS', updatedRecord.LMS_FIN_Status__c, 'LMS_FIN_Status__c should be "Sent to POS"');
     }
 
     @isTest
@@ -109,7 +110,8 @@ public with sharing class GOL_SendFinInfoToBank_Tests {
             GOL_Type_Of_Use__c = 'PRIVATE',
             GOL_Channel__c = 'POS',
             GOL_Person_Type__c = 'PHYSICAL',
-            LMS_FIN_SysLink__c = null
+            LMS_FIN_SysLink__c = null,
+            LMS_FIN_Status__c = null
         );
         insert financeInfo;
     }

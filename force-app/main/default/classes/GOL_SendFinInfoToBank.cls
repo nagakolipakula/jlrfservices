@@ -25,6 +25,7 @@ public with sharing class GOL_SendFinInfoToBank {
         payload.personType = financeRecord.GOL_Person_Type__c;
 
         String requestBody = JSON.serialize(payload);
+        System.debug('Request Payload: ' + requestBody);
         HttpResponse response = executeHttpPost(financeInfoId, requestBody);
 
         if (response != null && response.getStatusCode() == 200) {
@@ -90,9 +91,11 @@ public with sharing class GOL_SendFinInfoToBank {
         try {
             LMS_FinanceInformation__c financeRecord = new LMS_FinanceInformation__c(
                 Id = financeInfoId,
-                LMS_FIN_SysLink__c = systemLinkUrl
+                LMS_FIN_SysLink__c = systemLinkUrl,
+                LMS_FIN_Status__c = 'Sent to POS'
             );
             update financeRecord;
+            System.debug('Successfully updated LMS_FIN_Status__c: ' + financeRecord.LMS_FIN_Status__c);
             System.debug('Successfully updated LMS_FIN_SysLink__c: ' + systemLinkUrl);
         } catch (Exception e) {
             System.debug('Failed to update LMS_FIN_SysLink__c: ' + e.getMessage());

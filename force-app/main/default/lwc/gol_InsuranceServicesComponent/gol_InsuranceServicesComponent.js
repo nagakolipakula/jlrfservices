@@ -46,10 +46,10 @@ export default class Gol_InsuranceServicesComponent extends LightningElement {
                 if(element.checked === undefined){
                     element.checked = false;
                 }                
-                if(element.description !== undefined){
-                    element.checkboxLabel = element.description;
-                }else if(element.name){
+                if(element.name !== undefined){
                     element.checkboxLabel = element.name;
+                }else if(element.description !== undefined){
+                    element.checkboxLabel = element.description;
                 }else{
                     element.checkboxLabel = '';
                 }
@@ -63,10 +63,10 @@ export default class Gol_InsuranceServicesComponent extends LightningElement {
                 if(element.checked === undefined){
                     element.checked = false;
                 }   
-                if(element.description !== undefined){
-                    element.checkboxLabel = element.description;
-                }else if(element.name){
+                if(element.name !== undefined){
                     element.checkboxLabel = element.name;
+                }else if(element.description !== undefined){
+                    element.checkboxLabel = element.description;
                 }else{
                     element.checkboxLabel = '';
                 }

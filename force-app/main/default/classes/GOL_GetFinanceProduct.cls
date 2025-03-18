@@ -1,4 +1,4 @@
-public class GOL_GetFinanceProduct {
+public with sharing class GOL_GetFinanceProduct {
 
     @InvocableMethod(label='Invoke Get Product API and return list of products' description='Invocable method to get product API')
 	public static List<Response>  getProduct(List<Request> lstRequestData) {

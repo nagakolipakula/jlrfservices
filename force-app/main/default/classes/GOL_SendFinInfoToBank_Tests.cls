@@ -5,9 +5,9 @@ public with sharing class GOL_SendFinInfoToBank_Tests {
         Test.setMock(HttpCalloutMock.class, new MockHttpResponseSuccess());
 
         LMS_FinanceInformation__c financeInfo = [SELECT Id FROM LMS_FinanceInformation__c LIMIT 1];
-
+        List<String> lstRequstParams = new List<String>{financeInfo.Id};
         Test.startTest();
-        GOL_SendFinInfoToBank.sendFinanceContextRequestAsync(financeInfo.Id);
+        GOL_SendFinInfoToBank.sendFinanceContext(lstRequstParams);
         Test.stopTest();
 
         LMS_FinanceInformation__c updatedRecord = [SELECT LMS_FIN_SysLink__c, LMS_FIN_Status__c FROM LMS_FinanceInformation__c WHERE Id = :financeInfo.Id];
@@ -105,6 +105,7 @@ public with sharing class GOL_SendFinInfoToBank_Tests {
         insert newFiscalPlan;  
 
         LMS_FinanceInformation__c financeInfo = new LMS_FinanceInformation__c(
+            RecordTypeId = Schema.SObjectType.LMS_FinanceInformation__c.getRecordTypeInfosByDeveloperName().get(GOL_Constants.LMS_FIN_CENTRAL_FINANCING_RT).getRecordTypeId(),
             LMS_FIN_Quote__c = quote.Id,
             LMS_FIN_Lead__c = newOpp.Id,
             GOL_Type_Of_Use__c = 'PRIVATE',

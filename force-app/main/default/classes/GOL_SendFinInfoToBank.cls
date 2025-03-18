@@ -1,7 +1,14 @@
 public with sharing class GOL_SendFinInfoToBank {
 
+    @InvocableMethod(label='Invoke Context Share Send To Bank API' description='Invoke Context Share Send To Bank API')
+    public static void sendFinanceContext(List<String> lstFinanceInfoId) {
+        String financeInfoId = lstFinanceInfoId[0];
+        sendFinanceContextRequestAsync(financeInfoId);
+    }
+    
     @future(callout=true)
     public static void sendFinanceContextRequestAsync(String financeInfoId) {
+        System.debug('financeInfoId - '+financeInfoId);
         LMS_FinanceInformation__c financeRecord = fetchFinanceRecord(financeInfoId);
         if (financeRecord == null) {
             System.debug('Finance record not found for Id: ' + financeInfoId);
@@ -31,7 +38,7 @@ public with sharing class GOL_SendFinInfoToBank {
         if (response != null && response.getStatusCode() == 200) {
             String systemLinkUrl = getRouteOutUrl(response.getBody());
             if (systemLinkUrl != null) {
-                updateFinanceSystemLink(financeInfoId, systemLinkUrl, 'Sent to POS');
+                updateFinanceSystemLink(financeInfoId, systemLinkUrl);
             } else {
                 System.debug('No valid system link URL found in response.');
                 insertExceptionLog(financeInfoId, 'No valid system link URL in response', response.getBody());
@@ -87,14 +94,16 @@ public with sharing class GOL_SendFinInfoToBank {
         }
     }
 
-    private static void updateFinanceSystemLink(String financeInfoId, String systemLinkUrl, String status) {
+    private static void updateFinanceSystemLink(String financeInfoId, String systemLinkUrl) {
         try {
             LMS_FinanceInformation__c financeRecord = new LMS_FinanceInformation__c(
                 Id = financeInfoId,
                 LMS_FIN_SysLink__c = systemLinkUrl,
-                LMS_FIN_Status__c = status
+                LMS_FIN_Status__c = 'Sent to POS'
             );
             update financeRecord;
+            System.debug('Successfully updated LMS_FIN_Status__c: ' + financeRecord.LMS_FIN_Status__c);
+            System.debug('Successfully updated LMS_FIN_SysLink__c: ' + systemLinkUrl);
         } catch (Exception e) {
             System.debug('Failed to update LMS_FIN_SysLink__c: ' + e.getMessage());
             insertExceptionLog(financeInfoId, 'Failed to update LMS_FIN_SysLink__c', e.getStackTraceString());

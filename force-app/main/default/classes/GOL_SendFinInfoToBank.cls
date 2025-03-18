@@ -31,7 +31,7 @@ public with sharing class GOL_SendFinInfoToBank {
         if (response != null && response.getStatusCode() == 200) {
             String systemLinkUrl = getRouteOutUrl(response.getBody());
             if (systemLinkUrl != null) {
-                updateFinanceSystemLink(financeInfoId, systemLinkUrl);
+                updateFinanceSystemLink(financeInfoId, systemLinkUrl, 'Sent to POS');
             } else {
                 System.debug('No valid system link URL found in response.');
                 insertExceptionLog(financeInfoId, 'No valid system link URL in response', response.getBody());
@@ -87,16 +87,14 @@ public with sharing class GOL_SendFinInfoToBank {
         }
     }
 
-    private static void updateFinanceSystemLink(String financeInfoId, String systemLinkUrl) {
+    private static void updateFinanceSystemLink(String financeInfoId, String systemLinkUrl, String status) {
         try {
             LMS_FinanceInformation__c financeRecord = new LMS_FinanceInformation__c(
                 Id = financeInfoId,
                 LMS_FIN_SysLink__c = systemLinkUrl,
-                LMS_FIN_Status__c = 'Sent to POS'
+                LMS_FIN_Status__c = status
             );
             update financeRecord;
-            System.debug('Successfully updated LMS_FIN_Status__c: ' + financeRecord.LMS_FIN_Status__c);
-            System.debug('Successfully updated LMS_FIN_SysLink__c: ' + systemLinkUrl);
         } catch (Exception e) {
             System.debug('Failed to update LMS_FIN_SysLink__c: ' + e.getMessage());
             insertExceptionLog(financeInfoId, 'Failed to update LMS_FIN_SysLink__c', e.getStackTraceString());

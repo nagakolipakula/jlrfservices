@@ -6,10 +6,17 @@ public class GOL_GetFinanceProduct {
         List<Response> lstResponse = new List<Response>();
         Response results = new Response();
         
-        if (lstRequestData == null || lstRequestData.isEmpty() || String.isEmpty(lstRequestData.get(0).quoteExternalId) || String.isEmpty(lstRequestData.get(0).typeOfUse) || String.isEmpty(lstRequestData.get(0).channel) || String.isEmpty(lstRequestData.get(0).personType)) {
+        if (lstRequestData == null || lstRequestData.isEmpty() || 
+            String.isEmpty(lstRequestData.get(0).quoteExternalId) ||
+            String.isEmpty(lstRequestData.get(0).typeOfUse) ||
+            String.isEmpty(lstRequestData.get(0).channel) ||
+            String.isEmpty(lstRequestData.get(0).personType)) {
+            
             results.isSuccess = false;
             results.errorMessage = 'Invalid input: query parameters are missing';
+            
             lstResponse.add(results);
+            insertExceptionLog(null, results.errorMessage, 'Validation failed due to missing parameters');
             return lstResponse;
         }
         String quoteExternalId = lstRequestData.get(0).quoteExternalId;

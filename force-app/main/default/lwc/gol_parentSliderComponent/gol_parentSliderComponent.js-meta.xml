@@ -42,6 +42,7 @@
 				label="Retailer Discount SerializedData"/>
 			<property name="vehicleQli" type="@salesforce/schema/LMS_QuoteLineItem__c" label="Vehicle Quote Line Item"/>
 			<property name="financeInformation" type="@salesforce/schema/LMS_FinanceInformation__c" label="Saved Finance Information Item"/>
+			<property name="UserDetails" type="@salesforce/schema/User" label="User Details"  description="Logged in User Details" />
 			<property name="inputMappingData" type="String" label="Input Mapping Data"  description="Input Mapping Data from LWC to Flow." required="false" />
 			<property name="personType" type="String" label="Person Type"  description="Person Type value from flow to LWC." required="false" />
 			<property name="channel" type="String" label="Channel"  description="Channel value from flow to lwc" required="false" />

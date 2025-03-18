@@ -8,6 +8,7 @@ import 	GOL_Finance_Client_age from '@salesforce/label/c.GOL_Finance_Client_age'
 export default class Gol_InsuranceServicesComponent extends LightningElement {
     
     @api insuranceProducts;
+    @api userDetails;
     cpiProducts = [];
     nonCpiProducts = [];
     zipCode = "";
@@ -22,8 +23,13 @@ export default class Gol_InsuranceServicesComponent extends LightningElement {
         GOL_Finance_Zip_Postal_code,
         GOL_Finance_Client_age
     }
+    isItalyCountryUser = false;
     connectedCallback(){
         console.log('MS++ Insurance Products==> ',JSON.stringify(this.insuranceProducts,null,2));
+        console.log('MS++ UserDetails==> ',JSON.stringify(this.userDetails,null,2));
+         if(this.userDetails && this.userDetails.LMS_USR_SalesCountryCode__c && this.userDetails.LMS_USR_SalesCountryCode__c=='IT'){
+            this.isItalyCountryUser=true;
+        }
         if(this.insuranceProducts){
             this.insuranceProductsCheck();
         }

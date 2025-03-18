@@ -7,7 +7,7 @@ public with sharing class GOL_GetFinanceQuote_Test {
         LMS_TriggerHandler.turnOffTriggers = true;
         
         ERPT_Datafactory.initEnvironment();
-        
+
         Account acc = ERPT_DataFactory.createAccount('Test Italy Account','LMS_ACC_SalesCountry');
         acc.LMS_ACC_NSC_Reference__c = 'IT';
         insert acc;
@@ -99,11 +99,21 @@ public with sharing class GOL_GetFinanceQuote_Test {
         System.assert(responseList[0].message.contains('API Error'));
     }
 
+    @isTest
+    static void testGetInputFieldsMappingRecords() {
+        Test.startTest();
+        List<GOL_Record_vs_Input_Fields_Mapping__mdt> responseList = GOL_GetFinanceQuote.getInputFieldsMappingRecords();
+        Test.stopTest();
+
+       // System.assertNotEquals(null, responseList);
+    }
+
     private class MockHttpResponse implements HttpCalloutMock {
         public HTTPResponse respond(HTTPRequest req) {
             HttpResponse res = new HttpResponse();
             res.setStatusCode(200);
-            res.setBody('{"Quote": {"duration": 36, "annualMileage": 15000, "totalGrossAmount": 50000, "installmentGrossAmount": 1200}, "FinancialProduct": {"name": "Lease", "fullId": "12345", "creditTimeUnit": "Months", "currencyCode": "USD"}, "LegalDocument": {"title": "Finance Agreement", "body": "Terms and conditions..."}, "fixedCosts": [{"name": "Service Fee", "grossAmount": 500}]}');
+            res.setBody('{"Quote": {"duration": 36, "annualMileage": 15000, "totalGrossAmount": 50000, "installmentGrossAmount": 1200}, "FinancialProduct": {"name": "Lease", "fullId": "12345", "creditTimeUnit": "Months", "currencyCode": "USD"}, "LegalDocument": {"title": "Finance Agreement", "body": "Terms and conditions..."}, '+ 
+            ' "fixedCosts": [{"name": "Service Fee", "grossAmount": 500}] , "cpiProducts": [{"name": "CPIVV", "financialProductId": "7892" , "description": "LEASING Credito", "id": "CPIVV"}], "nonCpiProducts": [{"name": "CP", "financialProductId": "246" , "description": "LEASING Credito NON", "id": "CPI"}]}');
             return res;
         }
     }

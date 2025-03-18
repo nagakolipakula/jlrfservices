@@ -1,4 +1,4 @@
-import { LightningElement, api, wire} from 'lwc';
+import { LightningElement, api} from 'lwc';
 import GOL_Select_Financial_Product from '@salesforce/label/c.GOL_Select_Financial_Product';
 import GOL_Adjust_parameters from '@salesforce/label/c.GOL_Adjust_parameters';
 import GOL_No_Financial_products_available from '@salesforce/label/c.GOL_No_Financial_products_available';
@@ -7,9 +7,6 @@ import GOL_Finance_Insurance_and_Services from '@salesforce/label/c.GOL_Finance_
 import GOL_Amount_incl_VAT from '@salesforce/label/c.GOL_Amount_incl_VAT';
 import { FlowAttributeChangeEvent, FlowNavigationNextEvent, FlowNavigationBackEvent, FlowNavigationFinishEvent } from 'lightning/flowSupport';
 import getInputFieldsMappingRecords from '@salesforce/apex/GOL_GetFinanceQuote.getInputFieldsMappingRecords';
-import { getRecord } from 'lightning/uiRecordApi';
-import LMS_USR_SalesCountryCode from '@salesforce/schema/User.LMS_USR_SalesCountryCode__c';
-import User_Id from '@salesforce/user/Id';
 
 export default class gol_parentSliderComponent extends LightningElement {
   @api buttonActionForOverview;
@@ -26,6 +23,7 @@ export default class gol_parentSliderComponent extends LightningElement {
   @api personType;
   @api channel;
   @api typeOfUse;
+  @api UserDetails;
   mappingMetadataRecords;
   parsedSerializedData;
   @api IsUpdateRetailerDiscount = false;
@@ -51,26 +49,9 @@ export default class gol_parentSliderComponent extends LightningElement {
     GOL_Finance_Insurance_and_Services,
     GOL_Amount_incl_VAT
   }
-  insuranceProducts;
-  User_SalesCountryCode;
-  UserError;
-
-  @wire(getRecord, {
-    recordId: User_Id,
-    fields: [LMS_USR_SalesCountryCode]
-  }) wireuser({
-      error,
-      data
-  }) {
-      if (error) {
-        this.UserError = error ; 
-      } else if (data) {
-          this.User_SalesCountryCode = data.fields.LMS_USR_SalesCountryCode__c.value;
-      }
-  }
-
+  
   connectedCallback() {
-    console.log(this.UserError+'<==logged in user country==>'+this.User_SalesCountryCode);
+    console.log('Logged in user details==>'+JSON.stringify(this.UserDetails,null,2));
      console.log('Finance Item==> '+JSON.stringify(this.financeitem,null,2));
     // console.log('First Finance Info Record:', this.ContactId);
     // console.log('Second Finance Info Record:', this.ContactId2);
@@ -344,7 +325,7 @@ export default class gol_parentSliderComponent extends LightningElement {
   }
 
   updateParsedResponseForModify(){
-    console.log('MS updateParsedResponseForModify call ==>'+ this.selectedProductId);
+    console.log('MS updateParsedResponseForModify financeInformation ==>'+ JSON.stringify(this.financeInformation,null,2));
     for (let i = 0; i < this.parsedResponse.length; i++) {
       if (this.selectedProductId === this.parsedResponse[i].fullId) {
         console.log( this.parsedResponse[i].fullId +'<==MS updateParsedResponseForModify call2 ==>'+ this.selectedProductId);
@@ -356,7 +337,7 @@ export default class gol_parentSliderComponent extends LightningElement {
           inputFields[inputName].defaultValue = this.getSavedValueFromFinInformation(inputName) ?? 0;
           this.parsedResponse[i].inputFields = inputFields;
         }
-
+        
         //Finance Item
         if(this.financeitem){
           let financeitemParsed = JSON.parse(JSON.stringify(this.financeitem));
@@ -382,9 +363,17 @@ export default class gol_parentSliderComponent extends LightningElement {
                   });
                 }
               }
-
           }
         }
+        if(this.isInitialLoadInModify && this.financeInformation){
+          if(this.financeInformation.GOL_Zip_Postal_Code__c){
+            this.parsedResponse[i].zipCode = this.financeInformation.GOL_Zip_Postal_Code__c;
+          }
+          if(this.financeInformation.GOL_Age_Range__c){
+            this.parsedResponse[i].ageRangeSelected = this.financeInformation.GOL_Age_Range__c;
+          }       
+        }
+        
       }
     }
   }
@@ -678,8 +667,16 @@ export default class gol_parentSliderComponent extends LightningElement {
     // const nonCpiProducts = providerData.nonCpiProducts ? providerData.nonCpiProducts.filter((ele,index) => ele.checked == true) : [];
     const cpiProducts = providerData.cpiProducts ? providerData.cpiProducts : [];
     const nonCpiProducts = providerData.nonCpiProducts ? providerData.nonCpiProducts : [];
-    const ageRange = (providerData.ageRange && providerData.ageRangeSelected) ? providerData.ageRange.filter((ele,index) => ele.name == providerData.ageRangeSelected) : providerData.ageRange[0] ? providerData.ageRange[0] : [];
-    const zipCode = providerData.zipCode || '';
+    //const ageRange = (providerData.ageRange && providerData.ageRangeSelected) ? providerData.ageRange.filter((ele,index) => ele.name == providerData.ageRangeSelected) : providerData.ageRange.length>0 ? providerData.ageRange[0] : [];
+    let ageRange;
+    if(providerData.ageRange && providerData.ageRange.length>0 && providerData.ageRangeSelected !== undefined){
+      ageRange = providerData.ageRange.filter((ele,index) => ele.name == providerData.ageRangeSelected);
+    }else if(providerData.ageRange && providerData.ageRange.length>0){
+      ageRange = providerData.ageRange.filter((ele,index) => index == 0);
+    }else{
+      ageRange = [];
+    }
+    const zipCode = providerData.zipCode ? providerData.zipCode : '';
     
     const serializedData = {
       quoteId: this.quoteExternalId,
@@ -827,8 +824,29 @@ async initializeInsuranceProduct() {
   //   return;
   // }
   // this.childInsuranceProductComponent = false;
+  if(this.parsedResponse){
+    //this.selectedProductId
+    for(let i=0;i<this.parsedResponse.length;i++){
+    if(this.parsedResponse[i].fullId === this.selectedProductId){
+      if(this.parsedResponse[i].cpiProducts && this.parsedResponse[i].cpiProducts.length>0){
+      this.parsedResponse[i].cpiProducts.forEach((childelement)=>{
+      if(childelement.checked === undefined){
+        childelement.checked = false;
+      }
+    });
+    }
+    if(this.parsedResponse[i].nonCpiProducts && this.parsedResponse[i].nonCpiProducts.length>0){
+      this.parsedResponse[i].nonCpiProducts.forEach((schildelement)=>{
+      if(schildelement.checked === undefined){
+        schildelement.checked = false;
+      }
+    });
+    }
+  }
+}
+}
   this.insuranceProducts = this.getSelectedProduct();
-  console.log('MS++ initializeInsuranceProduct==> '+JSON.stringify(this.insuranceProducts));
+  console.log('MS++ initializeInsuranceProduct==> '+JSON.stringify(this.insuranceProducts,null,2));
    // if (providerData && providerData.inputFields) {
     //   this.selectedSliderValues.set(this.selectedProductId, {});
     //   Object.entries(providerData.inputFields).forEach(([key, field]) => {

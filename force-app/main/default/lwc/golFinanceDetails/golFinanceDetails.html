@@ -63,13 +63,13 @@
                 <!-- <p class="description">
                     {label.GOL_Lorem_Text}
                 </p> -->
+                <div class="modify-button">
+                    <button type="button" disabled={IsNotCreated} class="slds-button slds-button_neutral" data-id={financeRecord.GOL_JLR_ID__c} onclick={handleModifyClick}>{label.GOL_Modify_button}</button>
+                </div>
                 <div class="legaltextdescription">
                     <lightning-formatted-rich-text
                         value={legaltext}
                     ></lightning-formatted-rich-text>
-                </div>
-                <div class="modify-button">
-                    <button type="button" disabled={IsNotCreated} class="slds-button slds-button_neutral" data-id={financeRecord.GOL_JLR_ID__c} onclick={handleModifyClick}>{label.GOL_Modify_button}</button>
                 </div>
             </div>
         </div>

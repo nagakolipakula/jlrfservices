@@ -15,7 +15,7 @@
                             </lightning-formatted-number>
                         </span>
                         <span class="label-text">{label.GOL_monthly}</span>
-                    </p>                    
+                    </p>
                     <!-- <div class="vat-toggle-row">
                         <input type="checkbox" id="vatToggle" />
                         <label for="vatToggle" class="vat-label">{label.GOL_VAT_label}</label>
@@ -63,6 +63,12 @@
                 <!-- <p class="description">
                     {label.GOL_Lorem_Text}
                 </p> -->
+                <template for:each={processedFieldMappings} for:item="field">
+                    <div key={field.label} class="field-row">
+                        <span class="field-label">{field.label}</span>
+                        <span class="field-value">{field.value}</span>
+                    </div>
+                </template>
                 <div class="modify-button">
                     <button type="button" disabled={IsNotCreated} class="slds-button slds-button_neutral" data-id={financeRecord.GOL_JLR_ID__c} onclick={handleModifyClick}>{label.GOL_Modify_button}</button>
                 </div>
@@ -70,7 +76,7 @@
                     <lightning-formatted-rich-text
                         value={legaltext}
                     ></lightning-formatted-rich-text>
-                </div>
+                </div>           
             </div>
         </div>
     </div>

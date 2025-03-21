@@ -158,3 +158,20 @@
     border: 0.5px solid rgba(74, 79, 84, 0.3);
     margin: 20px 0;
 }
+
+.field-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 0;
+    border-bottom: 1px solid white;
+}
+
+.field-label {
+    font-weight: bold;
+    flex: 1;
+}
+
+.field-value {
+    flex: 1;
+    text-align: right;
+}

@@ -72,7 +72,7 @@ export default class golFinanceDetails extends LightningElement {
                 }
             })
             .catch((error) => {
-                console.error('Apex getFieldMappings FAILED:', error);
+                console.error('Apex getFieldMappings failed:', error);
             });
     }
 

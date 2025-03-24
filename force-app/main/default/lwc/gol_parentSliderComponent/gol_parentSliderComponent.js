@@ -865,14 +865,20 @@ handleInsuranceProductChange(event){
   if(this.parsedResponse){
     //this.selectedProductId
     for(let i=0;i<this.parsedResponse.length;i++){
-    if(this.parsedResponse[i].fullId === this.selectedProductId){
-      
       if(parameters.productHeaderName === 'clientage'){
         this.parsedResponse[i].ageRangeSelected = parameters.selectedProduct;
       }
       if(parameters.productHeaderName === 'zipcode'){
         this.parsedResponse[i].zipCode = parameters.selectedProduct;
       }
+    if(this.parsedResponse[i].fullId === this.selectedProductId){
+      
+      // if(parameters.productHeaderName === 'clientage'){
+      //   this.parsedResponse[i].ageRangeSelected = parameters.selectedProduct;
+      // }
+      // if(parameters.productHeaderName === 'zipcode'){
+      //   this.parsedResponse[i].zipCode = parameters.selectedProduct;
+      // }
       if(parameters.productHeaderName === 'cpiProducts'){
       this.parsedResponse[i].cpiProducts.forEach((childelement)=>{
       if(childelement.id === parameters.productId){
@@ -888,7 +894,7 @@ handleInsuranceProductChange(event){
     });
     }
     if(parameters.productHeaderName === 'services'){
-      console.log('services call');
+      console.log('services call'); // Service Logic
     }
 }
 }

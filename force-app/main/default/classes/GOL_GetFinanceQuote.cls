@@ -52,7 +52,7 @@ public with sharing class GOL_GetFinanceQuote {
         return lstResponse;
     }
 
-    private static HttpResponse sendFinanceQuoteRequest(String quotePayload) {
+    public static HttpResponse sendFinanceQuoteRequest(String quotePayload) {
         Http http = new Http();
         HttpRequest request = new HttpRequest();
         request.setEndpoint('callout:GOL_MS_Finance/' + Label.GOL_Get_Finance_Quote_End_Point);
@@ -63,7 +63,7 @@ public with sharing class GOL_GetFinanceQuote {
         return http.send(request);
     }
 
-    private static Id createFinanceInformationRecord(String quoteId, GOL_JSON2ApexFinancialQuoteWrapper parsedResponse,String financeQuoteIdOld) {
+    public static Id createFinanceInformationRecord(String quoteId, GOL_JSON2ApexFinancialQuoteWrapper parsedResponse,String financeQuoteIdOld) {
         if (parsedResponse == null) {
             return null;
         }
@@ -105,7 +105,7 @@ public with sharing class GOL_GetFinanceQuote {
         }
     }
 
-    private static void createFinanceItemsFixedCosts(String financeInformationId,List<GOL_JSON2ApexFinancialQuoteWrapper.FixedCost> fixedCosts) {
+    public static void createFinanceItemsFixedCosts(String financeInformationId,List<GOL_JSON2ApexFinancialQuoteWrapper.FixedCost> fixedCosts) {
         // if (fixedCosts == null) {
         //     return null;
         // }
@@ -124,7 +124,7 @@ public with sharing class GOL_GetFinanceQuote {
         }
     }
 
-    private static void createFinanceItemsCpiProducts(String financeInformationId,List<GOL_JSON2ApexFinancialQuoteWrapper.CpiProducts> cpiProducts) {
+    public static void createFinanceItemsCpiProducts(String financeInformationId,List<GOL_JSON2ApexFinancialQuoteWrapper.CpiProducts> cpiProducts) {
         List<ERPT_FinanceItem__c> lstFinanceItems = new List<ERPT_FinanceItem__c>();
         for(GOL_JSON2ApexFinancialQuoteWrapper.CpiProducts cpiProduct : cpiProducts) {
             ERPT_FinanceItem__c financeItem = new ERPT_FinanceItem__c();
@@ -142,7 +142,7 @@ public with sharing class GOL_GetFinanceQuote {
         }
     }
 
-    private static void createFinanceItemsNonCpiProducts(String financeInformationId,List<GOL_JSON2ApexFinancialQuoteWrapper.NonCpiProducts> nonCpiProducts) {
+    public static void createFinanceItemsNonCpiProducts(String financeInformationId,List<GOL_JSON2ApexFinancialQuoteWrapper.NonCpiProducts> nonCpiProducts) {
         List<ERPT_FinanceItem__c> lstFinanceItems = new List<ERPT_FinanceItem__c>();
         for(GOL_JSON2ApexFinancialQuoteWrapper.NonCpiProducts nonCpiProduct : nonCpiProducts) {
             ERPT_FinanceItem__c financeItem = new ERPT_FinanceItem__c();

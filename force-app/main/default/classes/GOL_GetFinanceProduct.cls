@@ -18,11 +18,11 @@ public with sharing class GOL_GetFinanceProduct {
             lstResponse.add(results);
             insertExceptionLog(null, results.errorMessage, 'Validation failed due to missing parameters');
             return lstResponse;
-        }
+        } 
         String quoteExternalId = lstRequestData.get(0).quoteExternalId;
-        String typeOfUse = lstRequestData.get(0).typeOfUse;
-        String channel = lstRequestData.get(0).channel;
-        String personType = lstRequestData.get(0).personType;
+        String typeOfUse = lstRequestData.get(0).typeOfUse; //'PRIVATE'
+        String channel = lstRequestData.get(0).channel;//'POS'
+        String personType = '';//lstRequestData.get(0).personType;//'PHYSICAL'
         try {
             String strGetProductURLEndPoint = Label.GOL_Get_Finance_Product_End_Point + '?quoteId=' + quoteExternalId + '&typeOfUse=' + typeOfUse + '&channel=' + channel + '&personType='+personType;
             HttpResponse response = sendGetProductRequest(strGetProductURLEndPoint);
@@ -32,7 +32,7 @@ public with sharing class GOL_GetFinanceProduct {
             if (response.getStatusCode() == 200) {
                 results.isSuccess = true;
                 results.responseBody = response.getBody();
-            }else if (response.getStatusCode() != 200) {
+            }else if (response.getStatusCode() != 200 && !String.isEmpty(response.getBody())) {
                 Map<string, object> mapResponse = (Map<string,object>)JSON.deserializeUntyped(response.getBody());
                 if(mapResponse != null && mapResponse.containsKey('message')){
                     results.errorMessage = String.valueOf(mapResponse.get('message'));
@@ -41,16 +41,17 @@ public with sharing class GOL_GetFinanceProduct {
                 }
                 results.isSuccess = false;
                 insertExceptionLog(quoteExternalId,results.errorMessage,response.getBody());
-            } else {
+            } else{
                 results.isSuccess = false;
-                results.errorMessage =  response.getStatus();
-                insertExceptionLog(quoteExternalId,results.errorMessage,response.getBody());
+                results.errorMessage =  response.getStatusCode() + ' : ' + response.getStatus();
+                insertExceptionLog(quoteExternalId,results.errorMessage,response.getStatusCode() + ' : ' + response.getStatus());
             }
             lstResponse.add(results);
         }catch(Exception e){
-            // System.debug('e====>'+ e);
+            //System.debug('e====>'+ e.getMessage());
             results.errorMessage = e.getMessage();
             results.isSuccess = false;
+            lstResponse.add(results);
             insertExceptionLog(quoteExternalId,e.getMessage(),e.getStackTraceString());
         }
         return lstResponse;

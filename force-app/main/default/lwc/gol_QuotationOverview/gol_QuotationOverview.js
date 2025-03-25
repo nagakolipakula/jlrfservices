@@ -169,27 +169,28 @@ export default class golQuotationOverview extends LightningElement {
     }    
 
     handleUpdateClick() {
-        if(this.selectedRecords.length === 0) {
-            this.showMinUpdateError = true;
-            setTimeout(() => {
-                this.showMinUpdateError = false;
-            }, 3000);
-            return;
-        } else if (this.selectedRecords.length > 1) {
-            this.showMaxUpdateError = true;
-            setTimeout(() => {
-                this.showMaxUpdateError = false;
-            }, 3000);
+        if (this.selectedRecords.length === 0) {
+            console.error('Please select at least one record.');
             return;
         }
-        const selectedRecordId = this.selectedRecords[0];
-        console.log('Selected Record ID:==>'+JSON.stringify(selectedRecordId));
-        this.dispatchModifyQuoteId(selectedRecordId);
-        console.log("Update Button Clicked!");
-        const action = new FlowAttributeChangeEvent('buttonActionForOverview', this.label.GOL_Update_Button_Clicked_Event);
-        this.dispatchEvent(action);
-        const nextEvent = new FlowNavigationNextEvent();
-        this.dispatchEvent(nextEvent);
+        const recordsWithCreatedStatus = this.formattedRecords.filter(
+            record => this.selectedRecords.includes(record.Id) && record.LMS_FIN_Status__c === 'Created'
+        );
+        if (recordsWithCreatedStatus.length === 0) {
+            console.error('No selected records are in "CREATED" status.');
+            return;
+        }
+    
+        const idsToSend = recordsWithCreatedStatus.map(record => record.Id);
+        console.log('Sending these CREATED record IDs to Apex:', idsToSend);
+    
+        updateFinQuote({ finInfoRecIds: idsToSend })
+        .then(() => {
+            console.log('Apex method executed successfully with:', idsToSend);
+        })
+        .catch(error => {
+            console.error('Error calling in Apex method:', error);
+        });
     }
 
     handleSendToBankClick() {

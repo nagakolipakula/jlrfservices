@@ -96,16 +96,17 @@
 .description {
     font-size: 12px;
     color: rgba(141, 141, 141, 1);
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     line-height: 13px;
 }
 .legaltextdescription{
     font-family: 'Avenir Next', sans-serif;
-    margin-bottom: 20px;
+    margin-bottom: 2px;
 }
 .modify-button {
     text-align: center;
-    margin-top: 30px;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 .modify-button button {
@@ -156,4 +157,21 @@
 .divider {
     border: 0.5px solid rgba(74, 79, 84, 0.3);
     margin: 20px 0;
+}
+
+.field-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 0;
+    border-bottom: 1px solid white;
+}
+
+.field-label {
+    font-weight: bold;
+    flex: 1;
+}
+
+.field-value {
+    flex: 1;
+    text-align: right;
 }

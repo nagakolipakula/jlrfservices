@@ -6,10 +6,22 @@
                 <div class="checkboxheadercss" >{label.GOL_Finance_Insurance_product_1}</div>
                     <template for:each={cpiProducts} for:item="cp" for:index="index">
                     <div key={cp.name}  class="checkboxdivcss">
-                        <input id={cp.name} value={cp.name} type="checkbox" checked={cp.checked}>
-                        <label class="checkboxlabelcss" for={cp.name}> {cp.name}</label>
+                        <input id={cp.name} data-name={cp.financialProductId} data-id={cp.id} data-mid="cpiProducts" value={cp.name} type="checkbox" checked={cp.checked} onchange={handleInsuranceProductSelection}>
+                        <label class="checkboxlabelcss" for={cp.name}> {cp.checkboxLabel}</label>
                     </div>
-                    </template>             
+                    </template>
+                    <template if:true={isItalyCountryUser}>
+                    <template if:true={isInsuranceProducts.ageRange}>
+                    <div class="clientagedivcss">
+                        <div for="clientage" class="clientagelabelcss">{label.GOL_Finance_Client_age}</div>
+                        <select data-mid="clientage" data-id="clientage" name="clientage" id="clientage" class="clientagecss" onchange={handleInsuranceProductSelection}>
+                        <template for:each={ageRangeOptions} for:item="ageRange" for:index="index">
+                            <option selected={ageRange.selected} key={ageRange.name} value={ageRange.name}>{ageRange.name}</option>
+                        </template>   
+                        </select>  
+                    </div>    
+                    </template>  
+                    </template>     
             </div>
         </lightning-layout-item>
         </template>
@@ -19,13 +31,46 @@
                 <div class="checkboxheadercss">{label.GOL_Finance_Insurance_product_2}</div>
                     <template for:each={nonCpiProducts} for:item="ncp" for:index="index">
                     <div key={ncp.name} class="checkboxdivcss">
-                        <input id={ncp.name} value={ncp.name} type="checkbox" checked={ncp.checked}>
-                        <label class="checkboxlabelcss" for={ncp.name}> {ncp.name}</label>
+                        <input id={ncp.name} data-name={ncp.financialProductId} data-id={ncp.id} data-mid="nonCpiProducts" value={ncp.name} type="checkbox" checked={ncp.checked} onchange={handleInsuranceProductSelection}>
+                        <label class="checkboxlabelcss" for={ncp.name}> {ncp.checkboxLabel}</label>
+                    </div>
+                    </template>
+                    <template if:true={isItalyCountryUser}>
+                    <div class="zipcodedivcss">
+                        <div class="zipcodelabelcss" for="zipcode">{label.GOL_Finance_Zip_Postal_code}</div>
+                        <input
+                        value={zipCode}
+                        data-mid="zipcode"
+                        data-id="zipcode"
+                        id="zipcode"
+                        type="text"
+                        onchange={handleInsuranceProductSelection}
+                        class="input-box" />
                     </div>
                     </template>
             </div>
         </lightning-layout-item>
         </template>
+
+        <template  if:true={isInsuranceProducts.services}>
+            <!-- //Arval Loop Start -->
+            <template for:each={options} for:item="service" for:index="index">
+                <lightning-layout-item key={service.serviceId} class="layoutitemcss arvallayoutitemcss" size="12" small-device-size="6" medium-device-size="5" large-device-size="5">
+                    <div class="insuranceboxcss">
+                        <div for="insurance" class="insuranceproductnamecss">{service.label}</div>
+                        <select data-mid="services" data-id={service.serviceId} name="insurance" id={service.serviceId} class="selectcss" onchange={handleInsuranceProductSelection}>
+                        <template for:each={service.validValues} for:item="servicevalue" for:index="indexchild">
+                
+                                <option selected={servicevalue.selected} key={servicevalue.value} value={servicevalue.value}>{servicevalue.label}</option>
+                            
+                        </template>   
+                        </select>  
+                    </div>
+                </lightning-layout-item>
+            </template>
+            <!-- //Arval Loop End -->
+        </template>
+
     </lightning-layout>
             
             <!-- <div class="insuranceboxcss">

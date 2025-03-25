@@ -42,12 +42,15 @@
 				label="Retailer Discount SerializedData"/>
 			<property name="vehicleQli" type="@salesforce/schema/LMS_QuoteLineItem__c" label="Vehicle Quote Line Item"/>
 			<property name="financeInformation" type="@salesforce/schema/LMS_FinanceInformation__c" label="Saved Finance Information Item"/>
+			<property name="UserDetails" type="@salesforce/schema/User" label="User Details"  description="Logged in User Details" />
 			<property name="inputMappingData" type="String" label="Input Mapping Data"  description="Input Mapping Data from LWC to Flow." required="false" />
 			<property name="personType" type="String" label="Person Type"  description="Person Type value from flow to LWC." required="false" />
 			<property name="channel" type="String" label="Channel"  description="Channel value from flow to lwc" required="false" />
 			<property name="typeOfUse" type="String" label="TypeOfUse"  description="TypeOfUse value from flow to lwc" required="false" />
 			<property name="clickedButtonName" type="String" label="Clicked Button Name"  description="Name of the button clicked from UI" required="false" />
 			<property name="buttonActionForOverview" label="Button Action" type="String" role="outputOnly"/>
+			<propertyType name="T" extends="SObject" label="Finance Item Object API Name" description="Select the API Name of the Finance Item SObject"/>
+            <property name="financeitem" label="Finance Item Record Collection" type="{T[]}" role="inputOnly" description="Finance Item Records"/>
         </targetConfig>
     </targetConfigs>
 </LightningComponentBundle>

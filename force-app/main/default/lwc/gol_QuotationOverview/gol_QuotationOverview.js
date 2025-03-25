@@ -23,6 +23,7 @@ export default class golQuotationOverview extends LightningElement {
     @api FinanceInfoRecords;
     @api openFinanceQuoteIdOne;
     @api openFinanceQuoteIdTwo;
+    @api FSArvalURL;
     showMaxSelectionError;
     showMinSelectionError;
     showMaxUpdateError;
@@ -48,6 +49,10 @@ export default class golQuotationOverview extends LightningElement {
 
     };
 
+    
+    connectedCallback(){
+        console.log('FSArvalURL: ' + this.FSArvalURL);
+    }
     get formattedRecords() {
         if (!this.FinanceInfoRecords) return [];
 
@@ -174,6 +179,7 @@ export default class golQuotationOverview extends LightningElement {
             return;
         }
         const selectedRecordId = this.selectedRecords[0];
+        console.log('Selected Record ID:==>'+JSON.stringify(selectedRecordId));
         this.dispatchModifyQuoteId(selectedRecordId);
         console.log("Update Button Clicked!");
         const action = new FlowAttributeChangeEvent('buttonActionForOverview', this.label.GOL_Update_Button_Clicked_Event);

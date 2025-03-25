@@ -17,6 +17,7 @@
 			<property name="modifyFinanceQuoteIdFromOverview" label="Finance quote id going to view" type="String" role="outputOnly"/>
 			<property name="openFinanceQuoteIdOne" label="Finance quote id going to open 01" type="String" role="outputOnly"/>
 			<property name="openFinanceQuoteIdTwo" label="Finance quote id going to Open 02" type="String" role="outputOnly"/>
+			<property name="FSArvalURL" label="Arval POS URL" type="String" role="inputOnly"/>
 		</targetConfig>
     </targetConfigs>
 </LightningComponentBundle>

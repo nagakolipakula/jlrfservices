@@ -11,7 +11,8 @@
                         <span class="lease-amount">
                             <lightning-formatted-number 
                                 value={financeRecord.ERPT_FIN_InstallmentIntGrossAmt__c}
-                                format-style="currency">
+                                format-style="currency"
+                                locale={locale}>
                             </lightning-formatted-number>
                         </span>
                         <span class="label-text">{label.GOL_monthly}</span>
@@ -22,7 +23,7 @@
                     </div> -->
                 </div>
                 <div class="details">
-                    <div class="detail-row">
+                    <!-- <div class="detail-row">
                         <span>{label.GOL_Final_price_with_trade_in}</span>
                         <span> <lightning-formatted-number value={financeRecord.ERPT_FIN_TotalGrossAmt__c} format-style="currency"> </lightning-formatted-number></span>
                     </div>
@@ -49,7 +50,24 @@
                     <div class="detail-row">
                         <span>{label.GOL_Management_fees}</span>
                         <span> <lightning-formatted-number value={financeRecord.ERPT_FIN_TotalGrossAmt__c} format-style="currency"> </lightning-formatted-number></span>
-                    </div>
+                    </div> -->
+                    <template if:true={quoteDetails}>
+                        <template if:true={quoteDetails.length}>
+                            <template for:each={quoteDetails} for:item="detail">
+                                <div key={detail.id} class="detail-row">
+                                    <span class="field-label">{detail.label}</span>
+                                    <span class="field-value">{detail.value}</span>
+                                </div>
+                            </template>
+                        </template>
+                        <template if:false={quoteDetails.length}>
+                            <div class="detail-row">
+                                No quote details are available for this Finance Information Record.
+                                Quote details are available for records 
+                                with GOL_JLR_ID__c ≥ 1046 in the FSDev environment.
+                            </div>
+                        </template>
+                    </template>
                     <div class="divider"></div>
                     <div class="total-row">
                         <span>{label.GOL_Total} {financeRecord.LMS_FIN_ProdName__c} {label.GOL_Amount}</span>
@@ -63,12 +81,6 @@
                 <!-- <p class="description">
                     {label.GOL_Lorem_Text}
                 </p> -->
-                <template for:each={processedFieldMappings} for:item="field">
-                    <div key={field.label} class="field-row">
-                        <span class="field-label">{field.label}</span>
-                        <span class="field-value">{field.value}</span>
-                    </div>
-                </template>
                 <div class="modify-button">
                     <button type="button" disabled={IsNotCreated} class="slds-button slds-button_neutral" data-id={financeRecord.GOL_JLR_ID__c} onclick={handleModifyClick}>{label.GOL_Modify_button}</button>
                 </div>

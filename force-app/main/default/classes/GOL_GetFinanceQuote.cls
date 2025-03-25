@@ -94,6 +94,9 @@ public with sharing class GOL_GetFinanceQuote {
         financeInformation.GOL_Person_Type__c  = parsedResponse.personType;
         financeInformation.GOL_Channel__c = parsedResponse.channel;
         financeInformation.LMS_FIN_Status__c = GOL_Constants.LMS_FIN_Status_FINANCE_Created;
+        if (parsedResponse.quoteDetails != null && parsedResponse.quoteDetails.size() > 0) {
+            financeInformation.GOL_View_Quote_Details__c = JSON.serialize(parsedResponse.quoteDetails);
+        }
         
         upsert financeInformation;
         return financeInformation.Id;

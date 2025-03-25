@@ -13,6 +13,7 @@ import GOL_Update_Button_Clicked_Event from '@salesforce/label/c.GOL_Update_Butt
 import GOL_Send_to_Bank_Button_Clicked_Event from '@salesforce/label/c.GOL_Send_to_Bank_Button_Clicked_Event';
 import GOL_Open_Button_Clicked_Event from '@salesforce/label/c.GOL_Open_Button_Clicked_Event';
 import GOL_New_Calculation_Button_Clicked_Event from '@salesforce/label/c.GOL_New_Calculation_Button_Clicked_Event';
+//import getRecords from '@salesforce/apex/GOL_GetUpdatedFinanceQuote.getRecords';
 
 import { FlowAttributeChangeEvent, FlowNavigationNextEvent, FlowNavigationBackEvent, FlowNavigationFinishEvent } from 'lightning/flowSupport';
 
@@ -52,6 +53,7 @@ export default class golQuotationOverview extends LightningElement {
     
     connectedCallback(){
         console.log('FSArvalURL: ' + this.FSArvalURL);
+        console.log('modifyFinanceQuoteIdFromOverview:');
     }
     get formattedRecords() {
         if (!this.FinanceInfoRecords) return [];
@@ -129,12 +131,14 @@ export default class golQuotationOverview extends LightningElement {
 
     handleRowSelection(event) {
         const recordId = event.target.dataset.id;
+        console.log('selected record id:', recordId);
+        console.log('selected records:', this.selectedRecords);
         let updatedSelection = [...this.selectedRecords];
 
         if (event.target.checked) {
-            if (updatedSelection.length >= 2) {
+            if (updatedSelection.length >= 99) {
                 event.target.checked = false;
-                console.error("Cannot select more than 2 records");
+                console.error("Cannot select more than 99 records");
                 this.showMaxSelectionError = true;
                 return;
             }
@@ -144,7 +148,7 @@ export default class golQuotationOverview extends LightningElement {
         }
 
         this.selectedRecords = updatedSelection;
-        if (this.selectedRecords.length <= 2) {
+        if (this.selectedRecords.length>= 99) {
             this.showMaxSelectionError = false;
         }
     }

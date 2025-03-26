@@ -101,7 +101,8 @@ public with sharing class GOL_GetFinanceQuote {
         upsert financeInformation;
         return financeInformation.Id;
     }
-    private static void deleteFinanceItems(String financeInformationId){
+
+    public static void deleteFinanceItems(String financeInformationId){
         List<ERPT_FinanceItem__c> lstFinanceItems = [SELECT Id FROM ERPT_FinanceItem__c WHERE ERPT_FII_FinanceInformation__c = :financeInformationId];
         if(!lstFinanceItems.isEmpty()){
             delete lstFinanceItems;

@@ -9,12 +9,24 @@ public with sharing class GOL_GetUpdatedFinanceQuote {
         List<LMS_FinanceInformation__c> recordsToUpdate = new List<LMS_FinanceInformation__c>();
 
         List<LMS_FinanceInformation__c> financeRecords = [
-            SELECT Id, LMS_FIN_Quote__c, LMS_FIN_Term__c, LMS_FIN_Deposit__c, LMS_FIN_Annual_Contract_Mileage__c,
-                GOL_Type_Of_Use__c, GOL_Channel__c, GOL_Person_Type__c, GOL_Zip_Postal_Code__c,
-                LMS_FIN_ProdName__c
-            FROM LMS_FinanceInformation__c
-            WHERE Id IN :financeQuoteIds
-        ];
+                                                    SELECT Id,
+                                                        LMS_FIN_Quote__c,
+                                                        LMS_FIN_Term__c,
+                                                        LMS_FIN_Deposit__c,
+                                                        LMS_FIN_Annual_Contract_Mileage__c,
+                                                        GOL_Type_Of_Use__c,
+                                                        GOL_Channel__c,
+                                                        GOL_Person_Type__c,
+                                                        GOL_Zip_Postal_Code__c,
+                                                        LMS_FIN_ProdName__c,
+                                                        LMS_FIN_FinanceInstitution__c,
+                                                        LMS_FIN_Finance_Reference__c,
+                                                        CurrencyIsoCode,
+                                                        ERPT_FIN_CreditTimeUoM__c,
+                                                        LMS_FIN_Quote__r.EPRT_QUO_External_ID__c
+                                                    FROM LMS_FinanceInformation__c
+                                                    WHERE Id IN :financeQuoteIds
+                                                ];
 
         for (LMS_FinanceInformation__c record : financeRecords) {
             if (record.LMS_FIN_Quote__c != quoteId) {
@@ -22,20 +34,36 @@ public with sharing class GOL_GetUpdatedFinanceQuote {
                 continue;
             }
 
-            Map<String, Object> parsed = (Map<String, Object>) JSON.deserializeUntyped(buildGetQuotePayload(record.Id));
-            Map<String, Object> quote = (Map<String, Object>) parsed.get('quote');
-            // Map<String, Object> product = (Map<String, Object>) parsed.get('product');
-            record.LMS_FIN_Term__c = (Integer) quote.get('duration');
-            record.LMS_FIN_Deposit__c = (Decimal) quote.get('downPaymentGrossAmount');
-            record.LMS_FIN_Annual_Contract_Mileage__c = (Integer) quote.get('annualMileage');
-            record.GOL_Channel__c = (String) parsed.get('channel');
-            record.GOL_Person_Type__c = (String) parsed.get('personType');
-            record.GOL_Type_Of_Use__c = (String) parsed.get('typeOfUse');
-            record.GOL_Zip_Postal_Code__c = (String) parsed.get('zipCode');
-            record.LMS_FIN_ProdName__c = 'NK 01';
+            try {
+                String payload = buildUpdatedPayload(record);
+                system.debug('paylaod: ' + payload);
+                HttpResponse res = GOL_GetFinanceQuote.sendFinanceQuoteRequest(payload);
+                system.debug('Response: ' + res.getBody());
 
-            recordsToUpdate.add(record);
-            responses.add(new Response(true, 'Record updated successfully', record.Id));
+                if (res.getStatusCode() == 200) {
+                    GOL_JSON2ApexFinancialQuoteWrapper parsed = GOL_JSON2ApexFinancialQuoteWrapper.parse(res.getBody());
+
+                    record.LMS_FIN_Term__c = parsed.quote.duration;
+                    record.LMS_FIN_Deposit__c = parsed.quote.downPaymentGrossAmount;
+                    record.LMS_FIN_Annual_Contract_Mileage__c = parsed.quote.annualMileage;
+                    record.GOL_Channel__c = parsed.channel;
+                    record.GOL_Person_Type__c = parsed.personType;
+                    record.GOL_Type_Of_Use__c = parsed.typeOfUse;
+                    // record.GOL_Zip_Postal_Code__c = ''; // if not from response
+                    record.LMS_FIN_ProdName__c = parsed.financialProduct.name;
+
+                    recordsToUpdate.add(record);
+                    responses.add(new Response(true, 'Record updated successfully', record.Id));
+                } else {
+                    String msg = 'API Error: ' + res.getStatusCode() + ' - ' + res.getStatus();
+                    insertExceptionLog(record.Id, msg, '');
+                    responses.add(new Response(false, msg, record.Id));
+                }
+
+            } catch (Exception ex) {
+                insertExceptionLog(record.Id, ex.getMessage(), ex.getStackTraceString());
+                responses.add(new Response(false, 'Callout Exception: ' + ex.getMessage(), record.Id));
+            }
         }
 
         if (!recordsToUpdate.isEmpty()) {
@@ -45,33 +73,94 @@ public with sharing class GOL_GetUpdatedFinanceQuote {
         return responses;
     }
 
-    private static String buildGetQuotePayload(Id financeQuoteId) {
-        LMS_FinanceInformation__c record = [
-            SELECT LMS_FIN_Term__c, LMS_FIN_ProdName__c, LMS_FIN_Deposit__c, LMS_FIN_Annual_Contract_Mileage__c,
-                   GOL_Type_Of_Use__c, GOL_Channel__c, GOL_Person_Type__c, GOL_Zip_Postal_Code__c,
-                   LMS_FIN_Quote__r.EPRT_QUO_External_ID__c
-            FROM LMS_FinanceInformation__c
-            WHERE Id = :financeQuoteId
-            LIMIT 1
+    private static String buildUpdatedPayload(LMS_FinanceInformation__c record) {
+        List<ERPT_FinanceItem__c> financeItems = [
+            SELECT RecordType.DeveloperName, ERPT_FII_Description__c, ERPT_FII_GrossAmount__c, 
+                   ERPT_FII_ExternalRef__c, ERPT_FII_financialProductRef__c, ERPT_FII_FullName__c
+            FROM ERPT_FinanceItem__c 
+            WHERE ERPT_FII_FinanceInformation__c = :record.Id
         ];
-
-        Map<String, Object> quote = new Map<String, Object>{
-            'externalQuoteId' => record.LMS_FIN_Quote__r.EPRT_QUO_External_ID__c,
-            'duration' => record.LMS_FIN_Term__c,
-            'downPaymentGrossAmount' => record.LMS_FIN_Deposit__c,
-            'annualMileage' => record.LMS_FIN_Annual_Contract_Mileage__c
+    
+        List<Object> cpiProducts = new List<Object>();
+        List<Object> nonCpiProducts = new List<Object>();
+        List<Object> services = new List<Object>();
+    
+        for (ERPT_FinanceItem__c item : financeItems) {
+            if (item.RecordType.DeveloperName == 'ERPT_FII_CPIPRODUCT_RT') {
+                cpiProducts.add(new Map<String, Object>{
+                    'financialProductId' => item.ERPT_FII_financialProductRef__c,
+                    'name' => item.ERPT_FII_FullName__c,
+                    'description' => item.ERPT_FII_Description__c,
+                    'id' => item.ERPT_FII_ExternalRef__c,
+                    'checked' => true
+                });
+            } else if (item.RecordType.DeveloperName == 'ERPT_FII_NONCPIPRODUCT_RT') {
+                nonCpiProducts.add(new Map<String, Object>{
+                    'financialProductId' => item.ERPT_FII_financialProductRef__c,
+                    'name' => item.ERPT_FII_FullName__c,
+                    'description' => item.ERPT_FII_Description__c,
+                    'id' => item.ERPT_FII_ExternalRef__c,
+                    'checked' => true
+                });
+            } else if (item.RecordType.DeveloperName == 'ERPT_FII_FIXEDCOST_RT') {
+                services.add(new Map<String, Object>{
+                    'serviceId' => item.ERPT_FII_ExternalRef__c,
+                    'label' => item.ERPT_FII_Description__c,
+                    'defaultValue' => item.ERPT_FII_Description__c,
+                    'selectedValue' => item.ERPT_FII_Description__c
+                });
+            }
+        }
+    
+        Map<String, Object> units = new Map<String, Object>{
+            'mileageUnit' => 'KILOMETERS',
+            'currencyCode' => record.CurrencyIsoCode,
+            'creditTimeUnit' => record.ERPT_FIN_CreditTimeUoM__c
         };
-
-        Map<String, Object> wrapper = new Map<String, Object>{
-            'quote' => quote,
-            'channel' => record.GOL_Channel__c,
-            'personType' => record.GOL_Person_Type__c,
+    
+        Map<String, Object> inputFields = new Map<String, Object>{
+            'durationsRange' => new Map<String, Object>{
+                'selectedValue' => record.LMS_FIN_Term__c
+            },
+            'downPaymentGrossAmountRange' => new Map<String, Object>{
+                'selectedValue' => record.LMS_FIN_Deposit__c
+            }
+        };
+    
+        if (record.LMS_FIN_Annual_Contract_Mileage__c != null) {
+            inputFields.put('annualMileagesRange', new Map<String, Object>{
+                'selectedValue' => record.LMS_FIN_Annual_Contract_Mileage__c
+            });
+        }
+    
+        // Construct product section
+        Map<String, Object> product = new Map<String, Object>{
+            'fullId' => record.LMS_FIN_Finance_Reference__c,
+            'name' => record.LMS_FIN_ProdName__c,
+            'description' => record.LMS_FIN_ProdName__c,
+            'selected' => true,
+            'provider' => record.LMS_FIN_FinanceInstitution__c,
+            'units' => units,
+            'inputFields' => inputFields,
+            'zipCode' => record.GOL_Zip_Postal_Code__c,
+            'ageRange' => new List<Object>()
+        };
+    
+        if (!cpiProducts.isEmpty()) product.put('cpiProducts', cpiProducts);
+        if (!nonCpiProducts.isEmpty()) product.put('nonCpiProducts', nonCpiProducts);
+        if (!services.isEmpty()) product.put('services', services);
+    
+        // Final payload
+        Map<String, Object> payload = new Map<String, Object>{
+            'quoteId' => record.LMS_FIN_Quote__r.EPRT_QUO_External_ID__c,
             'typeOfUse' => record.GOL_Type_Of_Use__c,
-            'zipCode' => record.GOL_Zip_Postal_Code__c
+            'personType' => record.GOL_Person_Type__c,
+            'channel' => record.GOL_Channel__c,
+            'product' => product
         };
-
-        return JSON.serialize(wrapper);
-    }
+    
+        return JSON.serialize(payload);
+    }        
 
     private static Response logFailure(String financeInfoId, String message, String stackTrace) {
         insertExceptionLog(financeInfoId, message, stackTrace);

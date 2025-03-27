@@ -8,7 +8,9 @@
             {label.GOL_New_Calculation_Button}
         </button>
     </div>
-
+    <template if:true={isLoading}>
+        <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+    </template>
     <!-- Data Table Section -->
     <div class="data-table-container">
         <div class="scrollable-container">

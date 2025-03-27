@@ -38,6 +38,7 @@ export default class golQuotationOverview extends LightningElement {
     showError = false;
     @track sortedField = 'LastModifiedDate';
     @track sortOrder = 'desc';
+    @track isLoading = false;
     // @track wiredFinanceInfoResult;
 
     label = {
@@ -210,7 +211,7 @@ export default class golQuotationOverview extends LightningElement {
     
         const financeQuoteIds = recordsWithCreatedStatus.map(record => record.Id);
         const quoteId = recordsWithCreatedStatus[0].LMS_FIN_Quote__c;
-    
+        this.isLoading = true;
         console.log('Sending to Apex -> Quote ID:', quoteId);
         console.log('Sending to Apex -> Finance Quote IDs:', financeQuoteIds);
     
@@ -239,8 +240,10 @@ export default class golQuotationOverview extends LightningElement {
         .catch(error => {
             console.error('Apex error during update:', error);
             this.showToast('Error', error.body?.message || 'An error occurred', 'error');
+        })
+        .finally(() => {
+            this.isLoading = false;
         });
-
     }    
 
     handleSendToBankClick() {

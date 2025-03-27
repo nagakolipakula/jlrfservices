@@ -1,90 +1,54 @@
 public with sharing class GOL_GetUpdatedFinanceQuote {
 
     @AuraEnabled
-    public static List<Response> updateFinanceQuotes(List<Request> idsReceivedFromOverview) {
-        List<Response> financeUpdateResults = new List<Response>();
-        for (Request req : idsReceivedFromOverview) {
-            financeUpdateResults.add(processFinanceQuoteUpdate(req));
-        }
-        return financeUpdateResults;
-    }
+    public static List<Response> updateFinanceQuotes(String quoteId, List<Id> financeQuoteIds) {
+        System.debug('Incoming Quote ID: ' + quoteId);
+        System.debug('Incoming Finance Quote IDs: ' + financeQuoteIds);
 
-    private static Response processFinanceQuoteUpdate(Request req) {
-        Response result = new Response();
+        List<Response> responses = new List<Response>();
+        List<LMS_FinanceInformation__c> recordsToUpdate = new List<LMS_FinanceInformation__c>();
 
-        if (req == null || req.quoteId == null || req.financeQuoteId == null) {
-            result.isSuccess = false;
-            result.message = 'Invalid input: quoteId or financeQuoteId is missing';
-            return result;
-        }
+        List<LMS_FinanceInformation__c> financeRecords = [
+            SELECT Id, LMS_FIN_Quote__c, LMS_FIN_Term__c, LMS_FIN_Deposit__c, LMS_FIN_Annual_Contract_Mileage__c,
+                GOL_Type_Of_Use__c, GOL_Channel__c, GOL_Person_Type__c, GOL_Zip_Postal_Code__c,
+                LMS_FIN_ProdName__c
+            FROM LMS_FinanceInformation__c
+            WHERE Id IN :financeQuoteIds
+        ];
 
-        try {
-            String quotePayload = buildGetQuotePayload(req.financeQuoteId);
-            HttpResponse response = GOL_GetFinanceQuote.sendFinanceQuoteRequest(quotePayload);
-
-            if (response.getStatusCode() == 200) {
-                return processSuccessfulResponse(req, response);
-            } else {
-                return logFailure(req.financeQuoteId, 'API Error: ' + response.getStatusCode() + ' ' + response.getStatus());
+        for (LMS_FinanceInformation__c record : financeRecords) {
+            if (record.LMS_FIN_Quote__c != quoteId) {
+                responses.add(new Response(false, 'Mismatched quoteId for record: ' + record.Id, record.Id));
+                continue;
             }
 
-        } catch (Exception e) {
-            return logFailure(req.financeQuoteId, e.getMessage(), e.getStackTraceString());
-        }
-    }
+            Map<String, Object> parsed = (Map<String, Object>) JSON.deserializeUntyped(buildGetQuotePayload(record.Id));
+            Map<String, Object> quote = (Map<String, Object>) parsed.get('quote');
+            // Map<String, Object> product = (Map<String, Object>) parsed.get('product');
+            record.LMS_FIN_Term__c = (Integer) quote.get('duration');
+            record.LMS_FIN_Deposit__c = (Decimal) quote.get('downPaymentGrossAmount');
+            record.LMS_FIN_Annual_Contract_Mileage__c = (Integer) quote.get('annualMileage');
+            record.GOL_Channel__c = (String) parsed.get('channel');
+            record.GOL_Person_Type__c = (String) parsed.get('personType');
+            record.GOL_Type_Of_Use__c = (String) parsed.get('typeOfUse');
+            record.GOL_Zip_Postal_Code__c = (String) parsed.get('zipCode');
+            record.LMS_FIN_ProdName__c = 'NK 01';
 
-    private static Response processSuccessfulResponse(Request req, HttpResponse response) {
-        Response result = new Response();
-
-        GOL_JSON2ApexFinancialQuoteWrapper parsedResponse =
-            GOL_JSON2ApexFinancialQuoteWrapper.parse(response.getBody());
-
-        Id updatedRecordId = GOL_GetFinanceQuote.createFinanceInformationRecord(
-            req.quoteId, parsedResponse, req.financeQuoteId
-        );
-
-        GOL_GetFinanceQuote.deleteFinanceItems(updatedRecordId);
-
-        if (parsedResponse.fixedCosts != null && !parsedResponse.fixedCosts.isEmpty()) {
-            GOL_GetFinanceQuote.createFinanceItemsFixedCosts(updatedRecordId, parsedResponse.fixedCosts);
-        }
-        if (parsedResponse.cpiProducts != null && !parsedResponse.cpiProducts.isEmpty()) {
-            GOL_GetFinanceQuote.createFinanceItemsCpiProducts(updatedRecordId, parsedResponse.cpiProducts);
-        }
-        if (parsedResponse.nonCpiProducts != null && !parsedResponse.nonCpiProducts.isEmpty()) {
-            GOL_GetFinanceQuote.createFinanceItemsNonCpiProducts(updatedRecordId, parsedResponse.nonCpiProducts);
+            recordsToUpdate.add(record);
+            responses.add(new Response(true, 'Record updated successfully', record.Id));
         }
 
-        result.isSuccess = true;
-        result.message = 'Finance record updated successfully';
-        result.financeQuoteId = updatedRecordId;
-        return result;
-    }
+        if (!recordsToUpdate.isEmpty()) {
+            update recordsToUpdate;
+        }
 
-    private static Response logFailure(String financeInfoId, String message, String stackTrace) {
-        insertExceptionLog(financeInfoId, message, stackTrace);
-
-        Response result = new Response();
-        result.isSuccess = false;
-        result.message = 'Exception: ' + message;
-        result.financeQuoteId = financeInfoId;
-        return result;
-    }
-
-    private static Response logFailure(String financeInfoId, String message) {
-        return logFailure(financeInfoId, message, '');
+        return responses;
     }
 
     private static String buildGetQuotePayload(Id financeQuoteId) {
         LMS_FinanceInformation__c record = [
-            SELECT LMS_FIN_Term__c,
-                   LMS_FIN_ProdName__c,
-                   LMS_FIN_Deposit__c,
-                   LMS_FIN_Annual_Contract_Mileage__c,
-                   GOL_Type_Of_Use__c,
-                   GOL_Channel__c,
-                   GOL_Person_Type__c,
-                   GOL_Zip_Postal_Code__c,
+            SELECT LMS_FIN_Term__c, LMS_FIN_ProdName__c, LMS_FIN_Deposit__c, LMS_FIN_Annual_Contract_Mileage__c,
+                   GOL_Type_Of_Use__c, GOL_Channel__c, GOL_Person_Type__c, GOL_Zip_Postal_Code__c,
                    LMS_FIN_Quote__r.EPRT_QUO_External_ID__c
             FROM LMS_FinanceInformation__c
             WHERE Id = :financeQuoteId
@@ -109,14 +73,22 @@ public with sharing class GOL_GetUpdatedFinanceQuote {
         return JSON.serialize(wrapper);
     }
 
+    private static Response logFailure(String financeInfoId, String message, String stackTrace) {
+        insertExceptionLog(financeInfoId, message, stackTrace);
+        return new Response(false, 'Exception: ' + message, financeInfoId);
+    }
+
+    private static Response logFailure(String financeInfoId, String message) {
+        return logFailure(financeInfoId, message, '');
+    }
+
     private static void insertExceptionLog(String financeInfoId, String message, String stackTrace) {
         try {
-            LMS_Exception__c lms_exc = new LMS_Exception__c(
-                LMS_EXC_Message__c    = 'FinanceInfo ID : ' + financeInfoId + ' -: ' + message,
-                LMS_EXC_Type__c       = 'GOL_GetUpdatedFinanceQuote',
+            insert new LMS_Exception__c(
+                LMS_EXC_Message__c = 'FinanceInfo ID : ' + financeInfoId + ' -: ' + message,
+                LMS_EXC_Type__c = 'GOL_GetUpdatedFinanceQuote',
                 LMS_EXC_StackTrace__c = stackTrace
             );
-            insert lms_exc;
         } catch (Exception e) {
             System.debug('Failed to log exception: ' + e.getMessage());
         }
@@ -124,23 +96,36 @@ public with sharing class GOL_GetUpdatedFinanceQuote {
 
     public class Request {
         @AuraEnabled public Id quoteId;
-        @AuraEnabled public String financeQuoteId;
+        @AuraEnabled public Id financeQuoteId;
     }
 
     public class Response {
         @AuraEnabled public Boolean isSuccess;
         @AuraEnabled public String message;
         @AuraEnabled public Id financeQuoteId;
+
+        public Response() {}
+        public Response(Boolean success, String msg, Id financeId) {
+            this.isSuccess = success;
+            this.message = msg;
+            this.financeQuoteId = financeId;
+        }
     }
 
     @AuraEnabled(cacheable=true)
     public static List<LMS_FinanceInformation__c> getFinanceInfoRecords() {
         return [
             SELECT Id,
-                LMS_FIN_Quote__c,
                 LMS_FIN_Status__c,
                 LastModifiedDate,
-                ERPT_FIN_InstallmentIntGrossAmt__c
+                ERPT_FIN_InstallmentIntGrossAmt__c,
+                LMS_FIN_ProdName__c,
+                LMS_FIN_Quote__c,
+                LMS_FIN_Quote__r.EPRT_QUO_External_ID__c,
+                LMS_FIN_Term__c,
+                LMS_FIN_Deposit__c,
+                GOL_JLR_ID__c,
+                LMS_FIN_Annual_Contract_Mileage__c
             FROM LMS_FinanceInformation__c
             ORDER BY LastModifiedDate DESC
         ];

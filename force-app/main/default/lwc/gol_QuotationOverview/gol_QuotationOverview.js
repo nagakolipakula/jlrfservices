@@ -1,6 +1,11 @@
-import { LightningElement, api, track } from 'lwc';
+import { LightningElement, api, track, wire } from 'lwc';
 import LOCALE from "@salesforce/i18n/locale";
 import CURRENCY from "@salesforce/i18n/currency";
+import { ShowToastEvent } from 'lightning/platformShowToastEvent';
+import { refreshApex } from '@salesforce/apex';
+import getFinanceInfoRecords from '@salesforce/apex/GOL_GetUpdatedFinanceQuote.getFinanceInfoRecords';
+import updateFinanceQuotes from '@salesforce/apex/GOL_GetUpdatedFinanceQuote.updateFinanceQuotes';
+
 import GOL_Quotation_overview from '@salesforce/label/c.GOL_Quotation_overview';
 import GOL_New_Calculation_Button from '@salesforce/label/c.GOL_New_Calculation_Button';
 import GOL_Update_Quote_Button from '@salesforce/label/c.GOL_Update_Quote_Button';
@@ -13,7 +18,6 @@ import GOL_Update_Button_Clicked_Event from '@salesforce/label/c.GOL_Update_Butt
 import GOL_Send_to_Bank_Button_Clicked_Event from '@salesforce/label/c.GOL_Send_to_Bank_Button_Clicked_Event';
 import GOL_Open_Button_Clicked_Event from '@salesforce/label/c.GOL_Open_Button_Clicked_Event';
 import GOL_New_Calculation_Button_Clicked_Event from '@salesforce/label/c.GOL_New_Calculation_Button_Clicked_Event';
-//import getRecords from '@salesforce/apex/GOL_GetUpdatedFinanceQuote.getRecords';
 
 import { FlowAttributeChangeEvent, FlowNavigationNextEvent, FlowNavigationBackEvent, FlowNavigationFinishEvent } from 'lightning/flowSupport';
 
@@ -25,6 +29,7 @@ export default class golQuotationOverview extends LightningElement {
     @api openFinanceQuoteIdOne;
     @api openFinanceQuoteIdTwo;
     @api FSArvalURL;
+    @api FSPosRetailURL;
     showMaxSelectionError;
     showMinSelectionError;
     showMaxUpdateError;
@@ -33,6 +38,7 @@ export default class golQuotationOverview extends LightningElement {
     showError = false;
     @track sortedField = 'LastModifiedDate';
     @track sortOrder = 'desc';
+    // @track wiredFinanceInfoResult;
 
     label = {
         GOL_Quotation_overview,
@@ -50,11 +56,30 @@ export default class golQuotationOverview extends LightningElement {
 
     };
 
+    @wire(getFinanceInfoRecords)
+    wiredFinanceInfo(result) {
+        this.wiredFinanceInfoResult = result;
+        const { data, error } = result;
+    
+        if (data) {
+            this.FinanceInfoRecords = data;
+        } else if (error) {
+            console.error('Wire error:', error);
+        }
+    }
     
     connectedCallback(){
+        refreshApex(this.wiredFinanceInfoResult);
         console.log('FSArvalURL: ' + this.FSArvalURL);
+        console.log('FSPosRetailURL: ' + this.FSPosRetailURL);
         console.log('modifyFinanceQuoteIdFromOverview:');
     }
+
+    // connectedCallback(){
+    //     console.log('FSPosRetailURL: ' + this.FSPosRetailURL);
+    //     console.log('modifyFinanceQuoteIdFromOverview:');
+    // }
+
     get formattedRecords() {
         if (!this.FinanceInfoRecords) return [];
 
@@ -170,28 +195,53 @@ export default class golQuotationOverview extends LightningElement {
 
     handleUpdateClick() {
         if (this.selectedRecords.length === 0) {
-            console.error('Please select at least one record.');
+            this.showToast('Error', 'Please select at least one record.', 'error');
             return;
         }
+    
         const recordsWithCreatedStatus = this.formattedRecords.filter(
             record => this.selectedRecords.includes(record.Id) && record.LMS_FIN_Status__c === 'Created'
         );
+    
         if (recordsWithCreatedStatus.length === 0) {
-            console.error('No selected records are in "CREATED" status.');
+            this.showToast('Error', 'No selected records are in "CREATED" status.', 'error');
             return;
         }
     
-        const idsToSend = recordsWithCreatedStatus.map(record => record.Id);
-        console.log('Sending these CREATED record IDs to Apex:', idsToSend);
+        const financeQuoteIds = recordsWithCreatedStatus.map(record => record.Id);
+        const quoteId = recordsWithCreatedStatus[0].LMS_FIN_Quote__c;
     
-        updateFinQuote({ finInfoRecIds: idsToSend })
+        console.log('Sending to Apex -> Quote ID:', quoteId);
+        console.log('Sending to Apex -> Finance Quote IDs:', financeQuoteIds);
+    
+        updateFinanceQuotes({ quoteId: quoteId, financeQuoteIds: financeQuoteIds })
         .then(() => {
-            console.log('Apex method executed successfully with:', idsToSend);
+            return refreshApex(this.wiredFinanceInfoResult);
+        })
+        .then(() => {
+            if (this.wiredFinanceInfoResult && this.wiredFinanceInfoResult.data) {
+                this.FinanceInfoRecords = [...this.wiredFinanceInfoResult.data];
+                console.log('Refreshed records after update');
+            } else {
+                console.warn('No data found in wiredFinanceInfoResult after refresh.');
+            }
+            this.FinanceInfoRecords = [...this.wiredFinanceInfoResult.data];
+            this.selectedRecords = [];
+
+            const checkboxes = this.template.querySelectorAll('input[type="checkbox"]');
+            checkboxes.forEach(cb => cb.checked = false);
+            const dataTable = this.template.querySelector('lightning-datatable');
+            if (dataTable) {
+                dataTable.selectedRows = [];
+            }
+            this.showToast('Success', 'Finance quotes updated successfully', 'success');
         })
         .catch(error => {
-            console.error('Error calling in Apex method:', error);
+            console.error('Apex error during update:', error);
+            this.showToast('Error', error.body?.message || 'An error occurred', 'error');
         });
-    }
+
+    }    
 
     handleSendToBankClick() {
         if(this.selectedRecords.length === 0) {
@@ -223,8 +273,12 @@ export default class golQuotationOverview extends LightningElement {
                 this.showMinSelectionError = false;
             }, 3000);
             return;
-        } else {
-            this.showMinSelectionError = false;
+        } else if (this.selectedRecords.length > 2) {
+            this.showMaxSelectionError = true;
+            setTimeout(() => {
+                this.showMaxSelectionError = false;
+            }, 3000);
+            return;
         }
         const selectedDetails = this.formattedRecords
             .filter(record => this.selectedRecords.includes(record.Id))
@@ -278,4 +332,15 @@ export default class golQuotationOverview extends LightningElement {
         const nextEvent = new FlowNavigationNextEvent();
         this.dispatchEvent(nextEvent);
     }
+
+    showToast(title, message, variant = 'info') {
+        this.dispatchEvent(
+            new ShowToastEvent({
+                title: title,
+                message: message,
+                variant: variant
+            })
+        );
+    }
+    
 }

@@ -19,6 +19,7 @@
 			<property name="openFinanceQuoteIdTwo" label="Finance quote id going to Open 02" type="String" role="outputOnly"/>
 			<property name="FSArvalURL" label="Arval POS URL" type="String" role="inputOnly"/>
 			<property name="FSPosRetailURL" label="PF POS Retail URL" type="String" role="inputOnly"/>
+			<property name="dmlMessageCheck" type="String" label="DmlCheck"/>
 		</targetConfig>
     </targetConfigs>
 </LightningComponentBundle>

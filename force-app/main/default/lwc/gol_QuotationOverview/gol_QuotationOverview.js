@@ -1,7 +1,7 @@
 import { LightningElement, api, track, wire } from 'lwc';
 import LOCALE from "@salesforce/i18n/locale";
 import CURRENCY from "@salesforce/i18n/currency";
-import { ShowToastEvent } from 'lightning/platformShowToastEvent';
+// import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import { refreshApex } from '@salesforce/apex';
 import getFinanceInfoRecords from '@salesforce/apex/GOL_GetUpdatedFinanceQuote.getFinanceInfoRecords';
 import updateFinanceQuotes from '@salesforce/apex/GOL_GetUpdatedFinanceQuote.updateFinanceQuotes';
@@ -30,6 +30,7 @@ export default class golQuotationOverview extends LightningElement {
     @api openFinanceQuoteIdTwo;
     @api FSArvalURL;
     @api FSPosRetailURL;
+    @api dmlMessageCheck;
     showMaxSelectionError;
     showMinSelectionError;
     showMaxUpdateError;
@@ -73,13 +74,7 @@ export default class golQuotationOverview extends LightningElement {
         refreshApex(this.wiredFinanceInfoResult);
         console.log('FSArvalURL: ' + this.FSArvalURL);
         console.log('FSPosRetailURL: ' + this.FSPosRetailURL);
-        console.log('modifyFinanceQuoteIdFromOverview:');
     }
-
-    // connectedCallback(){
-    //     console.log('FSPosRetailURL: ' + this.FSPosRetailURL);
-    //     console.log('modifyFinanceQuoteIdFromOverview:');
-    // }
 
     get formattedRecords() {
         if (!this.FinanceInfoRecords) return [];
@@ -196,7 +191,8 @@ export default class golQuotationOverview extends LightningElement {
 
     handleUpdateClick() {
         if (this.selectedRecords.length === 0) {
-            this.showToast('Error', 'Please select at least one record.', 'error');
+            // this.showToast('Error', 'Please select at least one record.', 'error');
+            this.dispatchFlowAttributeAndNext('dmlMessageCheck', 'NoRecordsFound');
             return;
         }
     
@@ -205,7 +201,8 @@ export default class golQuotationOverview extends LightningElement {
         );
     
         if (recordsWithCreatedStatus.length === 0) {
-            this.showToast('Error', 'No selected records are in "CREATED" status.', 'error');
+            // this.showToast('Error', 'No selected records are in "CREATED" status.', 'error');
+            this.dispatchFlowAttributeAndNext('dmlMessageCheck', 'NoRecordsInCreateStatus');
             return;
         }
     
@@ -235,11 +232,13 @@ export default class golQuotationOverview extends LightningElement {
             if (dataTable) {
                 dataTable.selectedRows = [];
             }
-            this.showToast('Success', 'Finance quotes updated successfully', 'success');
+            // this.showToast('Success', 'Finance quotes updated successfully', 'success');
+            this.dispatchFlowAttributeAndNext('dmlMessageCheck', 'updatedSuccessfully');
         })
         .catch(error => {
             console.error('Apex error during update:', error);
-            this.showToast('Error', error.body?.message || 'An error occurred', 'error');
+            // this.showToast('Error', error.body?.message || 'An error occurred', 'error');
+            this.dispatchFlowAttributeAndNext('dmlMessageCheck', 'updateFailed');
         })
         .finally(() => {
             this.isLoading = false;
@@ -336,14 +335,26 @@ export default class golQuotationOverview extends LightningElement {
         this.dispatchEvent(nextEvent);
     }
 
-    showToast(title, message, variant = 'info') {
-        this.dispatchEvent(
-            new ShowToastEvent({
-                title: title,
-                message: message,
-                variant: variant
-            })
-        );
+    // showToast(title, message, variant = 'info') {
+    //     this.dispatchEvent(
+    //         new ShowToastEvent({
+    //             title: title,
+    //             message: message,
+    //             variant: variant
+    //         })
+    //     );
+    // }
+
+    navigateNext() {
+        this.dispatchEvent(new FlowNavigationNextEvent());
     }
     
+    setFlowAttribute(name, value) {
+        this.dispatchEvent(new FlowAttributeChangeEvent(name, value));
+    }
+    
+    dispatchFlowAttributeAndNext(name, value) {
+        this.setFlowAttribute(name, value);
+        this.navigateNext();
+    }
 }

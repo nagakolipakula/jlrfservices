@@ -5,6 +5,7 @@ import GOL_SuccessConfirmationIcon from '@salesforce/resourceUrl/GOL_SuccessConf
 export default class Gol_ShowToastInScreenFlows extends LightningElement {
 
     @api title;
+    @api isErrorMessage = false;
 
     @track isVisible;
 

@@ -1,9 +1,23 @@
 <template>
     <center>
-    <div class="container" if:true={isVisible}>
-        <!-- <img src={iconUrl} class="icon-container" style="padding-right: 10px;"/> -->
-        <div class="slds-text-heading_medium slds-text-color_success slds-text-title_bold" style="font-size: 24px;">{title}</div>
+        <!-- Success Message (Green) -->
+        <template if:true={isVisible}>
+            <template if:false={isErrorMessage}>
+                <div class="container">
+                    <div class="slds-text-heading_medium slds-text-color_success slds-text-title_bold" style="font-size: 24px;">
+                        {title}
+                    </div>
+                </div>
+            </template>
 
-    </div>
+            <!-- Error Message (Red) -->
+            <template if:true={isErrorMessage}>
+                <div class="container">
+                    <div class="slds-text-heading_medium slds-text-color_error slds-text-title_bold" style="font-size: 24px;">
+                        {title}
+                    </div>
+                </div>
+            </template>
+        </template>
     </center>
 </template>

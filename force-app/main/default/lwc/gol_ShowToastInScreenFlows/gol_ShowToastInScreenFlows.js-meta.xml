@@ -13,7 +13,13 @@
 				type="String"
 				label="Toast title"
 				description="title"
-				 />
+			/>
+			<property
+				name="isErrorMessage"
+				type="Boolean"
+				label="Is Error Message"
+				description="Display the message in red if true"
+			/>
 		</targetConfig>
 	</targetConfigs>
 </LightningComponentBundle>

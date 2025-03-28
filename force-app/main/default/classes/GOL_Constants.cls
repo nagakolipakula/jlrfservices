@@ -30,5 +30,7 @@ public with sharing class GOL_Constants {
 	public static final String LMS_FIN_Status_FINANCE_Created = 'Created';
     public static final String ERPT_FII_CPIPRODUCT_RT = 'ERPT_FII_CPIProduct';
     public static final String ERPT_FII_NONCPIPRODUCT_RT = 'ERPT_FII_NonCPIProduct';
+    public static final String ERPT_FII_ARVAL_ADDITIONAL_FIELDS_RT =  'ERPT_FII_Arval_Additional_Fields';
+   
 
 }

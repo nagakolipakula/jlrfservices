@@ -20,6 +20,8 @@ public with sharing class GOL_JSON2ApexFinancialQuoteWrapper {
         this.nonCpiProducts = new List<NonCpiProducts>();
         this.quoteDetails = new List<QuoteDetail>();
         this.products = new Products();
+        //this.financialProduct.services = new List<Services>();
+        // this.financialProduct.services.validValues = new List<ValidValues>();
     }
 
     public class FinancialProduct {
@@ -31,7 +33,21 @@ public with sharing class GOL_JSON2ApexFinancialQuoteWrapper {
         public String provider;
         public String fullId;
         public String creditTimeUnit;
+        public List<Services> services;
+        //public List<Services> services;
     }
+
+    public class Services {
+		public String serviceId;	    //1
+		public ServiceValue serviceValue;
+		public String label;	    //Maintenance
+	}
+
+	public class ServiceValue {
+		public String value;	    //MA_FORFAITRE
+		public String label;	    //Maintenance (Assistance Plus incluse)
+		public boolean excluded;
+	}
 
     public class FinancialProductCategory {
         public String code;
@@ -108,6 +124,19 @@ public with sharing class GOL_JSON2ApexFinancialQuoteWrapper {
         public String description;
         public String id;
     }
+
+    // class Services {
+	// 	public String serviceId;	
+	// 	public String label;	
+	// 	public List<ServiceValue> serviceValue;
+	// }
+
+    // class ServiceValue {
+	// 	public String label;	
+	// 	public String value;	
+	// 	public Boolean excluded;	
+	// }
+
 
     public static GOL_JSON2ApexFinancialQuoteWrapper parse(String json) {
         return (GOL_JSON2ApexFinancialQuoteWrapper) System.JSON.deserialize(json, GOL_JSON2ApexFinancialQuoteWrapper.class);

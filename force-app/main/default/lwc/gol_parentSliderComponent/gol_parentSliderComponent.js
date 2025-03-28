@@ -353,12 +353,12 @@ export default class gol_parentSliderComponent extends LightningElement {
                     }
                   });
                 }
-              }else if(financeitemParsed[x].GOL_Record_Type_Name__c === 'ERPT_FII_NonCPIProduct'){
-                console.log('MS updateParsedResponseForModify nonCpiProducts call');
-                if(this.parsedResponse[i].nonCpiProducts){
-                  this.parsedResponse[i].nonCpiProducts.forEach((e1)=>{
-                    if(e1.id == financeitemParsed[x].ERPT_FII_ExternalRef__c){
-                      e1.checked = true;
+              }else if(financeitemParsed[x].GOL_Record_Type_Name__c === 'ERPT_FII_Arval_Additional_Fields'){
+                console.log('MS updateParsedResponseForModify ERPT_FII_Arval_Additional_Fields call');
+                if(this.parsedResponse[i].inputFields && this.parsedResponse[i].inputFields.services){
+                  this.parsedResponse[i].inputFields.services.forEach((e1)=>{
+                    if(e1.serviceId == financeitemParsed[x].ERPT_FII_ExternalRef__c){
+                        e1.defaultValue = financeitemParsed[x].ERPT_FII_Value__c;
                     }
                   });
                 }
@@ -667,6 +667,16 @@ export default class gol_parentSliderComponent extends LightningElement {
     // const nonCpiProducts = providerData.nonCpiProducts ? providerData.nonCpiProducts.filter((ele,index) => ele.checked == true) : [];
     const cpiProducts = providerData.cpiProducts ? providerData.cpiProducts : [];
     const nonCpiProducts = providerData.nonCpiProducts ? providerData.nonCpiProducts : [];
+    let services = providerData.inputFields.services ? providerData.inputFields.services : [];
+    console.log('services befor filter', services);
+    if(services && services.length > 0){
+      services.forEach((childelement)=>{
+        if(childelement.validValues && childelement.validValues.length > 0){
+            delete childelement.validValues;
+          }
+      });
+    }
+    console.log('services after filter', services);
     //const ageRange = (providerData.ageRange && providerData.ageRangeSelected) ? providerData.ageRange.filter((ele,index) => ele.name == providerData.ageRangeSelected) : providerData.ageRange.length>0 ? providerData.ageRange[0] : [];
     let ageRange;
     if(providerData.ageRange && providerData.ageRange.length>0 && providerData.ageRangeSelected !== undefined){
@@ -696,6 +706,7 @@ export default class gol_parentSliderComponent extends LightningElement {
           },
           cpiProducts: cpiProducts,
           nonCpiProducts: nonCpiProducts,
+          services:services,
           ageRange: ageRange,
           zipCode: zipCode,
           inputFields: inputFields
@@ -895,6 +906,12 @@ handleInsuranceProductChange(event){
     }
     if(parameters.productHeaderName === 'services'){
       console.log('services call'); // Service Logic
+      this.parsedResponse[i].inputFields.services.forEach((childelement)=>{
+        if(childelement.serviceId === parameters.productId){
+           childelement.selectedValue = parameters.selectedProduct;
+           childelement.defaultValue = parameters.selectedProduct;
+        }
+      });
     }
 }
 }

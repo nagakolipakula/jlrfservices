@@ -82,7 +82,9 @@ export default class Gol_InsuranceServicesComponent extends LightningElement {
         }
         if(insuranceProductsVal.inputFields &&  insuranceProductsVal.inputFields.services && insuranceProductsVal.inputFields.services.length>0){
             this.isInsuranceProducts.services = true;
+            console.log('MS++ services==> '+JSON.stringify(insuranceProductsVal.inputFields.services,null,2));
             this.services = insuranceProductsVal.inputFields.services;
+            console.log(this.services);
           }
     }
     get ageRangeOptions(){
@@ -134,6 +136,7 @@ export default class Gol_InsuranceServicesComponent extends LightningElement {
         return this.services;
     }
     handleInsuranceProductSelection(event){
+        debugger;
         let selectedProduct;
         const productHeaderName = event.target.dataset.mid;
        

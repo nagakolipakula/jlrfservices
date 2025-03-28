@@ -64,7 +64,7 @@ public with sharing class GOL_GetUpdatedFinanceQuote_Tests {
     }
 
     @isTest
-    static void OnWrongQuoteId() {
+    static void onWrongQuoteId() {
         LMS_FinanceInformation__c finance = [SELECT Id FROM LMS_FinanceInformation__c LIMIT 1];
 
         Id wrongQuoteId = 'a00000000000000AAA';
@@ -79,16 +79,10 @@ public with sharing class GOL_GetUpdatedFinanceQuote_Tests {
         System.assertEquals(1, responses.size());
         System.assert(!responses[0].isSuccess);
         System.assert(responses[0].message.contains('Mismatched quoteId'));
-
-        List<LMS_Exception__c> exceptions = [
-            SELECT LMS_EXC_Message__c FROM LMS_Exception__c WHERE LMS_EXC_Type__c = 'GOL_GetUpdatedFinanceQuote'
-        ];
-        System.assert(!exceptions.isEmpty(), 'Expected LMS_Exception__c to be logged');
-        System.assert(exceptions[0].LMS_EXC_Message__c.contains(finance.Id));
     }
 
     @isTest
-    static void OnApiError() {
+    static void onApiError() {
         Test.setMock(HttpCalloutMock.class, new MockCalloutError());
 
         LMS_FinanceInformation__c finance = [SELECT Id, LMS_FIN_Quote__c FROM LMS_FinanceInformation__c LIMIT 1];

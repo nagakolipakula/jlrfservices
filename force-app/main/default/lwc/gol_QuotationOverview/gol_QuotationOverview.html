@@ -67,29 +67,34 @@
         </div>
     </div>
     <!-- Error message below the table -->
-    <template if:true={showMaxSelectionError}>
+    <template if:true={showMinUpdateError}>
         <div class="error-container">
-            <p class="error-message">Please select a maximum of two calculations to open</p>
-        </div>
-    </template>
-    <template if:true={showMinSelectionError}>
-        <div class="error-container">
-            <p class="error-message">Please select a calculation to open</p>
+            <p class="error-message">{label.GOL_FS_ShowMinUpdateError}</p>
         </div>
     </template>
     <template if:true={showMaxUpdateError}>
         <div class="error-container">
-            <p class="error-message">You can't select more than one calculation for Send to bank</p>
+            <p class="error-message">{label.GOL_FS_ShowMaxUpdateError}</p>
         </div>
     </template>
-    <template if:true={showSendToBankError}>
+    <template if:true={showMinSelectionToOpen}>
         <div class="error-container">
-            <p class="error-message">Please select one calculation for Send to bank</p>
+            <p class="error-message">{label.GOL_FS_showMinSelectionToOpen}</p>
         </div>
     </template>
-    <template if:true={showMinUpdateError}>
+    <template if:true={showMaxSelectionToOpen}>
         <div class="error-container">
-            <p class="error-message">Please select minimum one calculation to update</p>
+            <p class="error-message">{label.GOL_FS_showMaxSelectionToOpen}</p>
+        </div>
+    </template>
+    <template if:true={showMinSendToBankError}>
+        <div class="error-container">
+            <p class="error-message">{label.GOl_FS_showMinSendToBankError}</p>
+        </div>
+    </template>
+    <template if:true={showMaxSendToBankError}>
+        <div class="error-container">
+            <p class="error-message">{label.GOL_FS_showMaxSendToBankError}</p>
         </div>
     </template>
     <div class="footer-button-container">

@@ -18,6 +18,13 @@ import GOL_Update_Button_Clicked_Event from '@salesforce/label/c.GOL_Update_Butt
 import GOL_Send_to_Bank_Button_Clicked_Event from '@salesforce/label/c.GOL_Send_to_Bank_Button_Clicked_Event';
 import GOL_Open_Button_Clicked_Event from '@salesforce/label/c.GOL_Open_Button_Clicked_Event';
 import GOL_New_Calculation_Button_Clicked_Event from '@salesforce/label/c.GOL_New_Calculation_Button_Clicked_Event';
+import GOL_FS_ShowMinUpdateError from '@salesforce/label/c.GOL_FS_ShowMinUpdateError';
+import GOL_FS_ShowMaxUpdateError from '@salesforce/label/c.GOL_FS_ShowMaxUpdateError';
+import GOL_FS_showMinSelectionToOpen from '@salesforce/label/c.GOL_FS_showMinSelectionToOpen';
+import GOL_FS_showMaxSelectionToOpen from '@salesforce/label/c.GOL_FS_showMaxSelectionToOpen';
+import GOl_FS_showMinSendToBankError from '@salesforce/label/c.GOl_FS_showMinSendToBankError';
+import GOL_FS_showMaxSendToBankError from '@salesforce/label/c.GOL_FS_showMaxSendToBankError';
+
 
 import { FlowAttributeChangeEvent, FlowNavigationNextEvent, FlowNavigationBackEvent, FlowNavigationFinishEvent } from 'lightning/flowSupport';
 
@@ -32,11 +39,12 @@ export default class golQuotationOverview extends LightningElement {
     @api FSPosRetailURL;
     @api quoteId;
     @api dmlMessageCheck;
-    showMaxSelectionError;
-    showMinSelectionError;
-    showMaxUpdateError;
+    showMinSelectionToOpen;
+    showMaxSelectionToOpen;
     showMinUpdateError;
-    showSendToBankError;
+    showMaxUpdateError;
+    showMinSendToBankError;
+    showMaxSendToBankError;
     selectedRecords = [];
     showError = false;
     @track sortedField = 'LastModifiedDate';
@@ -57,8 +65,13 @@ export default class golQuotationOverview extends LightningElement {
         GOL_Update_Button_Clicked_Event,
         GOL_Send_to_Bank_Button_Clicked_Event,
         GOL_Open_Button_Clicked_Event,
-        GOL_New_Calculation_Button_Clicked_Event
-
+        GOL_New_Calculation_Button_Clicked_Event,
+        GOL_FS_ShowMinUpdateError,
+        GOL_FS_ShowMaxUpdateError,
+        GOL_FS_showMinSelectionToOpen,
+        GOL_FS_showMaxSelectionToOpen,
+        GOl_FS_showMinSendToBankError,
+        GOL_FS_showMaxSendToBankError
     };
 
     @wire(getFinanceInfoRecords, { quoteId: '$quoteId' })
@@ -234,6 +247,14 @@ export default class golQuotationOverview extends LightningElement {
             // this.dispatchFlowAttributeAndNext('dmlMessageCheck', 'NoRecordsFound');
             return;
         }
+
+        if (this.selectedRecords.length > 99) {
+            this.showMaxUpdateError = true;
+            setTimeout(() => {
+                this.showMaxUpdateError = false;
+            }, 3000);
+            return;
+        }
     
         const recordsWithCreatedStatus = this.formattedRecords.filter(
             record => this.selectedRecords.includes(record.Id) && record.LMS_FIN_Status__c === 'Created'
@@ -280,15 +301,15 @@ export default class golQuotationOverview extends LightningElement {
 
     handleSendToBankClick() {
         if(this.selectedRecords.length === 0) {
-            this.showSendToBankError = true;
+            this.showMinSendToBankError = true;
             setTimeout(() => {
-                this.showSendToBankError = false;
+                this.showMinSendToBankError = false;
             }, 3000);
             return;
         } else if (this.selectedRecords.length > 1) {
-            this.showMaxUpdateError = true;
+            this.showMaxSendToBankError = true;
             setTimeout(() => {
-                this.showMaxUpdateError = false;
+                this.showMaxSendToBankError = false;
             }, 3000);
             return;
         }
@@ -303,15 +324,15 @@ export default class golQuotationOverview extends LightningElement {
 
     handleOpenClick() {
         if (this.selectedRecords.length === 0) {
-            this.showMinSelectionError = true;
+            this.showMinSelectionToOpen = true;
             setTimeout(() => {
-                this.showMinSelectionError = false;
+                this.showMinSelectionToOpen = false;
             }, 3000);
             return;
         } else if (this.selectedRecords.length > 2) {
-            this.showMaxSelectionError = true;
+            this.showMaxSelectionToOpen = true;
             setTimeout(() => {
-                this.showMaxSelectionError = false;
+                this.showMaxSelectionToOpen = false;
             }, 3000);
             return;
         }

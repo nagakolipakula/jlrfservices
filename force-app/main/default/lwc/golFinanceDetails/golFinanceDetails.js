@@ -1,6 +1,7 @@
 import { LightningElement, api } from 'lwc';
 import { FlowAttributeChangeEvent, FlowNavigationNextEvent, FlowNavigationBackEvent, FlowNavigationFinishEvent } from 'lightning/flowSupport';
 import LOCALE from '@salesforce/i18n/locale';
+import GOL_FS_Month_Label from '@salesforce/label/c.GOL_FS_Month_Label';
 // import getFieldMappings from '@salesforce/apex/GOL_FS_ViewQuoteFieldMappingController.getFieldMappings';
 
 export default class golFinanceDetails extends LightningElement {
@@ -111,18 +112,10 @@ export default class golFinanceDetails extends LightningElement {
     }
     
     getFieldType(id) {
-        return this.fieldTypeMap[id] || 'raw';
+        return this.fieldTypeMap[id] || 'unknown';
     }
     
     getLocalizedMonthLabel() {
-        const monthUnitsMapping = {
-            'fr': 'mois',
-            'de': 'Monate',
-            'it': 'mesi',
-            'es': 'meses',
-            'nl': 'maanden'
-        };
-        const localeKey = (this.locale || 'en').split('-')[0];
-        return monthUnitsMapping[localeKey] || 'months';
+        return GOL_FS_Month_Label;
     }
 }

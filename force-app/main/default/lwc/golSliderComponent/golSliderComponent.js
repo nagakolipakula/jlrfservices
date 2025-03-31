@@ -1,5 +1,6 @@
 import { LightningElement, api } from 'lwc';
 import LOCALE from "@salesforce/i18n/locale";
+import GOL_FS_Month_Label from '@salesforce/label/c.GOL_FS_Month_Label';
 
 export default class golSliderComponent extends LightningElement {
     @api labelName;
@@ -128,7 +129,7 @@ export default class golSliderComponent extends LightningElement {
         if (this.isPercentage) {
             return `${this.maxValue} %`;
         }
-        return `${this.maxValue} months`;
+        return `${this.maxValue} ${GOL_FS_Month_Label}`;
     }
 
     get formattedMinValue() {
@@ -150,7 +151,7 @@ export default class golSliderComponent extends LightningElement {
         if (this.isPercentage) {
             return `${this.minValue} %`;
         }
-        return `${this.minValue} months`;
+        return `${this.minValue} ${GOL_FS_Month_Label}`;
     }
 
     updateSliderBackground() {

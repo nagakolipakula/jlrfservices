@@ -20,6 +20,7 @@
 			<property name="FSArvalURL" label="Arval POS URL" type="String" role="inputOnly"/>
 			<property name="FSPosRetailURL" label="PF POS Retail URL" type="String" role="inputOnly"/>
 			<property name="dmlMessageCheck" type="String" label="DmlCheck"/>
+			<property name="quoteId" label="Quote Id" type="String" role="inputOnly"/>
 		</targetConfig>
     </targetConfigs>
 </LightningComponentBundle>

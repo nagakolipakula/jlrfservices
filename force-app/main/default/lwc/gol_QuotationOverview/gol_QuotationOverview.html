@@ -82,9 +82,14 @@
             <p class="error-message">You can't select more than one calculation for Send to bank</p>
         </div>
     </template>
-    <template if:true={showMinUpdateError}>
+    <template if:true={showSendToBankError}>
         <div class="error-container">
             <p class="error-message">Please select one calculation for Send to bank</p>
+        </div>
+    </template>
+    <template if:true={showMinUpdateError}>
+        <div class="error-container">
+            <p class="error-message">Please select minimum one calculation to update</p>
         </div>
     </template>
     <div class="footer-button-container">

@@ -30,17 +30,20 @@ export default class golQuotationOverview extends LightningElement {
     @api openFinanceQuoteIdTwo;
     @api FSArvalURL;
     @api FSPosRetailURL;
+    @api quoteId;
     @api dmlMessageCheck;
     showMaxSelectionError;
     showMinSelectionError;
     showMaxUpdateError;
     showMinUpdateError;
+    showSendToBankError;
     selectedRecords = [];
     showError = false;
     @track sortedField = 'LastModifiedDate';
     @track sortOrder = 'desc';
     @track isLoading = false;
-    // @track wiredFinanceInfoResult;
+    @track wiredFinanceInfoResult;
+    // @track internalFinanceRecords = [];
 
     label = {
         GOL_Quotation_overview,
@@ -58,26 +61,58 @@ export default class golQuotationOverview extends LightningElement {
 
     };
 
-    @wire(getFinanceInfoRecords, { quoteId: '$financeInformationRecordFromOverview'})
+    @wire(getFinanceInfoRecords, { quoteId: '$quoteId' })
     wiredFinanceInfo(result) {
         this.wiredFinanceInfoResult = result;
         const { data, error } = result;
-    
+
         if (data) {
             this.FinanceInfoRecords = data;
+            // this.internalFinanceRecords = data;
+            // console.log('Wired data received:', data);
         } else if (error) {
             console.error('Wire error:', error);
         }
     }
     
     connectedCallback(){
-        refreshApex(this.wiredFinanceInfoResult);
+        setTimeout(() => {
+            if (this.wiredFinanceInfoResult) {
+                refreshApex(this.wiredFinanceInfoResult)
+                    .then(() => {
+                        console.log('Refreshed in connectedCallback');
+                    })
+                    .catch(err => {
+                        console.error('Refresh failed:', err);
+                    });
+            } else {
+                console.warn('wiredFinanceInfoResult not ready yet');
+            }
+        }, 0);
         console.log('FSArvalURL: ' + this.FSArvalURL);
         console.log('FSPosRetailURL: ' + this.FSPosRetailURL);
     }
 
+    // getFinanceRecords(quoteId) {
+    //     console.log('Fetching finance records for quoteId:', quoteId);
+    //     this.isLoading = true;
+    
+    //     getFinanceInfoRecords({ quoteId })
+    //         .then((result) => {
+    //             this.internalFinanceRecords = result;
+    //             this.FinanceInfoRecords = result;
+    //             console.log('Refetched finance records:', result);
+    //         })
+    //         .catch((error) => {
+    //             console.error('Failed to fetch finance records:', error);
+    //         })
+    //         .finally(() => {
+    //             this.isLoading = false;
+    //         });
+    // }    
+
     get formattedRecords() {
-        if (!this.FinanceInfoRecords) return [];
+        if (!this.FinanceInfoRecords || this.FinanceInfoRecords.length === 0) return [];
 
         let sortedRecords = [...this.FinanceInfoRecords];
 
@@ -191,8 +226,12 @@ export default class golQuotationOverview extends LightningElement {
 
     handleUpdateClick() {
         if (this.selectedRecords.length === 0) {
+            this.showMinUpdateError = true;
+            setTimeout(() => {
+                this.showMinUpdateError = false;
+            }, 3000);
             // this.showToast('Error', 'Please select at least one record.', 'error');
-            this.dispatchFlowAttributeAndNext('dmlMessageCheck', 'NoRecordsFound');
+            // this.dispatchFlowAttributeAndNext('dmlMessageCheck', 'NoRecordsFound');
             return;
         }
     
@@ -217,13 +256,7 @@ export default class golQuotationOverview extends LightningElement {
             return refreshApex(this.wiredFinanceInfoResult);
         })
         .then(() => {
-            if (this.wiredFinanceInfoResult && this.wiredFinanceInfoResult.data) {
-                this.FinanceInfoRecords = [...this.wiredFinanceInfoResult.data];
-                console.log('Refreshed records after update');
-            } else {
-                console.warn('No data found in wiredFinanceInfoResult after refresh.');
-            }
-            this.FinanceInfoRecords = [...this.wiredFinanceInfoResult.data];
+            console.log('Records refreshed after update');
             this.selectedRecords = [];
 
             const checkboxes = this.template.querySelectorAll('input[type="checkbox"]');
@@ -243,13 +276,13 @@ export default class golQuotationOverview extends LightningElement {
         .finally(() => {
             this.isLoading = false;
         });
-    }    
+    }
 
     handleSendToBankClick() {
         if(this.selectedRecords.length === 0) {
-            this.showMinUpdateError = true;
+            this.showSendToBankError = true;
             setTimeout(() => {
-                this.showMinUpdateError = false;
+                this.showSendToBankError = false;
             }, 3000);
             return;
         } else if (this.selectedRecords.length > 1) {

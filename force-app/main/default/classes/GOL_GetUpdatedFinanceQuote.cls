@@ -202,7 +202,7 @@ public with sharing class GOL_GetUpdatedFinanceQuote {
     }
 
     @AuraEnabled(cacheable=true)
-    public static List<LMS_FinanceInformation__c> getFinanceInfoRecords() {
+    public static List<LMS_FinanceInformation__c> getFinanceInfoRecords(Id quoteId) {
         return [
             SELECT Id,
                 LMS_FIN_Status__c,
@@ -216,6 +216,7 @@ public with sharing class GOL_GetUpdatedFinanceQuote {
                 GOL_JLR_ID__c,
                 LMS_FIN_Annual_Contract_Mileage__c
             FROM LMS_FinanceInformation__c
+            WHERE LMS_FIN_Quote__c = :quoteId
             ORDER BY LastModifiedDate DESC
         ];
     }

@@ -58,7 +58,7 @@ export default class golQuotationOverview extends LightningElement {
 
     };
 
-    @wire(getFinanceInfoRecords)
+    @wire(getFinanceInfoRecords, { quoteId: '$financeInformationRecordFromOverview'})
     wiredFinanceInfo(result) {
         this.wiredFinanceInfoResult = result;
         const { data, error } = result;

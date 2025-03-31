@@ -12,24 +12,44 @@ export default class golFinanceDetails extends LightningElement {
     locale = LOCALE;
     // fieldMappings = [];
     // processedFieldMappings = [];
+    fieldTypeMap = {
+        downPaymentGrossAmount: 'currency',
+        installmentAndInsuranceGrossAmount: 'currency',
+        toBeFinancedGrossAmount: 'currency',
+        allCostsAndFinancedAndInsuranceTotalGrossAmount: 'currency',
+        remainingValueGrossAmount: 'currency',
+        nominalRate: 'percent',
+        effectiveRate: 'percent',
+        annualMileage: 'km',
+        duration: 'months'
+    };
 
     connectedCallback(){
-        if(this.financeRecord && this.financeRecord.ERPT_FIN_LegalText__c){
-            var legalTextVal = this.financeRecord.ERPT_FIN_LegalText__c;
-            console.log('MS legalTextVal==> '+legalTextVal);
-        this.legaltext = legalTextVal.replaceAll('[','<').replaceAll(']','>').trim();
-        }
+        // if(this.financeRecord && this.financeRecord.ERPT_FIN_LegalText__c){
+        //     var legalTextVal = this.financeRecord.ERPT_FIN_LegalText__c;
+        //     console.log('MS legalTextVal==> '+legalTextVal);
+        // this.legaltext = legalTextVal.replaceAll('[','<').replaceAll(']','>').trim();
+        // }
+        this.processLegalText();
         this.checkFinanceInformationRecordStatus();
+        this.processQuoteDetails();
 
-        if (this.financeRecord?.GOL_View_Quote_Details__c) {
-            try {
-                this.quoteDetails = JSON.parse(this.financeRecord.GOL_View_Quote_Details__c);
-                console.log('Current user locale:', LOCALE);
-                console.log('Parsed quoteDetails:', this.quoteDetails);
-            } catch (error) {
-                console.error('Error parsing GOL_View_Quote_Details__c:', error);
-                this.quoteDetails = [];
-            }
+        // if (this.financeRecord?.GOL_View_Quote_Details__c) {
+        //     try {
+        //         this.quoteDetails = JSON.parse(this.financeRecord.GOL_View_Quote_Details__c);
+        //         console.log('Current user locale:', LOCALE);
+        //         console.log('Parsed quoteDetails:', this.quoteDetails);
+        //     } catch (error) {
+        //         console.error('Error parsing GOL_View_Quote_Details__c:', error);
+        //         this.quoteDetails = [];
+        //     }
+        // }
+    }
+
+    processLegalText() {
+        if (this.financeRecord?.ERPT_FIN_LegalText__c) {
+            const legalTextVal = this.financeRecord.ERPT_FIN_LegalText__c;
+            this.legaltext = legalTextVal.replaceAll('[', '<').replaceAll(']', '>').trim();
         }
     }
     
@@ -38,6 +58,7 @@ export default class golFinanceDetails extends LightningElement {
             this.IsNotCreated = true;
         }
     }
+
     handleModifyClick() {
         console.log('Modify button clicked for JLR ID:', JSON.stringify(this.financeRecord, null, 2));
         const modifyFSRecordEvent = new CustomEvent('modify', {
@@ -50,51 +71,58 @@ export default class golFinanceDetails extends LightningElement {
         // this.dispatchEvent(flowNavigationEvent);
     }
 
-    // fetchFieldMappings(financeRecord) {
-    //     console.log('Calling Apex getFieldMappings with financeRecord:', JSON.stringify(financeRecord, null, 2));
-
-    //     getFieldMappings({ financeRecord })
-    //         .then((result) => {
-    //             console.log('Apex Response:', JSON.stringify(result, null, 2));
-
-    //             if (result && result.fieldMappings) {
-    //                 let tempMappings = result.fieldMappings
-    //                     .map((rec) => ({
-    //                         fieldLabel: rec.Field_Name__c,
-    //                         fieldApi: rec.Field_Name_in_FSDev__c,
-    //                         sequence: rec.Sequence__c || 999
-    //                     }))
-    //                     .sort((a, b) => a.sequence - b.sequence);
-
-    //                 console.log('Processed Field Mappings:', JSON.stringify(tempMappings, null, 2));
-
-    //                 this.processedFieldMappings = [...tempMappings.map((mapping) => ({
-    //                     label: mapping.fieldLabel,
-    //                     value: this.getFieldValue(this.financeRecord, mapping.fieldApi)
-    //                 }))];
-
-    //                 console.log('Final Processed Field Mappings:', JSON.stringify(this.processedFieldMappings, null, 2));
-    //             } else {
-    //                 console.warn('No field mappings found.');
-    //                 this.processedFieldMappings = [];
-    //             }
-    //         })
-    //         .catch((error) => {
-    //             console.error('Apex getFieldMappings failed:', error);
-    //         });
-    // }
-
-    // getFieldValue(record, fieldApi) {
-    //     try {
-    //         if (!record) return 'N/A';
-    //         if (!fieldApi) return 'N/A';
-
-    //         let value = record[fieldApi];
-    //         console.log(`Getting value for ${fieldApi}:`, value);
-    //         return value !== undefined && value !== null ? value : 'N/A';
-    //     } catch (error) {
-    //         console.error(`Error in Getting value for ${fieldApi}:`, error);
-    //         return 'N/A';
-    //     }
-    // }
+    processQuoteDetails() {
+        const quoteJson = this.financeRecord?.GOL_View_Quote_Details__c;
+        if (!quoteJson) return;
+    
+        try {
+            const quoteDetails = JSON.parse(quoteJson);
+            this.quoteDetails = quoteDetails.map(detail => ({
+                ...detail,
+                value: this.formatUnitsForQuote(detail.id, detail.value)
+            }));
+            console.log('Parsed and formatted quoteDetails:', this.quoteDetails);
+        } catch (error) {
+            console.error('Error parsing GOL_View_Quote_Details__c:', error);
+            this.quoteDetails = [];
+        }
+    }
+    
+    formatUnitsForQuote(id, value) {
+        const type = this.getFieldType(id);
+        switch (type) {
+            case 'currency':
+                return new Intl.NumberFormat(this.locale, {
+                    style: 'currency',
+                    currency: 'EUR'
+                }).format(Number(value));
+            case 'percent':
+                return new Intl.NumberFormat(this.locale, {
+                    style: 'percent',
+                    minimumFractionDigits: 2
+                }).format(Number(value) / 100);
+            case 'km':
+                return `${value} km`;
+            case 'months':
+                return `${value} ${this.getLocalizedMonthLabel()}`;
+            default:
+                return value;
+        }
+    }
+    
+    getFieldType(id) {
+        return this.fieldTypeMap[id] || 'raw';
+    }
+    
+    getLocalizedMonthLabel() {
+        const monthUnitsMapping = {
+            'fr': 'mois',
+            'de': 'Monate',
+            'it': 'mesi',
+            'es': 'meses',
+            'nl': 'maanden'
+        };
+        const localeKey = (this.locale || 'en').split('-')[0];
+        return monthUnitsMapping[localeKey] || 'months';
+    }
 }

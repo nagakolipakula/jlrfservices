@@ -34,6 +34,9 @@ public with sharing class GOL_GetFinanceQuote {
                 if(parsedResponse.nonCpiProducts != null && parsedResponse.nonCpiProducts.size() > 0){
                     createFinanceItemsNonCpiProducts(financeRecordId, parsedResponse.nonCpiProducts);
                 }
+                if(parsedResponse.financialProduct.services != null && parsedResponse.financialProduct.services.size() > 0){
+                    createFinanceItemsServices(financeRecordId, parsedResponse.financialProduct.services);
+                }
                 results.isSuccess = (financeRecordId != null);
                 results.financeQuoteId = financeRecordId;
             } else {
@@ -158,6 +161,28 @@ public with sharing class GOL_GetFinanceQuote {
             //financeItem.ERPT_FII_premiumPeriodAmount__c = nonCpiProduct.monthlyCost;
             
             lstFinanceItems.add(financeItem);
+        }
+        
+        if (!lstFinanceItems.isEmpty()){
+            insert lstFinanceItems;
+        }
+       
+    }
+
+    public static void createFinanceItemsServices(String financeInformationId,List<GOL_JSON2ApexFinancialQuoteWrapper.Services> services) {
+        List<ERPT_FinanceItem__c> lstFinanceItems = new List<ERPT_FinanceItem__c>();
+        for(GOL_JSON2ApexFinancialQuoteWrapper.Services service : services) {
+            if(!service.serviceValue.excluded){
+                ERPT_FinanceItem__c financeItem = new ERPT_FinanceItem__c();
+                financeItem.ERPT_FII_FinanceInformation__c = financeInformationId;
+                financeItem.RecordTypeId = Schema.SObjectType.ERPT_FinanceItem__c.getRecordTypeInfosByDeveloperName().get(GOL_Constants.ERPT_FII_ARVAL_ADDITIONAL_FIELDS_RT).getRecordTypeId();
+                financeItem.ERPT_FII_Description__c = service.label;
+                financeItem.ERPT_FII_ExternalRef__c = service.serviceId;
+                financeItem.ERPT_FII_FullName__c = service.serviceValue.label;
+                financeItem.ERPT_FII_Value__c = service.serviceValue.value;
+                
+                lstFinanceItems.add(financeItem);
+            }
         }
         
         if (!lstFinanceItems.isEmpty()){

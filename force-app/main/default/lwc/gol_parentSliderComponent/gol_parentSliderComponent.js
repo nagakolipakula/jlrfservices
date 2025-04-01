@@ -358,7 +358,11 @@ export default class gol_parentSliderComponent extends LightningElement {
                 if(this.parsedResponse[i].inputFields && this.parsedResponse[i].inputFields.services){
                   this.parsedResponse[i].inputFields.services.forEach((e1)=>{
                     if(e1.serviceId == financeitemParsed[x].ERPT_FII_ExternalRef__c){
-                        e1.defaultValue = financeitemParsed[x].ERPT_FII_Value__c;
+                       e1.validValues.forEach((validVal)=>{
+                          if(validVal.value == financeitemParsed[x].ERPT_FII_Value__c){
+                              e1.defaultValue = financeitemParsed[x].ERPT_FII_Value__c;
+                          }
+                       });
                     }
                   });
                 }

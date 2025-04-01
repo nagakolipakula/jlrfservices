@@ -20,8 +20,7 @@ public with sharing class GOL_JSON2ApexFinancialQuoteWrapper {
         this.nonCpiProducts = new List<NonCpiProducts>();
         this.quoteDetails = new List<QuoteDetail>();
         this.products = new Products();
-        //this.financialProduct.services = new List<Services>();
-        // this.financialProduct.services.validValues = new List<ValidValues>();
+        this.financialProduct.services = new List<Services>();
     }
 
     public class FinancialProduct {
@@ -34,18 +33,17 @@ public with sharing class GOL_JSON2ApexFinancialQuoteWrapper {
         public String fullId;
         public String creditTimeUnit;
         public List<Services> services;
-        //public List<Services> services;
     }
 
     public class Services {
-		public String serviceId;	    //1
+		public String serviceId;	   
 		public ServiceValue serviceValue;
-		public String label;	    //Maintenance
+		public String label;	
 	}
 
 	public class ServiceValue {
-		public String value;	    //MA_FORFAITRE
-		public String label;	    //Maintenance (Assistance Plus incluse)
+		public String value;	
+		public String label;	 
 		public boolean excluded;
 	}
 
@@ -86,6 +84,7 @@ public with sharing class GOL_JSON2ApexFinancialQuoteWrapper {
         public String name;
         public String description;
         public String id;
+        public Boolean checked;
         //public Decimal monthlyCost;
     }
 
@@ -94,6 +93,7 @@ public with sharing class GOL_JSON2ApexFinancialQuoteWrapper {
         public String name;
         public String description;
         public String id;
+        public Boolean checked;
         //public Decimal monthlyCost;
     }
 
@@ -124,19 +124,6 @@ public with sharing class GOL_JSON2ApexFinancialQuoteWrapper {
         public String description;
         public String id;
     }
-
-    // class Services {
-	// 	public String serviceId;	
-	// 	public String label;	
-	// 	public List<ServiceValue> serviceValue;
-	// }
-
-    // class ServiceValue {
-	// 	public String label;	
-	// 	public String value;	
-	// 	public Boolean excluded;	
-	// }
-
 
     public static GOL_JSON2ApexFinancialQuoteWrapper parse(String json) {
         return (GOL_JSON2ApexFinancialQuoteWrapper) System.JSON.deserialize(json, GOL_JSON2ApexFinancialQuoteWrapper.class);

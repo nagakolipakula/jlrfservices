@@ -22,6 +22,8 @@ import GOL_Event_Go_To_Modify from '@salesforce/label/c.GOL_Event_Go_To_Modify';
 import GOL_Event_Go_To_Alternative_Modify from '@salesforce/label/c.GOL_Event_Go_To_Alternative_Modify';
 import GOL_Total from '@salesforce/label/c.GOL_Total';
 import GOL_Amount from '@salesforce/label/c.GOL_Amount';
+import GOL_FS_View_Quote_Error from '@salesforce/label/c.GOL_FS_View_Quote_Error';
+
 
 import { FlowAttributeChangeEvent, FlowNavigationNextEvent, FlowNavigationBackEvent, FlowNavigationFinishEvent } from 'lightning/flowSupport';
 
@@ -59,7 +61,8 @@ export default class gol_FinanceFoundationQuoteView extends LightningElement {
         GOL_Event_Go_To_Modify,
         GOL_Event_Go_To_Alternative_Modify,
         GOL_Amount,
-        GOL_Total
+        GOL_Total,
+        GOL_FS_View_Quote_Error
     }
 
     

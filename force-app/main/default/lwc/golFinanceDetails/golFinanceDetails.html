@@ -61,9 +61,7 @@
                         </template>
                         <template if:false={quoteDetails.length}>
                             <div class="detail-row">
-                                No quote details are available for this Finance Information Record.
-                                Quote details are available for records 
-                                with GOL_JLR_ID__c ≥ 1046 in the FSDev environment.
+                                {label.GOL_FS_View_Quote_Error}
                             </div>
                         </template>
                     </template>

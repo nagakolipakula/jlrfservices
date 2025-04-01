@@ -1656,6 +1656,27 @@
         </connector>
     </assignments>
     <assignments>
+        <name>Update_Overview_Toast_Variables</name>
+        <label>Update Overview Toast Variables</label>
+        <locationX>3922</locationX>
+        <locationY>6632</locationY>
+        <assignmentItems>
+            <assignToReference>SuccessTitle</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue></stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>IsErrorForToast</assignToReference>
+            <operator>Assign</operator>
+        </assignmentItems>
+        <connector>
+            <isGoTo>true</isGoTo>
+            <targetReference>Overview_Screen</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
         <name>Update_Selected_Button_Value</name>
         <label>Update Selected Button Value</label>
         <locationX>3086</locationX>
@@ -2519,8 +2540,7 @@
         <locationX>3240</locationX>
         <locationY>6524</locationY>
         <defaultConnector>
-            <isGoTo>true</isGoTo>
-            <targetReference>Overview_Screen</targetReference>
+            <targetReference>Update_Overview_Toast_Variables</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
         <rules>

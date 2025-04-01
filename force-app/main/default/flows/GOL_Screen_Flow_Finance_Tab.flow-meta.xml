@@ -4,7 +4,7 @@
         <name>Create_Prospect_and_reparent_Quote_and_Sales_Lead</name>
         <label>Create Prospect and reparent Quote and Sales Lead</label>
         <locationX>2558</locationX>
-        <locationY>6950</locationY>
+        <locationY>8048</locationY>
         <actionName>GOL_CreateUpdateClientDetailsFlowHandler</actionName>
         <actionType>apex</actionType>
         <connector>
@@ -14,7 +14,7 @@
         <inputParameters>
             <name>accountId</name>
             <value>
-                <elementReference>Get_Quote_Record.LMS_QUO_Account__c</elementReference>
+                <elementReference>Get_Latest_Prospect.Id</elementReference>
             </value>
         </inputParameters>
         <inputParameters>
@@ -36,9 +36,21 @@
             </value>
         </inputParameters>
         <inputParameters>
+            <name>companyRegistrationNumber</name>
+            <value>
+                <elementReference>CompanyRegistrationNumberStored</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
             <name>Contacted</name>
             <value>
                 <elementReference>ConfirmContactDetailsCheckboxWrapper.Contacted</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>contactId</name>
+            <value>
+                <elementReference>ContactIdStored</elementReference>
             </value>
         </inputParameters>
         <inputParameters>
@@ -170,7 +182,7 @@
         <inputParameters>
             <name>salesLeadId</name>
             <value>
-                <elementReference>Get_Quote_Record.LMS_QUO_Opportunity__c</elementReference>
+                <elementReference>Get_Latest_Quote.LMS_QUO_Opportunity__c</elementReference>
             </value>
         </inputParameters>
         <inputParameters>
@@ -208,21 +220,53 @@
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </actionCalls>
     <actionCalls>
-        <name>Finance_Get_Product_All_Data</name>
-        <label>Finance Get Product All Data</label>
-        <locationX>3042</locationX>
-        <locationY>1298</locationY>
-        <actionName>GolFinanceGetProductAllData.getProducts</actionName>
-        <actionType>externalService</actionType>
+        <name>Invoke_Context_Share_API</name>
+        <label>Invoke Context Share API</label>
+        <locationX>2206</locationX>
+        <locationY>8972</locationY>
+        <actionName>GOL_SendFinInfoToBank</actionName>
+        <actionType>apex</actionType>
         <connector>
-            <targetReference>Check_API_Response</targetReference>
+            <targetReference>Assign_Variable_for_Success</targetReference>
         </connector>
         <faultConnector>
-            <targetReference>Get_Product_API_Call_Fail</targetReference>
+            <targetReference>Assign_Variable_for_Error_Context_Share</targetReference>
         </faultConnector>
         <flowTransactionModel>Automatic</flowTransactionModel>
         <inputParameters>
-            <name>quoteId</name>
+            <name>lstFinanceInfoId</name>
+            <value>
+                <elementReference>Get_Fin_Information_For_Send_to_Bank.Id</elementReference>
+            </value>
+        </inputParameters>
+        <nameSegment>GOL_SendFinInfoToBank</nameSegment>
+        <offset>0</offset>
+    </actionCalls>
+    <actionCalls>
+        <name>Invoke_Get_Product_API</name>
+        <label>Invoke Get Product API</label>
+        <locationX>3702</locationX>
+        <locationY>1406</locationY>
+        <actionName>GOL_GetFinanceProduct</actionName>
+        <actionType>apex</actionType>
+        <connector>
+            <targetReference>Check_API_Response</targetReference>
+        </connector>
+        <flowTransactionModel>Automatic</flowTransactionModel>
+        <inputParameters>
+            <name>channel</name>
+            <value>
+                <elementReference>channel</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>personType</name>
+            <value>
+                <elementReference>personType</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>quoteExternalId</name>
             <value>
                 <elementReference>Get_Quote_Record.EPRT_QUO_External_ID__c</elementReference>
             </value>
@@ -233,26 +277,14 @@
                 <elementReference>companyNameCheckFormulaValue</elementReference>
             </value>
         </inputParameters>
-        <inputParameters>
-            <name>personType</name>
-            <value>
-                <elementReference>personType</elementReference>
-            </value>
-        </inputParameters>
-        <inputParameters>
-            <name>channel</name>
-            <value>
-                <elementReference>channel</elementReference>
-            </value>
-        </inputParameters>
-        <nameSegment>GolFinanceGetProductAllData.getProducts</nameSegment>
+        <nameSegment>GOL_GetFinanceProduct</nameSegment>
         <offset>0</offset>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </actionCalls>
     <actionCalls>
         <name>Invoke_Get_Quote_API_and_Upsert_Fin_Info_Record</name>
         <label>Invoke Get Quote API and Upsert Fin Info Record</label>
-        <locationX>3284</locationX>
+        <locationX>3944</locationX>
         <locationY>2246</locationY>
         <actionName>GOL_GetFinanceQuote</actionName>
         <actionType>apex</actionType>
@@ -286,11 +318,11 @@
         <name>Remove_Key_from_Platform_Cache</name>
         <label>Remove Key from Platform Cache</label>
         <locationX>2426</locationX>
-        <locationY>7166</locationY>
+        <locationY>8264</locationY>
         <actionName>GOL_PlatformCacheDeleteHelper</actionName>
         <actionType>apex</actionType>
         <connector>
-            <targetReference>Update_Org_Prospect_Type</targetReference>
+            <targetReference>Check_Contact_Details_Save</targetReference>
         </connector>
         <flowTransactionModel>Automatic</flowTransactionModel>
         <inputParameters>
@@ -306,7 +338,7 @@
         <name>Set_consents_in_Platform_Cache</name>
         <label>Set consents in Platform Cache</label>
         <locationX>3108</locationX>
-        <locationY>5684</locationY>
+        <locationY>6224</locationY>
         <actionName>GOL_PlatformCacheHelper</actionName>
         <actionType>apex</actionType>
         <connector>
@@ -332,7 +364,7 @@
     <assignments>
         <name>Assign_Alternative_Finance_Information_Record</name>
         <label>Assign Alternative Finance Information Record</label>
-        <locationX>3042</locationX>
+        <locationX>3702</locationX>
         <locationY>2786</locationY>
         <assignmentItems>
             <assignToReference>AlternativeFinanceInformationRecord</assignToReference>
@@ -353,10 +385,77 @@
         </connector>
     </assignments>
     <assignments>
+        <name>Assign_ARVAL_Private_Values</name>
+        <label>Assign ARVAL Private Values</label>
+        <locationX>2024</locationX>
+        <locationY>6848</locationY>
+        <assignmentItems>
+            <assignToReference>SalutationStored</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Salutation_Field.finalValue</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>EmailStored</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>EmailStoredArvalFx</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>ContactIdStored</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Contact_ID</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Consent_Validation_Market_Check</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Assign_ARVAL_Professional_Values</name>
+        <label>Assign ARVAL Professional Values</label>
+        <locationX>2288</locationX>
+        <locationY>6848</locationY>
+        <assignmentItems>
+            <assignToReference>EmailStored</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>EmailStoredArvalFx</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>ContactIdStored</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Contact_ID</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>CompanyNameStored</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Company_Name_Arval</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>CompanyRegistrationNumberStored</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Company_Registration_Number</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Consent_Validation_Market_Check</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
         <name>Assign_Company_Name_Check_Value</name>
         <label>Assign Company Name Check Value</label>
-        <locationX>2382</locationX>
-        <locationY>974</locationY>
+        <locationX>3042</locationX>
+        <locationY>1082</locationY>
         <assignmentItems>
             <assignToReference>companyNameCheck</assignToReference>
             <operator>Assign</operator>
@@ -372,7 +471,7 @@
         <name>Assign_Entered_Values</name>
         <label>Assign Entered Values</label>
         <locationX>3240</locationX>
-        <locationY>5876</locationY>
+        <locationY>6416</locationY>
         <assignmentItems>
             <assignToReference>FirstNameStored</assignToReference>
             <operator>Assign</operator>
@@ -427,10 +526,34 @@
         </connector>
     </assignments>
     <assignments>
+        <name>Assign_Error_Msg_Variable_for_Salutation</name>
+        <label>Assign Error Msg Variable for Salutation</label>
+        <locationX>2552</locationX>
+        <locationY>7064</locationY>
+        <assignmentItems>
+            <assignToReference>ShowConfirmationPopUp</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>ContactSaveErrorMessage</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Label.GOL_G1_ConfirmContact_SalutationRequired</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <isGoTo>true</isGoTo>
+            <targetReference>ContactDetailsScreen</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
         <name>Assign_Fin_Info_Record</name>
         <label>Assign Fin Info Record</label>
         <locationX>314</locationX>
-        <locationY>4652</locationY>
+        <locationY>4760</locationY>
         <assignmentItems>
             <assignToReference>FinanceInformationRecord</assignToReference>
             <operator>Assign</operator>
@@ -461,7 +584,7 @@
         <name>Assign_Fin_Info_Records_with_Alt_one_Q1_Latest</name>
         <label>Assign Fin Info Records (with Alt one - Q1 Latest)</label>
         <locationX>578</locationX>
-        <locationY>4868</locationY>
+        <locationY>4976</locationY>
         <assignmentItems>
             <assignToReference>FinanceInformationRecord</assignToReference>
             <operator>Assign</operator>
@@ -499,7 +622,7 @@
         <name>Assign_Fin_Info_Records_with_Alt_one_Q2_Latest</name>
         <label>Assign Fin Info Records (with Alt one - Q2 Latest)</label>
         <locationX>842</locationX>
-        <locationY>4868</locationY>
+        <locationY>4976</locationY>
         <assignmentItems>
             <assignToReference>FinanceInformationRecord</assignToReference>
             <operator>Assign</operator>
@@ -536,7 +659,7 @@
     <assignments>
         <name>Assign_Finance_Information_Record</name>
         <label>Assign Finance Information Record</label>
-        <locationX>2778</locationX>
+        <locationX>3438</locationX>
         <locationY>2786</locationY>
         <assignmentItems>
             <assignToReference>FinanceInformationRecord</assignToReference>
@@ -557,10 +680,34 @@
         </connector>
     </assignments>
     <assignments>
+        <name>Assign_IsInvalidEmail_Flag</name>
+        <label>Assign IsInvalidEmail Flag</label>
+        <locationX>2778</locationX>
+        <locationY>8672</locationY>
+        <assignmentItems>
+            <assignToReference>IsInvalidEmail</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>ShowConfirmationPopUp</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <isGoTo>true</isGoTo>
+            <targetReference>ContactDetailsScreen</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
         <name>Assign_Modify_Variables</name>
         <label>Assign Modify Variables</label>
         <locationX>1106</locationX>
-        <locationY>4328</locationY>
+        <locationY>4436</locationY>
         <assignmentItems>
             <assignToReference>isAlternativeQuoteCalculation</assignToReference>
             <operator>Assign</operator>
@@ -577,14 +724,14 @@
         </assignmentItems>
         <connector>
             <isGoTo>true</isGoTo>
-            <targetReference>Get_Saved_Finance_Information_Record</targetReference>
+            <targetReference>Get_Fin_Info_Records_For_Overview</targetReference>
         </connector>
     </assignments>
     <assignments>
         <name>Assign_Private_Values</name>
         <label>Assign Private Values</label>
-        <locationX>2294</locationX>
-        <locationY>6200</locationY>
+        <locationX>2684</locationX>
+        <locationY>6848</locationY>
         <assignmentItems>
             <assignToReference>EmailStored</assignToReference>
             <operator>Assign</operator>
@@ -600,14 +747,14 @@
             </value>
         </assignmentItems>
         <connector>
-            <targetReference>Consent_Validation_Market_Check</targetReference>
+            <targetReference>Salutation_Validation_for_France</targetReference>
         </connector>
     </assignments>
     <assignments>
         <name>Assign_Professional_BC</name>
         <label>Assign Professional  BC</label>
-        <locationX>2558</locationX>
-        <locationY>6200</locationY>
+        <locationX>2992</locationX>
+        <locationY>6848</locationY>
         <assignmentItems>
             <assignToReference>EmailStored</assignToReference>
             <operator>Assign</operator>
@@ -629,13 +776,20 @@
     <assignments>
         <name>Assign_Professional_SE</name>
         <label>Assign Professional   SE</label>
-        <locationX>2822</locationX>
-        <locationY>6200</locationY>
+        <locationX>3256</locationX>
+        <locationY>6848</locationY>
         <assignmentItems>
             <assignToReference>EmailStored</assignToReference>
             <operator>Assign</operator>
             <value>
                 <elementReference>Email.value</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>CompanyNameStored</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Company_Name</elementReference>
             </value>
         </assignmentItems>
         <connector>
@@ -645,7 +799,7 @@
     <assignments>
         <name>Assign_Values_to_Payload_From_Parent_Slider_Component</name>
         <label>Assign Values to Payload From Parent Slider Component</label>
-        <locationX>3042</locationX>
+        <locationX>3702</locationX>
         <locationY>1922</locationY>
         <assignmentItems>
             <assignToReference>retnResponse</assignToReference>
@@ -682,13 +836,13 @@
     <assignments>
         <name>Assign_Variable_for_Error</name>
         <label>Assign Variable for Error</label>
-        <locationX>2888</locationX>
-        <locationY>7574</locationY>
+        <locationX>3042</locationX>
+        <locationY>8672</locationY>
         <assignmentItems>
             <assignToReference>ShowConfirmationPopUp</assignToReference>
             <operator>Assign</operator>
             <value>
-                <booleanValue>true</booleanValue>
+                <booleanValue>false</booleanValue>
             </value>
         </assignmentItems>
         <assignmentItems>
@@ -704,10 +858,34 @@
         </connector>
     </assignments>
     <assignments>
+        <name>Assign_Variable_for_Error_Context_Share</name>
+        <label>Assign Variable for Error - Context Share</label>
+        <locationX>2514</locationX>
+        <locationY>9080</locationY>
+        <assignmentItems>
+            <assignToReference>ShowConfirmationPopUp</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>ContactSaveErrorMessage</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Label.GOL_API_Callout_Failure_Error_Message</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <isGoTo>true</isGoTo>
+            <targetReference>ContactDetailsScreen</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
         <name>Assign_Variable_for_Hybrid_Virtual_Prospects</name>
         <label>Assign Variable for Hybrid Virtual Prospects</label>
-        <locationX>3515</locationX>
-        <locationY>4760</locationY>
+        <locationX>3647</locationX>
+        <locationY>5192</locationY>
         <assignmentItems>
             <assignToReference>ProspectIsHybridVirtual</assignToReference>
             <operator>Assign</operator>
@@ -729,8 +907,8 @@
     <assignments>
         <name>Assign_Variable_for_Success</name>
         <label>Assign Variable for Success</label>
-        <locationX>2228</locationX>
-        <locationY>7574</locationY>
+        <locationX>2206</locationX>
+        <locationY>9080</locationY>
         <assignmentItems>
             <assignToReference>ShowConfirmationPopUp</assignToReference>
             <operator>Assign</operator>
@@ -739,14 +917,15 @@
             </value>
         </assignmentItems>
         <connector>
-            <targetReference>Set_Prospect_Type</targetReference>
+            <isGoTo>true</isGoTo>
+            <targetReference>ContactDetailsScreen</targetReference>
         </connector>
     </assignments>
     <assignments>
         <name>Assign_Variable_Related_Consent</name>
         <label>Assign Variable Related Consent</label>
-        <locationX>3779</locationX>
-        <locationY>4976</locationY>
+        <locationX>3911</locationX>
+        <locationY>5408</locationY>
         <assignmentItems>
             <assignToReference>HasConsents</assignToReference>
             <operator>Assign</operator>
@@ -768,8 +947,8 @@
     <assignments>
         <name>Assign_Variable_Related_Consent_2</name>
         <label>Assign Variable Related Consent</label>
-        <locationX>4043</locationX>
-        <locationY>4976</locationY>
+        <locationX>4175</locationX>
+        <locationY>5408</locationY>
         <assignmentItems>
             <assignToReference>HasConsents</assignToReference>
             <operator>Assign</operator>
@@ -789,10 +968,113 @@
         </connector>
     </assignments>
     <assignments>
+        <name>AssignSuccesfulTitle</name>
+        <label>AssignSuccesfulTitle</label>
+        <locationX>4978</locationX>
+        <locationY>4436</locationY>
+        <assignmentItems>
+            <assignToReference>SuccessTitle</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Label.GOL_Records_Saved_Successfully</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>IsErrorForToast</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <isGoTo>true</isGoTo>
+            <targetReference>Overview_Screen</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>Clear_All_Stored_Values</name>
+        <label>Clear All Stored Values</label>
+        <locationX>3845</locationX>
+        <locationY>4976</locationY>
+        <assignmentItems>
+            <assignToReference>EmailStored</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue></stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>FirstNameStored</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue></stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>LastNameStored</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue></stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>PhoneStored</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue></stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>StreetNameStored</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue></stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>CityStored</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue></stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>ZipPostalCodeStored</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue></stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>CountryStored</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue></stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>CompanyNameStored</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue></stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>SalutationStored</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue></stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Check_Prospect_Type</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
         <name>Clear_Fin_Info_Records</name>
         <label>Clear Fin Info Records</label>
         <locationX>512</locationX>
-        <locationY>4328</locationY>
+        <locationY>4436</locationY>
         <assignmentItems>
             <assignToReference>FinanceInformationRecord</assignToReference>
             <operator>Assign</operator>
@@ -808,8 +1090,8 @@
     <assignments>
         <name>Clear_Fin_Info_Records_new</name>
         <label>Clear Fin Info Records</label>
-        <locationX>4450</locationX>
-        <locationY>4328</locationY>
+        <locationX>4714</locationX>
+        <locationY>4436</locationY>
         <assignmentItems>
             <assignToReference>FinanceInformationRecord</assignToReference>
             <operator>Assign</operator>
@@ -826,7 +1108,7 @@
         <name>Clear_Finance_Information_Record</name>
         <label>Clear Finance Information Record</label>
         <locationX>50</locationX>
-        <locationY>4328</locationY>
+        <locationY>4436</locationY>
         <assignmentItems>
             <assignToReference>FinanceInformationRecord</assignToReference>
             <operator>Assign</operator>
@@ -837,13 +1119,13 @@
         </assignmentItems>
         <connector>
             <isGoTo>true</isGoTo>
-            <targetReference>Finance_Get_Product_All_Data</targetReference>
+            <targetReference>Invoke_Get_Product_API</targetReference>
         </connector>
     </assignments>
     <assignments>
         <name>Clear_Modify_Finance_Record_Id</name>
         <label>Clear Modify Finance Record Id</label>
-        <locationX>3284</locationX>
+        <locationX>3944</locationX>
         <locationY>2354</locationY>
         <assignmentItems>
             <assignToReference>FinanceQuoteIdForModify</assignToReference>
@@ -859,8 +1141,8 @@
     <assignments>
         <name>Config_Vehicle_Info</name>
         <label>Config Vehicle Info</label>
-        <locationX>2118</locationX>
-        <locationY>674</locationY>
+        <locationX>2778</locationX>
+        <locationY>782</locationY>
         <assignmentItems>
             <assignToReference>VehicleName</assignToReference>
             <operator>Assign</operator>
@@ -880,34 +1162,10 @@
         </connector>
     </assignments>
     <assignments>
-        <name>Copy_2_of_Assign_Variable_for_Error</name>
-        <label>Copy 2 of Assign Variable for Error</label>
-        <locationX>2624</locationX>
-        <locationY>7574</locationY>
-        <assignmentItems>
-            <assignToReference>ShowConfirmationPopUp</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <booleanValue>false</booleanValue>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference>ContactSaveErrorMessage</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>Create_Prospect_and_reparent_Quote_and_Sales_Lead.error</elementReference>
-            </value>
-        </assignmentItems>
-        <connector>
-            <isGoTo>true</isGoTo>
-            <targetReference>ContactDetailsScreen</targetReference>
-        </connector>
-    </assignments>
-    <assignments>
         <name>From_Row_Click_Finance_Information_Record</name>
         <label>From Row Click Finance Information Record</label>
-        <locationX>4450</locationX>
-        <locationY>4544</locationY>
+        <locationX>4714</locationX>
+        <locationY>4652</locationY>
         <assignmentItems>
             <assignToReference>FinInfoFromOverview</assignToReference>
             <operator>Assign</operator>
@@ -935,33 +1193,10 @@
         </connector>
     </assignments>
     <assignments>
-        <name>Get_Product_API_Call_Fail</name>
-        <label>Get Product API Call Fail</label>
-        <locationX>4362</locationX>
-        <locationY>1406</locationY>
-        <assignmentItems>
-            <assignToReference>getProductIsSuccess</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <booleanValue>false</booleanValue>
-            </value>
-        </assignmentItems>
-        <assignmentItems>
-            <assignToReference>getProductErrorMessage</assignToReference>
-            <operator>Assign</operator>
-            <value>
-                <elementReference>$Label.GOL_API_Callout_Failure_Error_Message</elementReference>
-            </value>
-        </assignmentItems>
-        <connector>
-            <targetReference>Insert_Exception_for_Fault_Path</targetReference>
-        </connector>
-    </assignments>
-    <assignments>
         <name>Get_Product_API_Call_Fail_2</name>
         <label>Get Product API Call Fail</label>
-        <locationX>3174</locationX>
-        <locationY>1514</locationY>
+        <locationX>3834</locationX>
+        <locationY>1622</locationY>
         <assignmentItems>
             <assignToReference>getProductIsSuccess</assignToReference>
             <operator>Assign</operator>
@@ -973,18 +1208,18 @@
             <assignToReference>getProductErrorMessage</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>Finance_Get_Product_All_Data.defaultExc</elementReference>
+                <elementReference>Invoke_Get_Product_API.errorMessage</elementReference>
             </value>
         </assignmentItems>
         <connector>
-            <targetReference>Insert_Exception</targetReference>
+            <targetReference>Finance_Product_Selection_Screen</targetReference>
         </connector>
     </assignments>
     <assignments>
         <name>Get_Product_API_Call_Success</name>
         <label>Get Product API Call Success</label>
-        <locationX>2910</locationX>
-        <locationY>1514</locationY>
+        <locationX>3570</locationX>
+        <locationY>1622</locationY>
         <assignmentItems>
             <assignToReference>getProductIsSuccess</assignToReference>
             <operator>Assign</operator>
@@ -996,7 +1231,7 @@
             <assignToReference>getProductSuccessResponse</assignToReference>
             <operator>Assign</operator>
             <value>
-                <elementReference>responseFromApiCallout</elementReference>
+                <elementReference>Invoke_Get_Product_API.responseBody</elementReference>
             </value>
         </assignmentItems>
         <connector>
@@ -1004,9 +1239,57 @@
         </connector>
     </assignments>
     <assignments>
+        <name>No_Records_Found</name>
+        <label>No Records Found</label>
+        <locationX>5242</locationX>
+        <locationY>4436</locationY>
+        <assignmentItems>
+            <assignToReference>SuccessTitle</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Label.GOL_No_Records_Found</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>IsErrorForToast</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <isGoTo>true</isGoTo>
+            <targetReference>Overview_Screen</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <name>No_Records_In_Created_Status</name>
+        <label>No Records In Created Status</label>
+        <locationX>5506</locationX>
+        <locationY>4436</locationY>
+        <assignmentItems>
+            <assignToReference>SuccessTitle</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Label.GOL_No_Records_In_Created_Status</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>IsErrorForToast</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <isGoTo>true</isGoTo>
+            <targetReference>Overview_Screen</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
         <name>Pay_Load_is_not_present</name>
         <label>Pay Load is not present</label>
-        <locationX>3922</locationX>
+        <locationX>4582</locationX>
         <locationY>2246</locationY>
         <assignmentItems>
             <assignToReference>getProductIsSuccess</assignToReference>
@@ -1029,8 +1312,8 @@
     <assignments>
         <name>Populate_Selected_Button_Value</name>
         <label>Populate Selected Button Value</label>
-        <locationX>2866</locationX>
-        <locationY>3410</locationY>
+        <locationX>3526</locationX>
+        <locationY>3518</locationY>
         <assignmentItems>
             <assignToReference>companyNameCheck</assignToReference>
             <operator>Assign</operator>
@@ -1040,13 +1323,13 @@
         </assignmentItems>
         <connector>
             <isGoTo>true</isGoTo>
-            <targetReference>Finance_Get_Product_All_Data</targetReference>
+            <targetReference>Invoke_Get_Product_API</targetReference>
         </connector>
     </assignments>
     <assignments>
         <name>Quote_Upsert_Fail</name>
         <label>Quote Upsert Fail</label>
-        <locationX>3658</locationX>
+        <locationX>4318</locationX>
         <locationY>2570</locationY>
         <assignmentItems>
             <assignToReference>getProductIsSuccess</assignToReference>
@@ -1070,8 +1353,8 @@
     <assignments>
         <name>Reset_Variables</name>
         <label>Reset Variables</label>
-        <locationX>3713</locationX>
-        <locationY>5252</locationY>
+        <locationX>3845</locationX>
+        <locationY>5684</locationY>
         <assignmentItems>
             <assignToReference>ShowConfirmationPopUp</assignToReference>
             <operator>Assign</operator>
@@ -1086,15 +1369,52 @@
                 <stringValue></stringValue>
             </value>
         </assignmentItems>
+        <assignmentItems>
+            <assignToReference>IsInvalidEmail</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </assignmentItems>
         <connector>
             <targetReference>ContactDetailsScreen</targetReference>
         </connector>
     </assignments>
     <assignments>
+        <name>Reset_Variables_2</name>
+        <label>Reset Variables - 2</label>
+        <locationX>3845</locationX>
+        <locationY>5900</locationY>
+        <assignmentItems>
+            <assignToReference>ShowConfirmationPopUp</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>ContactSaveErrorMessage</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue></stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>IsInvalidEmail</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Contact_Details_Check_Button_Decision_1st_Step</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
         <name>SelectedButtonValue</name>
         <label>SelectedButtonValue</label>
-        <locationX>4714</locationX>
-        <locationY>4328</locationY>
+        <locationX>6034</locationX>
+        <locationY>4436</locationY>
         <assignmentItems>
             <assignToReference>companyNameCheck</assignToReference>
             <operator>Assign</operator>
@@ -1102,15 +1422,26 @@
                 <elementReference>FinanceHeaderDetailButtons.companyNameCheck</elementReference>
             </value>
         </assignmentItems>
+        <assignmentItems>
+            <assignToReference>SuccessTitle</assignToReference>
+            <operator>Assign</operator>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>IsErrorForToast</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </assignmentItems>
         <connector>
             <isGoTo>true</isGoTo>
-            <targetReference>Finance_Get_Product_All_Data</targetReference>
+            <targetReference>Invoke_Get_Product_API</targetReference>
         </connector>
     </assignments>
     <assignments>
         <name>Set_Retailer_Discount_Updated_No</name>
         <label>Set Retailer Discount Updated No</label>
-        <locationX>1898</locationX>
+        <locationX>2558</locationX>
         <locationY>2246</locationY>
         <assignmentItems>
             <assignToReference>IsRetailerDiscountAmountUpdated</assignToReference>
@@ -1142,7 +1473,7 @@
         <name>Show_Error_BeNeLuxFr</name>
         <label>Show Error BeNeLuxFr</label>
         <locationX>2426</locationX>
-        <locationY>6608</locationY>
+        <locationY>7706</locationY>
         <assignmentItems>
             <assignToReference>SelectContactError</assignToReference>
             <operator>Assign</operator>
@@ -1159,7 +1490,7 @@
         <name>Show_Error_Germany</name>
         <label>Show Error Germany</label>
         <locationX>1986</locationX>
-        <locationY>6608</locationY>
+        <locationY>7706</locationY>
         <assignmentItems>
             <assignToReference>SelectContactError</assignToReference>
             <operator>Assign</operator>
@@ -1176,7 +1507,7 @@
         <name>Show_Error_Iberia</name>
         <label>Show Error Iberia</label>
         <locationX>1546</locationX>
-        <locationY>6608</locationY>
+        <locationY>7706</locationY>
         <assignmentItems>
             <assignToReference>SelectContactError</assignToReference>
             <operator>Assign</operator>
@@ -1193,7 +1524,7 @@
         <name>Show_Errors_AT_CZ_SK</name>
         <label>Show Errors AT CZ &amp; SK</label>
         <locationX>2866</locationX>
-        <locationY>6608</locationY>
+        <locationY>7706</locationY>
         <assignmentItems>
             <assignToReference>SelectContactError</assignToReference>
             <operator>Assign</operator>
@@ -1210,7 +1541,7 @@
         <name>Show_Errors_Italy</name>
         <label>Show Errors  Italy</label>
         <locationX>3306</locationX>
-        <locationY>6608</locationY>
+        <locationY>7706</locationY>
         <assignmentItems>
             <assignToReference>SelectContactError</assignToReference>
             <operator>Assign</operator>
@@ -1226,8 +1557,8 @@
     <assignments>
         <name>Stock_Vehicle_Info</name>
         <label>Stock Vehicle Info</label>
-        <locationX>2382</locationX>
-        <locationY>566</locationY>
+        <locationX>3042</locationX>
+        <locationY>674</locationY>
         <assignmentItems>
             <assignToReference>VehicleName</assignToReference>
             <operator>Assign</operator>
@@ -1242,7 +1573,7 @@
     <assignments>
         <name>Update_Alternative_Finance_Flag</name>
         <label>Update Alternative Finance Flag</label>
-        <locationX>2866</locationX>
+        <locationX>3526</locationX>
         <locationY>3194</locationY>
         <assignmentItems>
             <assignToReference>isAlternativeQuoteCalculation</assignToReference>
@@ -1272,7 +1603,7 @@
     <assignments>
         <name>Update_Alternative_Finance_Flag_2</name>
         <label>Update Alternative Finance Flag</label>
-        <locationX>3130</locationX>
+        <locationX>3790</locationX>
         <locationY>3194</locationY>
         <assignmentItems>
             <assignToReference>isAlternativeQuoteCalculation</assignToReference>
@@ -1301,9 +1632,33 @@
         </connector>
     </assignments>
     <assignments>
+        <name>Update_Failed</name>
+        <label>Update Failed</label>
+        <locationX>5770</locationX>
+        <locationY>4436</locationY>
+        <assignmentItems>
+            <assignToReference>SuccessTitle</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Label.GOL_Update_Failed</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>IsErrorForToast</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <isGoTo>true</isGoTo>
+            <targetReference>Overview_Screen</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
         <name>Update_Selected_Button_Value</name>
         <label>Update Selected Button Value</label>
-        <locationX>2426</locationX>
+        <locationX>3086</locationX>
         <locationY>3194</locationY>
         <assignmentItems>
             <assignToReference>companyNameCheck</assignToReference>
@@ -1335,13 +1690,13 @@
         </assignmentItems>
         <connector>
             <isGoTo>true</isGoTo>
-            <targetReference>Finance_Get_Product_All_Data</targetReference>
+            <targetReference>Invoke_Get_Product_API</targetReference>
         </connector>
     </assignments>
     <assignments>
         <name>Update_Selected_Button_Values</name>
         <label>Update Selected Button Values</label>
-        <locationX>2162</locationX>
+        <locationX>2822</locationX>
         <locationY>2138</locationY>
         <assignmentItems>
             <assignToReference>companyNameCheck</assignToReference>
@@ -1366,7 +1721,7 @@
         </assignmentItems>
         <connector>
             <isGoTo>true</isGoTo>
-            <targetReference>Finance_Get_Product_All_Data</targetReference>
+            <targetReference>Invoke_Get_Product_API</targetReference>
         </connector>
     </assignments>
     <constants>
@@ -1381,6 +1736,34 @@
         <dataType>String</dataType>
         <value>
             <stringValue>GOL_Screen_Flow_Finance_Tab</stringValue>
+        </value>
+    </constants>
+    <constants>
+        <name>GOL_ARVAL</name>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>ARVAL</stringValue>
+        </value>
+    </constants>
+    <constants>
+        <name>GOL_Finance_Item_Record_Type_Arval_Additional_Fields</name>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>ERPT_FII_Arval_Additional_Fields</stringValue>
+        </value>
+    </constants>
+    <constants>
+        <name>GOL_Finance_Item_Record_Type_Name_CPIProduct</name>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>ERPT_FII_CPIProduct</stringValue>
+        </value>
+    </constants>
+    <constants>
+        <name>GOL_Finance_Item_Record_Type_Name_NonCPIProduct</name>
+        <dataType>String</dataType>
+        <value>
+            <stringValue>ERPT_FII_NonCPIProduct</stringValue>
         </value>
     </constants>
     <constants>
@@ -1407,7 +1790,7 @@
     <decisions>
         <name>Alternative_Finance_Record_Check</name>
         <label>Alternative Finance Record Check</label>
-        <locationX>2910</locationX>
+        <locationX>3570</locationX>
         <locationY>2678</locationY>
         <defaultConnector>
             <targetReference>Assign_Alternative_Finance_Information_Record</targetReference>
@@ -1432,8 +1815,8 @@
     <decisions>
         <name>Check_API_Response</name>
         <label>Check API Response</label>
-        <locationX>3042</locationX>
-        <locationY>1406</locationY>
+        <locationX>3702</locationX>
+        <locationY>1514</locationY>
         <defaultConnector>
             <targetReference>Get_Product_API_Call_Fail_2</targetReference>
         </defaultConnector>
@@ -1442,10 +1825,10 @@
             <name>Success</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>Finance_Get_Product_All_Data.responseCode</leftValueReference>
+                <leftValueReference>Invoke_Get_Product_API.isSuccess</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
-                    <numberValue>200.0</numberValue>
+                    <booleanValue>true</booleanValue>
                 </rightValue>
             </conditions>
             <connector>
@@ -1457,8 +1840,8 @@
     <decisions>
         <name>Check_Consent_Created_Or_Not</name>
         <label>Check Consent Created Or Not</label>
-        <locationX>3911</locationX>
-        <locationY>4868</locationY>
+        <locationX>4043</locationX>
+        <locationY>5300</locationY>
         <defaultConnector>
             <targetReference>Assign_Variable_Related_Consent_2</targetReference>
         </defaultConnector>
@@ -1483,9 +1866,9 @@
         <name>Check_Contact_Details_Save</name>
         <label>Check Contact Details Save</label>
         <locationX>2558</locationX>
-        <locationY>7466</locationY>
+        <locationY>8456</locationY>
         <defaultConnector>
-            <targetReference>Assign_Variable_for_Error</targetReference>
+            <targetReference>Check_the_validate_email</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>Error</defaultConnectorLabel>
         <rules>
@@ -1498,38 +1881,16 @@
                     <booleanValue>true</booleanValue>
                 </rightValue>
             </conditions>
-            <conditions>
-                <leftValueReference>Create_Prospect_and_reparent_Quote_and_Sales_Lead.accId</leftValueReference>
-                <operator>IsNull</operator>
-                <rightValue>
-                    <booleanValue>false</booleanValue>
-                </rightValue>
-            </conditions>
             <connector>
-                <targetReference>Assign_Variable_for_Success</targetReference>
+                <targetReference>Set_Prospect_Type</targetReference>
             </connector>
             <label>Successfully Saved</label>
-        </rules>
-        <rules>
-            <name>Error_0</name>
-            <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>Create_Prospect_and_reparent_Quote_and_Sales_Lead.error</leftValueReference>
-                <operator>IsNull</operator>
-                <rightValue>
-                    <booleanValue>false</booleanValue>
-                </rightValue>
-            </conditions>
-            <connector>
-                <targetReference>Copy_2_of_Assign_Variable_for_Error</targetReference>
-            </connector>
-            <label>Error 0</label>
         </rules>
     </decisions>
     <decisions>
         <name>Check_Event_Name</name>
         <label>Check Event Name</label>
-        <locationX>2910</locationX>
+        <locationX>3570</locationX>
         <locationY>3086</locationY>
         <defaultConnector>
             <isGoTo>true</isGoTo>
@@ -1600,10 +1961,10 @@
     <decisions>
         <name>Check_Fin_Info_Records_are_Available_or_Not</name>
         <label>Check Fin Info Records are Available or Not</label>
-        <locationX>2382</locationX>
-        <locationY>1190</locationY>
+        <locationX>3042</locationX>
+        <locationY>1298</locationY>
         <defaultConnector>
-            <targetReference>Finance_Get_Product_All_Data</targetReference>
+            <targetReference>Invoke_Get_Product_API</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>Not Availble</defaultConnectorLabel>
         <rules>
@@ -1626,7 +1987,7 @@
         <name>Check_Last_Modified_Fin_Quote</name>
         <label>Check Last Modified Fin Quote</label>
         <locationX>710</locationX>
-        <locationY>4760</locationY>
+        <locationY>4868</locationY>
         <defaultConnector>
             <targetReference>Assign_Fin_Info_Records_with_Alt_one_Q2_Latest</targetReference>
         </defaultConnector>
@@ -1651,7 +2012,7 @@
         <name>Check_Open_Quote_02_is_Available_or_Not</name>
         <label>Check Open Quote 02 is Available or Not</label>
         <locationX>512</locationX>
-        <locationY>4544</locationY>
+        <locationY>4652</locationY>
         <defaultConnector>
             <targetReference>Get_Open_Quote_02</targetReference>
         </defaultConnector>
@@ -1675,8 +2036,8 @@
     <decisions>
         <name>Check_Prospect_Type</name>
         <label>Check Prospect Type</label>
-        <locationX>3713</locationX>
-        <locationY>4652</locationY>
+        <locationX>3845</locationX>
+        <locationY>5084</locationY>
         <defaultConnector>
             <targetReference>Get_Consent_Records</targetReference>
         </defaultConnector>
@@ -1685,7 +2046,7 @@
             <name>Is_Hybrid_Virtual</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
-                <leftValueReference>Get_Prospect_Record.Type</leftValueReference>
+                <leftValueReference>Get_Latest_Prospect.Type</leftValueReference>
                 <operator>EqualTo</operator>
                 <rightValue>
                     <stringValue>Hybrid Virtual</stringValue>
@@ -1698,9 +2059,59 @@
         </rules>
     </decisions>
     <decisions>
+        <name>Check_Prospect_Type_For_ARVAL</name>
+        <label>Check Prospect Type For ARVAL</label>
+        <locationX>2156</locationX>
+        <locationY>6740</locationY>
+        <defaultConnector>
+            <targetReference>Assign_ARVAL_Professional_Values</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>ARVAL - PROFESSIONAL</defaultConnectorLabel>
+        <rules>
+            <name>ARVAL_PRIVATE</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Fin_Information_For_Send_to_Bank.GOL_Type_Of_Use__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>PRIVATE</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_ARVAL_Private_Values</targetReference>
+            </connector>
+            <label>ARVAL - PRIVATE</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Check_Provider</name>
+        <label>Check Provider</label>
+        <locationX>2558</locationX>
+        <locationY>6632</locationY>
+        <defaultConnector>
+            <targetReference>Set_Form_Input_Validation_Paths</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>BNPP</defaultConnectorLabel>
+        <rules>
+            <name>ARVAL</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Get_Fin_Information_For_Send_to_Bank.LMS_FIN_FinanceInstitution__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>GOL_ARVAL</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Check_Prospect_Type_For_ARVAL</targetReference>
+            </connector>
+            <label>ARVAL</label>
+        </rules>
+    </decisions>
+    <decisions>
         <name>Check_Quote_Upsert_Status</name>
         <label>Check Quote Upsert Status</label>
-        <locationX>3284</locationX>
+        <locationX>3944</locationX>
         <locationY>2462</locationY>
         <defaultConnector>
             <targetReference>Quote_Upsert_Fail</targetReference>
@@ -1730,10 +2141,42 @@
         </rules>
     </decisions>
     <decisions>
+        <name>Check_the_validate_email</name>
+        <label>Check the validate email</label>
+        <locationX>2910</locationX>
+        <locationY>8564</locationY>
+        <defaultConnector>
+            <targetReference>Assign_Variable_for_Error</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Valid Email - But other error</defaultConnectorLabel>
+        <rules>
+            <name>Invalid_Email</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Create_Prospect_and_reparent_Quote_and_Sales_Lead.isSuccess</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Create_Prospect_and_reparent_Quote_and_Sales_Lead.error</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_IsInvalidEmail_Flag</targetReference>
+            </connector>
+            <label>Invalid Email</label>
+        </rules>
+    </decisions>
+    <decisions>
         <name>Check_Type_of_Vehicle_Config_or_Stock</name>
         <label>Check Type of Vehicle (Config or Stock)</label>
-        <locationX>2382</locationX>
-        <locationY>458</locationY>
+        <locationX>3042</locationX>
+        <locationY>566</locationY>
         <defaultConnector>
             <targetReference>Get_Prospect_Record</targetReference>
         </defaultConnector>
@@ -1772,8 +2215,8 @@
     <decisions>
         <name>CheckforOverivewEvent</name>
         <label>Check for Overivew Event</label>
-        <locationX>2382</locationX>
-        <locationY>4220</locationY>
+        <locationX>3042</locationX>
+        <locationY>4328</locationY>
         <defaultConnector>
             <targetReference>SelectedButtonValue</targetReference>
         </defaultConnector>
@@ -1853,12 +2296,72 @@
             </connector>
             <label>Row Click</label>
         </rules>
+        <rules>
+            <name>RecordsUpdatedSuccessfully</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>GOL_QuoteOverviewTable.dmlMessageCheck</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>updatedSuccessfully</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>AssignSuccesfulTitle</targetReference>
+            </connector>
+            <label>RecordsUpdatedSuccessfully</label>
+        </rules>
+        <rules>
+            <name>NoRecordsFound</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>GOL_QuoteOverviewTable.dmlMessageCheck</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>NoRecordsFound</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>No_Records_Found</targetReference>
+            </connector>
+            <label>NoRecordsFound</label>
+        </rules>
+        <rules>
+            <name>NoRecordsInCreateStatus</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>GOL_QuoteOverviewTable.dmlMessageCheck</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>NoRecordsInCreateStatus</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>No_Records_In_Created_Status</targetReference>
+            </connector>
+            <label>NoRecordsInCreateStatus</label>
+        </rules>
+        <rules>
+            <name>updateFailed</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>GOL_QuoteOverviewTable.dmlMessageCheck</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>updateFailed</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Failed</targetReference>
+            </connector>
+            <label>updateFailed</label>
+        </rules>
     </decisions>
     <decisions>
         <name>Consent_Validation_Market_Check</name>
         <label>Consent Validation Market Check</label>
         <locationX>2558</locationX>
-        <locationY>6392</locationY>
+        <locationY>7490</locationY>
         <defaultConnector>
             <targetReference>Create_Prospect_and_reparent_Quote_and_Sales_Lead</targetReference>
         </defaultConnector>
@@ -2014,7 +2517,7 @@
         <name>Contact_Details_Check_Button_Decision</name>
         <label>Contact Details Check Button Decision</label>
         <locationX>3240</locationX>
-        <locationY>5984</locationY>
+        <locationY>6524</locationY>
         <defaultConnector>
             <isGoTo>true</isGoTo>
             <targetReference>Overview_Screen</targetReference>
@@ -2031,7 +2534,7 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Set_Form_Input_Validation_Paths</targetReference>
+                <targetReference>Check_Provider</targetReference>
             </connector>
             <label>Clicked Send to Bank</label>
         </rules>
@@ -2039,8 +2542,8 @@
     <decisions>
         <name>Contact_Details_Check_Button_Decision_1st_Step</name>
         <label>Contact Details Check Button Decision - 1st Step</label>
-        <locationX>3713</locationX>
-        <locationY>5468</locationY>
+        <locationX>3845</locationX>
+        <locationY>6008</locationY>
         <defaultConnector>
             <isGoTo>true</isGoTo>
             <targetReference>Get_Fin_Info_Records_For_Overview</targetReference>
@@ -2061,14 +2564,30 @@
             </connector>
             <label>Clicked Send to Bank</label>
         </rules>
+        <rules>
+            <name>Clicked_Back</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>BackButton.clickedValue</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>$Label.GOL_Back</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <isGoTo>true</isGoTo>
+                <targetReference>Get_Fin_Info_Records_For_Overview</targetReference>
+            </connector>
+            <label>Clicked Back</label>
+        </rules>
     </decisions>
     <decisions>
         <name>Had_New_Consent_to_Save</name>
         <label>Had New Consent to Save</label>
         <locationX>2558</locationX>
-        <locationY>7058</locationY>
+        <locationY>8156</locationY>
         <defaultConnector>
-            <targetReference>Update_Org_Prospect_Type</targetReference>
+            <targetReference>Check_Contact_Details_Save</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>No Consent Info</defaultConnectorLabel>
         <rules>
@@ -2091,7 +2610,7 @@
         <name>Has_New_Consent_to_Save</name>
         <label>Has New Consent to Save</label>
         <locationX>3240</locationX>
-        <locationY>5576</locationY>
+        <locationY>6116</locationY>
         <defaultConnector>
             <targetReference>Assign_Entered_Values</targetReference>
         </defaultConnector>
@@ -2115,7 +2634,7 @@
     <decisions>
         <name>Is_Payload_Present</name>
         <label>Is Payload Present</label>
-        <locationX>3603</locationX>
+        <locationX>4263</locationX>
         <locationY>2138</locationY>
         <defaultConnector>
             <targetReference>Pay_Load_is_not_present</targetReference>
@@ -2140,7 +2659,7 @@
     <decisions>
         <name>Product_Selection_Screen_Button_Actions_Check</name>
         <label>Product Selection Screen Button Actions Check</label>
-        <locationX>3042</locationX>
+        <locationX>3702</locationX>
         <locationY>2030</locationY>
         <defaultConnector>
             <targetReference>Get_Fin_Info_Records_For_Overview</targetReference>
@@ -2193,16 +2712,55 @@
         </rules>
     </decisions>
     <decisions>
+        <name>Salutation_Validation_for_France</name>
+        <label>Salutation Validation for France</label>
+        <locationX>2684</locationX>
+        <locationY>6956</locationY>
+        <defaultConnector>
+            <targetReference>Consent_Validation_Market_Check</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Valid Salutation</defaultConnectorLabel>
+        <rules>
+            <name>Invalid_Salutation</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>SalutationStored</leftValueReference>
+                <operator>IsBlank</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Get_Fin_Information_For_Send_to_Bank.GOL_Type_Of_Use__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>PRIVATE</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>Get_Logged_User.LMS_USR_SalesCountryCode__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>FR</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Assign_Error_Msg_Variable_for_Salutation</targetReference>
+            </connector>
+            <label>Invalid Salutation</label>
+        </rules>
+    </decisions>
+    <decisions>
         <name>Set_Form_Input_Validation_Paths</name>
         <label>Set Form Input Validation Paths</label>
-        <locationX>2558</locationX>
-        <locationY>6092</locationY>
+        <locationX>2960</locationX>
+        <locationY>6740</locationY>
         <defaultConnector>
             <targetReference>Assign_Professional_SE</targetReference>
         </defaultConnector>
-        <defaultConnectorLabel>PROFESSIONAL - SELF EMPLOYED</defaultConnectorLabel>
+        <defaultConnectorLabel>BNPP-PROFESSIONAL - SELF EMPLOYED</defaultConnectorLabel>
         <rules>
-            <name>PRIVATE</name>
+            <name>BNPP_PRIVATE</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
                 <leftValueReference>Get_Fin_Information_For_Send_to_Bank.GOL_Type_Of_Use__c</leftValueReference>
@@ -2218,10 +2776,10 @@
             <connector>
                 <targetReference>Assign_Private_Values</targetReference>
             </connector>
-            <label>PRIVATE</label>
+            <label>BNPP-PRIVATE</label>
         </rules>
         <rules>
-            <name>PROFESSIONAL_BUSINESS_CLIENT</name>
+            <name>BNPP_PROFESSIONAL_BUSINESS_CLIENT</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
                 <leftValueReference>Get_Fin_Information_For_Send_to_Bank.GOL_Type_Of_Use__c</leftValueReference>
@@ -2240,17 +2798,16 @@
             <connector>
                 <targetReference>Assign_Professional_BC</targetReference>
             </connector>
-            <label>PROFESSIONAL - BUSINESS CLIENT</label>
+            <label>BNPP-PROFESSIONAL - BUSINESS CLIENT</label>
         </rules>
     </decisions>
     <decisions>
         <name>Set_Prospect_Type</name>
         <label>Set Prospect Type</label>
-        <locationX>2228</locationX>
-        <locationY>7682</locationY>
+        <locationX>2206</locationX>
+        <locationY>8564</locationY>
         <defaultConnector>
-            <isGoTo>true</isGoTo>
-            <targetReference>ContactDetailsScreen</targetReference>
+            <targetReference>Invoke_Context_Share_API</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>Individual Prospect</defaultConnectorLabel>
         <rules>
@@ -2273,7 +2830,7 @@
         <name>Validate_Input_BeNeLuxFr</name>
         <label>Validate Input BeNeLuxFr</label>
         <locationX>2558</locationX>
-        <locationY>6500</locationY>
+        <locationY>7598</locationY>
         <defaultConnector>
             <targetReference>Create_Prospect_and_reparent_Quote_and_Sales_Lead</targetReference>
         </defaultConnector>
@@ -2333,7 +2890,7 @@
         <name>Validate_Input_Italy</name>
         <label>Validate Input Italy</label>
         <locationX>3438</locationX>
-        <locationY>6500</locationY>
+        <locationY>7598</locationY>
         <defaultConnector>
             <targetReference>Create_Prospect_and_reparent_Quote_and_Sales_Lead</targetReference>
         </defaultConnector>
@@ -2407,7 +2964,7 @@
         <name>Validate_Inputs_AT_CZ_SK</name>
         <label>Validate Inputs AT CZ &amp; SK</label>
         <locationX>2998</locationX>
-        <locationY>6500</locationY>
+        <locationY>7598</locationY>
         <defaultConnector>
             <targetReference>Create_Prospect_and_reparent_Quote_and_Sales_Lead</targetReference>
         </defaultConnector>
@@ -2460,7 +3017,7 @@
         <name>Validate_Inputs_Germany</name>
         <label>Validate Inputs Germany</label>
         <locationX>2118</locationX>
-        <locationY>6500</locationY>
+        <locationY>7598</locationY>
         <defaultConnector>
             <targetReference>Create_Prospect_and_reparent_Quote_and_Sales_Lead</targetReference>
         </defaultConnector>
@@ -2555,7 +3112,7 @@
         <name>Validate_Inputs_Iberia</name>
         <label>Validate Inputs Iberia</label>
         <locationX>1678</locationX>
-        <locationY>6500</locationY>
+        <locationY>7598</locationY>
         <defaultConnector>
             <targetReference>Create_Prospect_and_reparent_Quote_and_Sales_Lead</targetReference>
         </defaultConnector>
@@ -2601,8 +3158,8 @@
     <formulas>
         <name>CityFx</name>
         <dataType>String</dataType>
-        <expression>IF(TEXT({!Get_Prospect_Record.Type}) = &apos;Hybrid Virtual&apos;  , IF(ISNULL({!CityStored}), &apos;&apos;, {!CityStored})
-,IF(ISBLANK({!CityStored}),  {!Get_Prospect_Record.ShippingCity} , {!CityStored}))</expression>
+        <expression>IF(TEXT({!Get_Latest_Prospect.Type}) = &apos;Hybrid Virtual&apos;  , IF(ISNULL({!CityStored}), &apos;&apos;, {!CityStored})
+,IF(ISBLANK({!CityStored}),  {!Get_Latest_Prospect.ShippingCity} , {!CityStored}))</expression>
     </formulas>
     <formulas>
         <name>companyNameCheckFormulaValue</name>
@@ -2612,31 +3169,58 @@
     <formulas>
         <name>CompanyNameFx</name>
         <dataType>String</dataType>
-        <expression>IF(TEXT({!Get_Prospect_Record.Type}) = &apos;Hybrid Virtual&apos;  , IF(ISNULL({!CompanyNameStored}), &apos;&apos;, {!CompanyNameStored})
-,IF(ISBLANK({!CompanyNameStored}),  {!Get_Prospect_Record.Name} , {!CompanyNameStored}))</expression>
+        <expression>IF(TEXT({!Get_Latest_Prospect.Type}) = &apos;Hybrid Virtual&apos;  , IF(ISNULL({!CompanyNameStored}), &apos;&apos;, {!CompanyNameStored})
+,IF(ISBLANK({!CompanyNameStored}),  {!Get_Latest_Prospect.Name} , {!CompanyNameStored}))</expression>
+    </formulas>
+    <formulas>
+        <name>CompanyRegistrationNumberFx</name>
+        <dataType>String</dataType>
+        <expression>IF(TEXT({!Get_Latest_Prospect.Type}) = &apos;Hybrid Virtual&apos;  , IF(ISNULL({!CompanyRegistrationNumberStored}), &apos;&apos;, {!CompanyRegistrationNumberStored})
+,IF(ISBLANK({!CompanyRegistrationNumberStored}),  {!Get_Latest_Prospect.LMS_ACC_Business_Registry_Number__c} , {!CompanyRegistrationNumberStored}))</expression>
+    </formulas>
+    <formulas>
+        <name>ContactIdFx</name>
+        <dataType>String</dataType>
+        <expression>IF(TEXT({!Get_Latest_Prospect.Type}) = &apos;Hybrid Virtual&apos;  , IF(ISNULL({!ContactIdStored}), &apos;&apos;, {!ContactIdStored})
+,IF(ISBLANK({!ContactIdStored}),  {!Get_Latest_Prospect.LMS_Tax_code__c} , {!ContactIdStored}))</expression>
     </formulas>
     <formulas>
         <name>CountryFx</name>
         <dataType>String</dataType>
-        <expression>IF(TEXT({!Get_Prospect_Record.Type}) = &apos;Hybrid Virtual&apos;  , IF(ISNULL({!CountryStored}), &apos;&apos;, {!CountryStored})
-,IF(ISBLANK({!CountryStored}), {!Get_Prospect_Record.ShippingCountry}, {!CountryStored}))</expression>
+        <expression>IF(TEXT({!Get_Latest_Prospect.Type}) = &apos;Hybrid Virtual&apos;  , IF(ISNULL({!CountryStored}), &apos;&apos;, {!CountryStored})
+,IF(ISBLANK({!CountryStored}), {!Get_Latest_Prospect.ShippingCountry}, {!CountryStored}))</expression>
     </formulas>
     <formulas>
         <name>EmailFx</name>
         <dataType>String</dataType>
-        <expression>IF(TEXT({!Get_Prospect_Record.Type}) = &apos;Hybrid Virtual&apos;  , IF(ISNULL({!EmailStored}), &apos;&apos;, {!EmailStored})
-,IF(ISBLANK({!EmailStored}), {!Get_Prospect_Record.LMS_ACC_Email__c} , {!EmailStored}))</expression>
+        <expression>IF(TEXT({!Get_Latest_Prospect.Type}) = &apos;Hybrid Virtual&apos;  , IF(ISNULL({!EmailStored}), &apos;&apos;, {!EmailStored})
+,IF(ISBLANK({!EmailStored}), {!Get_Latest_Prospect.LMS_ACC_Email__c} , {!EmailStored}))</expression>
+    </formulas>
+    <formulas>
+        <name>EmailStoredArvalFx</name>
+        <dataType>String</dataType>
+        <expression>IF(TEXT({!Get_Logged_User.LMS_USR_SalesCountryCode__c}) == &apos;IT&apos;, {!Email.value}, {!EmailBusinessClient.value})</expression>
     </formulas>
     <formulas>
         <name>FirstNamefx</name>
         <dataType>String</dataType>
-        <expression>IF(TEXT({!Get_Prospect_Record.Type}) = &apos;Hybrid Virtual&apos;  , IF(ISNULL({!FirstNameStored}), &apos;&apos;, {!FirstNameStored})
+        <expression>IF(TEXT({!Get_Latest_Prospect.Type}) = &apos;Hybrid Virtual&apos;  , IF(ISNULL({!FirstNameStored}), &apos;&apos;, {!FirstNameStored})
 ,IF(ISBLANK({!FirstNameStored}),  {!Get_Primary_Contact.FirstName} , {!FirstNameStored}))</expression>
+    </formulas>
+    <formulas>
+        <name>FullNameStored</name>
+        <dataType>String</dataType>
+        <expression>{!FirstNameStored} + &apos; &apos; + {!LastNameStored}</expression>
+    </formulas>
+    <formulas>
+        <name>IsSalutationMandatory</name>
+        <dataType>Boolean</dataType>
+        <expression>IF(TEXT({!Get_Logged_User.LMS_USR_SalesCountryCode__c}) = &apos;FR&apos;, true, false)</expression>
     </formulas>
     <formulas>
         <name>LastNameFx</name>
         <dataType>String</dataType>
-        <expression>IF(TEXT({!Get_Prospect_Record.Type}) = &apos;Hybrid Virtual&apos;  , IF(ISNULL({!LastNameStored}), &apos;&apos;, {!LastNameStored})
+        <expression>IF(TEXT({!Get_Latest_Prospect.Type}) = &apos;Hybrid Virtual&apos;  , IF(ISNULL({!LastNameStored}), &apos;&apos;, {!LastNameStored})
 ,IF(ISBLANK({!LastNameStored}), {!Get_Primary_Contact.LastName} ,{!LastNameStored}))</expression>
     </formulas>
     <formulas>
@@ -2655,6 +3239,14 @@
         <expression>&apos;[{&quot;Style&quot;:&quot;color:black;padding: 12px 42px;&quot;,&quot;Label&quot;:&quot;&apos;+{!$Label.GOL_Finance_Business_Client}+&apos;&quot;},{&quot;Style&quot;:&quot;color:black;padding: 12px 42px;&quot;,&quot;Label&quot;:&quot;&apos;+{!$Label.GOL_Finance_Self_Employed}+&apos;&quot;}]&apos;</expression>
     </formulas>
     <formulas>
+        <name>OrgProspectSelectedButtonValueFx</name>
+        <dataType>String</dataType>
+        <expression>IF(TEXT({!Get_Latest_Prospect.Type}) = &apos;LMS_Business&apos;,  
+IF(TEXT({!Get_Latest_Prospect.LMS_ACC_OrganisationType__c}) = &apos;Self Employed - Professional&apos;, {!$Label.GOL_Finance_Self_Employed} , 
+{!$Label.GOL_Finance_Business_Client}),
+{!$Label.GOL_Finance_Business_Client})</expression>
+    </formulas>
+    <formulas>
         <name>personType</name>
         <dataType>String</dataType>
         <expression>IF({!companyNameCheckFormulaValue} == &apos;PRIVATE&apos;, &apos;PHYSICAL&apos;, &apos;LEGAL&apos;)</expression>
@@ -2662,13 +3254,14 @@
     <formulas>
         <name>PhoneFx</name>
         <dataType>String</dataType>
-        <expression>IF(TEXT({!Get_Prospect_Record.Type}) = &apos;Hybrid Virtual&apos;  , IF(ISNULL({!PhoneStored}), &apos;&apos;, {!PhoneStored})
-,IF(ISBLANK({!PhoneStored}), {!Get_Prospect_Record.LMS_ACC_MobilePhone__c} , {!PhoneStored}))</expression>
+        <expression>IF(TEXT({!Get_Latest_Prospect.Type}) = &apos;Hybrid Virtual&apos;  , IF(ISNULL({!PhoneStored}), &apos;&apos;, {!PhoneStored})
+,IF(ISBLANK({!PhoneStored}), {!Get_Latest_Prospect.LMS_ACC_MobilePhone__c} , {!PhoneStored}))</expression>
     </formulas>
     <formulas>
         <name>salutationFx</name>
         <dataType>String</dataType>
-        <expression>&apos;Mr&apos;</expression>
+        <expression>IF(TEXT({!Get_Latest_Prospect.Type}) = &apos;Hybrid Virtual&apos;  , IF(ISNULL({!SalutationStored}), &apos;&apos;, {!SalutationStored})
+,IF(ISBLANK({!SalutationStored}), TEXT({!Get_Primary_Contact.Salutation}) , {!SalutationStored}))</expression>
     </formulas>
     <formulas>
         <name>salutationIsRequired</name>
@@ -2683,8 +3276,8 @@
     <formulas>
         <name>StreetNameFx</name>
         <dataType>String</dataType>
-        <expression>IF(TEXT({!Get_Prospect_Record.Type}) = &apos;Hybrid Virtual&apos;  , IF(ISNULL({!StreetNameStored}), &apos;&apos;, {!StreetNameStored})
-,IF(ISBLANK({!StreetNameStored}), {!Get_Prospect_Record.LMS_ACC_ShippingStreetName__c} , {!StreetNameStored}))</expression>
+        <expression>IF(TEXT({!Get_Latest_Prospect.Type}) = &apos;Hybrid Virtual&apos;  , IF(ISNULL({!StreetNameStored}), &apos;&apos;, {!StreetNameStored})
+,IF(ISBLANK({!StreetNameStored}), {!Get_Latest_Prospect.LMS_ACC_ShippingStreetName__c} , {!StreetNameStored}))</expression>
     </formulas>
     <formulas>
         <name>VehicleTotalGrossPriceFx</name>
@@ -2695,8 +3288,8 @@
     <formulas>
         <name>ZipPostalCodeFx</name>
         <dataType>String</dataType>
-        <expression>IF(TEXT({!Get_Prospect_Record.Type}) = &apos;Hybrid Virtual&apos;  , IF(ISNULL({!ZipPostalCodeStored}), &apos;&apos;, {!ZipPostalCodeStored})
-,IF(ISBLANK({!ZipPostalCodeStored}), {!Get_Prospect_Record.ShippingPostalCode}, {!ZipPostalCodeStored}))</expression>
+        <expression>IF(TEXT({!Get_Latest_Prospect.Type}) = &apos;Hybrid Virtual&apos;  , IF(ISNULL({!ZipPostalCodeStored}), &apos;&apos;, {!ZipPostalCodeStored})
+,IF(ISBLANK({!ZipPostalCodeStored}), {!Get_Latest_Prospect.ShippingPostalCode}, {!ZipPostalCodeStored}))</expression>
     </formulas>
     <interviewLabel>Screen Flow : Finance Tab {!$Flow.CurrentDateTime}</interviewLabel>
     <label>Screen Flow : Finance Tab</label>
@@ -2722,8 +3315,8 @@
     <recordLookups>
         <name>Get_Configuration_Vehicle_Object</name>
         <label>Get Configuration Vehicle Object</label>
-        <locationX>2118</locationX>
-        <locationY>566</locationY>
+        <locationX>2778</locationX>
+        <locationY>674</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Config_Vehicle_Info</targetReference>
@@ -2745,8 +3338,8 @@
     <recordLookups>
         <name>Get_Consent_Records</name>
         <label>Get Consent Records</label>
-        <locationX>3911</locationX>
-        <locationY>4760</locationY>
+        <locationX>4043</locationX>
+        <locationY>5192</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Check_Consent_Created_Or_Not</targetReference>
@@ -2756,7 +3349,7 @@
             <field>LMS_PCN_Prospect__c</field>
             <operator>EqualTo</operator>
             <value>
-                <elementReference>Get_Prospect_Record.Id</elementReference>
+                <elementReference>Get_Latest_Prospect.Id</elementReference>
             </value>
         </filters>
         <getFirstRecordOnly>false</getFirstRecordOnly>
@@ -2768,8 +3361,8 @@
     <recordLookups>
         <name>Get_Fin_Info_For_RowClick</name>
         <label>Get Fin Info For RowClick</label>
-        <locationX>4450</locationX>
-        <locationY>4436</locationY>
+        <locationX>4714</locationX>
+        <locationY>4544</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>From_Row_Click_Finance_Information_Record</targetReference>
@@ -2789,8 +3382,8 @@
     <recordLookups>
         <name>Get_Fin_Info_Record</name>
         <label>Get Fin Info Record</label>
-        <locationX>2382</locationX>
-        <locationY>1082</locationY>
+        <locationX>3042</locationX>
+        <locationY>1190</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Check_Fin_Info_Records_are_Available_or_Not</targetReference>
@@ -2812,8 +3405,8 @@
     <recordLookups>
         <name>Get_Fin_Info_Records_For_Overview</name>
         <label>Get Fin Info Records For Overview</label>
-        <locationX>2382</locationX>
-        <locationY>4004</locationY>
+        <locationX>3042</locationX>
+        <locationY>4112</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Overview_Screen</targetReference>
@@ -2833,11 +3426,11 @@
     <recordLookups>
         <name>Get_Fin_Information_For_Send_to_Bank</name>
         <label>Get Fin Information For Send to Bank</label>
-        <locationX>3713</locationX>
-        <locationY>4328</locationY>
+        <locationX>3845</locationX>
+        <locationY>4436</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Get_Sales_Lead</targetReference>
+            <targetReference>Get_Latest_Quote</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -2852,12 +3445,13 @@
         <queriedFields>Id</queriedFields>
         <queriedFields>GOL_Person_Type__c</queriedFields>
         <queriedFields>GOL_Type_Of_Use__c</queriedFields>
+        <queriedFields>LMS_FIN_FinanceInstitution__c</queriedFields>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <recordLookups>
         <name>Get_Finance_Records</name>
         <label>Get Finance Records</label>
-        <locationX>2910</locationX>
+        <locationX>3570</locationX>
         <locationY>2570</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
@@ -2876,13 +3470,70 @@
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <recordLookups>
+        <name>Get_Latest_Prospect</name>
+        <label>Get Latest Prospect</label>
+        <locationX>3845</locationX>
+        <locationY>4652</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Get_Sales_Lead</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Latest_Quote.LMS_QUO_Account__c</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Account</object>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>Type</queriedFields>
+        <queriedFields>Name</queriedFields>
+        <queriedFields>LMS_ACC_Email__c</queriedFields>
+        <queriedFields>LMS_ACC_MobilePhone__c</queriedFields>
+        <queriedFields>LMS_ACC_ShippingStreetName__c</queriedFields>
+        <queriedFields>ShippingCity</queriedFields>
+        <queriedFields>ShippingPostalCode</queriedFields>
+        <queriedFields>ShippingCountry</queriedFields>
+        <queriedFields>LMS_ACC_OrganisationType__c</queriedFields>
+        <queriedFields>LMS_ACC_Business_Registry_Number__c</queriedFields>
+        <queriedFields>LMS_Tax_code__c</queriedFields>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Latest_Quote</name>
+        <label>Get Latest Quote</label>
+        <locationX>3845</locationX>
+        <locationY>4544</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Get_Latest_Prospect</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Id</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>quoteId</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>LMS_Quote__c</object>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>LMS_QUO_Account__c</queriedFields>
+        <queriedFields>LMS_QUO_Opportunity__c</queriedFields>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
         <name>Get_Logged_User</name>
         <label>Get Logged User</label>
-        <locationX>2382</locationX>
+        <locationX>3042</locationX>
         <locationY>134</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Get_Quote_Record</targetReference>
+            <targetReference>Get_Smart_2_0_Configurations</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -2902,7 +3553,7 @@
         <name>Get_Open_Quote_01</name>
         <label>Get Open Quote 01</label>
         <locationX>512</locationX>
-        <locationY>4436</locationY>
+        <locationY>4544</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Check_Open_Quote_02_is_Available_or_Not</targetReference>
@@ -2923,7 +3574,7 @@
         <name>Get_Open_Quote_02</name>
         <label>Get Open Quote 02</label>
         <locationX>710</locationX>
-        <locationY>4652</locationY>
+        <locationY>4760</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Check_Last_Modified_Fin_Quote</targetReference>
@@ -2943,11 +3594,11 @@
     <recordLookups>
         <name>Get_Primary_Contact</name>
         <label>Get Primary Contact</label>
-        <locationX>3713</locationX>
-        <locationY>4544</locationY>
+        <locationX>3845</locationX>
+        <locationY>4868</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Check_Prospect_Type</targetReference>
+            <targetReference>Clear_All_Stored_Values</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -2972,8 +3623,8 @@
     <recordLookups>
         <name>Get_Prospect_Record</name>
         <label>Get Prospect Record</label>
-        <locationX>2382</locationX>
-        <locationY>866</locationY>
+        <locationX>3042</locationX>
+        <locationY>974</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Assign_Company_Name_Check_Value</targetReference>
@@ -3004,8 +3655,8 @@
     <recordLookups>
         <name>Get_Quote_Record</name>
         <label>Get Quote Record</label>
-        <locationX>2382</locationX>
-        <locationY>242</locationY>
+        <locationX>3042</locationX>
+        <locationY>350</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>GET_Vehicle_QLI_Record</targetReference>
@@ -3037,8 +3688,8 @@
     <recordLookups>
         <name>Get_Sales_Lead</name>
         <label>Get Sales Lead</label>
-        <locationX>3713</locationX>
-        <locationY>4436</locationY>
+        <locationX>3845</locationX>
+        <locationY>4760</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Get_Primary_Contact</targetReference>
@@ -3048,7 +3699,7 @@
             <field>Id</field>
             <operator>EqualTo</operator>
             <value>
-                <elementReference>Get_Quote_Record.LMS_QUO_Opportunity__c</elementReference>
+                <elementReference>Get_Latest_Quote.LMS_QUO_Opportunity__c</elementReference>
             </value>
         </filters>
         <getFirstRecordOnly>true</getFirstRecordOnly>
@@ -3060,11 +3711,11 @@
     <recordLookups>
         <name>Get_Saved_Finance_Information_Record</name>
         <label>Get Saved Finance Information Record</label>
-        <locationX>2866</locationX>
+        <locationX>3526</locationX>
         <locationY>3302</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Populate_Selected_Button_Value</targetReference>
+            <targetReference>Get_Saved_Finance_Item_Record</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -3079,10 +3730,86 @@
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <recordLookups>
+        <name>Get_Saved_Finance_Item_Record</name>
+        <label>Get Saved Finance Item Record</label>
+        <locationX>3526</locationX>
+        <locationY>3410</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Populate_Selected_Button_Value</targetReference>
+        </connector>
+        <filterLogic>1 AND (2 OR 3 OR 4)</filterLogic>
+        <filters>
+            <field>ERPT_FII_FinanceInformation__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Saved_Finance_Information_Record.Id</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>GOL_Record_Type_Name__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>GOL_Finance_Item_Record_Type_Name_NonCPIProduct</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>GOL_Record_Type_Name__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>GOL_Finance_Item_Record_Type_Name_CPIProduct</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>GOL_Record_Type_Name__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>GOL_Finance_Item_Record_Type_Arval_Additional_Fields</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>false</getFirstRecordOnly>
+        <object>ERPT_FinanceItem__c</object>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>GOL_Record_Type_Name__c</queriedFields>
+        <queriedFields>ERPT_FII_FinanceInformation__c</queriedFields>
+        <queriedFields>ERPT_FII_ExternalRef__c</queriedFields>
+        <queriedFields>ERPT_FII_financialProductRef__c</queriedFields>
+        <queriedFields>ERPT_FII_FullName__c</queriedFields>
+        <queriedFields>ERPT_FII_Value__c</queriedFields>
+        <sortField>GOL_Record_Type_Name__c</sortField>
+        <sortOrder>Asc</sortOrder>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
+        <name>Get_Smart_2_0_Configurations</name>
+        <label>Get Smart 2.0 Configurations</label>
+        <locationX>3042</locationX>
+        <locationY>242</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Get_Quote_Record</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>DeveloperName</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>Get_Logged_User.LMS_USR_SalesCountryCode__c</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>GOL_Share_Draft_Quote_Visibility__mdt</object>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>DeveloperName</queriedFields>
+        <queriedFields>GOL_FS_Arval_POS_Prod_URL__c</queriedFields>
+        <queriedFields>GOL_FS_PF_POS_Prod_URL__c</queriedFields>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <recordLookups>
         <name>Get_Updated_Quote</name>
         <label>Get Updated Quote</label>
-        <locationX>2096</locationX>
-        <locationY>7790</locationY>
+        <locationX>2074</locationX>
+        <locationY>8672</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Update_Prospect_Type</targetReference>
@@ -3104,8 +3831,8 @@
     <recordLookups>
         <name>GET_Vehicle_QLI_Record</name>
         <label>GET Vehicle QLI Record</label>
-        <locationX>2382</locationX>
-        <locationY>350</locationY>
+        <locationX>3042</locationX>
+        <locationY>458</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Check_Type_of_Vehicle_Config_or_Stock</targetReference>
@@ -3151,37 +3878,12 @@
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <recordUpdates>
-        <name>Update_Org_Prospect_Type</name>
-        <label>Update Org Prospect Type</label>
-        <locationX>2558</locationX>
-        <locationY>7358</locationY>
-        <connector>
-            <targetReference>Check_Contact_Details_Save</targetReference>
-        </connector>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>Id</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>Create_Prospect_and_reparent_Quote_and_Sales_Lead.accId</elementReference>
-            </value>
-        </filters>
-        <inputAssignments>
-            <field>LMS_ACC_OrganisationType__c</field>
-            <value>
-                <stringValue>Business</stringValue>
-            </value>
-        </inputAssignments>
-        <object>Account</object>
-    </recordUpdates>
-    <recordUpdates>
         <name>Update_Prospect_Type</name>
         <label>Update Prospect Type</label>
-        <locationX>2096</locationX>
-        <locationY>7898</locationY>
+        <locationX>2074</locationX>
+        <locationY>8780</locationY>
         <connector>
-            <isGoTo>true</isGoTo>
-            <targetReference>ContactDetailsScreen</targetReference>
+            <targetReference>Invoke_Context_Share_API</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -3202,7 +3904,7 @@
     <recordUpdates>
         <name>Update_Retailer_Discount</name>
         <label>Update Retailer Discount</label>
-        <locationX>1898</locationX>
+        <locationX>2558</locationX>
         <locationY>2138</locationY>
         <connector>
             <targetReference>Set_Retailer_Discount_Updated_No</targetReference>
@@ -3244,13 +3946,13 @@
     <screens>
         <name>ContactDetailsScreen</name>
         <label>ContactDetailsScreen</label>
-        <locationX>3713</locationX>
-        <locationY>5360</locationY>
+        <locationX>3845</locationX>
+        <locationY>5792</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
         <connector>
-            <targetReference>Contact_Details_Check_Button_Decision_1st_Step</targetReference>
+            <targetReference>Reset_Variables_2</targetReference>
         </connector>
         <fields>
             <name>ContactDetailsScreen_Section1</name>
@@ -3370,7 +4072,7 @@
                     <inputParameters>
                         <name>buttonValue</name>
                         <value>
-                            <elementReference>OrgProspectSelectedButtonValue</elementReference>
+                            <elementReference>OrgProspectSelectedButtonValueFx</elementReference>
                         </value>
                     </inputParameters>
                     <inputParameters>
@@ -3389,6 +4091,13 @@
                             <operator>EqualTo</operator>
                             <rightValue>
                                 <stringValue>PROFESSIONAL</stringValue>
+                            </rightValue>
+                        </conditions>
+                        <conditions>
+                            <leftValueReference>Get_Fin_Information_For_Send_to_Bank.LMS_FIN_FinanceInstitution__c</leftValueReference>
+                            <operator>NotEqualTo</operator>
+                            <rightValue>
+                                <elementReference>GOL_ARVAL</elementReference>
                             </rightValue>
                         </conditions>
                     </visibilityRule>
@@ -3433,6 +4142,50 @@
                 <name>ContactDetailsScreen_Section4_Column2</name>
                 <fieldType>Region</fieldType>
                 <fields>
+                    <name>ErrorMessage</name>
+                    <fieldText>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong style=&quot;color: rgb(234, 18, 18); font-size: 14px;&quot;&gt;{!ContactSaveErrorMessage}&lt;/strong&gt;&lt;/p&gt;</fieldText>
+                    <fieldType>DisplayText</fieldType>
+                </fields>
+                <inputParameters>
+                    <name>width</name>
+                    <value>
+                        <stringValue>8</stringValue>
+                    </value>
+                </inputParameters>
+                <isRequired>false</isRequired>
+            </fields>
+            <fields>
+                <name>ContactDetailsScreen_Section4_Column3</name>
+                <fieldType>Region</fieldType>
+                <inputParameters>
+                    <name>width</name>
+                    <value>
+                        <stringValue>2</stringValue>
+                    </value>
+                </inputParameters>
+                <isRequired>false</isRequired>
+            </fields>
+            <isRequired>false</isRequired>
+            <regionContainerType>SectionWithoutHeader</regionContainerType>
+        </fields>
+        <fields>
+            <name>ContactDetailsScreen_Section5</name>
+            <fieldType>RegionContainer</fieldType>
+            <fields>
+                <name>ContactDetailsScreen_Section5_Column1</name>
+                <fieldType>Region</fieldType>
+                <inputParameters>
+                    <name>width</name>
+                    <value>
+                        <stringValue>2</stringValue>
+                    </value>
+                </inputParameters>
+                <isRequired>false</isRequired>
+            </fields>
+            <fields>
+                <name>ContactDetailsScreen_Section5_Column2</name>
+                <fieldType>Region</fieldType>
+                <fields>
                     <name>Salutation_Field</name>
                     <extensionName>c:gol_DependentPicklistField</extensionName>
                     <fieldType>ComponentInstance</fieldType>
@@ -3463,7 +4216,7 @@
                     <inputParameters>
                         <name>isRequired</name>
                         <value>
-                            <booleanValue>true</booleanValue>
+                            <elementReference>IsSalutationMandatory</elementReference>
                         </value>
                     </inputParameters>
                     <inputParameters>
@@ -3485,7 +4238,7 @@
                 <isRequired>false</isRequired>
             </fields>
             <fields>
-                <name>ContactDetailsScreen_Section4_Column3</name>
+                <name>ContactDetailsScreen_Section5_Column3</name>
                 <fieldType>Region</fieldType>
                 <inputParameters>
                     <name>width</name>
@@ -3496,7 +4249,7 @@
                 <isRequired>false</isRequired>
             </fields>
             <fields>
-                <name>ContactDetailsScreen_Section4_Column4</name>
+                <name>ContactDetailsScreen_Section5_Column4</name>
                 <fieldType>Region</fieldType>
                 <inputParameters>
                     <name>width</name>
@@ -3520,10 +4273,10 @@
             </visibilityRule>
         </fields>
         <fields>
-            <name>ContactDetailsScreen_Section5</name>
+            <name>ContactDetailsScreen_Section6</name>
             <fieldType>RegionContainer</fieldType>
             <fields>
-                <name>ContactDetailsScreen_Section5_Column1</name>
+                <name>ContactDetailsScreen_Section6_Column1</name>
                 <fieldType>Region</fieldType>
                 <inputParameters>
                     <name>width</name>
@@ -3534,7 +4287,7 @@
                 <isRequired>false</isRequired>
             </fields>
             <fields>
-                <name>ContactDetailsScreen_Section5_Column2</name>
+                <name>ContactDetailsScreen_Section6_Column2</name>
                 <fieldType>Region</fieldType>
                 <fields>
                     <name>First_Name</name>
@@ -3556,7 +4309,7 @@
                 <isRequired>false</isRequired>
             </fields>
             <fields>
-                <name>ContactDetailsScreen_Section5_Column3</name>
+                <name>ContactDetailsScreen_Section6_Column3</name>
                 <fieldType>Region</fieldType>
                 <fields>
                     <name>Last_name</name>
@@ -3578,7 +4331,7 @@
                 <isRequired>false</isRequired>
             </fields>
             <fields>
-                <name>ContactDetailsScreen_Section5_Column4</name>
+                <name>ContactDetailsScreen_Section6_Column4</name>
                 <fieldType>Region</fieldType>
                 <inputParameters>
                     <name>width</name>
@@ -3590,12 +4343,22 @@
             </fields>
             <isRequired>false</isRequired>
             <regionContainerType>SectionWithoutHeader</regionContainerType>
+            <visibilityRule>
+                <conditionLogic>and</conditionLogic>
+                <conditions>
+                    <leftValueReference>BackButton.value</leftValueReference>
+                    <operator>NotEqualTo</operator>
+                    <rightValue>
+                        <elementReference>BackButton.ButtonName</elementReference>
+                    </rightValue>
+                </conditions>
+            </visibilityRule>
         </fields>
         <fields>
-            <name>ContactDetailsScreen_Section6</name>
+            <name>ContactDetailsScreen_Section7</name>
             <fieldType>RegionContainer</fieldType>
             <fields>
-                <name>ContactDetailsScreen_Section6_Column1</name>
+                <name>ContactDetailsScreen_Section7_Column1</name>
                 <fieldType>Region</fieldType>
                 <inputParameters>
                     <name>width</name>
@@ -3606,7 +4369,7 @@
                 <isRequired>false</isRequired>
             </fields>
             <fields>
-                <name>ContactDetailsScreen_Section6_Column2</name>
+                <name>ContactDetailsScreen_Section7_Column2</name>
                 <fieldType>Region</fieldType>
                 <fields>
                     <name>Company_Name</name>
@@ -3619,6 +4382,69 @@
                     <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
                     <isRequired>true</isRequired>
                 </fields>
+                <inputParameters>
+                    <name>width</name>
+                    <value>
+                        <stringValue>8</stringValue>
+                    </value>
+                </inputParameters>
+                <isRequired>false</isRequired>
+            </fields>
+            <fields>
+                <name>ContactDetailsScreen_Section7_Column3</name>
+                <fieldType>Region</fieldType>
+                <inputParameters>
+                    <name>width</name>
+                    <value>
+                        <stringValue>2</stringValue>
+                    </value>
+                </inputParameters>
+                <isRequired>false</isRequired>
+            </fields>
+            <isRequired>false</isRequired>
+            <regionContainerType>SectionWithoutHeader</regionContainerType>
+            <visibilityRule>
+                <conditionLogic>and</conditionLogic>
+                <conditions>
+                    <leftValueReference>Get_Fin_Information_For_Send_to_Bank.GOL_Type_Of_Use__c</leftValueReference>
+                    <operator>EqualTo</operator>
+                    <rightValue>
+                        <stringValue>PROFESSIONAL</stringValue>
+                    </rightValue>
+                </conditions>
+                <conditions>
+                    <leftValueReference>BackButton.value</leftValueReference>
+                    <operator>NotEqualTo</operator>
+                    <rightValue>
+                        <elementReference>BackButton.ButtonName</elementReference>
+                    </rightValue>
+                </conditions>
+                <conditions>
+                    <leftValueReference>Get_Fin_Information_For_Send_to_Bank.LMS_FIN_FinanceInstitution__c</leftValueReference>
+                    <operator>NotEqualTo</operator>
+                    <rightValue>
+                        <elementReference>GOL_ARVAL</elementReference>
+                    </rightValue>
+                </conditions>
+            </visibilityRule>
+        </fields>
+        <fields>
+            <name>ContactDetailsScreen_Section8</name>
+            <fieldType>RegionContainer</fieldType>
+            <fields>
+                <name>ContactDetailsScreen_Section8_Column1</name>
+                <fieldType>Region</fieldType>
+                <inputParameters>
+                    <name>width</name>
+                    <value>
+                        <stringValue>2</stringValue>
+                    </value>
+                </inputParameters>
+                <isRequired>false</isRequired>
+            </fields>
+            <fields>
+                <name>ContactDetailsScreen_Section8_Column2</name>
+                <fieldType>Region</fieldType>
                 <fields>
                     <name>EmailBusinessClient</name>
                     <extensionName>flowruntime:email</extensionName>
@@ -3645,6 +4471,21 @@
                     <isRequired>true</isRequired>
                     <storeOutputAutomatically>true</storeOutputAutomatically>
                 </fields>
+                <fields>
+                    <name>InvalidEmailLabel01</name>
+                    <fieldText>&lt;p&gt;&lt;span style=&quot;color: rgb(255, 4, 4); background-color: rgb(255, 255, 255);&quot;&gt;{!$Label.LMS_InvalidEmail}&lt;/span&gt;&lt;/p&gt;</fieldText>
+                    <fieldType>DisplayText</fieldType>
+                    <visibilityRule>
+                        <conditionLogic>and</conditionLogic>
+                        <conditions>
+                            <leftValueReference>IsInvalidEmail</leftValueReference>
+                            <operator>EqualTo</operator>
+                            <rightValue>
+                                <booleanValue>true</booleanValue>
+                            </rightValue>
+                        </conditions>
+                    </visibilityRule>
+                </fields>
                 <inputParameters>
                     <name>width</name>
                     <value>
@@ -3654,7 +4495,7 @@
                 <isRequired>false</isRequired>
             </fields>
             <fields>
-                <name>ContactDetailsScreen_Section6_Column3</name>
+                <name>ContactDetailsScreen_Section8_Column3</name>
                 <fieldType>Region</fieldType>
                 <inputParameters>
                     <name>width</name>
@@ -3667,7 +4508,7 @@
             <isRequired>false</isRequired>
             <regionContainerType>SectionWithoutHeader</regionContainerType>
             <visibilityRule>
-                <conditionLogic>and</conditionLogic>
+                <conditionLogic>(1 AND 2 AND 3 AND 4) OR (5 AND 6 AND 7)</conditionLogic>
                 <conditions>
                     <leftValueReference>Get_Fin_Information_For_Send_to_Bank.GOL_Type_Of_Use__c</leftValueReference>
                     <operator>EqualTo</operator>
@@ -3682,13 +4523,48 @@
                         <stringValue>BUSINESS CLIENT</stringValue>
                     </rightValue>
                 </conditions>
+                <conditions>
+                    <leftValueReference>BackButton.value</leftValueReference>
+                    <operator>NotEqualTo</operator>
+                    <rightValue>
+                        <elementReference>BackButton.ButtonName</elementReference>
+                    </rightValue>
+                </conditions>
+                <conditions>
+                    <leftValueReference>Get_Fin_Information_For_Send_to_Bank.LMS_FIN_FinanceInstitution__c</leftValueReference>
+                    <operator>NotEqualTo</operator>
+                    <rightValue>
+                        <elementReference>GOL_ARVAL</elementReference>
+                    </rightValue>
+                </conditions>
+                <conditions>
+                    <leftValueReference>Get_Logged_User.LMS_USR_SalesCountryCode__c</leftValueReference>
+                    <operator>NotEqualTo</operator>
+                    <rightValue>
+                        <stringValue>IT</stringValue>
+                    </rightValue>
+                </conditions>
+                <conditions>
+                    <leftValueReference>BackButton.value</leftValueReference>
+                    <operator>NotEqualTo</operator>
+                    <rightValue>
+                        <elementReference>BackButton.ButtonName</elementReference>
+                    </rightValue>
+                </conditions>
+                <conditions>
+                    <leftValueReference>Get_Fin_Information_For_Send_to_Bank.LMS_FIN_FinanceInstitution__c</leftValueReference>
+                    <operator>EqualTo</operator>
+                    <rightValue>
+                        <elementReference>GOL_ARVAL</elementReference>
+                    </rightValue>
+                </conditions>
             </visibilityRule>
         </fields>
         <fields>
-            <name>ContactDetailsScreen_Section7</name>
+            <name>ContactDetailsScreen_Section9</name>
             <fieldType>RegionContainer</fieldType>
             <fields>
-                <name>ContactDetailsScreen_Section7_Column1</name>
+                <name>ContactDetailsScreen_Section9_Column1</name>
                 <fieldType>Region</fieldType>
                 <inputParameters>
                     <name>width</name>
@@ -3699,7 +4575,7 @@
                 <isRequired>false</isRequired>
             </fields>
             <fields>
-                <name>ContactDetailsScreen_Section7_Column2</name>
+                <name>ContactDetailsScreen_Section9_Column2</name>
                 <fieldType>Region</fieldType>
                 <fields>
                     <name>Email</name>
@@ -3727,6 +4603,21 @@
                     <isRequired>true</isRequired>
                     <storeOutputAutomatically>true</storeOutputAutomatically>
                 </fields>
+                <fields>
+                    <name>InvalidEmailLabel02</name>
+                    <fieldText>&lt;p&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(255, 4, 4);&quot;&gt;{!$Label.LMS_InvalidEmail}&lt;/span&gt;&lt;/p&gt;</fieldText>
+                    <fieldType>DisplayText</fieldType>
+                    <visibilityRule>
+                        <conditionLogic>and</conditionLogic>
+                        <conditions>
+                            <leftValueReference>IsInvalidEmail</leftValueReference>
+                            <operator>EqualTo</operator>
+                            <rightValue>
+                                <booleanValue>true</booleanValue>
+                            </rightValue>
+                        </conditions>
+                    </visibilityRule>
+                </fields>
                 <inputParameters>
                     <name>width</name>
                     <value>
@@ -3736,7 +4627,7 @@
                 <isRequired>false</isRequired>
             </fields>
             <fields>
-                <name>ContactDetailsScreen_Section7_Column3</name>
+                <name>ContactDetailsScreen_Section9_Column3</name>
                 <fieldType>Region</fieldType>
                 <fields>
                     <name>Phone</name>
@@ -3769,6 +4660,37 @@
                     <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
                     <isRequired>true</isRequired>
                     <storeOutputAutomatically>true</storeOutputAutomatically>
+                    <visibilityRule>
+                        <conditionLogic>and</conditionLogic>
+                        <conditions>
+                            <leftValueReference>Get_Fin_Information_For_Send_to_Bank.LMS_FIN_FinanceInstitution__c</leftValueReference>
+                            <operator>NotEqualTo</operator>
+                            <rightValue>
+                                <elementReference>GOL_ARVAL</elementReference>
+                            </rightValue>
+                        </conditions>
+                    </visibilityRule>
+                </fields>
+                <fields>
+                    <name>Contact_ID</name>
+                    <dataType>String</dataType>
+                    <defaultValue>
+                        <elementReference>ContactIdFx</elementReference>
+                    </defaultValue>
+                    <fieldText>Contact ID</fieldText>
+                    <fieldType>InputField</fieldType>
+                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+                    <isRequired>true</isRequired>
+                    <visibilityRule>
+                        <conditionLogic>and</conditionLogic>
+                        <conditions>
+                            <leftValueReference>Get_Fin_Information_For_Send_to_Bank.LMS_FIN_FinanceInstitution__c</leftValueReference>
+                            <operator>EqualTo</operator>
+                            <rightValue>
+                                <elementReference>GOL_ARVAL</elementReference>
+                            </rightValue>
+                        </conditions>
+                    </visibilityRule>
                 </fields>
                 <inputParameters>
                     <name>width</name>
@@ -3779,7 +4701,7 @@
                 <isRequired>false</isRequired>
             </fields>
             <fields>
-                <name>ContactDetailsScreen_Section7_Column4</name>
+                <name>ContactDetailsScreen_Section9_Column4</name>
                 <fieldType>Region</fieldType>
                 <inputParameters>
                     <name>width</name>
@@ -3792,7 +4714,7 @@
             <isRequired>false</isRequired>
             <regionContainerType>SectionWithoutHeader</regionContainerType>
             <visibilityRule>
-                <conditionLogic>(1 AND 2) OR 3</conditionLogic>
+                <conditionLogic>(((1 AND 2) OR 3) AND 4 AND 5) OR (6 AND 7 AND 8)</conditionLogic>
                 <conditions>
                     <leftValueReference>OrgProspectButtons.buttonValue</leftValueReference>
                     <operator>EqualTo</operator>
@@ -3814,13 +4736,48 @@
                         <stringValue>PRIVATE</stringValue>
                     </rightValue>
                 </conditions>
+                <conditions>
+                    <leftValueReference>BackButton.value</leftValueReference>
+                    <operator>NotEqualTo</operator>
+                    <rightValue>
+                        <elementReference>BackButton.ButtonName</elementReference>
+                    </rightValue>
+                </conditions>
+                <conditions>
+                    <leftValueReference>Get_Fin_Information_For_Send_to_Bank.LMS_FIN_FinanceInstitution__c</leftValueReference>
+                    <operator>NotEqualTo</operator>
+                    <rightValue>
+                        <elementReference>GOL_ARVAL</elementReference>
+                    </rightValue>
+                </conditions>
+                <conditions>
+                    <leftValueReference>Get_Fin_Information_For_Send_to_Bank.LMS_FIN_FinanceInstitution__c</leftValueReference>
+                    <operator>EqualTo</operator>
+                    <rightValue>
+                        <elementReference>GOL_ARVAL</elementReference>
+                    </rightValue>
+                </conditions>
+                <conditions>
+                    <leftValueReference>Get_Logged_User.LMS_USR_SalesCountryCode__c</leftValueReference>
+                    <operator>EqualTo</operator>
+                    <rightValue>
+                        <stringValue>IT</stringValue>
+                    </rightValue>
+                </conditions>
+                <conditions>
+                    <leftValueReference>BackButton.value</leftValueReference>
+                    <operator>NotEqualTo</operator>
+                    <rightValue>
+                        <elementReference>BackButton.ButtonName</elementReference>
+                    </rightValue>
+                </conditions>
             </visibilityRule>
         </fields>
         <fields>
-            <name>ContactDetailsScreen_Section8</name>
+            <name>ContactDetailsScreen_Section10</name>
             <fieldType>RegionContainer</fieldType>
             <fields>
-                <name>ContactDetailsScreen_Section8_Column1</name>
+                <name>ContactDetailsScreen_Section10_Column1</name>
                 <fieldType>Region</fieldType>
                 <inputParameters>
                     <name>width</name>
@@ -3831,7 +4788,103 @@
                 <isRequired>false</isRequired>
             </fields>
             <fields>
-                <name>ContactDetailsScreen_Section8_Column2</name>
+                <name>ContactDetailsScreen_Section10_Column2</name>
+                <fieldType>Region</fieldType>
+                <fields>
+                    <name>Company_Name_Arval</name>
+                    <dataType>String</dataType>
+                    <defaultValue>
+                        <elementReference>CompanyNameFx</elementReference>
+                    </defaultValue>
+                    <fieldText>Company Name</fieldText>
+                    <fieldType>InputField</fieldType>
+                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+                    <isRequired>true</isRequired>
+                </fields>
+                <inputParameters>
+                    <name>width</name>
+                    <value>
+                        <stringValue>4</stringValue>
+                    </value>
+                </inputParameters>
+                <isRequired>false</isRequired>
+            </fields>
+            <fields>
+                <name>ContactDetailsScreen_Section10_Column3</name>
+                <fieldType>Region</fieldType>
+                <fields>
+                    <name>Company_Registration_Number</name>
+                    <dataType>String</dataType>
+                    <defaultValue>
+                        <elementReference>CompanyRegistrationNumberFx</elementReference>
+                    </defaultValue>
+                    <fieldText>Company Registration Number</fieldText>
+                    <fieldType>InputField</fieldType>
+                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+                    <isRequired>true</isRequired>
+                </fields>
+                <inputParameters>
+                    <name>width</name>
+                    <value>
+                        <stringValue>4</stringValue>
+                    </value>
+                </inputParameters>
+                <isRequired>false</isRequired>
+            </fields>
+            <fields>
+                <name>ContactDetailsScreen_Section10_Column4</name>
+                <fieldType>Region</fieldType>
+                <inputParameters>
+                    <name>width</name>
+                    <value>
+                        <stringValue>2</stringValue>
+                    </value>
+                </inputParameters>
+                <isRequired>false</isRequired>
+            </fields>
+            <isRequired>false</isRequired>
+            <regionContainerType>SectionWithoutHeader</regionContainerType>
+            <visibilityRule>
+                <conditionLogic>and</conditionLogic>
+                <conditions>
+                    <leftValueReference>Get_Fin_Information_For_Send_to_Bank.GOL_Type_Of_Use__c</leftValueReference>
+                    <operator>EqualTo</operator>
+                    <rightValue>
+                        <stringValue>PROFESSIONAL</stringValue>
+                    </rightValue>
+                </conditions>
+                <conditions>
+                    <leftValueReference>Get_Fin_Information_For_Send_to_Bank.LMS_FIN_FinanceInstitution__c</leftValueReference>
+                    <operator>EqualTo</operator>
+                    <rightValue>
+                        <elementReference>GOL_ARVAL</elementReference>
+                    </rightValue>
+                </conditions>
+                <conditions>
+                    <leftValueReference>BackButton.value</leftValueReference>
+                    <operator>NotEqualTo</operator>
+                    <rightValue>
+                        <elementReference>BackButton.ButtonName</elementReference>
+                    </rightValue>
+                </conditions>
+            </visibilityRule>
+        </fields>
+        <fields>
+            <name>ContactDetailsScreen_Section11</name>
+            <fieldType>RegionContainer</fieldType>
+            <fields>
+                <name>ContactDetailsScreen_Section11_Column1</name>
+                <fieldType>Region</fieldType>
+                <inputParameters>
+                    <name>width</name>
+                    <value>
+                        <stringValue>2</stringValue>
+                    </value>
+                </inputParameters>
+                <isRequired>false</isRequired>
+            </fields>
+            <fields>
+                <name>ContactDetailsScreen_Section11_Column2</name>
                 <fieldType>Region</fieldType>
                 <fields>
                     <name>Street_name</name>
@@ -3864,7 +4917,7 @@
                 <isRequired>false</isRequired>
             </fields>
             <fields>
-                <name>ContactDetailsScreen_Section8_Column3</name>
+                <name>ContactDetailsScreen_Section11_Column3</name>
                 <fieldType>Region</fieldType>
                 <fields>
                     <name>City</name>
@@ -3897,7 +4950,7 @@
                 <isRequired>false</isRequired>
             </fields>
             <fields>
-                <name>ContactDetailsScreen_Section8_Column4</name>
+                <name>ContactDetailsScreen_Section11_Column4</name>
                 <fieldType>Region</fieldType>
                 <inputParameters>
                     <name>width</name>
@@ -3935,10 +4988,10 @@
             </visibilityRule>
         </fields>
         <fields>
-            <name>ContactDetailsScreen_Section9</name>
+            <name>ContactDetailsScreen_Section12</name>
             <fieldType>RegionContainer</fieldType>
             <fields>
-                <name>ContactDetailsScreen_Section9_Column1</name>
+                <name>ContactDetailsScreen_Section12_Column1</name>
                 <fieldType>Region</fieldType>
                 <inputParameters>
                     <name>width</name>
@@ -3949,7 +5002,7 @@
                 <isRequired>false</isRequired>
             </fields>
             <fields>
-                <name>ContactDetailsScreen_Section9_Column2</name>
+                <name>ContactDetailsScreen_Section12_Column2</name>
                 <fieldType>Region</fieldType>
                 <fields>
                     <name>ConfirmContactDetailsCheckboxWrapper</name>
@@ -3986,7 +5039,7 @@
                 <isRequired>false</isRequired>
             </fields>
             <fields>
-                <name>ContactDetailsScreen_Section9_Column3</name>
+                <name>ContactDetailsScreen_Section12_Column3</name>
                 <fieldType>Region</fieldType>
                 <inputParameters>
                     <name>width</name>
@@ -4010,10 +5063,10 @@
             </visibilityRule>
         </fields>
         <fields>
-            <name>ContactDetailsScreen_Section10</name>
+            <name>ContactDetailsScreen_Section13</name>
             <fieldType>RegionContainer</fieldType>
             <fields>
-                <name>ContactDetailsScreen_Section10_Column1</name>
+                <name>ContactDetailsScreen_Section13_Column1</name>
                 <fieldType>Region</fieldType>
                 <inputParameters>
                     <name>width</name>
@@ -4024,7 +5077,50 @@
                 <isRequired>false</isRequired>
             </fields>
             <fields>
-                <name>ContactDetailsScreen_Section10_Column2</name>
+                <name>ContactDetailsScreen_Section13_Column2</name>
+                <fieldType>Region</fieldType>
+                <fields>
+                    <name>BackButton</name>
+                    <extensionName>c:gol_BuildYourOwnButton</extensionName>
+                    <fieldType>ComponentInstance</fieldType>
+                    <inputParameters>
+                        <name>ButtonName</name>
+                        <value>
+                            <elementReference>$Label.GOL_Back</elementReference>
+                        </value>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>clickedValue</name>
+                        <value>
+                            <elementReference>$Label.GOL_Back</elementReference>
+                        </value>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>HTMLClass</name>
+                        <value>
+                            <stringValue>BTO2BtnStyle slds-align_absolute-center slds-text-heading_small slds-box slds-box_small</stringValue>
+                        </value>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>styleCSS</name>
+                        <value>
+                            <stringValue>margin-right:40px;margin-left:30px</stringValue>
+                        </value>
+                    </inputParameters>
+                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+                    <isRequired>true</isRequired>
+                    <storeOutputAutomatically>true</storeOutputAutomatically>
+                </fields>
+                <inputParameters>
+                    <name>width</name>
+                    <value>
+                        <stringValue>4</stringValue>
+                    </value>
+                </inputParameters>
+                <isRequired>false</isRequired>
+            </fields>
+            <fields>
+                <name>ContactDetailsScreen_Section13_Column3</name>
                 <fieldType>Region</fieldType>
                 <fields>
                     <name>SendToBankButton</name>
@@ -4048,6 +5144,12 @@
                             <stringValue>SendToBank</stringValue>
                         </value>
                     </inputParameters>
+                    <inputParameters>
+                        <name>styleCSS</name>
+                        <value>
+                            <stringValue>margin-left:40px</stringValue>
+                        </value>
+                    </inputParameters>
                     <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
                     <isRequired>true</isRequired>
                     <storeOutputAutomatically>true</storeOutputAutomatically>
@@ -4055,57 +5157,13 @@
                 <inputParameters>
                     <name>width</name>
                     <value>
-                        <stringValue>8</stringValue>
+                        <stringValue>4</stringValue>
                     </value>
                 </inputParameters>
                 <isRequired>false</isRequired>
             </fields>
             <fields>
-                <name>ContactDetailsScreen_Section10_Column3</name>
-                <fieldType>Region</fieldType>
-                <inputParameters>
-                    <name>width</name>
-                    <value>
-                        <stringValue>2</stringValue>
-                    </value>
-                </inputParameters>
-                <isRequired>false</isRequired>
-            </fields>
-            <isRequired>false</isRequired>
-            <regionContainerType>SectionWithoutHeader</regionContainerType>
-        </fields>
-        <fields>
-            <name>ContactDetailsScreen_Section11</name>
-            <fieldType>RegionContainer</fieldType>
-            <fields>
-                <name>ContactDetailsScreen_Section11_Column1</name>
-                <fieldType>Region</fieldType>
-                <inputParameters>
-                    <name>width</name>
-                    <value>
-                        <stringValue>2</stringValue>
-                    </value>
-                </inputParameters>
-                <isRequired>false</isRequired>
-            </fields>
-            <fields>
-                <name>ContactDetailsScreen_Section11_Column2</name>
-                <fieldType>Region</fieldType>
-                <fields>
-                    <name>ErrorMessage</name>
-                    <fieldText>&lt;p style=&quot;text-align: center;&quot;&gt;&lt;strong style=&quot;color: rgb(234, 18, 18); font-size: 14px;&quot;&gt;{!ContactSaveErrorMessage}&lt;/strong&gt;&lt;/p&gt;</fieldText>
-                    <fieldType>DisplayText</fieldType>
-                </fields>
-                <inputParameters>
-                    <name>width</name>
-                    <value>
-                        <stringValue>8</stringValue>
-                    </value>
-                </inputParameters>
-                <isRequired>false</isRequired>
-            </fields>
-            <fields>
-                <name>ContactDetailsScreen_Section11_Column3</name>
+                <name>ContactDetailsScreen_Section13_Column4</name>
                 <fieldType>Region</fieldType>
                 <inputParameters>
                     <name>width</name>
@@ -4122,6 +5180,18 @@
             <name>ConfirmationPopUp</name>
             <extensionName>c:gol_ConfirmContactDetailsOnFinQuoteConfirmation</extensionName>
             <fieldType>ComponentInstance</fieldType>
+            <inputParameters>
+                <name>showModal</name>
+                <value>
+                    <elementReference>ShowConfirmationPopUp</elementReference>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>message</name>
+                <value>
+                    <elementReference>$Label.GOL_Successfully_Sent_To_Bank</elementReference>
+                </value>
+            </inputParameters>
             <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
@@ -4143,7 +5213,7 @@
     <screens>
         <name>Finance_Product_Selection_Screen</name>
         <label>Finance Product Selection Screen</label>
-        <locationX>3042</locationX>
+        <locationX>3702</locationX>
         <locationY>1814</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
@@ -4193,36 +5263,16 @@
         </fields>
         <fields>
             <name>ParentSliderComponent</name>
+            <dataTypeMappings>
+                <typeName>T</typeName>
+                <typeValue>ERPT_FinanceItem__c</typeValue>
+            </dataTypeMappings>
             <extensionName>c:gol_parentSliderComponent</extensionName>
             <fieldType>ComponentInstance</fieldType>
             <inputParameters>
-                <name>response</name>
+                <name>channel</name>
                 <value>
-                    <elementReference>getProductSuccessResponse</elementReference>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>quoteExternalId</name>
-                <value>
-                    <elementReference>Get_Quote_Record.EPRT_QUO_External_ID__c</elementReference>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>ContactId</name>
-                <value>
-                    <elementReference>contactIdForLWC</elementReference>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>ContactId2</name>
-                <value>
-                    <elementReference>contactId2ForLWC</elementReference>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>vehicleQli</name>
-                <value>
-                    <elementReference>GET_Vehicle_QLI_Record</elementReference>
+                    <elementReference>channel</elementReference>
                 </value>
             </inputParameters>
             <inputParameters>
@@ -4232,21 +5282,15 @@
                 </value>
             </inputParameters>
             <inputParameters>
-                <name>channel</name>
+                <name>quoteExternalId</name>
                 <value>
-                    <elementReference>channel</elementReference>
+                    <elementReference>Get_Quote_Record.EPRT_QUO_External_ID__c</elementReference>
                 </value>
             </inputParameters>
             <inputParameters>
-                <name>typeOfUse</name>
+                <name>response</name>
                 <value>
-                    <elementReference>companyNameCheckFormulaValue</elementReference>
-                </value>
-            </inputParameters>
-            <inputParameters>
-                <name>financeInformation</name>
-                <value>
-                    <elementReference>Get_Saved_Finance_Information_Record</elementReference>
+                    <elementReference>getProductSuccessResponse</elementReference>
                 </value>
             </inputParameters>
             <inputParameters>
@@ -4256,9 +5300,39 @@
                 </value>
             </inputParameters>
             <inputParameters>
+                <name>financeInformation</name>
+                <value>
+                    <elementReference>Get_Saved_Finance_Information_Record</elementReference>
+                </value>
+            </inputParameters>
+            <inputParameters>
                 <name>serializedData</name>
                 <value>
                     <elementReference>retnResponse</elementReference>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>typeOfUse</name>
+                <value>
+                    <elementReference>companyNameCheckFormulaValue</elementReference>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>vehicleQli</name>
+                <value>
+                    <elementReference>GET_Vehicle_QLI_Record</elementReference>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>financeitem</name>
+                <value>
+                    <elementReference>Get_Saved_Finance_Item_Record</elementReference>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>UserDetails</name>
+                <value>
+                    <elementReference>Get_Logged_User</elementReference>
                 </value>
             </inputParameters>
             <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
@@ -4311,6 +5385,21 @@
                 </conditions>
             </visibilityRule>
         </fields>
+        <fields>
+            <name>Legal_Disclaimer</name>
+            <fieldText>&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;{!$Label.GOL_FS_Legal_Disclaimer}&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+            <visibilityRule>
+                <conditionLogic>and</conditionLogic>
+                <conditions>
+                    <leftValueReference>Get_Logged_User.LMS_USR_SalesCountryCode__c</leftValueReference>
+                    <operator>EqualTo</operator>
+                    <rightValue>
+                        <stringValue>BE,NL</stringValue>
+                    </rightValue>
+                </conditions>
+            </visibilityRule>
+        </fields>
         <nextOrFinishButtonLabel>Go to Overview</nextOrFinishButtonLabel>
         <showFooter>false</showFooter>
         <showHeader>false</showHeader>
@@ -4318,7 +5407,7 @@
     <screens>
         <name>Foundation_Quote_View_Screen</name>
         <label>Foundation Quote View Screen</label>
-        <locationX>2910</locationX>
+        <locationX>3570</locationX>
         <locationY>2978</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
@@ -4363,14 +5452,29 @@
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
         </fields>
+        <fields>
+            <name>Legal_Disclaimer_Foundation_Quote</name>
+            <fieldText>&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(68, 68, 68);&quot;&gt;{!$Label.GOL_FS_Legal_Disclaimer}&lt;/span&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+            <visibilityRule>
+                <conditionLogic>and</conditionLogic>
+                <conditions>
+                    <leftValueReference>Get_Logged_User.LMS_USR_SalesCountryCode__c</leftValueReference>
+                    <operator>EqualTo</operator>
+                    <rightValue>
+                        <stringValue>BE,NL</stringValue>
+                    </rightValue>
+                </conditions>
+            </visibilityRule>
+        </fields>
         <showFooter>false</showFooter>
         <showHeader>false</showHeader>
     </screens>
     <screens>
         <name>Overview_Screen</name>
         <label>Overview Screen</label>
-        <locationX>2382</locationX>
-        <locationY>4112</locationY>
+        <locationX>3042</locationX>
+        <locationY>4220</locationY>
         <allowBack>false</allowBack>
         <allowFinish>true</allowFinish>
         <allowPause>false</allowPause>
@@ -4381,6 +5485,43 @@
             <name>goToOverview</name>
             <fieldText>&lt;p&gt;{!ConfigVehicleName}&lt;/p&gt;&lt;p&gt;{!ConfigVehicleEngineAndPrice}&lt;/p&gt;</fieldText>
             <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>Overview_Screen_Section1</name>
+            <fieldType>RegionContainer</fieldType>
+            <fields>
+                <name>Overview_Screen_Section1_Column1</name>
+                <fieldType>Region</fieldType>
+                <fields>
+                    <name>SaveToastMessage</name>
+                    <extensionName>c:gol_ShowToastInScreenFlows</extensionName>
+                    <fieldType>ComponentInstance</fieldType>
+                    <inputParameters>
+                        <name>title</name>
+                        <value>
+                            <elementReference>SuccessTitle</elementReference>
+                        </value>
+                    </inputParameters>
+                    <inputParameters>
+                        <name>isErrorMessage</name>
+                        <value>
+                            <elementReference>IsErrorForToast</elementReference>
+                        </value>
+                    </inputParameters>
+                    <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+                    <isRequired>true</isRequired>
+                    <storeOutputAutomatically>true</storeOutputAutomatically>
+                </fields>
+                <inputParameters>
+                    <name>width</name>
+                    <value>
+                        <stringValue>12</stringValue>
+                    </value>
+                </inputParameters>
+                <isRequired>false</isRequired>
+            </fields>
+            <isRequired>false</isRequired>
+            <regionContainerType>SectionWithoutHeader</regionContainerType>
         </fields>
         <fields>
             <name>GOL_QuoteOverviewTable</name>
@@ -4396,16 +5537,49 @@
                     <elementReference>Get_Fin_Info_Records_For_Overview</elementReference>
                 </value>
             </inputParameters>
+            <inputParameters>
+                <name>FSArvalURL</name>
+                <value>
+                    <elementReference>Get_Smart_2_0_Configurations.GOL_FS_Arval_POS_Prod_URL__c</elementReference>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>quoteId</name>
+                <value>
+                    <elementReference>quoteId</elementReference>
+                </value>
+            </inputParameters>
+            <inputParameters>
+                <name>FSPosRetailURL</name>
+                <value>
+                    <elementReference>Get_Smart_2_0_Configurations.GOL_FS_PF_POS_Prod_URL__c</elementReference>
+                </value>
+            </inputParameters>
             <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
             <isRequired>true</isRequired>
             <storeOutputAutomatically>true</storeOutputAutomatically>
+        </fields>
+        <fields>
+            <name>Legal_Disclaimer_02</name>
+            <fieldText>&lt;p&gt;&lt;br&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); color: rgb(68, 68, 68);&quot;&gt;{!$Label.GOL_FS_Legal_Disclaimer}&lt;/span&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+            <visibilityRule>
+                <conditionLogic>and</conditionLogic>
+                <conditions>
+                    <leftValueReference>Get_Logged_User.LMS_USR_SalesCountryCode__c</leftValueReference>
+                    <operator>EqualTo</operator>
+                    <rightValue>
+                        <stringValue>BE,NL</stringValue>
+                    </rightValue>
+                </conditions>
+            </visibilityRule>
         </fields>
         <nextOrFinishButtonLabel>NEW CALCULATION</nextOrFinishButtonLabel>
         <showFooter>false</showFooter>
         <showHeader>false</showHeader>
     </screens>
     <start>
-        <locationX>2256</locationX>
+        <locationX>2916</locationX>
         <locationY>0</locationY>
         <connector>
             <targetReference>Get_Logged_User</targetReference>
@@ -4413,66 +5587,9 @@
     </start>
     <status>Active</status>
     <subflows>
-        <name>Insert_Exception</name>
-        <label>Insert Exception</label>
-        <locationX>3174</locationX>
-        <locationY>1622</locationY>
-        <connector>
-            <targetReference>Finance_Product_Selection_Screen</targetReference>
-        </connector>
-        <flowName>ERPT_Insert_Exception_Log</flowName>
-        <inputAssignments>
-            <name>exMessage</name>
-            <value>
-                <elementReference>Finance_Get_Product_All_Data.defaultExc</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <name>exStackTrace</name>
-            <value>
-                <elementReference>$Flow.InterviewStartTime</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <name>exType</name>
-            <value>
-                <elementReference>FlowName</elementReference>
-            </value>
-        </inputAssignments>
-    </subflows>
-    <subflows>
-        <name>Insert_Exception_for_Fault_Path</name>
-        <label>Insert Exception for Fault Path</label>
-        <locationX>4362</locationX>
-        <locationY>1514</locationY>
-        <connector>
-            <isGoTo>true</isGoTo>
-            <targetReference>Finance_Product_Selection_Screen</targetReference>
-        </connector>
-        <flowName>ERPT_Insert_Exception_Log</flowName>
-        <inputAssignments>
-            <name>exMessage</name>
-            <value>
-                <stringValue>Get Product API Call Failed.</stringValue>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <name>exStackTrace</name>
-            <value>
-                <elementReference>$Flow.FaultMessage</elementReference>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <name>exType</name>
-            <value>
-                <elementReference>FlowName</elementReference>
-            </value>
-        </inputAssignments>
-    </subflows>
-    <subflows>
         <name>Insert_Exception_for_missing_payload</name>
         <label>Insert Exception for missing payload</label>
-        <locationX>3922</locationX>
+        <locationX>4582</locationX>
         <locationY>2354</locationY>
         <connector>
             <isGoTo>true</isGoTo>
@@ -4509,12 +5626,6 @@
         <text>&lt;p style=&quot;font-family: AvenirNextRegular; font-size: 19px; letter-spacing:2px;
 width: 100%;height: 35px;top: 262px;left: 90px;font-weight: 700;
  margin-top: 36px;;&quot;&gt;{!VehicleName}   {!VehicleDescription}&lt;/p&gt;</text>
-    </textTemplates>
-    <textTemplates>
-        <description>Response from Muelsoft Get Product API Callout</description>
-        <name>responseFromApiCallout</name>
-        <isViewedAsPlainText>false</isViewedAsPlainText>
-        <text>&lt;p&gt;{!Finance_Get_Product_All_Data.200}&lt;/p&gt;</text>
     </textTemplates>
     <variables>
         <name>AlternativeFinanceInformationRecord</name>
@@ -4565,18 +5676,24 @@ width: 100%;height: 35px;top: 262px;left: 90px;font-weight: 700;
         </value>
     </variables>
     <variables>
-        <name>contactId2ForLWC</name>
+        <name>CompanyRegistrationNumberStored</name>
         <dataType>String</dataType>
         <isCollection>false</isCollection>
         <isInput>false</isInput>
         <isOutput>false</isOutput>
+        <value>
+            <stringValue></stringValue>
+        </value>
     </variables>
     <variables>
-        <name>contactIdForLWC</name>
+        <name>ContactIdStored</name>
         <dataType>String</dataType>
         <isCollection>false</isCollection>
         <isInput>false</isInput>
         <isOutput>false</isOutput>
+        <value>
+            <stringValue></stringValue>
+        </value>
     </variables>
     <variables>
         <name>ContactSaveErrorMessage</name>
@@ -4707,6 +5824,26 @@ width: 100%;height: 35px;top: 262px;left: 90px;font-weight: 700;
     </variables>
     <variables>
         <name>isAlternativeQuoteCalculation</name>
+        <dataType>Boolean</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <value>
+            <booleanValue>false</booleanValue>
+        </value>
+    </variables>
+    <variables>
+        <name>IsErrorForToast</name>
+        <dataType>Boolean</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <value>
+            <booleanValue>false</booleanValue>
+        </value>
+    </variables>
+    <variables>
+        <name>IsInvalidEmail</name>
         <dataType>Boolean</dataType>
         <isCollection>false</isCollection>
         <isInput>false</isInput>
@@ -4875,6 +6012,13 @@ width: 100%;height: 35px;top: 262px;left: 90px;font-weight: 700;
         <value>
             <stringValue></stringValue>
         </value>
+    </variables>
+    <variables>
+        <name>SuccessTitle</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
     </variables>
     <variables>
         <name>VehicleDescription</name>

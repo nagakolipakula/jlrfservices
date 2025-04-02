@@ -1,0 +1,53 @@
+.checkboxItem {
+    min-width: 185px !important;
+    padding-left: 4px !important;
+    padding-right: 4px !important;
+}
+
+.searchButton {
+    height: 42px !important;
+    max-width: 80px !important;
+}
+
+.addButtonContainer {
+    width: 100%;
+    margin-bottom: 2vh;
+}
+
+.saveButton {
+    max-width: 80px !important;
+}
+
+.saveButtonWrapper {
+    padding-top: 2vh;
+    text-align: center;
+}
+
+.datatableContainer {
+    width: 100%;
+    margin-right: 0;
+}
+
+.datatableComponent {
+    width: 90%;
+}
+
+.spinnerHolder{
+    display: none;
+}
+
+.reasonLayoutWidth {
+    display: inline-block;
+    width: 438px;
+}
+
+.buttonLayout {
+    display: inline-block;
+    margin-left: 220px;
+    width: 200px;
+}
+
+
+.slds-p-around_small {
+    display: inline-table;
+}

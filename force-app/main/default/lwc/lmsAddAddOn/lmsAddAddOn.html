@@ -1,0 +1,312 @@
+<template>
+    <lightning-card>
+        <lightning-layout if:true={isVMEPromotionRT}>
+            <lightning-layout-item padding="around-small" alignment-bump="right" size="12" small-device-size="12" medium-device-size="12" large-device-size="12">
+                <p class="slds-text-heading_small">{label.LMS_VMEPromotions}</p>
+            </lightning-layout-item>
+        </lightning-layout>
+        <lightning-layout if:true={isPromotionRT}>
+            <lightning-layout-item padding="around-small" alignment-bump="right" size="12" small-device-size="12" medium-device-size="12" large-device-size="12">
+                <p class="slds-text-heading_small">{label.LMS_RetailerPromotions}</p>
+            </lightning-layout-item>
+        </lightning-layout>
+        <lightning-layout if:true={errorMsg}>
+            <lightning-layout-item padding="around-small" alignment-bump="right" size="12" small-device-size="12" medium-device-size="12" large-device-size="12">
+                <p style="color: red;">{errorMsg}</p>
+            </lightning-layout-item>
+        </lightning-layout>
+        <lightning-layout if:true={shouldShowRow} multiple-rows="false" vertical-align="end">
+        <template if:true={gsRest}><!--//GOL-1769-->
+            <lightning-layout-item padding="around-small" alignment-bump="right"></lightning-layout-item>
+        </template>
+            <lightning-layout-item padding="around-small">
+                <lightning-button
+                    if:true={isVisibleShowLaunchAccessoriesAppButton}
+                    label={label.LMS_QUO_LaunchAccessoriesApp}
+                    variant="neutral"
+                    onclick={launchAccessoriesApp}>
+                </lightning-button>
+            </lightning-layout-item>
+            <lightning-layout-item padding="around-small">
+                <lightning-button
+                    if:true={isVisibleShowImportAccessoriesButton}
+                    label={label.LMS_QUO_ImportAccessories}
+                    variant="neutral"
+                    onclick={importAccessories}>
+                </lightning-button>
+            </lightning-layout-item>
+        </lightning-layout>
+        <c-lms-import-accessories-popup
+            if:true={showImportAccessoriesPopup}
+            record-id={recordId}
+            oncloseaccessories={closeAccessories}
+            onsuccess={refreshAccessories}>
+        </c-lms-import-accessories-popup>
+        <template if:false={gsRest}><!--//GOL-1769-->
+        <lightning-layout multiple-rows="true" vertical-align="end">
+            <template if:true={isAccessoryOrAddOnRT}>
+                <lightning-layout-item size="12" small-device-size="10" medium-device-size="4" large-device-size="2" padding="around-small">
+                    <div class="slds-form-element">
+                        <div class="slds-form-element__control">
+                            <template if:true={controllingValues}>
+                                <lightning-combobox name="category"
+                                                    label={label.LMS_Category}
+                                                    value={selectedCategory}
+                                                    placeholder={label.LMS_NonePicklistValue}
+                                                    options={controllingValues}
+                                                    onchange={handleCategoryChange}>
+                                </lightning-combobox>
+                            </template>
+                        </div>
+                    </div>
+                </lightning-layout-item>
+                <lightning-layout-item size="12" small-device-size="10" medium-device-size="4" large-device-size="2" padding="around-small">
+                    <div class="slds-form-element">
+                        <div class="slds-form-element__control">
+                            <template if:true={dependentValues}>
+                                <lightning-combobox name="subcategory"
+                                                    label={label.LMS_SubCategory}
+                                                    value={selectedSubcategory}
+                                                    placeholder={label.LMS_NonePicklistValue}
+                                                    options={dependentValues}
+                                                    onchange={handleSubcategoryChange}
+                                                    disabled={isEmpty}>
+                                </lightning-combobox>
+                            </template>
+                        </div>
+                    </div>
+                </lightning-layout-item>
+                <lightning-layout-item size="12" small-device-size="10" medium-device-size="4" large-device-size="1" padding="around-small" class="checkboxItem">
+                    <div class="slds-form-element">
+                        <div class="slds-form-element__control">
+                            <lightning-input type="checkbox"
+                                             class="checkboxItem"
+                                             value={isClearanceOnly}
+                                             onchange={handleChangeClearance}
+                                             label={label.LMS_ClearanceOnly}>
+                            </lightning-input>
+                        </div>
+                    </div>
+                </lightning-layout-item>
+                <lightning-layout-item size="12" small-device-size="10" medium-device-size="2" large-device-size="1" padding="around-small" class="checkboxItem">
+                    <div class="slds-form-element">
+                        <div class="slds-form-element__control">
+                            <lightning-input type="checkbox"
+                                             class="checkboxItem"
+                                             value={isRetailerOnly}
+                                             onchange={handleChangeRetailerOnly}
+                                             label={label.LMS_RetailerOnly}>
+                            </lightning-input>
+                        </div>
+                    </div>
+                </lightning-layout-item>
+                <lightning-layout-item size="12" small-device-size="10" medium-device-size="2" large-device-size="2" padding="around-small" class="checkboxItem">
+                    <div class="slds-form-element">
+                        <div class="slds-form-element__control">
+                            <lightning-input type="checkbox"
+                                             value={isAccessoryPackOnly}
+                                             onchange={handleChangeAccessoryPackOnly}
+                                             label={label.LMS_AccessoryPacksOnly}>
+                            </lightning-input>
+                        </div>
+                    </div>
+                </lightning-layout-item>
+                <lightning-layout-item size="12" small-device-size="10" medium-device-size="4" large-device-size="2" padding="around-small" class="search-phrase-item">
+                    <div class="slds-form-element">
+                        <div class="slds-form-element__control">
+                            <lightning-input type="text"
+                                             label={label.LMS_SearchBy}
+                                             onchange={handleSearchBy}>
+                            </lightning-input>
+                        </div>
+                    </div>
+                </lightning-layout-item>
+                <lightning-layout-item size="12" small-device-size="2" medium-device-size="2" large-device-size="1" padding="around-small">
+                    <lightning-button label={label.LMS_SearchLabel}
+                                      variant="brand"
+                                      class="searchButton"
+                                      onclick={handleSearchButton}>
+                    </lightning-button>
+                </lightning-layout-item>
+            </template>
+            <template if:false={isFeature}>
+                <template if:true={isAccessoryRT}>
+                    <lightning-layout-item size="12" small-device-size="10" medium-device-size="4" large-device-size="2" padding="around-small">
+                        <div class="slds-form-element accessoryClass reasonLayoutWidth" id="accessoryElement">
+                            <div class="slds-form-element__control">
+                                <template if:true={controllingValuesReasonAccessory}>
+                                    <lightning-combobox name="Accessory"
+                                                        label={label.LMS_Accessory_NotRequiredReason}
+                                                        value={selectedReasonAccessory}
+                                                        placeholder={label.LMS_ChooseReason}
+                                                        options={controllingValuesReasonAccessory}
+                                                        onchange={handleReasonChangeAccessory}
+                                                        disabled={isThereAnAccessory}>
+                                    </lightning-combobox>
+                                </template>
+                            </div>
+                        </div>
+                    </lightning-layout-item>
+                </template>
+                <template if:true={isAddOnRT}>
+                    <lightning-layout-item size="12" small-device-size="10" medium-device-size="4" large-device-size="2" padding="around-small">
+                        <div class="slds-form-element reasonLayoutWidth">
+                            <div class="slds-form-element__control">
+                                <template if:true={controllingValuesReasonAddOn}>
+                                    <lightning-combobox name="AddOn"
+                                                        label={label.LMS_AddAddOns_NotRequiredReason}
+                                                        value={selectedReasonAddOn}
+                                                        placeholder={label.LMS_ChooseReason}
+                                                        options={controllingValuesReasonAddOn}
+                                                        onchange={handleReasonChangeAddOn}
+                                                        disabled={isThereAnAddOn}>
+                                    </lightning-combobox>
+                                </template>
+                            </div>
+                        </div>
+                    </lightning-layout-item>
+                </template>
+            </template>
+            <template if:true={isPromotionRT}>
+                <lightning-layout-item size="12" small-device-size="10" medium-device-size="4" large-device-size="1" padding="around-small" class="checkboxItem">
+                    <div class="slds-form-element">
+                        <div class="slds-form-element__control">
+                            <lightning-input type="checkbox"
+                                             class="checkboxItem"
+                                             value={isClearanceOnly}
+                                             onchange={handleChangeClearance}
+                                             label={label.LMS_ClearanceOnly}>
+                            </lightning-input>
+                        </div>
+                    </div>
+                </lightning-layout-item>
+                <lightning-layout-item size="12" small-device-size="10" medium-device-size="2" large-device-size="1" padding="around-small" class="checkboxItem">
+                    <div class="slds-form-element">
+                        <div class="slds-form-element__control">
+                            <lightning-input type="checkbox"
+                                             class="checkboxItem"
+                                             value={isRetailerOnly}
+                                             onchange={handleChangeRetailerOnly}
+                                             label={label.LMS_RetailerOnly}>
+                            </lightning-input>
+                        </div>
+                    </div>
+                </lightning-layout-item>
+                <lightning-layout-item size="12" small-device-size="10" medium-device-size="2" large-device-size="2" padding="around-small" class="checkboxItem">
+                    <div class="slds-form-element">
+                        <div class="slds-form-element__control">
+                            <lightning-input type="checkbox"
+                                             value={isAccessoryPackOnly}
+                                             onchange={handleChangeAccessoryPackOnly}
+                                             label={label.LMS_AccessoryPacksOnly}>
+                            </lightning-input>
+                        </div>
+                    </div>
+                </lightning-layout-item>
+                <lightning-layout-item size="12" small-device-size="10" medium-device-size="4" large-device-size="2" padding="around-small" class="search-phrase-item">
+                    <div class="slds-form-element">
+                        <div class="slds-form-element__control">
+                            <lightning-input type="text"
+                                             label={label.LMS_SearchBy}
+                                             onchange={handleSearchBy}>
+                            </lightning-input>
+                        </div>
+                    </div>
+                </lightning-layout-item>
+                <lightning-layout-item size="12" small-device-size="2" medium-device-size="2" large-device-size="1" padding="around-small">
+                    <lightning-button label={label.LMS_SearchLabel}
+                                      variant="brand"
+                                      class="searchButton"
+                                      onclick={handleSearchButton}>
+                    </lightning-button>
+                </lightning-layout-item>
+            </template>
+            </lightning-layout>
+            </template><br/>
+            <template if:true={isVMEPromotionRT}>
+                <lightning-layout vertical-align="end">
+                    <lightning-layout-item size="12" small-device-size="10" medium-device-size="4" large-device-size="2" padding="around-small">
+                        <div class="slds-form-element">
+                            <div class="slds-form-element__control">
+                                <template if:true={channelOptions}>
+                                    <lightning-combobox name="globalSalesChannnel"
+                                                    label={label.LMS_GlobalSalesChannel}
+                                                    value={selectedChannel}
+                                                    options={channelOptions}
+                                                    onchange={handleChannelChange}>
+                                </lightning-combobox>
+                                </template>
+                            </div>
+                        </div>
+                    </lightning-layout-item>
+                    <lightning-layout-item size="12" small-device-size="10" medium-device-size="4" large-device-size="2" padding="around-small">
+                        <div class="slds-form-element">
+                            <div class="slds-form-element__control">
+                                <template if:true={commonTypeOptions}>
+                                    <lightning-combobox name="commonTypeOfSale"
+                                                        label={label.LMS_CommonTypeOfSale}
+                                                        value={selectedCommonType}
+                                                        options={commonTypeOptions}
+                                                        onchange={handleCommonTypeChange}
+                                                        disabled={isChannelEmpty}>
+                                    </lightning-combobox>
+                                </template>
+                            </div>
+                        </div>
+                    </lightning-layout-item>
+                    <lightning-layout-item size="12" small-device-size="2" medium-device-size="2" large-device-size="2" padding="around-small">
+                        <lightning-button label={label.LMS_SearchLabel}
+                                        variant="brand"
+                                        class="searchButton"
+                                        onclick={handleSearchButton}>
+                        </lightning-button>
+                        <div class="slds-form-element__help"></div>
+                    </lightning-layout-item>
+                </lightning-layout>
+                <lightning-layout>
+                    <lightning-layout-item size="12" small-device-size="4" medium-device-size="4" large-device-size="2" padding="around-small">
+                        <c-lms-view-v-m-e-documents
+                            buttondisplayed="true">
+                        </c-lms-view-v-m-e-documents>
+                    </lightning-layout-item>
+                </lightning-layout>
+            </template>
+        <template if:false={gsRest}><!--//GOL-1769--><br/>
+        <div if:true={searchData} class="datatableContainer">
+            <div style={isSmart2CSSClass}>
+                <lightning-datatable data={searchData} 
+                                    columns={columns} 
+                                    draft-values={draftValues} 
+                                    key-field="Id" 
+                                    enable-infinite-loading 
+                                    onloadmore={handleSearch} 
+                                    is-loading={tableLoadingState} 
+                                    class="datatableComponent" 
+                                    onsave={handleAddToQuote} 
+                                    onrowaction={handleRowAction} 
+                                    onrowselection={handleRowSelection}
+                                    disable-checkbox-column={disabledRows}
+                                    selected-rows={selectedRows}></lightning-datatable>
+            </div>
+            <div class="saveButtonWrapper">
+                <lightning-button label={label.LMS_Save}
+                                  variant="brand"
+                                  class="saveButton"
+                                  onclick={handleAddToQuote}>
+                </lightning-button>
+            </div>
+            <template lwc:if={isModalOpen}>
+                <c-lms-warning-message is-modal-open={isModalOpen}
+								       rec-id={recordId} 
+                                       selected-rows={selectedValues}
+                                       record-type={recordType}
+                                       gs-reset={gsRESET}
+                                       onclosemodal={onCloseModal}></c-lms-warning-message>
+            </template>
+        </div>
+        </template>
+    </lightning-card>
+    <div if:true={loadMoreStatus}>
+        <lightning-spinner alternative-text="Loading" size="large"></lightning-spinner>
+    </div>
+</template>

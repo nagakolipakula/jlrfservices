@@ -45,7 +45,7 @@ public with sharing class GOL_SendFinInfoToBank {
             } 
         } else {
             String errorMessage = response != null ? response.getStatus() : 'No response received';
-            insertExceptionLog(financeInfoId, 'Callout failed', errorMessage);
+            insertExceptionLog(financeInfoId, 'ContextShareAPI Callout failed', errorMessage);
         }
     }
 

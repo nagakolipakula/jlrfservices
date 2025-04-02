@@ -2,8 +2,6 @@ import { LightningElement, api } from 'lwc';
 import { FlowAttributeChangeEvent, FlowNavigationNextEvent, FlowNavigationBackEvent, FlowNavigationFinishEvent } from 'lightning/flowSupport';
 import LOCALE from '@salesforce/i18n/locale';
 import GOL_FS_Month_Label from '@salesforce/label/c.GOL_FS_Month_Label';
-import GOL_FS_View_Quote_Error from '@salesforce/label/c.GOL_FS_View_Quote_Error';
-
 // import getFieldMappings from '@salesforce/apex/GOL_FS_ViewQuoteFieldMappingController.getFieldMappings';
 
 export default class golFinanceDetails extends LightningElement {
@@ -26,10 +24,6 @@ export default class golFinanceDetails extends LightningElement {
         annualMileage: 'km',
         duration: 'months'
     };
-
-    label = {
-        GOL_FS_View_Quote_Error
-    }
 
     connectedCallback(){
         // if(this.financeRecord && this.financeRecord.ERPT_FIN_LegalText__c){

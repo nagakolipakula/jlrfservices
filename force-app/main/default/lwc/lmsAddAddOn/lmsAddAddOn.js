@@ -101,7 +101,7 @@ export default class LMS_AddAddOn extends NavigationMixin(LightningElement) {
     @api isThereAnAddOn;
     @api salesCountryCode;
     @api sObjectType;
-    @api gsFsIntegration;
+    @api gsFsIntegration = false;
     @track quoteRecordType;
     @track isTaxExempt = false;
     @track selectedReasonAddOn;
@@ -1091,9 +1091,9 @@ export default class LMS_AddAddOn extends NavigationMixin(LightningElement) {
                 if (this.gsFsIntegration === true) {
                     refreshApex(this.wiredPromotions);
                 } else if (this.gsRESET === true) {
-                    window.location.reload();
+                    //window.location.reload();
                 } else {
-                    this.navigateToViewRecordPage(this.recordId);
+                    //this.navigateToViewRecordPage(this.recordId);
                 }
                 
             }).catch(error => {
@@ -1121,9 +1121,9 @@ export default class LMS_AddAddOn extends NavigationMixin(LightningElement) {
                 if (this.gsFsIntegration === true) {
                     refreshApex(this.wiredPromotions);
                 } else if (this.gsRESET === true) {
-                    window.location.reload();
+                    //window.location.reload();
                 } else {
-                    this.navigateToViewRecordPage(this.recordId);
+                    //this.navigateToViewRecordPage(this.recordId);
                 }
                 
             }).catch(error => {
@@ -1206,7 +1206,7 @@ export default class LMS_AddAddOn extends NavigationMixin(LightningElement) {
                 let temp = this.customSettings[ACCESSORIES_APP].LMS_CST_EndpointAddress__c;
                 temp = temp.replace(DEALER_CODE, dealer_code_temp);
                 temp = temp.replace(MODEL_CODE, model_code_temp);
-                window.open(temp, '_blank', 'location=yes,scrollbars=yes,status=yes');
+                //window.open(temp, '_blank', 'location=yes,scrollbars=yes,status=yes');
             }
         }
     }

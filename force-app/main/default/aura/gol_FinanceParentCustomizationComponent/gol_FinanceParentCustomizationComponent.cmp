@@ -12,6 +12,7 @@
 <aura:attribute name="retailerdiscountAmount" type="Decimal" default="0"/>
 <aura:attribute name="retailerdiscountNetAmount2" type="Decimal" default= "0" />
 <aura:attribute name="retailerdiscountamountInclVal" type="Decimal" default= "0" />
+<aura:attribute name="gsFsIntegration" type="Boolean" default="false" />
     
     <div class="customizationscreencss">
     <!--<c:gol_FinanceCustomizationComponent 
@@ -55,7 +56,8 @@
                     <div class="golpromotioncss">
                         <c:gol_Promotion
                         quoteId ="{!v.quoteId}"
-                        isNotGolFinance ="false"/>
+                        isNotGolFinance ="false"
+                        gsFsIntegration="{!v.gsFsIntegration}"/>
                     </div>
                     </details>
                 </details>

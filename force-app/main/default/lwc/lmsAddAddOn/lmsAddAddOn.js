@@ -1,5 +1,6 @@
 import { LightningElement, api, track, wire } from 'lwc';
 import { getFieldValue, getRecord } from 'lightning/uiRecordApi';
+import { refreshApex } from '@salesforce/apex';
 
 import LMS_AccessoriesAppMissingDealerCode from '@salesforce/label/c.LMS_AccessoriesAppMissingDealerCode';
 import LMS_AccessoriesAppMissingModelCode from '@salesforce/label/c.LMS_AccessoriesAppMissingModelCode';
@@ -100,6 +101,7 @@ export default class LMS_AddAddOn extends NavigationMixin(LightningElement) {
     @api isThereAnAddOn;
     @api salesCountryCode;
     @api sObjectType;
+    @api gsFsIntegration;
     @track quoteRecordType;
     @track isTaxExempt = false;
     @track selectedReasonAddOn;
@@ -152,6 +154,9 @@ export default class LMS_AddAddOn extends NavigationMixin(LightningElement) {
     @track isSmart2CSSClass = '';
     @track intialSearchData;
     @api gsRESET=false;
+
+    @wire(getAllPromotions, { recordId: '$recordId', globalSalesChannel: '$selectedChannel', commonTypeOfSale: '$selectedCommonType' })
+    wiredPromotions;
 
     customSettings;
     isVisibleShowLaunchAccessoriesAppButton = false;
@@ -236,6 +241,7 @@ export default class LMS_AddAddOn extends NavigationMixin(LightningElement) {
     }
 
     connectedCallback() {
+        console.log('connected---->',this.gsFsIntegration);
         this.setRTAttribute();
         this.getRetailerId();
         if (this.isAccessoryRT) {
@@ -1079,11 +1085,17 @@ export default class LMS_AddAddOn extends NavigationMixin(LightningElement) {
     doSaveSupplements(selectedRows) {
         saveSupplements({quoteId: this.recordId, changedRecords: selectedRows, recType: this.recordType})
             .then(result => {
-                if(this.gsRESET){
-                    window.location.reload()
-                }else{
+                console.log('gsRESET:', this.gsRESET);
+                console.log('gsFsIntegration:', this.gsFsIntegration);
+
+                if (this.gsFsIntegration === true) {
+                    refreshApex(this.wiredPromotions);
+                } else if (this.gsRESET === true) {
+                    window.location.reload();
+                } else {
                     this.navigateToViewRecordPage(this.recordId);
-            }
+                }
+                
             }).catch(error => {
                 console.log(JSON.stringify(error));
                 if (error) {
@@ -1103,11 +1115,17 @@ export default class LMS_AddAddOn extends NavigationMixin(LightningElement) {
     doSaveSilentSalesmanFeatures(selectedRows) {
         saveSilentSalesmanFeatures({silentSalesmanId: this.recordId, changedRecords: selectedRows, recordTypeName: this.recordType})
             .then(result => {
-                 if(this.gsRESET){
-                    window.location.reload()
-                }else{
+                console.log('gsRESET:', this.gsRESET);
+                console.log('gsFsIntegration:', this.gsFsIntegration);
+
+                if (this.gsFsIntegration === true) {
+                    refreshApex(this.wiredPromotions);
+                } else if (this.gsRESET === true) {
+                    window.location.reload();
+                } else {
                     this.navigateToViewRecordPage(this.recordId);
-            }
+                }
+                
             }).catch(error => {
                 console.log(JSON.stringify(error));
                 if (error) {

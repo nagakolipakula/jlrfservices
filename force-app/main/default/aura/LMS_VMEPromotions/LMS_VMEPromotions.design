@@ -1,0 +1,4 @@
+<design:component>
+    <design:attribute name="SObjectType"/>
+    <design:attribute name="RecordType"/>
+</design:component>

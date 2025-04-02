@@ -6,5 +6,7 @@
 <design:attribute name="retailerdiscountpercent" label="Retailer Discount Percentage" />
 <design:attribute name="retailerdiscountAmount" label="Gross Amount Discount" />
 <design:attribute name="retailerdiscountNetAmount2" label="Net Amount Discount" /> 
-<design:attribute name="retailerdiscountamountInclVal" label="Adjusted Price" />    
+<design:attribute name="retailerdiscountamountInclVal" label="Adjusted Price" />
+<design:attribute name="gsFsIntegration" label="GS FS Integration" />
+
 </design:component>

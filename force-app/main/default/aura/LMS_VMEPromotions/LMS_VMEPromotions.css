@@ -1,0 +1,35 @@
+.THIS .slds-button_icon-bare {
+    display: none !important;
+}
+
+.THIS .slds-truncate {
+    white-space: normal;
+} 
+
+.THIS div > .slds-th__action > .slds-truncate, .THIS lightning-primitive-cell-wrapper > .slds-truncate {
+    text-overflow: inherit;
+    text-align: center;
+    white-space: normal;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.THIS th > lightning-primitive-header-factory > div {
+    background-color: rgb(51, 51, 51) !important;
+}
+
+.THIS th > lightning-primitive-header-factory > div > span {
+    background-color: rgb(51, 51, 51) !important;
+}
+
+.THIS thead > tr > th:nth-of-type(1) > lightning-primitive-header-factory {
+    width: 54px !important;
+    /*margin-left: -32px !important;*/
+}
+
+.THIS lightning-datatable > div > div > div > div > table > thead > tr > th:nth-of-type(1) > lightning-primitive-header-factory > div {
+    margin-left: 32px;
+    padding-right: 56px;
+}

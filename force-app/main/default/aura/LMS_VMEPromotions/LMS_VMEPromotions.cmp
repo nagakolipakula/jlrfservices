@@ -1,0 +1,20 @@
+<aura:component controller="LMS_QuoteCloneCtrl"   description="LMS_VMEPromotions" implements="force:lightningQuickAction,flexipage:availableForAllPageTypes,forceCommunity:availableForAllPageTypes,force:hasRecordId" access="global">
+    <aura:attribute name="RecordType" type="String" default="" description="Supplement Record Type API Name"/>
+    <aura:attribute name="SObjectType" type="String" default="LMS_Quote__c" description="Is quote by default, can be reused for other objects like Silent Salesman"/>
+    <aura:attribute name="isThereAnAddOn" type="Boolean" default="true" description="is there an AddOn added to the Quote"/>
+    <aura:attribute name="accessToVMECampaign" type="Boolean" default="false"/>
+    <aura:attribute name="isGSRESET" type="Boolean" default="false"/>
+    <aura:attribute name="quoteId" type="String" />
+    <aura:attribute name="gsFsIntegration" type="Boolean" default="false" />
+    <aura:handler name="init" value="{!this}" action="{!c.onInit}"/>
+    <aura:if isTrue="{!v.accessToVMECampaign}">
+        <c:lmsAddAddOn
+            aura:id="lwcAddAddOn"
+            recordId="{!v.recordId}"
+            recordType="{!v.RecordType}"
+            isThereAnAddOn="{!v.isThereAnAddOn}"
+            sObjectType="{!v.SObjectType}"
+            gsRESET="{!v.isGSRESET}"
+            gsFsIntegration="{!v.gsFsIntegration}" />
+    </aura:if>
+</aura:component>

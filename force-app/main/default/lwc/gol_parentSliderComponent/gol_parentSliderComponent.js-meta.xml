@@ -51,6 +51,7 @@
 			<property name="buttonActionForOverview" label="Button Action" type="String" role="outputOnly"/>
 			<propertyType name="T" extends="SObject" label="Finance Item Object API Name" description="Select the API Name of the Finance Item SObject"/>
             <property name="financeitem" label="Finance Item Record Collection" type="{T[]}" role="inputOnly" description="Finance Item Records"/>
+			<property name="FinRecsCheckForOverview" type="Boolean" label="For Overview Button" default="false" />
         </targetConfig>
     </targetConfigs>
 </LightningComponentBundle>

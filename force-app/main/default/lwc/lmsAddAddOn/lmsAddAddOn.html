@@ -272,38 +272,39 @@
                 </lightning-layout>
             </template>
         <template if:false={gsRest}><!--//GOL-1769--><br/>
-        <div if:true={searchData} class="datatableContainer">
-            <div style={isSmart2CSSClass}>
-                <lightning-datatable data={searchData} 
-                                    columns={columns} 
-                                    draft-values={draftValues} 
-                                    key-field="Id" 
-                                    enable-infinite-loading 
-                                    onloadmore={handleSearch} 
-                                    is-loading={tableLoadingState} 
-                                    class="datatableComponent" 
-                                    onsave={handleAddToQuote} 
-                                    onrowaction={handleRowAction} 
-                                    onrowselection={handleRowSelection}
-                                    disable-checkbox-column={disabledRows}
-                                    selected-rows={selectedRows}></lightning-datatable>
+            <div if:true={searchData} class="datatableContainer">
+                <div style={isSmart2CSSClass} class="datatableDivContainer slds-table_bordered">
+                    <lightning-datatable data={searchData} 
+                                        columns={columns} 
+                                        draft-values={draftValues} 
+                                        key-field="Id" 
+                                        enable-infinite-loading 
+                                        onloadmore={handleSearch} 
+                                        is-loading={tableLoadingState} 
+                                        class="datatableComponent" 
+                                        onsave={handleAddToQuote} 
+                                        onrowaction={handleRowAction} 
+                                        onrowselection={handleRowSelection}
+                                        disable-checkbox-column={disabledRows}
+                                        selected-rows={selectedRows}></lightning-datatable>
+                </div>
+                <div class="saveButtonWrapper">
+                    <lightning-button label={label.LMS_Save}
+                                    variant="brand"
+                                    class="saveButton"
+                                    onclick={handleAddToQuote}>
+                    </lightning-button>
+                </div>
+                <template lwc:if={isModalOpen}>
+                    <c-lms-warning-message is-modal-open={isModalOpen}
+                                        rec-id={recordId} 
+                                        selected-rows={selectedValues}
+                                        record-type={recordType}
+                                        gs-reset={gsRESET}
+                                        gs-fs-integration={gsFsIntegration}
+                                        onclosemodal={onCloseModal}></c-lms-warning-message>
+                </template>
             </div>
-            <div class="saveButtonWrapper">
-                <lightning-button label={label.LMS_Save}
-                                  variant="brand"
-                                  class="saveButton"
-                                  onclick={handleAddToQuote}>
-                </lightning-button>
-            </div>
-            <template lwc:if={isModalOpen}>
-                <c-lms-warning-message is-modal-open={isModalOpen}
-								       rec-id={recordId} 
-                                       selected-rows={selectedValues}
-                                       record-type={recordType}
-                                       gs-reset={gsRESET}
-                                       onclosemodal={onCloseModal}></c-lms-warning-message>
-            </template>
-        </div>
         </template>
     </lightning-card>
     <div if:true={loadMoreStatus}>

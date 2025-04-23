@@ -7,8 +7,6 @@ import GOL_Finance_Insurance_and_Services from '@salesforce/label/c.GOL_Finance_
 import GOL_Amount_incl_VAT from '@salesforce/label/c.GOL_Amount_incl_VAT';
 import { FlowAttributeChangeEvent, FlowNavigationNextEvent, FlowNavigationBackEvent, FlowNavigationFinishEvent } from 'lightning/flowSupport';
 import getInputFieldsMappingRecords from '@salesforce/apex/GOL_GetFinanceQuote.getInputFieldsMappingRecords';
-import GOL_Go_To_Overview from '@salesforce/label/c.GOL_Go_To_Overview';
-
 
 export default class gol_parentSliderComponent extends LightningElement {
   @api buttonActionForOverview;
@@ -50,12 +48,10 @@ export default class gol_parentSliderComponent extends LightningElement {
     GOL_Adjust_parameters,
     GOL_Calculate_Financing,
     GOL_Finance_Insurance_and_Services,
-    GOL_Amount_incl_VAT,
-    GOL_Go_To_Overview
+    GOL_Amount_incl_VAT
   }
   
   connectedCallback() {
-    console.log('Fin Info Records NK ==> '+this.FinRecsCheckForOverview);
     console.log('Logged in user details==>'+JSON.stringify(this.UserDetails,null,2));
      console.log('Finance Item==> '+JSON.stringify(this.financeitem,null,2));
     // console.log('First Finance Info Record:', this.ContactId);
@@ -99,16 +95,6 @@ export default class gol_parentSliderComponent extends LightningElement {
       console.error('Raw Response:', this.response);
       this.hasNoFinancialProducts = true;
     }
-  }
-
-  get isFinRecsCheckForOverview() {
-    if (this.FinRecsCheckForOverview === true || this.FinRecsCheckForOverview === 'true') {
-      return true;
-    }
-    if (this.FinRecsCheckForOverview === false || this.FinRecsCheckForOverview === 'false') {
-      return false;
-    }
-    return false;
   }
 
   // removeSetFlags(data) {
@@ -960,11 +946,4 @@ handleInsuranceProductChange(event){
   //   });
   //   console.log(inputFields);
   // }
-
-  handleGoToOverview(){
-    const action = new FlowAttributeChangeEvent('buttonActionForOverview', 'goToOverviewButtonClick');
-    this.dispatchEvent(action);
-    const nextEvent = new FlowNavigationNextEvent();
-    this.dispatchEvent(nextEvent);
-  }
 }

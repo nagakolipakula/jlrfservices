@@ -15,6 +15,7 @@ export default class LmsWarningMessage extends NavigationMixin(LightningElement)
     @api isModalOpen;
     @api selectedRows;
     @api gsReset;
+    @api gsFsIntegration; //added by MS
     @api recId;
     @api recordType;
 
@@ -73,6 +74,7 @@ export default class LmsWarningMessage extends NavigationMixin(LightningElement)
     }
 
     handleSave() {
+        console.log('MS lmsWarningMessage this.gsFsIntegration==> '+this.gsFsIntegration);
         this.loadSpinner = true;
         saveVMECampaignSpecifications({ quoteId: this.recId, changedRecords: this.selectedRows, recType: this.recordType, dateValue : this.newDateVal })
             .then(result => {
@@ -81,7 +83,13 @@ export default class LmsWarningMessage extends NavigationMixin(LightningElement)
                 console.log('Result :', JSON.stringify(result));
                 if(result == 'Ok'){
                     this.handleCloseModal();
-                    if(this.gsReset){
+                    if(!this.gsFsIntegration){ //Added by MS if part
+                        const passEvent = new CustomEvent('closemodal', {
+                            detail:{showModal : false, refreshDataTable: true} 
+                        });
+                        this.dispatchEvent(passEvent);
+                    }
+                    else if(this.gsReset){
                     window.location.reload();
                     }else{
                     this.navigateToViewRecordPage(this.recId);
@@ -116,9 +124,9 @@ export default class LmsWarningMessage extends NavigationMixin(LightningElement)
         });
     }
 
-    handleCloseModal() {
+    handleCloseModal() { //Added by MS refreshDataTable: false
         const passEvent = new CustomEvent('closemodal', {
-            detail:{showModal : false} 
+            detail:{showModal : false, refreshDataTable: false} 
         });
         this.dispatchEvent(passEvent);
     }

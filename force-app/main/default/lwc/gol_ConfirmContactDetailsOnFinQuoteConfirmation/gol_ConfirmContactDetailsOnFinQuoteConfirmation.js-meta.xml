@@ -9,6 +9,9 @@
         <targetConfig targets="lightning__FlowScreen">
             <property name="showModal" type="Boolean" label="Show modal"/>
 			<property name="message" type="String" label="Message"/>
+            <property name="financeInformationId" type="String" label="finance Information Id"/>
+            <property name="sysLink" type="String" label="Sys Link URL"/>
+             <property name="clickedButtonValue" type="String" label="Clicked button Value"/>
         </targetConfig> 
     </targetConfigs>
 </LightningComponentBundle>

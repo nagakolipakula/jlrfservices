@@ -1,31 +1,50 @@
 <template>
     <template if:true={showModal}>
-       
-        
+
+
         <section aria-modal="true" class="slds-modal slds-fade-in-open">
             <div class="slds-modal__container my-contaner">
                 <div class="slds-align_absolute-center" style="height:100px;">
                 </div>
                 <div class="slds-align_absolute-center">
-                    <lightning-icon icon-name="utility:success" alternative-text="Success image" title="Success" variant="inverse"  size="large"  class="confirmation-icon" ></lightning-icon>
+                    <lightning-icon icon-name={iconName} alternative-text="Success image" title="Success"
+                        variant="inverse" size="large" class="confirmation-icon"></lightning-icon>
                 </div>
                 <div class="slds-align_absolute-center">
-                        <div data-id="message-div" class="confirmation-text">{message}</div>
+                    <div data-id="message-div" class={messageColour}>{message}</div>
                 </div>
-            
-                <div class="slds-align_absolute-center slds-border_bottom" style="width:400px"> </div>    
-                    <template if:false={sendEmailTaxModel}>
-                        <div class="slds-align_absolute-center">
-                            <button onclick={handleContinueButtonClick} class="CtnBtnStyle slds-align_absolute-center slds-text-heading_small slds-box slds-box_small"  value={labels.GOL_Present_Quote_Continue_Button}>
-                                {labels.GOL_Present_Quote_Continue_Button}
-                            </button>
-                        </div>
-                    </template>
+
+                <div class="slds-align_absolute-center slds-border_bottom" style="width:400px"> </div>
+
+                <template if:false={sendEmailTaxModel}>
+                    <div class="slds-align_absolute-center">
+                        <button onclick={handleContinueButtonClick}
+                            class="CtnBtnStyle slds-align_absolute-center slds-text-heading_small slds-box slds-box_small"
+                            value={labels.GOL_Send_To_Bank_Button}>
+                            {labels.GOL_Send_To_Bank_Button}
+                        </button>
+                    </div>
+                </template>
+
+                <template if:true={isError}>
+                    <div class="slds-align_absolute-center">
+                        <button onclick={handleBackButtonClick} 
+                        class="BackBtnStyle" value={labels.GOL_Back}>
+                        {labels.GOL_Back}
+                    </button>
+                    </div>
+                </template>
+
+
+                <template if:true={isLoading}>
+                    <lightning-spinner alternative-text="Loading" size="medium"></lightning-spinner>
+                </template>
+
                 <div class="slds-align_absolute-center" style="height:100px;">
                 </div>
             </div>
-        </section> 
-        <div class="slds-backdrop slds-backdrop_open"></div> 
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
     </template>
-    
+
 </template>

@@ -81,6 +81,7 @@ import saveReasonOnQuoteAddOn from '@salesforce/apex/LMS_QOT_AddQliViewControlle
 import saveSilentSalesmanFeatures from '@salesforce/apex/LMS_QOT_AddQliViewController.saveSilentSalesmanFeatures';
 import saveSupplements from '@salesforce/apex/LMS_QOT_AddQliViewController.saveQLI';
 import searchSupplements from '@salesforce/apex/LMS_QOT_AddQliViewController.getSupplements';
+import getPromotionOnQuote from '@salesforce/apex/GOL_PromotionDataTableController.getPromotionOnQuote'; //Added by MS
 
 const ACCESSORIES_APP = 'Accessories_App';
 const ACCESSORIES_REST = 'Accessories_REST';
@@ -101,7 +102,6 @@ export default class LMS_AddAddOn extends NavigationMixin(LightningElement) {
     @api isThereAnAddOn;
     @api salesCountryCode;
     @api sObjectType;
-    @api gsFsIntegration = false;
     @track quoteRecordType;
     @track isTaxExempt = false;
     @track selectedReasonAddOn;
@@ -154,6 +154,7 @@ export default class LMS_AddAddOn extends NavigationMixin(LightningElement) {
     @track isSmart2CSSClass = '';
     @track intialSearchData;
     @api gsRESET=false;
+    @api gsFsIntegration;
 
     @wire(getAllPromotions, { recordId: '$recordId', globalSalesChannel: '$selectedChannel', commonTypeOfSale: '$selectedCommonType' })
     wiredPromotions;
@@ -225,6 +226,12 @@ export default class LMS_AddAddOn extends NavigationMixin(LightningElement) {
     };
 
     @wire(getShowroomDealerCode) showroom;
+    
+    //Added by MS wire method
+    @wire(getPromotionOnQuote, {
+        quoteId: "$recordId",
+    })
+    wireForRefreshPromotionDatatable;
 
     refreshAccessories(event) {
         this.isThereAnAccessory = true;
@@ -255,6 +262,18 @@ export default class LMS_AddAddOn extends NavigationMixin(LightningElement) {
         this.handleSearch();
         this.isSmart2CSSClass = window.location.href.includes('hybrid-main-screen') ? '' : 'height: 15rem';
     }
+
+    // renderedCallback() {
+    //     console.log(this.isRendered);
+    //     if (this.isRendered) {
+    //         return; 
+    //     }
+    //     this.isRendered = true;
+    
+    //     let style = document.createElement('style');
+    //     style.innerText = '.slds-th__action{background-color: #000000; color: #ffffff;}';
+    //     this.template.querySelector('lightning-datatable').appendChild(style);
+    // }
 
     setRTAttribute() {
         if (this.recordType == ACCESSORIES_RT) {
@@ -328,6 +347,7 @@ export default class LMS_AddAddOn extends NavigationMixin(LightningElement) {
     }
 
     setColumnsPerRT() {
+        console.log('MS Test this.recordType==>'+this.recordType); //added by MS
         if (this.recordType !== VMEPROMOTIONS_RT) {
             this.columns = [
                 {label: this.label.LMS_SupplementName, fieldName: 'Name', type: 'text', cellAttributes: {alignment: 'left'}}
@@ -1088,7 +1108,7 @@ export default class LMS_AddAddOn extends NavigationMixin(LightningElement) {
                 console.log('gsRESET:', this.gsRESET);
                 console.log('gsFsIntegration:', this.gsFsIntegration);
 
-                if (this.gsFsIntegration === true) {
+                if (this.gsFsIntegration === false) {
                     refreshApex(this.wiredPromotions);
                 } else if (this.gsRESET === true) {
                     window.location.reload();
@@ -1118,7 +1138,7 @@ export default class LMS_AddAddOn extends NavigationMixin(LightningElement) {
                 console.log('gsRESET:', this.gsRESET);
                 console.log('gsFsIntegration:', this.gsFsIntegration);
 
-                if (this.gsFsIntegration === true) {
+                if (this.gsFsIntegration === false) {
                     refreshApex(this.wiredPromotions);
                 } else if (this.gsRESET === true) {
                     window.location.reload();
@@ -1276,5 +1296,11 @@ export default class LMS_AddAddOn extends NavigationMixin(LightningElement) {
 
     onCloseModal(event){
         this.isModalOpen = event.detail.showModal;
+
+        //Added by MS Start
+        if(event.detail.refreshDataTable !== undefined && event.detail.refreshDataTable){
+            refreshApex(this.wireForRefreshPromotionDatatable); 
+        }
+        //Added by MS End
     }
 }

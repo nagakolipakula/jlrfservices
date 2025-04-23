@@ -1,7 +1,6 @@
 import { LightningElement, api, track, wire } from 'lwc';
 import LOCALE from "@salesforce/i18n/locale";
 import CURRENCY from "@salesforce/i18n/currency";
-// import { ShowToastEvent } from 'lightning/platformShowToastEvent';
 import { refreshApex } from '@salesforce/apex';
 import getFinanceInfoRecords from '@salesforce/apex/GOL_GetUpdatedFinanceQuote.getFinanceInfoRecords';
 import updateFinanceQuotes from '@salesforce/apex/GOL_GetUpdatedFinanceQuote.updateFinanceQuotes';
@@ -24,6 +23,10 @@ import GOL_FS_showMinSelectionToOpen from '@salesforce/label/c.GOL_FS_showMinSel
 import GOL_FS_showMaxSelectionToOpen from '@salesforce/label/c.GOL_FS_showMaxSelectionToOpen';
 import GOl_FS_showMinSendToBankError from '@salesforce/label/c.GOl_FS_showMinSendToBankError';
 import GOL_FS_showMaxSendToBankError from '@salesforce/label/c.GOL_FS_showMaxSendToBankError';
+import GOL_Link_To_Pf_Pos_Leasing from '@salesforce/label/c.GOL_Link_To_Pf_Pos_Leasing';
+// import GOL_Save_Button from '@salesforce/label/c.GOL_Save_Button';
+// import GOL_Save_Button_Clicked_Event from '@salesforce/label/c.GOL_Save_Button_Clicked_Event';
+
 
 
 import { FlowAttributeChangeEvent, FlowNavigationNextEvent, FlowNavigationBackEvent, FlowNavigationFinishEvent } from 'lightning/flowSupport';
@@ -39,6 +42,7 @@ export default class golQuotationOverview extends LightningElement {
     @api FSPosRetailURL;
     @api quoteId;
     @api dmlMessageCheck;
+    @api FSPosLeaseURL;
     showMinSelectionToOpen;
     showMaxSelectionToOpen;
     showMinUpdateError;
@@ -51,6 +55,8 @@ export default class golQuotationOverview extends LightningElement {
     @track sortOrder = 'desc';
     @track isLoading = false;
     @track wiredFinanceInfoResult;
+    @api showFSPosLeaseURL = false;
+    @track isSpecificCountryVisible = false;
     // @track internalFinanceRecords = [];
 
     label = {
@@ -71,7 +77,8 @@ export default class golQuotationOverview extends LightningElement {
         GOL_FS_showMinSelectionToOpen,
         GOL_FS_showMaxSelectionToOpen,
         GOl_FS_showMinSendToBankError,
-        GOL_FS_showMaxSendToBankError
+        GOL_FS_showMaxSendToBankError,
+        GOL_Link_To_Pf_Pos_Leasing
     };
 
     @wire(getFinanceInfoRecords, { quoteId: '$quoteId' })
@@ -81,14 +88,12 @@ export default class golQuotationOverview extends LightningElement {
 
         if (data) {
             this.FinanceInfoRecords = data;
-            // this.internalFinanceRecords = data;
-            // console.log('Wired data received:', data);
         } else if (error) {
             console.error('Wire error:', error);
         }
     }
-    
-    connectedCallback(){
+
+    connectedCallback() {
         setTimeout(() => {
             if (this.wiredFinanceInfoResult) {
                 refreshApex(this.wiredFinanceInfoResult)
@@ -109,7 +114,7 @@ export default class golQuotationOverview extends LightningElement {
     // getFinanceRecords(quoteId) {
     //     console.log('Fetching finance records for quoteId:', quoteId);
     //     this.isLoading = true;
-    
+
     //     getFinanceInfoRecords({ quoteId })
     //         .then((result) => {
     //             this.internalFinanceRecords = result;
@@ -217,7 +222,7 @@ export default class golQuotationOverview extends LightningElement {
         }
 
         this.selectedRecords = updatedSelection;
-        if (this.selectedRecords.length>= 99) {
+        if (this.selectedRecords.length >= 99) {
             this.showMaxSelectionError = false;
         }
     }
@@ -231,11 +236,11 @@ export default class golQuotationOverview extends LightningElement {
         const nextEvent = new FlowNavigationNextEvent();
         this.dispatchEvent(nextEvent);
     }
-    
+
     dispatchModifyQuoteId(id) {
         const action = new FlowAttributeChangeEvent('modifyFinanceQuoteIdFromOverview', id);
         this.dispatchEvent(action);
-    }    
+    }
 
     handleUpdateClick() {
         if (this.selectedRecords.length === 0) {
@@ -255,52 +260,52 @@ export default class golQuotationOverview extends LightningElement {
             }, 3000);
             return;
         }
-    
+
         const recordsWithCreatedStatus = this.formattedRecords.filter(
             record => this.selectedRecords.includes(record.Id) && record.LMS_FIN_Status__c === 'Created'
         );
-    
+
         if (recordsWithCreatedStatus.length === 0) {
             // this.showToast('Error', 'No selected records are in "CREATED" status.', 'error');
             this.dispatchFlowAttributeAndNext('dmlMessageCheck', 'NoRecordsInCreateStatus');
             return;
         }
-    
+
         const financeQuoteIds = recordsWithCreatedStatus.map(record => record.Id);
         const quoteId = recordsWithCreatedStatus[0].LMS_FIN_Quote__c;
         this.isLoading = true;
         console.log('Sending to Apex -> Quote ID:', quoteId);
         console.log('Sending to Apex -> Finance Quote IDs:', financeQuoteIds);
-    
-        updateFinanceQuotes({ quoteId: quoteId, financeQuoteIds: financeQuoteIds })
-        .then(() => {
-            return refreshApex(this.wiredFinanceInfoResult);
-        })
-        .then(() => {
-            console.log('Records refreshed after update');
-            this.selectedRecords = [];
 
-            const checkboxes = this.template.querySelectorAll('input[type="checkbox"]');
-            checkboxes.forEach(cb => cb.checked = false);
-            const dataTable = this.template.querySelector('lightning-datatable');
-            if (dataTable) {
-                dataTable.selectedRows = [];
-            }
-            // this.showToast('Success', 'Finance quotes updated successfully', 'success');
-            this.dispatchFlowAttributeAndNext('dmlMessageCheck', 'updatedSuccessfully');
-        })
-        .catch(error => {
-            console.error('Apex error during update:', error);
-            // this.showToast('Error', error.body?.message || 'An error occurred', 'error');
-            this.dispatchFlowAttributeAndNext('dmlMessageCheck', 'updateFailed');
-        })
-        .finally(() => {
-            this.isLoading = false;
-        });
+        updateFinanceQuotes({ quoteId: quoteId, financeQuoteIds: financeQuoteIds })
+            .then(() => {
+                return refreshApex(this.wiredFinanceInfoResult);
+            })
+            .then(() => {
+                console.log('Records refreshed after update');
+                this.selectedRecords = [];
+
+                const checkboxes = this.template.querySelectorAll('input[type="checkbox"]');
+                checkboxes.forEach(cb => cb.checked = false);
+                const dataTable = this.template.querySelector('lightning-datatable');
+                if (dataTable) {
+                    dataTable.selectedRows = [];
+                }
+                // this.showToast('Success', 'Finance quotes updated successfully', 'success');
+                this.dispatchFlowAttributeAndNext('dmlMessageCheck', 'updatedSuccessfully');
+            })
+            .catch(error => {
+                console.error('Apex error during update:', error);
+                // this.showToast('Error', error.body?.message || 'An error occurred', 'error');
+                this.dispatchFlowAttributeAndNext('dmlMessageCheck', 'updateFailed');
+            })
+            .finally(() => {
+                this.isLoading = false;
+            });
     }
 
     handleSendToBankClick() {
-        if(this.selectedRecords.length === 0) {
+        if (this.selectedRecords.length === 0) {
             this.showMinSendToBankError = true;
             setTimeout(() => {
                 this.showMinSendToBankError = false;
@@ -343,20 +348,20 @@ export default class golQuotationOverview extends LightningElement {
             }));
         // const tempIds = 'a1RVc000000kk1RMAQ,a1RVc000000kjzpMAA';
         console.log("Open Button Clicked! Selected Records:", JSON.parse(JSON.stringify(selectedDetails)));
-        
+
         if (selectedDetails.length > 0) {
-            console.log('Dispatching OpenFinanceQuoteId',selectedDetails[0]);
+            console.log('Dispatching OpenFinanceQuoteId', selectedDetails[0]);
             let a = selectedDetails[0].RecordID;
-            console.log('a '+a);
+            console.log('a ' + a);
             const actionOne = new FlowAttributeChangeEvent('openFinanceQuoteIdOne', a);
             this.dispatchEvent(actionOne);
-           // this.dispatchOpenFinanceQuoteId(selectedDetails[0], 'openFinanceQuoteIdOne');
+            // this.dispatchOpenFinanceQuoteId(selectedDetails[0], 'openFinanceQuoteIdOne');
         }
-        
+
         if (selectedDetails.length > 1) {
-            console.log('Dispatching OpenFinanceQuoteId',selectedDetails[1]);
+            console.log('Dispatching OpenFinanceQuoteId', selectedDetails[1]);
             let b = selectedDetails[1];
-            console.log('b '+b);
+            console.log('b ' + b);
             const actionTwo = new FlowAttributeChangeEvent('openFinanceQuoteIdTwo', selectedDetails[1].RecordID);
             this.dispatchEvent(actionTwo);
             //this.dispatchOpenFinanceQuoteId(selectedDetails[1], 'openFinanceQuoteIdTwo');
@@ -397,11 +402,11 @@ export default class golQuotationOverview extends LightningElement {
     navigateNext() {
         this.dispatchEvent(new FlowNavigationNextEvent());
     }
-    
+
     setFlowAttribute(name, value) {
         this.dispatchEvent(new FlowAttributeChangeEvent(name, value));
     }
-    
+
     dispatchFlowAttributeAndNext(name, value) {
         this.setFlowAttribute(name, value);
         this.navigateNext();

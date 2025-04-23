@@ -55,10 +55,11 @@
         <template  if:true={isInsuranceProducts.services}>
             <!-- //Arval Loop Start -->
             <template for:each={options} for:item="service" for:index="index">
+                <template  if:false={service.additionalServices}>
                 <lightning-layout-item key={service.serviceId} class="layoutitemcss arvallayoutitemcss" size="12" small-device-size="6" medium-device-size="5" large-device-size="5">
                     <div class="insuranceboxcss">
                         <div for="insurance" class="insuranceproductnamecss">{service.label}</div>
-                        <select data-mid="services" data-id={service.serviceId} name="insurance" id={service.serviceId} class="selectcss" onchange={handleInsuranceProductSelection}>
+                        <select disabled={service.disableOption} data-mid="services" data-id={service.serviceId} name="insurance" id={service.serviceId} class="selectcss" onchange={handleInsuranceProductSelection}>
                         <template for:each={service.validValues} for:item="servicevalue" for:index="indexchild">
                 
                                 <option selected={servicevalue.selected} key={servicevalue.value} value={servicevalue.value}>{servicevalue.label}</option>
@@ -67,7 +68,53 @@
                         </select>  
                     </div>
                 </lightning-layout-item>
+                </template>
+
             </template>
+
+            <template  if:true={isAdditionalServices}>
+                <lightning-layout-item class="AdditionalServicesTopCss" size="12" small-device-size="6" medium-device-size="12" large-device-size="12">
+                    
+                    <div class="slds-section slds-is-close " data-id="customization">
+                        <div class="slds-p-top_large slds-p-bottom_medium ">
+                            <div data-divid="customization" class="additionalServicesdivcss" onclick={toggleSection} >
+                                <div style="flex: 1;">
+                                    <div class="title-container">
+                                        <span class="slds-truncate slds-text-align_left section-header title-label" title={label.GOL_Finance_Additional_services}>{label.GOL_Finance_Additional_services}</span>
+                                    </div>
+                                </div>
+                                <div class="slds-text-align_right" >
+                                    <lightning-icon icon-name="utility:add" alternative-text="button icon" size="small" 
+                                        class="slds-section__title-action-icon slds-button__icon_right slds-text-align_right" data-id="icon-customization"></lightning-icon>
+                                </div>
+                            </div>
+                            <div class="slds-section__content slds-p-top_medium" data-divid="customization" style="cursor: pointer;">
+                                <lightning-layout class="layoutadditionalservicecss" multiple-rows>
+                                <template for:each={options} for:item="service1" for:index="index">
+                                    <template  if:true={service1.additionalServices}>
+                                    <lightning-layout-item key={service1.serviceId} class="layoutitemadditionalservicecss arvaladditionalservicelayoutitemcss" size="12" small-device-size="6" medium-device-size="4" large-device-size="4">
+                                        <div class="additionalserviceinsuranceboxcss">
+                                            <div for="insurance" class="insuranceproductnamecss">{service1.label}</div>
+                                            <select disabled={service1.disableOption} data-mid="services" data-id={service1.serviceId} name="insurance" id={service1.serviceId} class="selectcss" onchange={handleInsuranceProductSelection}>
+                                            <template for:each={service1.validValues} for:item="servicevalue1" for:index="indexchild">
+                                    
+                                                    <option selected={servicevalue1.selected} key={servicevalue1.value} value={servicevalue1.value}>{servicevalue1.label}</option>
+                                                
+                                            </template>   
+                                            </select>  
+                                        </div>
+                                    </lightning-layout-item>
+                                    </template>
+                                </template>
+                                </lightning-layout>
+
+                            </div>
+                        </div>
+                    </div>
+                    
+                </lightning-layout-item>
+            </template>
+
             <!-- //Arval Loop End -->
         </template>
 

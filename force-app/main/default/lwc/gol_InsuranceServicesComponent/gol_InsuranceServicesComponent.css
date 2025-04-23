@@ -159,6 +159,26 @@ input[type="checkbox"]:checked::after {
 .clientagedivcss{
     padding: 12px 0px 0px 0px;
 }
+.title-label {
+    font-family: 'Avenir Next', sans-serif;
+    font-style: bold;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 18px;
+    letter-spacing: 0.9px;
+    color: #0C121C;
+    margin-right: 40px;
+}
+.additionalServicesdivcss{
+    display: flex;
+    width: 100%; 
+    cursor: pointer;
+    padding: 0% 0% 2% 0%;
+}
+.arvaladditionalservicelayoutitemcss{
+    padding: 0% 2% 4% 0%;
+}
+
 @media only screen and (max-width: 1024px) {
     .layoutitemcss{
         min-width: 47% !important;

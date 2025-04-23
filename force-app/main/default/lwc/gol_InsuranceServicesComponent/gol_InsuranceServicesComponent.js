@@ -4,6 +4,7 @@ import 	GOL_Finance_Insurance_product_1 from '@salesforce/label/c.GOL_Finance_In
 import 	GOL_Finance_Insurance_product_2 from '@salesforce/label/c.GOL_Finance_Insurance_product_2';
 import 	GOL_Finance_Zip_Postal_code from '@salesforce/label/c.GOL_Finance_Zip_Postal_code';
 import 	GOL_Finance_Client_age from '@salesforce/label/c.GOL_Finance_Client_age';
+import 	GOL_Finance_Additional_services from '@salesforce/label/c.GOL_Finance_Additional_services';
 
 export default class Gol_InsuranceServicesComponent extends LightningElement {
     
@@ -21,9 +22,12 @@ export default class Gol_InsuranceServicesComponent extends LightningElement {
         GOL_Finance_Insurance_product_1,
         GOL_Finance_Insurance_product_2,
         GOL_Finance_Zip_Postal_code,
-        GOL_Finance_Client_age
+        GOL_Finance_Client_age,
+        GOL_Finance_Additional_services
     }
     isItalyCountryUser = false;
+    isAdditionalServices = false;
+
     connectedCallback(){
         console.log('MS++ Insurance Products==> ',JSON.stringify(this.insuranceProducts,null,2));
         console.log('MS++ UserDetails==> ',JSON.stringify(this.userDetails,null,2));
@@ -84,6 +88,9 @@ export default class Gol_InsuranceServicesComponent extends LightningElement {
             this.isInsuranceProducts.services = true;
             console.log('MS++ services==> '+JSON.stringify(insuranceProductsVal.inputFields.services,null,2));
             this.services = insuranceProductsVal.inputFields.services;
+            if(this.services.length>7){
+                this.isAdditionalServices = true;
+            }
             console.log(this.services);
           }
     }
@@ -124,7 +131,18 @@ export default class Gol_InsuranceServicesComponent extends LightningElement {
         // }
     }
     get options() {
-        this.services.forEach((element)=>{
+        this.services.forEach((element, index)=>{
+            if(index<7){
+                element.additionalServices = false;
+            }else{
+                element.additionalServices = true;
+            }
+            if(element.defaultValue && element.validValues.length==1){
+                element.disableOption = true;
+            }else{
+                element.disableOption = false;
+            }
+            console.log('MS element.validValues.length==> '+element.validValues.length);
             element.validValues.forEach((childelement)=>{
                 if(element.defaultValue === childelement.value){
                     childelement.selected = true;
@@ -154,4 +172,18 @@ export default class Gol_InsuranceServicesComponent extends LightningElement {
             })
         );
     }
+ 
+    toggleSection(event) {
+            let divId = event.currentTarget.dataset.divid;
+            let iconId = 'icon-'+divId;
+            let currentsection = this.template.querySelector('[data-id="' + divId + '"]');
+            let currentIcon = this.template.querySelector('[data-id="' + iconId + '"]');
+            if (currentsection.className.search('slds-is-open') == -1) {
+                currentsection.className = 'slds-section slds-is-open';
+                currentIcon.iconName = "utility:dash";
+            } else {
+                currentsection.className = 'slds-section slds-is-close';
+                currentIcon.iconName = "utility:add";
+            }
+        }
 }

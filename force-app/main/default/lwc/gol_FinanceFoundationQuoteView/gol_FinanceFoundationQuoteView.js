@@ -10,7 +10,7 @@ import GOL_Management_fees from '@salesforce/label/c.GOL_Management_fees';
 import GOL_Monthly_payment from '@salesforce/label/c.GOL_Monthly_payment';
 import GOL_JLR_Id from '@salesforce/label/c.GOL_JLR_Id';
 import GOL_VAT_label from '@salesforce/label/c.GOL_VAT_label';
-import GOL_Lorem_Text from '@salesforce/label/c.GOL_Lorem_Text';
+// import GOL_Lorem_Text from '@salesforce/label/c.GOL_Lorem_Text';
 import GOL_Modify_button from '@salesforce/label/c.GOL_Modify_button';
 import GOL_Open_New_Calculator_Button from '@salesforce/label/c.GOL_Open_New_Calculator_Button';
 import GOL_Finance_Calculation from '@salesforce/label/c.GOL_Finance_Calculation';
@@ -50,7 +50,7 @@ export default class gol_FinanceFoundationQuoteView extends LightningElement {
         GOL_Monthly_payment,
         GOL_JLR_Id,
         GOL_VAT_label,
-        GOL_Lorem_Text,
+        // GOL_Lorem_Text,
         GOL_Modify_button,
         GOL_Open_New_Calculator_Button,
         GOL_Finance_Calculation,

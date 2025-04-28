@@ -309,8 +309,8 @@ export default class gol_parentSliderComponent extends LightningElement {
           key !== "loanGrossAmountRange" &&
           key !== "interestRateRange" &&
           key !== "paymentDelayRange" &&
-          key !== "commissionGrossAmountRange" &&
-          key !== "finalTermRateRange"
+          key !== "commissionGrossAmountRange"
+          // key !== "finalTermRateRange"
         )
         .map(([key, field]) => {
           let storedValue = this.selectedSliderValues.get(this.selectedProductId)?.[key];

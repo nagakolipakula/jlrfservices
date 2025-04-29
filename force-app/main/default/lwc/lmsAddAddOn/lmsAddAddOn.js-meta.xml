@@ -10,7 +10,6 @@
 	    <target>lightning__AppPage</target>
 		<target>lightning__RecordPage</target>
 		<target>lightning__HomePage</target>
-        <target>lightning__FlowScreen</target>
     </targets>
     <targetConfigs>
         <targetConfig targets="lightningCommunity__Default">
@@ -30,13 +29,6 @@
                     label="Record Id"
                     description="Automatically bind the page's record id to the component variable"
                     default="{!recordId}" />
-        </targetConfig>
-        <targetConfig targets="lightning__FlowScreen">
-            <property
-                    name="gsFsIntegration"
-                    type="Boolean"
-                    label="gsFsIntegration Component No Reload"
-                    default="false" />
         </targetConfig>
     </targetConfigs>
 </LightningComponentBundle>

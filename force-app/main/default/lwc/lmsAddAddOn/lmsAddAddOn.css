@@ -51,26 +51,3 @@
 .slds-p-around_small {
     display: inline-table;
 }
-
-/* .datatableDivContainer table>thead .slds-cell-fixed.slds-has-button-menu, .datatableDivContainer table>thead .slds-cell-fixed.slds-has-button-menu:hover{
-	color: #ffffff !important;
-} */
-
-
-/* .myTable th>lightning-primitive-header-factory>div>span {
-    background: red;
-  } */
-
-
-/* .myTable .dt-outer-container .slds-table_header-fixed_container .slds-scrollable_y table>thead>tr>th>lightning-primitive-header-factory>span {
-    background: red;
-  } */
-
-/* .myTable table>thead .slds-cell-fixed.slds-has-button-menu, .myTable table>thead .slds-cell-fixed.slds-has-button-menu:hover{
-    background: red;
-  } */
-
-
-/* .cLMS_VMEPromotions th>lightning-primitive-header-factory>div>span {
-    background-color: rgb(250 250 250) !important;
-} */

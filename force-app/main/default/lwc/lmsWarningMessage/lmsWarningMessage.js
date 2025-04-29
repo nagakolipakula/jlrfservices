@@ -14,9 +14,8 @@ const FIELDS = ['LMS_Quote__c.Name', 'LMS_Quote__c.LMS_QUO_ExpirationDate__c'];
 export default class LmsWarningMessage extends NavigationMixin(LightningElement) {
     @api isModalOpen;
     @api selectedRows;
-    @api gsReset;
-    @api gsFsIntegration; //added by MS
     @api recId;
+    @api gsReset;//GOL-2390
     @api recordType;
 
     @track changedDate = false;
@@ -28,9 +27,10 @@ export default class LmsWarningMessage extends NavigationMixin(LightningElement)
     newDateVal;
     evidenceDocs = '';
 
+    @track changedLabel = '';
+
     label = {
         RequiredEvidenceDocument,
-        QuoteExpiryChanged,
         cancelLabel,
         okLabel,
         msgLabel
@@ -63,6 +63,7 @@ export default class LmsWarningMessage extends NavigationMixin(LightningElement)
             if(vmeDate.length != 0){
                 vmeDate.sort();
                 this.newDateVal = vmeDate[0];
+                this.changedLabel = QuoteExpiryChanged.replace('{0}', this.dateVal).replace('{1}',this.newDateVal);
                 this.changedDate = true;
             }
             if(evdDocs.length != 0){
@@ -74,7 +75,6 @@ export default class LmsWarningMessage extends NavigationMixin(LightningElement)
     }
 
     handleSave() {
-        console.log('MS lmsWarningMessage this.gsFsIntegration==> '+this.gsFsIntegration);
         this.loadSpinner = true;
         saveVMECampaignSpecifications({ quoteId: this.recId, changedRecords: this.selectedRows, recType: this.recordType, dateValue : this.newDateVal })
             .then(result => {
@@ -83,19 +83,13 @@ export default class LmsWarningMessage extends NavigationMixin(LightningElement)
                 console.log('Result :', JSON.stringify(result));
                 if(result == 'Ok'){
                     this.handleCloseModal();
-                    if(!this.gsFsIntegration){ //Added by MS if part
-                        const passEvent = new CustomEvent('closemodal', {
-                            detail:{showModal : false, refreshDataTable: true} 
-                        });
-                        this.dispatchEvent(passEvent);
-                    }
-                    else if(this.gsReset){
-                    window.location.reload();
-                    }else{
-                    this.navigateToViewRecordPage(this.recId);
-                    }
+                    if(this.gsReset){ //GOL-2390
+                        window.location.reload(); //GOL-2390
+                    }else{ //GOL-2390
+                        this.navigateToViewRecordPage(this.recId);
+                    }//GOL-2390
                 }else{
-                    this.showToast('', JSON.stringify(result) , 'info');
+                    this.showToast('Error', result , 'error');
                 }
             }).catch(error => {
                 console.log(JSON.stringify(error));
@@ -124,9 +118,9 @@ export default class LmsWarningMessage extends NavigationMixin(LightningElement)
         });
     }
 
-    handleCloseModal() { //Added by MS refreshDataTable: false
+    handleCloseModal() {
         const passEvent = new CustomEvent('closemodal', {
-            detail:{showModal : false, refreshDataTable: false} 
+            detail:{showModal : false} 
         });
         this.dispatchEvent(passEvent);
     }

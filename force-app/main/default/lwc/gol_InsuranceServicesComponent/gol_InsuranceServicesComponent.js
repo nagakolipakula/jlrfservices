@@ -5,7 +5,8 @@ import 	GOL_Finance_Insurance_product_2 from '@salesforce/label/c.GOL_Finance_In
 import 	GOL_Finance_Zip_Postal_code from '@salesforce/label/c.GOL_Finance_Zip_Postal_code';
 import 	GOL_Finance_Client_age from '@salesforce/label/c.GOL_Finance_Client_age';
 import 	GOL_Finance_Additional_services from '@salesforce/label/c.GOL_Finance_Additional_services';
-
+import GOL_No_Financial_products_available from '@salesforce/label/c.GOL_No_Financial_products_available';
+ 
 export default class Gol_InsuranceServicesComponent extends LightningElement {
     
     @api insuranceProducts;
@@ -23,14 +24,24 @@ export default class Gol_InsuranceServicesComponent extends LightningElement {
         GOL_Finance_Insurance_product_2,
         GOL_Finance_Zip_Postal_code,
         GOL_Finance_Client_age,
-        GOL_Finance_Additional_services
+        GOL_Finance_Additional_services,
+        GOL_No_Financial_products_available
     }
     isItalyCountryUser = false;
     isAdditionalServices = false;
 
+    // get hasNoInsuranceProducts() {
+    //     return !(
+    //         (this.cpiProducts && this.cpiProducts.length > 0) || 
+    //         (this.nonCpiProducts && this.nonCpiProducts.length > 0) 
+    //         //(this.services && this.services.length > 0)
+    //     );
+    // }
+
     connectedCallback(){
         console.log('MS++ Insurance Products==> ',JSON.stringify(this.insuranceProducts,null,2));
         console.log('MS++ UserDetails==> ',JSON.stringify(this.userDetails,null,2));
+        //console.log('Check', this.hasNoInsuranceProducts);
          if(this.userDetails && this.userDetails.LMS_USR_SalesCountryCode__c && this.userDetails.LMS_USR_SalesCountryCode__c=='IT'){
             this.isItalyCountryUser=true;
         }
@@ -67,16 +78,18 @@ export default class Gol_InsuranceServicesComponent extends LightningElement {
                 if(element.checked === undefined){
                     element.checked = false;
                 }   
-                if(element.name !== undefined){
-                    element.checkboxLabel = element.name;
-                }else if(element.description !== undefined){
-                    element.checkboxLabel = element.description;
-                }else{
-                    element.checkboxLabel = '';
-                }
+                element.checkboxLabel = element.description || '';
+                // if(element.name !== undefined){
+                //     element.checkboxLabel = element.name;
+                // }else if(element.description !== undefined){
+                //     element.checkboxLabel = element.description;
+                // }else{
+                //     element.checkboxLabel = '';
+                // }
             });
             this.nonCpiProducts = insuranceProductsVal.nonCpiProducts;
           }
+         
         if(insuranceProductsVal.ageRange && insuranceProductsVal.ageRange.length>0){
             this.isInsuranceProducts.ageRange = true;
             this.ageRange = insuranceProductsVal.ageRange;

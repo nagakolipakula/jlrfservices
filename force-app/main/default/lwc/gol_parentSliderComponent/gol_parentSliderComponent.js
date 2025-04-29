@@ -37,6 +37,7 @@ export default class gol_parentSliderComponent extends LightningElement {
   retailerDiscountSelectedProductId;
   selectedSliderValues = new Map();
   hasNoFinancialProducts = false;
+  hasNoInsuranceForSelectedProducts = false;
   //   isSubmitted = false;
   sliders = [];
   namesWithIds = [];
@@ -112,13 +113,14 @@ export default class gol_parentSliderComponent extends LightningElement {
   }
 
   checkProductsForInsurance(){
-    this.parsedResponse.forEach((product) => {
-      const hasCpi = product.cpiProducts && product.cpiProducts.length > 0;
-      const hasNonCpi = product.nonCpiProducts && product.nonCpiProducts.length > 0;
-      const hasServices = product.inputFields?.services && product.inputFields?.services.length > 0;
-      const hasNoInsurance = !(hasCpi || hasNonCpi || hasServices);
-      console.log('Checking Insurance Products KS', hasNoInsurance);
-    });
+    const selectedProduct = this.getSelectedProduct();
+    const hasCpi = selectedProduct.cpiProducts && selectedProduct.cpiProducts.length > 0;
+    const hasNonCpi = selectedProduct.nonCpiProducts && selectedProduct.nonCpiProducts.length > 0;
+    const hasServices = selectedProduct.inputFields?.services && selectedProduct.inputFields?.services.length > 0;
+    const hasNoInsurance = (hasCpi || hasNonCpi || hasServices);
+    this.hasNoInsuranceForSelectedProducts = hasNoInsurance;
+    // console.log(`Selected Product KS: "${selectedProduct.name}"`);
+    // console.log(`No Insurance Services KS: ${hasNoInsurance}`);
   }
 
   get isFinRecsCheckForOverview() {
@@ -263,10 +265,9 @@ export default class gol_parentSliderComponent extends LightningElement {
   //   console.log('ContactId in handleModify:', contactID);
   // }
 
-  renderedCallback() {
-    console.log('ContactId in rendered Callback:', this.ContactId);
-    this.checkProductsForInsurance();
-  }
+  // renderedCallback() {
+  //   console.log('ContactId in rendered Callback:', this.ContactId);
+  // }
 
   //Radio buttons
   getProductIds() {
@@ -302,6 +303,7 @@ export default class gol_parentSliderComponent extends LightningElement {
     this.initializeSliders();
     // this.initializeInsuranceProduct();
     this.handleUpdateRetailerDiscount('selectedProductId',event.detail);
+    this.checkProductsForInsurance();
   }
 
   getUnits(key, units) {

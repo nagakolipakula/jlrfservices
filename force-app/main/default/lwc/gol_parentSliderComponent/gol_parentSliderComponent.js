@@ -7,6 +7,8 @@ import GOL_Finance_Insurance_and_Services from '@salesforce/label/c.GOL_Finance_
 import GOL_Amount_incl_VAT from '@salesforce/label/c.GOL_Amount_incl_VAT';
 import { FlowAttributeChangeEvent, FlowNavigationNextEvent, FlowNavigationBackEvent, FlowNavigationFinishEvent } from 'lightning/flowSupport';
 import getInputFieldsMappingRecords from '@salesforce/apex/GOL_GetFinanceQuote.getInputFieldsMappingRecords';
+import GOL_Go_To_Overview from '@salesforce/label/c.GOL_Go_To_Overview';
+
 
 export default class gol_parentSliderComponent extends LightningElement {
   @api buttonActionForOverview;
@@ -28,6 +30,7 @@ export default class gol_parentSliderComponent extends LightningElement {
   parsedSerializedData;
   @api IsUpdateRetailerDiscount = false;
   @api retailerDiscountSerializedData;
+  @api retailerDiscountInsuranceData;
   @api clickedButtonName;
   @api FinRecsCheckForOverview;
   retailerDiscountInputFiledAry = [];
@@ -48,15 +51,19 @@ export default class gol_parentSliderComponent extends LightningElement {
     GOL_Adjust_parameters,
     GOL_Calculate_Financing,
     GOL_Finance_Insurance_and_Services,
-    GOL_Amount_incl_VAT
+    GOL_Amount_incl_VAT,
+    GOL_Go_To_Overview
   }
   
   connectedCallback() {
+    console.log('Fin Info Records NK ==> '+this.FinRecsCheckForOverview);
     console.log('Logged in user details==>'+JSON.stringify(this.UserDetails,null,2));
      console.log('Finance Item==> '+JSON.stringify(this.financeitem,null,2));
     // console.log('First Finance Info Record:', this.ContactId);
     // console.log('Second Finance Info Record:', this.ContactId2);
     console.log('MS retailerDiscountSerializedData==>',this.retailerDiscountSerializedData);
+    console.log('MS retailerDiscountInsuranceData==>',this.retailerDiscountInsuranceData);
+    
     // console.log("Full response",this.response);
     try {
       if (this.buttonActionForOverview === undefined) {
@@ -84,10 +91,16 @@ export default class gol_parentSliderComponent extends LightningElement {
       console.log('Parsed Response:', JSON.stringify(this.parsedResponse, null, 2));
       this.isInitialLoadInModify = true;
 
-      if (this.retailerDiscountSerializedData) {
+      if(this.retailerDiscountSerializedData) {
+        console.log('retailerDiscountSerializedData call');
         this.handleRetailerDiscountSerializedData();     
       } else {
           console.warn('retailerDiscountSerializedData is undefined or empty');
+      }
+      if(this.retailerDiscountInsuranceData){
+        this.handleRetailerDiscountInsuranceData();
+      } else {
+        console.warn('retailerDiscountInsuranceData is undefined or empty');
       }
       this.initializeSliders();
     }catch (error) {
@@ -95,6 +108,27 @@ export default class gol_parentSliderComponent extends LightningElement {
       console.error('Raw Response:', this.response);
       this.hasNoFinancialProducts = true;
     }
+    this.checkProductsForInsurance();
+  }
+
+  checkProductsForInsurance(){
+    this.parsedResponse.forEach((product) => {
+      const hasCpi = product.cpiProducts && product.cpiProducts.length > 0;
+      const hasNonCpi = product.nonCpiProducts && product.nonCpiProducts.length > 0;
+      const hasServices = product.inputFields?.services && product.inputFields?.services.length > 0;
+      const hasNoInsurance = !(hasCpi || hasNonCpi || hasServices);
+      console.log('Checking Insurance Products KS', hasNoInsurance);
+    });
+  }
+
+  get isFinRecsCheckForOverview() {
+    if (this.FinRecsCheckForOverview === true || this.FinRecsCheckForOverview === 'true') {
+      return true;
+    }
+    if (this.FinRecsCheckForOverview === false || this.FinRecsCheckForOverview === 'false') {
+      return false;
+    }
+    return false;
   }
 
   // removeSetFlags(data) {
@@ -118,7 +152,7 @@ export default class gol_parentSliderComponent extends LightningElement {
     this.sliders = [];
     this.namesWithIds = [];
     this.parsedSerializedData = undefined;
-    this.retailerDiscountSerializedData = undefined;
+    // this.retailerDiscountSerializedData = undefined;
     this.retailerDiscountInputFiledAry = [];
     this.retailerDiscountSelectedProductId = undefined;
     this.hasNoFinancialProducts = false;
@@ -166,6 +200,56 @@ export default class gol_parentSliderComponent extends LightningElement {
       this.retailerDiscountSerializedData = undefined;
       this.retailerDiscountSelectedProductId = undefined;
   }
+
+  handleRetailerDiscountInsuranceData(){
+    console.log('handleRetailerDiscountInsuranceData EXISTS');
+      let storedData;
+      try {
+          storedData = JSON.parse(this.retailerDiscountInsuranceData);
+          console.log('MS--- Parsed retailerDiscountInsuranceData:', JSON.stringify(storedData));
+      } catch (error) {
+          return;
+      }
+      if(storedData.selectedProductId){
+      this.retailerDiscountSelectedProductId =  storedData.selectedProductId;
+      this.setDefaultSelectedProductId();
+      }
+      //const selectedProductId = storedData.selectedProductId;
+      console.log('Selected Product ID from retailerDiscountInsuranceData:', this.retailerDiscountSelectedProductId);
+      if(storedData.insuranceData){
+      for (let i = 0; i < this.parsedResponse.length; i++) {
+        if(storedData.insuranceData.ageRangeSelected){
+          this.parsedResponse[i].ageRangeSelected = storedData.insuranceData.ageRangeSelected;
+        }
+        if(storedData.insuranceData.zipCode){
+          this.parsedResponse[i].zipCode = storedData.insuranceData.zipCode;
+        }
+        if (this.parsedResponse[i].fullId === this.retailerDiscountSelectedProductId) {
+            if(storedData.insuranceData.cpiProducts?.length>0 && this.parsedResponse[i].cpiProducts?.length>0){
+              storedData.insuranceData.cpiProducts.forEach((element)=>{
+                this.parsedResponse[i].cpiProducts.forEach((childelement)=>{
+                if(childelement.id === element.id){
+                  childelement.checked = element.checked;
+                }
+              });
+            });
+            }
+            if(storedData.insuranceData.nonCpiProducts?.length>0 && this.parsedResponse[i].nonCpiProducts?.length>0){
+              storedData.insuranceData.nonCpiProducts.forEach((element1)=>{
+                this.parsedResponse[i].nonCpiProducts.forEach((schildelement)=>{
+                if(schildelement.id === element1.id){
+                  schildelement.checked = element1.checked;
+                }
+              });
+            });
+            }
+        }
+      }
+      }
+      this.retailerDiscountInsuranceData = undefined;
+      this.retailerDiscountSelectedProductId = undefined;
+  }
+
   async loadMetadata() {
     try {
       this.mappingMetadataRecords = await getInputFieldsMappingRecords();
@@ -179,9 +263,10 @@ export default class gol_parentSliderComponent extends LightningElement {
   //   console.log('ContactId in handleModify:', contactID);
   // }
 
-  // renderedCallback() {
-  //   console.log('ContactId in rendered Callback:', this.ContactId);
-  // }
+  renderedCallback() {
+    console.log('ContactId in rendered Callback:', this.ContactId);
+    this.checkProductsForInsurance();
+  }
 
   //Radio buttons
   getProductIds() {
@@ -310,7 +395,7 @@ export default class gol_parentSliderComponent extends LightningElement {
           key !== "interestRateRange" &&
           key !== "paymentDelayRange" &&
           key !== "commissionGrossAmountRange"
-          // key !== "finalTermRateRange"
+          //key !== "finalTermRateRange"
         )
         .map(([key, field]) => {
           let storedValue = this.selectedSliderValues.get(this.selectedProductId)?.[key];
@@ -920,6 +1005,11 @@ handleInsuranceProductChange(event){
     }
 }
 }
+
+let providerInsuranceData = this.parsedResponse.find(item => item.id === this.selectedProductId);
+let selectedInsuranceData = {'selectedProductId':this.selectedProductId,'insuranceData':providerInsuranceData};
+this.dispatchEvent(new FlowAttributeChangeEvent('retailerDiscountInsuranceData', JSON.stringify(selectedInsuranceData)));
+
 }
   // if (this.selectedProductId) {
 
@@ -946,4 +1036,11 @@ handleInsuranceProductChange(event){
   //   });
   //   console.log(inputFields);
   // }
+
+  handleGoToOverview(){
+    const action = new FlowAttributeChangeEvent('buttonActionForOverview', 'goToOverviewButtonClick');
+    this.dispatchEvent(action);
+    const nextEvent = new FlowNavigationNextEvent();
+    this.dispatchEvent(nextEvent);
+  }
 }

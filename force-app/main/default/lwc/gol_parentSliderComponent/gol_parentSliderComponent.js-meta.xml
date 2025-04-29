@@ -40,6 +40,10 @@
 				name="retailerDiscountSerializedData" 
 				type="String"
 				label="Retailer Discount SerializedData"/>
+			<property 
+				name="retailerDiscountInsuranceData" 
+				type="String"
+				label="Retailer Discount Insurance Data"/>
 			<property name="vehicleQli" type="@salesforce/schema/LMS_QuoteLineItem__c" label="Vehicle Quote Line Item"/>
 			<property name="financeInformation" type="@salesforce/schema/LMS_FinanceInformation__c" label="Saved Finance Information Item"/>
 			<property name="UserDetails" type="@salesforce/schema/User" label="User Details"  description="Logged in User Details" />

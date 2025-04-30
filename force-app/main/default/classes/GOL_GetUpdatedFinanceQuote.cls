@@ -23,7 +23,8 @@ public with sharing class GOL_GetUpdatedFinanceQuote {
                                                         LMS_FIN_Finance_Reference__c,
                                                         CurrencyIsoCode,
                                                         ERPT_FIN_CreditTimeUoM__c,
-                                                        LMS_FIN_Quote__r.EPRT_QUO_External_ID__c
+                                                        LMS_FIN_Quote__r.EPRT_QUO_External_ID__c,
+                                                        GOL_FIN_Finance_Product_Description__c
                                                     FROM LMS_FinanceInformation__c
                                                     WHERE Id IN :financeQuoteIds
                                                 ];
@@ -214,7 +215,8 @@ public with sharing class GOL_GetUpdatedFinanceQuote {
                 LMS_FIN_Term__c,
                 LMS_FIN_Deposit__c,
                 GOL_JLR_ID__c,
-                LMS_FIN_Annual_Contract_Mileage__c
+                LMS_FIN_Annual_Contract_Mileage__c,
+                GOL_FIN_Finance_Product_Description__c
             FROM LMS_FinanceInformation__c
             WHERE LMS_FIN_Quote__c = :quoteId
             ORDER BY LastModifiedDate DESC

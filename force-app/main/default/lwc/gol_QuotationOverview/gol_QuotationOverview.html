@@ -17,46 +17,47 @@
             <table class="slds-table slds-table_bordered slds-table_cell-buffer full-width-table">
                 <thead>
                     <tr>
-                        <th scope="col"> </th>
-                        <th scope="col">
-                            <a href="javascript:void(0);" data-field="GOL_JLR_ID__c" onclick={handleSort}>JLR ID</a>
+                        <th scope="col-checkbox"> </th>
+                        <th scope="col-jlr-id">
+                            <a href="javascript:void(0);" data-field="GOL_JLR_ID__c" onclick={handleSort}>{label.GOL_FS_Overview}
+                            </a>
                         </th>
-                        <th scope="col">
-                            <a href="javascript:void(0);" data-field="LastModifiedDate" onclick={handleSort}>Date /
-                                Time</a>
+                        <th scope="col-modified-date">
+                            <a href="javascript:void(0);" data-field="LastModifiedDate" onclick={handleSort}>{label.GOL_Date_and_time}</a>
                         </th>
-                        <th scope="col">
-                            <a href="javascript:void(0);" data-field="Campaign" onclick={handleSort}>Campaign</a>
+                        <th scope="col-modified-date">
+                            <a href="javascript:void(0);" data-field="Campaign" onclick={handleSort}>{label.GOL_Campaign}</a>
                         </th>
-                        <th scope="col">
-                            <a href="javascript:void(0);" data-field="LMS_FIN_ProdName__c" onclick={handleSort}>FS</a>
+                        <th scope="col-product-name">
+                            <a href="javascript:void(0);" data-field="LMS_FIN_ProdName__c" onclick={handleSort}>{label.GOL_FS}</a>
                         </th>
-                        <th scope="col">
+                        <th scope="col-status">
                             <a href="javascript:void(0);" data-field="ERPT_FIN_InstallmentIntGrossAmt__c"
-                                onclick={handleSort}>Monthly</a>
+                                onclick={handleSort}>{label.GOL_Monthy}</a>
                         </th>
-                        <th scope="col">
-                            <a href="javascript:void(0);" data-field="LMS_FIN_Status__c" onclick={handleSort}>Status</a>
+                        <th scope="col-status">
+                            <a href="javascript:void(0);" data-field="LMS_FIN_Status__c" onclick={handleSort}>{label.GOL_Status}
+                            </a>
                         </th>
                     </tr>
                 </thead>
                 <tbody>
                     <template for:each={formattedRecords} for:item="record">
                         <tr key={record.id}>
-                            <td>
+                            <td class="col-checkbox">
                                 <input type="checkbox" key={record.id} data-id={record.Id}
                                     onchange={handleRowSelection} />
                             </td>
-                            <td>
+                            <td class="col-jlr-id">
                                 <a href="javascript:void(0);" data-recordid={record.Id} onclick={handleJlrIdClick}>
                                     {record.GOL_JLR_ID__c}
                                 </a>
                             </td>
-                            <td>{record.formattedDate}</td>
-                            <td>{record.formattedDate}</td>
-                            <td>{record.LMS_FIN_ProdName__c}</td>
-                            <td>{record.formattedMonthly}</td>
-                            <td>{record.LMS_FIN_Status__c}</td>
+                            <td class="col-modified-date">{record.formattedDate}</td>
+                            <td class="col-modified-date">{record.formattedDate}</td>
+                            <td class="col-product-name">{record.LMS_FIN_ProdName__c}</td>
+                            <td class="col-status">{record.formattedMonthly}</td>
+                            <td class="col-status">{record.LMS_FIN_Status__c}</td>
                         </tr>
                     </template>
 

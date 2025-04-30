@@ -24,6 +24,13 @@ import GOL_FS_showMaxSelectionToOpen from '@salesforce/label/c.GOL_FS_showMaxSel
 import GOl_FS_showMinSendToBankError from '@salesforce/label/c.GOl_FS_showMinSendToBankError';
 import GOL_FS_showMaxSendToBankError from '@salesforce/label/c.GOL_FS_showMaxSendToBankError';
 import GOL_Link_To_Pf_Pos_Leasing from '@salesforce/label/c.GOL_Link_To_Pf_Pos_Leasing';
+import GOL_FS_Overview from '@salesforce/label/c.GOL_FS_Overview'; //GOL-3355
+import GOL_Date_and_time from '@salesforce/label/c.GOL_Date_and_time'; //GOL-3355
+import GOL_Campaign from '@salesforce/label/c.GOL_Campaign'; //GOL-3355
+import GOL_FS from '@salesforce/label/c.GOL_FS'; //GOL-3355
+import 	GOL_Monthy from '@salesforce/label/c.GOL_Monthy'; //GOL-3355
+import GOL_Status from '@salesforce/label/c.GOL_Status'; //GOL-3355
+
 // import GOL_Save_Button from '@salesforce/label/c.GOL_Save_Button';
 // import GOL_Save_Button_Clicked_Event from '@salesforce/label/c.GOL_Save_Button_Clicked_Event';
 
@@ -78,7 +85,13 @@ export default class golQuotationOverview extends LightningElement {
         GOL_FS_showMaxSelectionToOpen,
         GOl_FS_showMinSendToBankError,
         GOL_FS_showMaxSendToBankError,
-        GOL_Link_To_Pf_Pos_Leasing
+        GOL_Link_To_Pf_Pos_Leasing,
+        GOL_FS_Overview,
+        GOL_Date_and_time,
+        GOL_Campaign,
+        GOL_FS,
+        GOL_Monthy,
+        GOL_Status
     };
 
     @wire(getFinanceInfoRecords, { quoteId: '$quoteId' })
@@ -177,8 +190,7 @@ export default class golQuotationOverview extends LightningElement {
         try {
             const date = new Date(dateString);
             return isNaN(date.getTime()) ? 'Invalid Date' : date.toLocaleString(LOCALE, {
-                day: '2-digit', month: '2-digit', year: 'numeric',
-                hour: '2-digit', minute: '2-digit', hour12: false
+                day: '2-digit', month: '2-digit', year: 'numeric', hour12: false
             });
         } catch {
             return 'Invalid Date';

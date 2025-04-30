@@ -101,7 +101,7 @@
 
 .data-table-container {
     margin-top: 20px;
-    max-width: 1100px;
+    max-width: 1000px;
     overflow: hidden;
 }
 
@@ -121,7 +121,7 @@
 .full-width-table {
     width: 100%;
     border-collapse: collapse;
-    table-layout: fixed;
+    /* table-layout: fixed; */
     border: 1px solid rgba(182, 184, 187, 1);
 }
 
@@ -217,4 +217,27 @@ input[type="checkbox"]:checked::after {
 .error-message {
     margin-left: 20px;
     color: red;
+}
+
+.col-checkbox {
+    width: 75px;
+    text-align: center;
+}
+
+.col-jlr-id {
+    width: 75px;
+    text-align: center;
+}
+
+.col-modified-date {
+    width: 100px;
+    text-align: center;
+}
+
+.col-product-name {
+    width: 100px;
+}
+
+.col-status {
+    width: 100px;
 }

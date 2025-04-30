@@ -19,25 +19,23 @@
                     <tr>
                         <th scope="col-checkbox"> </th>
                         <th scope="col-jlr-id">
-                            <a href="javascript:void(0);" data-field="GOL_JLR_ID__c" onclick={handleSort}>{label.GOL_FS_Overview}
-                            </a>
+                            <a href="javascript:void(0);" data-field="GOL_JLR_ID__c" onclick={handleSort}>JLR ID</a>
                         </th>
                         <th scope="col-modified-date">
-                            <a href="javascript:void(0);" data-field="LastModifiedDate" onclick={handleSort}>{label.GOL_Date_and_time}</a>
+                            <a href="javascript:void(0);" data-field="LastModifiedDate" onclick={handleSort}>Date / Time</a>
                         </th>
                         <th scope="col-modified-date">
-                            <a href="javascript:void(0);" data-field="Campaign" onclick={handleSort}>{label.GOL_Campaign}</a>
+                            <a href="javascript:void(0);" data-field="Campaign" onclick={handleSort}>Campaign</a>
                         </th>
                         <th scope="col-product-name">
-                            <a href="javascript:void(0);" data-field="LMS_FIN_ProdName__c" onclick={handleSort}>{label.GOL_FS}</a>
+                            <a href="javascript:void(0);" data-field="LMS_FIN_ProdName__c" onclick={handleSort}>FS</a>
                         </th>
                         <th scope="col-status">
                             <a href="javascript:void(0);" data-field="ERPT_FIN_InstallmentIntGrossAmt__c"
-                                onclick={handleSort}>{label.GOL_Monthy}</a>
+                                onclick={handleSort}>Monthly</a>
                         </th>
                         <th scope="col-status">
-                            <a href="javascript:void(0);" data-field="LMS_FIN_Status__c" onclick={handleSort}>{label.GOL_Status}
-                            </a>
+                            <a href="javascript:void(0);" data-field="LMS_FIN_Status__c" onclick={handleSort}>Status</a>
                         </th>
                     </tr>
                 </thead>
@@ -55,7 +53,7 @@
                             </td>
                             <td class="col-modified-date">{record.formattedDate}</td>
                             <td class="col-modified-date">{record.formattedDate}</td>
-                            <td class="col-product-name">{record.LMS_FIN_ProdName__c}</td>
+                            <td class="col-product-name">{record.productName}</td>
                             <td class="col-status">{record.formattedMonthly}</td>
                             <td class="col-status">{record.LMS_FIN_Status__c}</td>
                         </tr>

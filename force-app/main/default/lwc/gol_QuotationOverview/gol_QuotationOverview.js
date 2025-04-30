@@ -170,7 +170,9 @@ export default class golQuotationOverview extends LightningElement {
         return sortedRecords.map(record => ({
             ...record,
             formattedDate: this.formatDate(record.LastModifiedDate),
-            formattedMonthly: this.formatCurrency(record.ERPT_FIN_InstallmentIntGrossAmt__c)
+            formattedMonthly: this.formatCurrency(record.ERPT_FIN_InstallmentIntGrossAmt__c),
+            productName: record.GOL_FIN_Finance_Product_Description__c ||
+                         record.LMS_FIN_ProdName__c
         }));
     }
 

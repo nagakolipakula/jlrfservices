@@ -531,6 +531,21 @@ export default class gol_parentSliderComponent extends LightningElement {
       sliderLabel = `${field.description} ${this.label.GOL_Amount_incl_VAT}`;
     }
     let sliderObject;
+
+    if (key === 'durationsRange' && Array.isArray(field.explicitValues) && field.explicitValues.length > 0) {
+      const sortedExplicit = field.explicitValues.slice().sort((a, b) => a - b);
+      sliderObject = {
+        id: key,
+        label: sliderLabel,
+        unit: this.getUnits(key, providerData.units),
+        defaultValue: sortedExplicit[0],
+        min: sortedExplicit[0],
+        max: sortedExplicit[sortedExplicit.length - 1],
+        step: this.getStepFromExplicitValues(sortedExplicit),
+        allowedValues: sortedExplicit
+      };
+      return sliderObject;
+    }
     
     if (providerData.provider === 'ARVAL' && key === 'annualMileagesRange') {
         const durationRange = providerData.inputFields.durationsRange;
@@ -560,6 +575,13 @@ export default class gol_parentSliderComponent extends LightningElement {
     console.log(`Slider Object Created:`, sliderObject);
     
     return sliderObject;
+  }
+
+  getStepFromExplicitValues(values) {
+    if (!Array.isArray(values) || values.length < 2) return 1;
+    const diffs = values.slice(1).map((v, i) => v - values[i]);
+    const uniqueDiffs = [...new Set(diffs)];
+    return uniqueDiffs.length === 1 ? uniqueDiffs[0] : 1;
   }
 
   handleSliderChange(event) {

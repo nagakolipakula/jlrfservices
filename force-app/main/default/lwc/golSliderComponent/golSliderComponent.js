@@ -10,6 +10,7 @@ export default class golSliderComponent extends LightningElement {
     @api maxValue;
     @api step;
     _sliderValue = 0;
+    @api allowedValues = [];
 
     @api
     get sliderValue() {
@@ -80,12 +81,24 @@ export default class golSliderComponent extends LightningElement {
 
     handleSliderChange(event) {
         let value = parseFloat(event.target.value);    
-        this._sliderValue = Math.round(value / this.step) * this.step;
+        // this._sliderValue = Math.round(value / this.step) * this.step;
+        if (this.allowedValues && this.allowedValues.length > 0) {
+            value = this.getClosestAllowedValue(value);
+        } else {
+            value = Math.round(value / this.step) * this.step;
+        }
+        this._sliderValue = value;
         this.updateSliderBackground();
         this.dispatchEvent(
             new CustomEvent('sliderchange', {
                 detail: { id: this.labelFor, value: this._sliderValue }
             })
+        );
+    }
+
+    getClosestAllowedValue(val) {
+        return this.allowedValues.reduce((prev, curr) =>
+            Math.abs(curr - val) < Math.abs(prev - val) ? curr : prev
         );
     }
    

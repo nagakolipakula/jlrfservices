@@ -11,7 +11,7 @@
     <div class="slider-container">
       <template for:each={sliders} for:item="slider">
         <!--Child component to select sliders(gol_SliderComponent)-->
-        <c-gol-slider-component key={slider.id} label-name={slider.label} label-for={slider.id} unit={slider.unit}
+        <c-gol-slider-component key={slider.id} label-name={slider.label} label-for={slider.id} unit={slider.unit} allowed-values={slider.allowedValues}
           slider-value={slider.defaultValue} min-value={slider.min} max-value={slider.max} step={slider.step}
           onsliderchange={handleSliderChange}>
         </c-gol-slider-component>

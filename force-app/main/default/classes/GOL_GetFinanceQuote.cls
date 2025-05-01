@@ -1,5 +1,8 @@
 public with sharing class GOL_GetFinanceQuote {
     
+    private static String FULL_FINANCE_GET_QUOTE_ENDPOINT;
+    private static String FULL_FINANCE_GET_QUOTE_X_CLIENT_ORIGIN;
+
     @InvocableMethod(label='Invoke Get Finance Quote API and Create Finance record' description='Invocable method to get quote API callout and insert record')
     public static List<Response> invokeGetFinanceQuoteAPI(List<Request> lstRequestData) {
         List<Response> lstResponse = new List<Response>();
@@ -56,13 +59,18 @@ public with sharing class GOL_GetFinanceQuote {
     }
 
     public static HttpResponse sendFinanceQuoteRequest(String quotePayload) {
+        //Label.GOL_Get_Finance_Quote_End_Point, Label.GOL_FS_X_Client_origin
+        FULL_FINANCE_GET_QUOTE_ENDPOINT = LMS_CST_IntegrationEndpoint__c.getInstance(GOL_Constants.FULL_FINANCE_GET_QUOTE_API).LMS_CST_EndpointAddress__c;
+        FULL_FINANCE_GET_QUOTE_X_CLIENT_ORIGIN = LMS_CST_IntegrationEndpoint__c.getInstance(GOL_Constants.FULL_FINANCE_GET_QUOTE_API).LMS_CST_Scope__c;
+
         Http http = new Http();
         HttpRequest request = new HttpRequest();
-        request.setEndpoint('callout:GOL_MS_Finance/' + Label.GOL_Get_Finance_Quote_End_Point);
+        request.setEndpoint('callout:GOL_MS_Finance/' + FULL_FINANCE_GET_QUOTE_ENDPOINT);
         request.setMethod('POST');
         request.setTimeout(20000);
         request.setBody(quotePayload);
         request.setHeader('Content-Type', 'application/json;charset=UTF-8');
+        request.setHeader('X-Client-origin', FULL_FINANCE_GET_QUOTE_X_CLIENT_ORIGIN);
         return http.send(request);
     }
 
@@ -72,10 +80,20 @@ public with sharing class GOL_GetFinanceQuote {
         }
         
         LMS_FinanceInformation__c financeInformation = new LMS_FinanceInformation__c();
+
+        
+
         if(!String.isEmpty(financeQuoteIdOld)){
             financeInformation.Id = financeQuoteIdOld;
         }else{
             financeInformation.LMS_FIN_Lead__c = getSalesLead(quoteId);
+            LMS_Quote__c quote = [SELECT Name FROM LMS_Quote__c WHERE Id = :quoteId LIMIT 1];
+            Integer existingFinRecCount = [SELECT COUNT() FROM LMS_FinanceInformation__c WHERE LMS_FIN_Quote__c = :quoteId];
+            Integer count = existingFinRecCount + 1;
+            String suffix = String.valueOf(1000 + count).mid(1, 3);
+            String JLRIdRef = quote.Name + ' - ' + suffix;
+
+            financeInformation.GOL_JLR_QUOTE_FIN_ID__c = JLRIdRef;
         }
         
         financeInformation.LMS_FIN_Quote__c = quoteId;
@@ -92,15 +110,19 @@ public with sharing class GOL_GetFinanceQuote {
         financeInformation.ERPT_FIN_InstallmentIntGrossAmt__c = parsedResponse.Quote.installmentGrossAmount;//Monthly Gross amount
         financeInformation.ERPT_FIN_CreditTimeUoM__c = parsedResponse.FinancialProduct.creditTimeUnit;//Months
         financeInformation.CurrencyIsoCode = parsedResponse.FinancialProduct.currencyCode;//Currency code
-        financeInformation.LMS_FIN_Deposit__c = parsedResponse.Quote.downPaymentGrossAmount; //Deposit
+        financeInformation.LMS_FIN_Deposit__c = parsedResponse.Quote.downPaymentGrossAmount; //Deposit   
         financeInformation.GOL_Type_Of_Use__c = parsedResponse.typeOfUse; 
         financeInformation.GOL_Person_Type__c  = parsedResponse.personType;
         financeInformation.GOL_Channel__c = parsedResponse.channel;
+        financeInformation.GOL_Age_Range__c  = parsedResponse.ageRange;
+        financeInformation.GOL_Zip_Postal_Code__c = parsedResponse.zipCode;
+        // financeInformation.GOL_JLR_QUOTE_FIN_ID__c = JLRIdRef;
+
         financeInformation.LMS_FIN_Status__c = GOL_Constants.LMS_FIN_Status_FINANCE_Created;
         if (parsedResponse.quoteDetails != null && parsedResponse.quoteDetails.size() > 0) {
             financeInformation.GOL_View_Quote_Details__c = JSON.serialize(parsedResponse.quoteDetails);
         }
-        
+        financeInformation.GOL_FIN_Finance_Product_Description__c = parsedResponse.FinancialProduct.description; //GOL-4251
         upsert financeInformation;
         return financeInformation.Id;
     }
@@ -172,7 +194,7 @@ public with sharing class GOL_GetFinanceQuote {
     public static void createFinanceItemsServices(String financeInformationId,List<GOL_JSON2ApexFinancialQuoteWrapper.Services> services) {
         List<ERPT_FinanceItem__c> lstFinanceItems = new List<ERPT_FinanceItem__c>();
         for(GOL_JSON2ApexFinancialQuoteWrapper.Services service : services) {
-            if(!service.serviceValue.excluded){
+            // if(!service.serviceValue.excluded){
                 ERPT_FinanceItem__c financeItem = new ERPT_FinanceItem__c();
                 financeItem.ERPT_FII_FinanceInformation__c = financeInformationId;
                 financeItem.RecordTypeId = Schema.SObjectType.ERPT_FinanceItem__c.getRecordTypeInfosByDeveloperName().get(GOL_Constants.ERPT_FII_ARVAL_ADDITIONAL_FIELDS_RT).getRecordTypeId();
@@ -180,9 +202,9 @@ public with sharing class GOL_GetFinanceQuote {
                 financeItem.ERPT_FII_ExternalRef__c = service.serviceId;
                 financeItem.ERPT_FII_FullName__c = service.serviceValue.label;
                 financeItem.ERPT_FII_Value__c = service.serviceValue.value;
-                
+                financeItem.GOL_FII_Excluded__c = service.serviceValue.excluded;
                 lstFinanceItems.add(financeItem);
-            }
+            // }
         }
         
         if (!lstFinanceItems.isEmpty()){

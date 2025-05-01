@@ -24,7 +24,8 @@ public with sharing class GOL_GetUpdatedFinanceQuote {
                                                         CurrencyIsoCode,
                                                         ERPT_FIN_CreditTimeUoM__c,
                                                         LMS_FIN_Quote__r.EPRT_QUO_External_ID__c,
-                                                        GOL_FIN_Finance_Product_Description__c
+                                                        GOL_FIN_Finance_Product_Description__c,
+                                                        GOL_JLR_QUOTE_FIN_ID__c
                                                     FROM LMS_FinanceInformation__c
                                                     WHERE Id IN :financeQuoteIds
                                                 ];
@@ -52,6 +53,7 @@ public with sharing class GOL_GetUpdatedFinanceQuote {
                     record.GOL_Type_Of_Use__c = parsed.typeOfUse;
                     // record.GOL_Zip_Postal_Code__c = ''; // if not from response
                     record.LMS_FIN_ProdName__c = parsed.financialProduct.name;
+                    record.GOL_View_Quote_Details__c  = JSON.serialize(parsed.quoteDetails);
 
                     recordsToUpdate.add(record);
                     responses.add(new Response(true, 'Record updated successfully', record.Id));
@@ -216,7 +218,8 @@ public with sharing class GOL_GetUpdatedFinanceQuote {
                 LMS_FIN_Deposit__c,
                 GOL_JLR_ID__c,
                 LMS_FIN_Annual_Contract_Mileage__c,
-                GOL_FIN_Finance_Product_Description__c
+                GOL_FIN_Finance_Product_Description__c,
+                GOL_JLR_QUOTE_FIN_ID__c
             FROM LMS_FinanceInformation__c
             WHERE LMS_FIN_Quote__c = :quoteId
             ORDER BY LastModifiedDate DESC

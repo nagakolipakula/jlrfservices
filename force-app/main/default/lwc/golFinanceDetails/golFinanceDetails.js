@@ -69,6 +69,10 @@ export default class golFinanceDetails extends LightningElement {
         // }
     }
 
+    get jlrId() {
+        return this.financeRecord.GOL_JLR_QUOTE_FIN_ID__c || this.financeRecord.GOL_JLR_ID__c;
+    }    
+
     processLegalText() {
         if (this.financeRecord?.ERPT_FIN_LegalText__c) {
             const legalTextVal = this.financeRecord.ERPT_FIN_LegalText__c;

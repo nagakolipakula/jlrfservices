@@ -1,120 +1,122 @@
 @isTest
-public class GOL_FinanceUpdateRetailerDiscountQLITest {
+private class GOL_FinanceUpdateRetailerDiscountQLITest {
+
+    static User salesUser;
+    static User adminUser;
+    static Account retailer;
+    static Opportunity opp;
+    static LMS_Quote__c quote;
+    static LMS_QuoteLineItem__c qli;
 
     @testSetup
-    static void DataSetup() {
-        // Turn off triggers
-        LMS_TriggerHandler.turnOffTriggers = true;
-        
-        // Initialize environment
-        ERPT_Datafactory.initEnvironment();
-
-        // Inserting Integration Endpoint
-        LMS_CST_IntegrationEndpoint__c accesstoken = new LMS_CST_IntegrationEndpoint__c(
-            Name = GOL_Constants.FULL_FINANCE_GET_QUOTE_API,
-            LMS_CST_EndpointAddress__c = 'v2/finance/quote',
-            LMS_CST_Scope__c = 'SMART'
-        );
-        insert accesstoken;
-
-        // Accounts Creation and insertion 
-        Account acc = ERPT_DataFactory.createAccount('Test Italy Account', 'LMS_ACC_SalesCountry');
-        acc.LMS_ACC_NSC_Reference__c = 'IT';
-        insert acc;
-
-        Account retAcc = ERPT_DataFactory.createAccount('Test Italy Retailer Account', 'LMS_ACC_Retailer');
-        retAcc.LMS_ACC_NSC_Reference__c = 'IT';
-        retAcc.Type = 'Virtual';
-        insert retAcc;
-
-        Account indAcc = ERPT_DataFactory.createAccount('Test Italy Individual Account', 'LMS_ACC_Individual');
-        indAcc.LMS_ACC_NSC_Reference__c = 'IT';
-        indAcc.Type = 'Virtual';
-        insert indAcc;
-
-        // Showroom Creation and insertion 
-        LMS_Showroom__c shwroom = ERPT_DataFactory.createShowroom();
-        shwroom.LMS_SWR_Retailer__c = retAcc.Id;
-        insert shwroom;
-
-        // Opportunity Creation and insertion 
-        Opportunity newOpp = ERPT_DataFactory.createOpportunityWithAccount('Test Opp', indAcc);
-        insert newOpp;
-
-        // Quote Creation and insertion 
-        LMS_Quote__C quote = LMS_DataFactory.createQuote(newOpp.Id);
-        quote.LMS_QUO_ShowroomId__c = shwroom.Id;
-        quote.LMS_QUO_Status__c = LMS_QuoteHelper.STATUS_DRAFT;
-        quote.LMS_QUO_ExpirationDate__c = System.today() + 1;
-        quote.EPRT_QUO_External_ID__c = 'AGJGDFD975443DD';
-        insert quote;
-
-        // fiscal plan Creation and insertion  
-        LMS_FiscalPlan__c newFiscalPlan = ERPT_DataFactory.createFiscalPlan('Test Fiscal Plan');
-        newFiscalPlan.LMS_FPL_Market__c = 'IT';
-        newFiscalPlan.LMS_FPL_Valid__c = true;
-        newFiscalPlan.LMS_FPL_LastFiscalDate__c = Date.today().addDays(1);
-        insert newFiscalPlan;
-        
-        // LMS_QuoteLineItem__c test record creation
-        LMS_QuoteLineItem__c qli = new LMS_QuoteLineItem__c(
-            LMS_QLI_DiscountPercent__c = 0.0, // Initializing with default values
-            LMS_QLI_DiscountAmount__c = 0.0,
-            LMS_QLI_DiscountNetAmount2__c = 0.0,
-            LMS_QLI_TaxAdjust__c = 0.0
-        );
-        insert qli;  // Inserting test record
+    static void setup() {
+        createInitRecords();
     }
-    @isTest
-    static void testUpdateRetailerDiscountWithSetup() {
-        // LMS_QuoteLineItem__c test record
-        LMS_QuoteLineItem__c qli = [SELECT Id FROM LMS_QuoteLineItem__c LIMIT 1];
-        // Preparing request data wrapper
-        GOL_FinanceUpdateRetailerDiscountQLI.RequestQLIWrapper requestDataWrapper = new GOL_FinanceUpdateRetailerDiscountQLI.RequestQLIWrapper();
-        requestDataWrapper.quoteLineItemId = qli.Id;
-        requestDataWrapper.retailerdiscountpercent = 10.0;
-        requestDataWrapper.retailerdiscountAmount = 100.0;
-        requestDataWrapper.retailerdiscountNetAmount2 = 90.0;
-        requestDataWrapper.retailerdiscountamountInclVal = 95.0;
 
-        // Test the updateRetailerDiscount method
+    private static void createInitRecords() {
+        LMS_DataFactory.initEnvironment();
+
+        // Create Contact
+        Contact contact = LMS_DataFactory.createCommunityContact();
+        contact.LastName = 'TestUser';
+        insert contact;
+
+        // Create Sales User
+        String Username = 'testuser_' + Datetime.now().getTime() + '@lms.com';
+        salesUser = LMS_DataFactory.createUserWithJobRole(Username, LMS_Constants.USR_JOB_ROLE_EXECUTIVE);
+        salesUser.ContactId = contact.Id;
+        insert salesUser;
+        LMS_DataFactory.assignCommunityPermissions(salesUser, LMS_Constants.PERMISSIONS_BY_JOBROLE.get(LMS_Constants.USR_JOB_ROLE_EXECUTIVE));
+
+        // Create Admin User
+        adminUser = LMS_DataFactory.createUserWithProfile('admin@test.com', LMS_Constants.PROFILE_SYSTEM_ADMIN);
+        adminUser.LMS_USR_TurnOffValidationRules__c = true;
+        insert adminUser;
+
+        // Create NSC Account
+        Account nsc = LMS_DataFactory.createAccount('NSC Test', '111', '222', 'John', 'Doe', 'nsc@test.com', '12345', '67890', LMS_AccountHelper.RECORD_TYPE_SALES_COUNTRY);
+        insert nsc;
+
+        // Create Retailer Account
+        retailer = LMS_DataFactory.createAccount('Retailer Test', '333', '444', 'Jane', 'Smith', 'retailer@test.com', '98765', '43210', LMS_AccountHelper.RECORD_TYPE_RETAILER);
+        retailer.LMS_ACC_NSCImporter__c = nsc.Id;
+        insert retailer;
+
+        // Create Showroom
+        LMS_Showroom__c showroom = LMS_DataFactory.createShowroom(retailer.Id);
+        insert showroom;
+
+        // Link User to Showroom
+        LMS_User_at_Showroom__c userShowroomLink = LMS_DataFactory.createUserAtShowroom(salesUser.ContactId, showroom.Id);
+        insert userShowroomLink;
+
+        // Create Prospect Account
+        Account prospect = LMS_DataFactory.createAccount('Prospect Test', '555', '666', 'Alice', 'Brown', 'prospect@test.com', '11111', '22222', LMS_AccountHelper.RECORD_TYPE_INDIVIDUAL);
+        insert prospect;
+
+        // Create Opportunity
+        opp = LMS_DataFactory.createOpportunityWithAccount('Test Opp', prospect);
+        opp.OwnerId = salesUser.Id;
+        insert opp;
+
+        // Create Quote with showroom context
+        System.runAs(adminUser) {
+            quote = LMS_DataFactory.createQuote(opp.Id);
+            quote.LMS_QUO_ShowroomId__c = showroom.Id;
+            quote.LMS_QUO_Status__c = LMS_QuoteHelper.STATUS_DRAFT;
+            quote.LMS_QUO_SalesCountry__c = 'FR';
+            insert quote;
+        }
+
+        // Create Quote Line Item
+        qli = LMS_DataFactory.fetchQuoteLineItem(quote.Id, 100000, 1, null);
+        insert qli;
+    }
+
+    @isTest
+    static void testUpdateRetailerDiscount() {
         Test.startTest();
-        String result = GOL_FinanceUpdateRetailerDiscountQLI.updateRetailerDiscount(requestDataWrapper);
+        GOL_FinanceUpdateRetailerDiscountQLI.RequestQLIWrapper wrapper = new GOL_FinanceUpdateRetailerDiscountQLI.RequestQLIWrapper();
+        wrapper.quoteLineItemId = qli.Id;
+        wrapper.retailerdiscountpercent = 5.0;
+        wrapper.retailerdiscountAmount = 200.0;
+        wrapper.retailerdiscountNetAmount2 = 150.0;
+        wrapper.retailerdiscountamountInclVal = 180.0;
+
+        String result = GOL_FinanceUpdateRetailerDiscountQLI.updateRetailerDiscount(wrapper);
         Test.stopTest();
 
-        // Verify the updates
-        qli = [SELECT LMS_QLI_DiscountPercent__c, LMS_QLI_DiscountAmount__c, LMS_QLI_DiscountNetAmount2__c, LMS_QLI_TaxAdjust__c FROM LMS_QuoteLineItem__c WHERE Id = :qli.Id];
-        System.assertEquals(10.0, qli.LMS_QLI_DiscountPercent__c);
-        System.assertEquals(100.0, qli.LMS_QLI_DiscountAmount__c);
-        System.assertEquals(90.0, qli.LMS_QLI_DiscountNetAmount2__c);
-        System.assertEquals(95.0, qli.LMS_QLI_TaxAdjust__c);
-        
+        LMS_QuoteLineItem__c updatedQLI = [
+            SELECT LMS_QLI_DiscountPercent__c, LMS_QLI_DiscountAmount__c,
+                   LMS_QLI_DiscountNetAmount2__c, LMS_QLI_TaxAdjust__c
+            FROM LMS_QuoteLineItem__c
+            WHERE Id = :qli.Id
+        ];
+
+        System.assertEquals(5.0, updatedQLI.LMS_QLI_DiscountPercent__c);
+        System.assertEquals(200.0, updatedQLI.LMS_QLI_DiscountAmount__c);
+        System.assertEquals(150.0, updatedQLI.LMS_QLI_DiscountNetAmount2__c);
+        System.assertEquals(180.0, updatedQLI.LMS_QLI_TaxAdjust__c);
         System.assertEquals('success', result);
     }
 
-	@isTest
-	static void testInvalidDataException() {
-        // Test with invalid QuoteLineItem ID)
-        GOL_FinanceUpdateRetailerDiscountQLI.RequestQLIWrapper invalidRequestWrapper = new GOL_FinanceUpdateRetailerDiscountQLI.RequestQLIWrapper();
-        invalidRequestWrapper.quoteLineItemId = null;
-
-        Test.startTest();
-        String result = GOL_FinanceUpdateRetailerDiscountQLI.updateRetailerDiscount(invalidRequestWrapper);
-        Test.stopTest();
-
-        // Assert that an error message is returned
-        System.assert(result.contains('INVALID'));
-    }
-    
     @isTest
-    static void testUpdateRetailerDiscountNullData() {
-        // Test handling null request data
+    static void testUpdateRetailerDiscount_NullWrapper() {
         Test.startTest();
         String result = GOL_FinanceUpdateRetailerDiscountQLI.updateRetailerDiscount(null);
         Test.stopTest();
-        
-        // Assert that no success message is returned
-        System.assert(!result.equals('success'));
-        System.assert(result.contains('null') || result.contains('INVALID'));
+        System.assert(result.contains('Invalid input'));
+    }
+
+    @isTest
+    static void testUpdateRetailerDiscount_InvalidId() {
+        GOL_FinanceUpdateRetailerDiscountQLI.RequestQLIWrapper wrapper = new GOL_FinanceUpdateRetailerDiscountQLI.RequestQLIWrapper();
+        wrapper.quoteLineItemId = null;
+        wrapper.retailerdiscountpercent = 5.0;
+
+        Test.startTest();
+        String result = GOL_FinanceUpdateRetailerDiscountQLI.updateRetailerDiscount(wrapper);
+        Test.stopTest();
+        System.assert(result.contains('Invalid input'));
     }
 }

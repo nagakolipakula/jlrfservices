@@ -1,19 +1,25 @@
 public with sharing class GOL_FinanceUpdateRetailerDiscountQLI {
 
     @AuraEnabled
-	public static String updateRetailerDiscount(RequestQLIWrapper requestDataWrapper) {
-        System.debug('MS lstRequestData==> '+requestDataWrapper);
+    public static String updateRetailerDiscount(RequestQLIWrapper requestDataWrapper) {
+        System.debug('MS lstRequestData==> ' + requestDataWrapper);
         String msg = '';
-        try{
-            if(requestDataWrapper!=null){
-            LMS_QuoteLineItem__c qli = new LMS_QuoteLineItem__c(Id=requestDataWrapper.quoteLineItemId,LMS_QLI_DiscountPercent__c=requestDataWrapper.retailerdiscountpercent,
-                                                               LMS_QLI_DiscountAmount__c=requestDataWrapper.retailerdiscountAmount,LMS_QLI_DiscountNetAmount2__c=requestDataWrapper.retailerdiscountNetAmount2,LMS_QLI_TaxAdjust__c=requestDataWrapper.retailerdiscountamountInclVal);
-        
-            	update qli;
+        try {
+            if (requestDataWrapper != null && String.isNotBlank(requestDataWrapper.quoteLineItemId)) {
+                LMS_QuoteLineItem__c qli = new LMS_QuoteLineItem__c(
+                    Id = requestDataWrapper.quoteLineItemId,
+                    LMS_QLI_DiscountPercent__c = requestDataWrapper.retailerdiscountpercent,
+                    LMS_QLI_DiscountAmount__c = requestDataWrapper.retailerdiscountAmount,
+                    LMS_QLI_DiscountNetAmount2__c = requestDataWrapper.retailerdiscountNetAmount2,
+                    LMS_QLI_TaxAdjust__c = requestDataWrapper.retailerdiscountamountInclVal
+                );
+                update qli;
                 msg = 'success';
+            } else {
+                msg = 'Invalid input: requestDataWrapper or quoteLineItemId is null';
             }
-        }catch(Exception ex){
-                msg = ex.getMessage();
+        } catch (Exception ex) {
+            msg = ex.getMessage();
         }
         return msg;
     }

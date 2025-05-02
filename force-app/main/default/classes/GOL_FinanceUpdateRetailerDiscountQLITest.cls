@@ -19,7 +19,7 @@ private class GOL_FinanceUpdateRetailerDiscountQLITest {
         LMS_Showroom__c sr = LMS_DataFactory.createShowroom();
         insert sr;
 
-        System.runAs(testData.portalUser) {
+       // System.runAs(testData.portalUser) {
             testData.quote.LMS_QUO_Status__c = LMS_QuoteHelper.STATUS_DRAFT;
             testData.quote.LMS_QUO_SalesCountry__c = 'FR';
             testData.quote.LMS_QUO_ShowroomId__c = sr.Id;
@@ -27,15 +27,15 @@ private class GOL_FinanceUpdateRetailerDiscountQLITest {
 
             qli = LMS_DataFactory.fetchQuoteLineItem(testData.quote.Id, 100000, 1, null);
             insert qli;
-        }
+      //  }
     }
 
     @isTest
     static void testUpdateRetailerDiscount() {
         Test.startTest();
-
+		LMS_QuoteLineItem__c qliSaved = [SELECT Id FROM LMS_QuoteLineItem__c LIMIT 1];
         GOL_FinanceUpdateRetailerDiscountQLI.RequestQLIWrapper wrapper = new GOL_FinanceUpdateRetailerDiscountQLI.RequestQLIWrapper();
-        wrapper.quoteLineItemId = qli.Id;
+        wrapper.quoteLineItemId = qliSaved.Id;
         wrapper.retailerdiscountpercent = 5.0;
         wrapper.retailerdiscountAmount = 200.0;
         wrapper.retailerdiscountNetAmount2 = 150.0;
@@ -48,7 +48,7 @@ private class GOL_FinanceUpdateRetailerDiscountQLITest {
             SELECT LMS_QLI_DiscountPercent__c, LMS_QLI_DiscountAmount__c,
                    LMS_QLI_DiscountNetAmount2__c, LMS_QLI_TaxAdjust__c
             FROM LMS_QuoteLineItem__c
-            WHERE Id = :qli.Id
+            WHERE Id = :qliSaved.Id
         ];
 
         System.assertEquals(5.0, updated.LMS_QLI_DiscountPercent__c);

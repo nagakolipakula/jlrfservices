@@ -245,6 +245,18 @@ export default class gol_parentSliderComponent extends LightningElement {
               });
             });
             }
+
+            if(storedData.insuranceData.inputFields.services?.length>0 && this.parsedResponse[i].inputFields.services?.length>0){
+              storedData.insuranceData.inputFields.services.forEach((element2)=>{
+                this.parsedResponse[i].inputFields.services.forEach((childelement1)=>{
+                  if(childelement1.serviceId === element2.serviceId){
+                     childelement1.selectedValue = element2.defaultValue;
+                     childelement1.defaultValue = element2.defaultValue;
+                  }
+                });
+              });
+              
+            }
         }
       }
       }

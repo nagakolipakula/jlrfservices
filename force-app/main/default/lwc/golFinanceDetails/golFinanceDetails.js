@@ -68,11 +68,20 @@ export default class golFinanceDetails extends LightningElement {
         //     }
         // }
     }
-
-    get jlrId() {
+    //GOL-4251
+    get productDescription() {
+        if(this.financeRecord.GOL_FIN_Finance_Product_Description__c){
+            return this.financeRecord.GOL_FIN_Finance_Product_Description__c;
+        }else{
+            return this.financeRecord.LMS_FIN_ProdName__c;
+        }
+    }
+    //GOL-4251
+    //GOL-3173
+     get jlrId() {
         return this.financeRecord.GOL_JLR_QUOTE_FIN_ID__c || this.financeRecord.GOL_JLR_ID__c;
-    }    
-
+    }   
+    //GOL-3173 end
     processLegalText() {
         if (this.financeRecord?.ERPT_FIN_LegalText__c) {
             const legalTextVal = this.financeRecord.ERPT_FIN_LegalText__c;

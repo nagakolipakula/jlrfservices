@@ -1,13 +1,13 @@
 <template>
     <div class="id-container">
-        <span class="id-label">{label.GOL_JLR_Id} {jlrId}</span>
+        <span class="id-label">{label.GOL_JLR_Id} {jlrId}</span> <!--GOL-3173-->
     </div>
     <div class="summary-and-button-container">
         <div class="container">
             <div class="summary-card">
                 <div class="lease-info">
                     <p class="lease-title">
-                        <strong>{financeRecord.LMS_FIN_ProdName__c}</strong>
+                        <strong>{productDescription}</strong> <!-- GOL-4251 -->
                         <span class="lease-amount">
                             <lightning-formatted-number 
                                 value={financeRecord.ERPT_FIN_InstallmentIntGrossAmt__c}
@@ -67,7 +67,7 @@
                     </template>
                     <div class="divider"></div>
                     <div class="total-row">
-                        <span>{label.GOL_Total} {financeRecord.LMS_FIN_ProdName__c} {label.GOL_Amount}</span>
+                        <span>{label.GOL_Total} {productDescription} {label.GOL_Amount}</span>  <!-- GOL-4251 -->
                         <span> <lightning-formatted-number value={financeRecord.ERPT_FIN_TotalGrossAmt__c} format-style="currency"> </lightning-formatted-number></span>
                     </div>
                 </div>

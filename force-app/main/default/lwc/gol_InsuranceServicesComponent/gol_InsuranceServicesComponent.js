@@ -30,18 +30,9 @@ export default class Gol_InsuranceServicesComponent extends LightningElement {
     isItalyCountryUser = false;
     isAdditionalServices = false;
 
-    // get hasNoInsuranceProducts() {
-    //     return !(
-    //         (this.cpiProducts && this.cpiProducts.length > 0) || 
-    //         (this.nonCpiProducts && this.nonCpiProducts.length > 0) 
-    //         //(this.services && this.services.length > 0)
-    //     );
-    // }
-
     connectedCallback(){
         console.log('MS++ Insurance Products==> ',JSON.stringify(this.insuranceProducts,null,2));
         console.log('MS++ UserDetails==> ',JSON.stringify(this.userDetails,null,2));
-        //console.log('Check', this.hasNoInsuranceProducts);
          if(this.userDetails && this.userDetails.LMS_USR_SalesCountryCode__c && this.userDetails.LMS_USR_SalesCountryCode__c=='IT'){
             this.isItalyCountryUser=true;
         }

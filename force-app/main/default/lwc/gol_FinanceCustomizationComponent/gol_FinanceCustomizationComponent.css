@@ -171,3 +171,46 @@ details {
     color: #0C121C;
 
   }
+
+  .CtnBtnStyle {
+    color: #FFFFFF;
+    background-color: #0C121C;
+    font-family: LandRoverAvenirNext;
+    font-size: 10px;
+    font-weight: 600;
+    line-height: 14px;
+    letter-spacing: 3px;
+    text-align: left;
+    width: -webkit-fill-available;
+    height: 50%;
+    border: 0.1px solid #0C121C;
+    padding: 20px;
+    width: 400px;
+  }
+  
+  .CtnBtnStyle:hover {
+    background-color: #FFFFFF;
+    color: #0C121C;
+    /*border: 0.1px solid #0C121C;
+    stroke: #4A4F544C; */
+  }
+
+  .confirmation-text{
+    color: #f4ecec;
+    font-size: 18px;
+    font-weight: 900;
+    line-height: 18px;
+    letter-spacing: 0.8px;
+    text-align: center;
+  }
+  .error-textmsg{
+    color: red;
+    font-size: 18px;
+    font-weight: 900;
+    line-height: 18px;
+    letter-spacing: 0.8px;
+    text-align: center;
+  }
+  .confirmation-icon {
+    --slds-c-icon-color-foreground: #000000;
+  }

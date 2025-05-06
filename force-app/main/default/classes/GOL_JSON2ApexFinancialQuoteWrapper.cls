@@ -12,20 +12,23 @@ public with sharing class GOL_JSON2ApexFinancialQuoteWrapper {
     public List<NonCpiProducts> nonCpiProducts;
     public String quoteId;
     public Products products;
+    public String ageRange;
+    public String zipCode;  
     
     public GOL_JSON2ApexFinancialQuoteWrapper() {
         System.debug(LoggingLevel.DEBUG, 'GOL_JSON2ApexFinancialQuoteWrapper()');
-        this.fixedCosts = new List<FixedCost>(); 
+        /*this.fixedCosts = new List<FixedCost>(); 
         this.cpiProducts = new List<CpiProducts>();
         this.nonCpiProducts = new List<NonCpiProducts>();
         this.quoteDetails = new List<QuoteDetail>();
         this.products = new Products();
-        this.financialProduct.services = new List<Services>();
+        this.financialProduct.services = new List<Services>();*/
     }
 
     public class FinancialProduct {
         public String id;
         public String name;
+        public String description; //GOL-4251
         public String currencyCode;
         public List<String> rateType;
         public FinancialProductCategory financialProductCategory;
@@ -59,6 +62,24 @@ public with sharing class GOL_JSON2ApexFinancialQuoteWrapper {
         public Integer duration;
         public Decimal installmentGrossAmount;
         public Decimal totalGrossAmount;
+        //GOL-3208
+        public Date endingValidityDate;
+        public Decimal aprcRate;
+        public Decimal totalInterestGrossAmount;
+        public Decimal totalFinancedGrossAmount;
+        public Decimal toBeFinancedGrossAmount;
+        public Decimal nominalRate;
+        public Decimal jlrTotalCostOfCredit;
+        public Decimal jlrMonthlyInstallments;
+        public Decimal jlrLastMonthlyInstallment;
+        public Decimal jlrFirstMonthlyInstallment;
+        public Decimal jlrFinancedAmount;
+        public Decimal installmentLastGrossAmount;
+        public Decimal installmentFirstGrossAmount;
+        public Decimal installmentAndInterestTotalGrossAmount;
+        public Decimal installmentInterestGrossAmount;
+        public Decimal effectiveRate;
+        //GOL-3208
     }
 
     public class QuoteDetail {
@@ -85,7 +106,7 @@ public with sharing class GOL_JSON2ApexFinancialQuoteWrapper {
         public String description;
         public String id;
         public Boolean checked;
-        //public Decimal monthlyCost;
+        public Decimal monthlyCost;
     }
 
     public class NonCpiProducts {
@@ -94,7 +115,7 @@ public with sharing class GOL_JSON2ApexFinancialQuoteWrapper {
         public String description;
         public String id;
         public Boolean checked;
-        //public Decimal monthlyCost;
+        public Decimal monthlyCost;
     }
 
     public class Products {

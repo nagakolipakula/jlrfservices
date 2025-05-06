@@ -134,6 +134,13 @@
         <value>No vehicle found in this quote. Please add a vehicle.</value>
     </labels>
     <labels>
+        <fullName>GOL_A2_Quote_Reference</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL A2 Quote Reference</shortDescription>
+        <value>Quote reference</value>
+    </labels>
+    <labels>
         <fullName>GOL_A2_Salesperson_warning_msg</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -253,6 +260,13 @@
         <value>Showing {0} of {1} Page(s)</value>
     </labels>
     <labels>
+        <fullName>GOL_Add_ON_Page_Number_Vehicles</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL_Add_ON_Page_Number_Vehicles</shortDescription>
+        <value>Showing {0} of {1} vehicles</value>
+    </labels>
+    <labels>
         <fullName>GOL_Add_ON_Page_Size</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -323,6 +337,20 @@
         <value>Adjusted Price (€)</value>
     </labels>
     <labels>
+        <fullName>GOL_AdjustmentTab_Category</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL_AdjustmentTab_Category</shortDescription>
+        <value>Category</value>
+    </labels>
+    <labels>
+        <fullName>GOL_AdjustmentTab_ItemName</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL_AdjustmentTab_ItemName</shortDescription>
+        <value>Item Name</value>
+    </labels>
+    <labels>
         <fullName>GOL_AdjustmentTab_ListPrice</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -358,11 +386,33 @@
         <value>Agreement duration</value>
     </labels>
     <labels>
+        <fullName>GOL_AllCampaignDetails</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL_AllCampaignDetails</shortDescription>
+        <value>All campaigns detail</value>
+    </labels>
+    <labels>
+        <fullName>GOL_Allianz_Consent_Description</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL Allianz Consent Description</shortDescription>
+        <value>Ich bin damit einverstanden, dass meine Kontaktdaten (persönliche Daten, Kontaktdaten und Fahrzeugdaten) zum Zwecke der Werbung zu Kfz-Versicherungsprodukten der Allianz an die GA Global Automotive Versicherungsservice GmbH und die Allianz Versicherungs-AG weitergegeben werden und ich durch diese hierzu telefonisch oder per E-Mail kontaktiert werde. Die Allianz Versicherungs-AG und die GA Global Automotive Versicherungsservice GmbH geben Ihre Daten nicht unbefugt ohne Ihre Genehmigung an Dritte weiter.
+Diese Werbeeinwilligung kann jederzeit ohne Angabe von Gründen widerrufen werden. Für Land Rover kann der Widerruf schriftlich gegenüber landroverversicherung@allianz.de erklärt werden. Für Jaguar kann der Widerruf schriftlich gegenüber jaguarversicherung@allianz.de erklärt werden.</value>
+    </labels>
+    <labels>
         <fullName>GOL_Alternative_finance_calculation</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>GOL Alternative finance calculation</shortDescription>
         <value>Alternative finance calculation</value>
+    </labels>
+    <labels>
+        <fullName>GOL_Amount</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL Amount</shortDescription>
+        <value>Amount</value>
     </labels>
     <labels>
         <fullName>GOL_Amount_incl_VAT</fullName>
@@ -505,6 +555,13 @@
         <value>BUILD YOUR OWN</value>
     </labels>
     <labels>
+        <fullName>GOL_Back</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL Back</shortDescription>
+        <value>BACK</value>
+    </labels>
+    <labels>
         <fullName>GOL_Back_Button</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -531,6 +588,13 @@
         <protected>false</protected>
         <shortDescription>GOL Calculate Financing</shortDescription>
         <value>CALCULATE FINANCING</value>
+    </labels>
+    <labels>
+        <fullName>GOL_Campaign</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL Campaign</shortDescription>
+        <value>Campaign</value>
     </labels>
     <labels>
         <fullName>GOL_Cancel</fullName>
@@ -687,6 +751,13 @@
         <value>Data Profiling</value>
     </labels>
     <labels>
+        <fullName>GOL_Date_and_time</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL Date and time</shortDescription>
+        <value>Date / Time</value>
+    </labels>
+    <labels>
         <fullName>GOL_Delete_Extras_Tab</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -762,6 +833,34 @@
         <protected>false</protected>
         <shortDescription>GOL_Email_Is_Required</shortDescription>
         <value>Email is required to send Draft Quote.</value>
+    </labels>
+    <labels>
+        <fullName>GOL_Event_Go_To_Alternative_Modify</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL Event Go To Alternative Modify</shortDescription>
+        <value>gotoAlternativeModify</value>
+    </labels>
+    <labels>
+        <fullName>GOL_Event_Go_To_Modify</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL Event Go To Modify</shortDescription>
+        <value>gotoModify</value>
+    </labels>
+    <labels>
+        <fullName>GOL_Event_Go_To_Overview</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL Event Go To Overview</shortDescription>
+        <value>goToOverView</value>
+    </labels>
+    <labels>
+        <fullName>GOL_Event_New_Calculator</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL Event New Calculator</shortDescription>
+        <value>newCalculator</value>
     </labels>
     <labels>
         <fullName>GOL_Excl_VAT</fullName>
@@ -846,6 +945,13 @@
         <protected>false</protected>
         <shortDescription>GOL F1 FINANCING</shortDescription>
         <value>FINANCING</value>
+    </labels>
+    <labels>
+        <fullName>GOL_F1_FULL_FINANCING</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL F1 FULL FINANCING</shortDescription>
+        <value>FS INTEGRATION</value>
     </labels>
     <labels>
         <fullName>GOL_F1_Hold_Vehicle_Button</fullName>
@@ -1310,6 +1416,90 @@
         <value>FILTER THE RESULTS</value>
     </labels>
     <labels>
+        <fullName>GOL_FS</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL FS</shortDescription>
+        <value>FS</value>
+    </labels>
+    <labels>
+        <fullName>GOL_FS_Address_Validation_Error_Message</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL FS Address Validation Error Message</shortDescription>
+        <value>Address should be fully completed or totally empty.</value>
+    </labels>
+    <labels>
+        <fullName>GOL_FS_Legal_Disclaimer</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL_FS_Legal_Disclaimer</shortDescription>
+        <value>This credit simulation is purely informative and exclusively intended for the credit intermediary. It does not constitute a credit offer and must not be shared with the consumer by the credit intermediary.</value>
+    </labels>
+    <labels>
+        <fullName>GOL_FS_Month_Label</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL_FS_Month_Label</shortDescription>
+        <value>months</value>
+    </labels>
+    <labels>
+        <fullName>GOL_FS_Overview</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL FS Overview</shortDescription>
+        <value>JLR ID</value>
+    </labels>
+    <labels>
+        <fullName>GOL_FS_ShowMaxUpdateError</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL_FS_ShowMaxUpdateError</shortDescription>
+        <value>You can&apos;t select more than 99 records</value>
+    </labels>
+    <labels>
+        <fullName>GOL_FS_ShowMinUpdateError</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL_FS_ShowMinUpdateError</shortDescription>
+        <value>Please select minimum one calculation to update</value>
+    </labels>
+    <labels>
+        <fullName>GOL_FS_View_Quote_Error</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL_FS_View_Quote_Error</shortDescription>
+        <value>No quote details are available for this Finance Information Record.</value>
+    </labels>
+    <labels>
+        <fullName>GOL_FS_X_Client_origin</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL FS X Client origin</shortDescription>
+        <value>SMART</value>
+    </labels>
+    <labels>
+        <fullName>GOL_FS_showMaxSelectionToOpen</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL_FS_showMaxSelectionToOpen</shortDescription>
+        <value>Please select a maximum of two calculations to open</value>
+    </labels>
+    <labels>
+        <fullName>GOL_FS_showMaxSendToBankError</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL_FS_showMaxSendToBankError</shortDescription>
+        <value>You can&apos;t select more than one calculation for Send to bank</value>
+    </labels>
+    <labels>
+        <fullName>GOL_FS_showMinSelectionToOpen</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL_FS_showMinSelectionToOpen</shortDescription>
+        <value>Please select a calculation to open</value>
+    </labels>
+    <labels>
         <fullName>GOL_Feature_Value</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -1324,11 +1514,32 @@
         <value>Final price with trade-in</value>
     </labels>
     <labels>
+        <fullName>GOL_Finance_Additional_services</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL Finance Additional services</shortDescription>
+        <value>Additional services</value>
+    </labels>
+    <labels>
+        <fullName>GOL_Finance_Business_Client</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL Finance Business Client</shortDescription>
+        <value>BUSINESS CLIENT</value>
+    </labels>
+    <labels>
         <fullName>GOL_Finance_Calculation</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>GOL Finance Calculation</shortDescription>
         <value>Finance calculation</value>
+    </labels>
+    <labels>
+        <fullName>GOL_Finance_Client_age</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL Finance Client age</shortDescription>
+        <value>Client age</value>
     </labels>
     <labels>
         <fullName>GOL_Finance_Finance_calculator</fullName>
@@ -1345,6 +1556,20 @@
         <value>Insurance and Services</value>
     </labels>
     <labels>
+        <fullName>GOL_Finance_Insurance_product_1</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL Finance Insurance product 1</shortDescription>
+        <value>Insurance product 1</value>
+    </labels>
+    <labels>
+        <fullName>GOL_Finance_Insurance_product_2</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL Finance Insurance product 2</shortDescription>
+        <value>Insurance product 2</value>
+    </labels>
+    <labels>
         <fullName>GOL_Finance_Personal_Purchase</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -1359,6 +1584,34 @@
         <value>PURCHASE FOR A COMPANY</value>
     </labels>
     <labels>
+        <fullName>GOL_Finance_Retailer_Discount_Confirmation_Button</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL_Finance_Retailer_Discount_Confirmation_Button</shortDescription>
+        <value>Continue</value>
+    </labels>
+    <labels>
+        <fullName>GOL_Finance_Retailer_Discount_Confirmation_Message</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL_Finance_Retailer_Discount_Confirmation_Message</shortDescription>
+        <value>Retailer discount updated successfully</value>
+    </labels>
+    <labels>
+        <fullName>GOL_Finance_Retailer_Discount_Update_Button</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL Finance Retailer Discount Update Button</shortDescription>
+        <value>Update</value>
+    </labels>
+    <labels>
+        <fullName>GOL_Finance_Self_Employed</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL Finance Self Employed</shortDescription>
+        <value>SELF EMPLOYED</value>
+    </labels>
+    <labels>
         <fullName>GOL_Finance_Value_PRIVATE</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -1371,6 +1624,13 @@
         <protected>false</protected>
         <shortDescription>GOL_Finance_Value_PROFESSIONAL</shortDescription>
         <value>PROFESSIONAL</value>
+    </labels>
+    <labels>
+        <fullName>GOL_Finance_Zip_Postal_code</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL Finance Zip/Postal code</shortDescription>
+        <value>Zip/Postal code</value>
     </labels>
     <labels>
         <fullName>GOL_G1_ConfirmContact_SalutationRequired</fullName>
@@ -1492,11 +1752,25 @@
         <value>Go</value>
     </labels>
     <labels>
+        <fullName>GOL_Get_Finance_Product_End_Point</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL Get Finance Product End Point</shortDescription>
+        <value>v2/finance/products</value>
+    </labels>
+    <labels>
         <fullName>GOL_Get_Finance_Quote_End_Point</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>GOL Get Finance Quote End Point</shortDescription>
         <value>v2/finance/quotes</value>
+    </labels>
+    <labels>
+        <fullName>GOL_Go_To_Overview</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL Go To Overview</shortDescription>
+        <value>GO TO OVERVIEW</value>
     </labels>
     <labels>
         <fullName>GOL_GrossAmtDiscount</fullName>
@@ -1574,6 +1848,13 @@
         <protected>false</protected>
         <shortDescription>GOL_IndicativeTradeInFinanceDomain_Storefront</shortDescription>
         <value>global-goldstar-sit.mobify-storefront.com</value>
+    </labels>
+    <labels>
+        <fullName>GOL_Indicative_Tradein_Finance_Flag</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL Indicative Tradein Finance Flag</shortDescription>
+        <value>false</value>
     </labels>
     <labels>
         <fullName>GOL_Invalid_Configuration_Code</fullName>
@@ -1674,6 +1955,27 @@
         <value>Lease</value>
     </labels>
     <labels>
+        <fullName>GOL_Link_To_Arval_Pos</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL Link To Arval Pos</shortDescription>
+        <value>LINK TO ARVAL POS</value>
+    </labels>
+    <labels>
+        <fullName>GOL_Link_To_Pf_PoS</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL Link To Pf PoS</shortDescription>
+        <value>LINK TO PF POS</value>
+    </labels>
+    <labels>
+        <fullName>GOL_Link_To_Pf_Pos_Leasing</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL Link To Pf Pos Leasing</shortDescription>
+        <value>LINK TO PF POS LEASING</value>
+    </labels>
+    <labels>
         <fullName>GOL_Local_Editions</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -1751,6 +2053,13 @@
         <value>Monthly payment</value>
     </labels>
     <labels>
+        <fullName>GOL_Monthy</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL Monthy</shortDescription>
+        <value>Monthy</value>
+    </labels>
+    <labels>
         <fullName>GOL_NA</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -1765,11 +2074,46 @@
         <value>Net Amount Discount</value>
     </labels>
     <labels>
+        <fullName>GOL_New_Calculation_Button</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL New Calculation Button</shortDescription>
+        <value>NEW CALCULATION</value>
+    </labels>
+    <labels>
+        <fullName>GOL_New_Calculation_Button_Clicked_Event</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL New Calculation Button Clicked Event</shortDescription>
+        <value>New Calculation Button Clicked</value>
+    </labels>
+    <labels>
         <fullName>GOL_NoAccessToVHCMessage</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>GOL_NoAccessToVHCMessage</shortDescription>
         <value>Vehicle hold not possible. Please contact manager.</value>
+    </labels>
+    <labels>
+        <fullName>GOL_No_Financial_products_available</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL No financial products available</shortDescription>
+        <value>No financial products available</value>
+    </labels>
+    <labels>
+        <fullName>GOL_No_Records_Found</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL No Records Found</shortDescription>
+        <value>Please select at least one record.</value>
+    </labels>
+    <labels>
+        <fullName>GOL_No_Records_In_Created_Status</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL No Records In Created Status</shortDescription>
+        <value>No selected records are in &quot;CREATED&quot; status.</value>
     </labels>
     <labels>
         <fullName>GOL_Nominal_rate</fullName>
@@ -1793,6 +2137,13 @@
         <value>On hold until date</value>
     </labels>
     <labels>
+        <fullName>GOL_Open_Button_Clicked_Event</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL Open Button Clicked Event</shortDescription>
+        <value>Open Button Clicked</value>
+    </labels>
+    <labels>
         <fullName>GOL_Open_New_Calculator_Button</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -1800,11 +2151,32 @@
         <value>OPEN NEW CALCULATOR</value>
     </labels>
     <labels>
+        <fullName>GOL_Open_Quote_Button</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL Open Quote Button</shortDescription>
+        <value>OPEN</value>
+    </labels>
+    <labels>
         <fullName>GOL_Outstanding_amount</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>GOL Outstanding amount</shortDescription>
         <value>Outstanding amount</value>
+    </labels>
+    <labels>
+        <fullName>GOL_Payment_Date</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Payment Date</shortDescription>
+        <value>Payment Date</value>
+    </labels>
+    <labels>
+        <fullName>GOL_Payment_Method</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Payment Method</shortDescription>
+        <value>Payment Method</value>
     </labels>
     <labels>
         <fullName>GOL_Percentage</fullName>
@@ -1921,6 +2293,13 @@ Sie sind damit einverstanden, dass die Jaguar Land Rover Austria GmbH, Fasanerie
 Die Datenschutzerklärung der Jaguar Land Rover Austria GmbH ist abrufbar unter https://www.jaguar.at/privacy-policy/index.html und https://www.landrover.at/privacy-policy/index.html.</value>
     </labels>
     <labels>
+        <fullName>GOL_Quotation_overview</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL Quotation overview</shortDescription>
+        <value>Quotation overview</value>
+    </labels>
+    <labels>
         <fullName>GOL_QuoteDetailsScreenFlow_Deposit_Required_Msg</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -1956,6 +2335,13 @@ Die Datenschutzerklärung der Jaguar Land Rover Austria GmbH ist abrufbar unter 
         <value>Quotes Count</value>
     </labels>
     <labels>
+        <fullName>GOL_Quotes_Count_For</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Quote Count</shortDescription>
+        <value>Quotes Count for</value>
+    </labels>
+    <labels>
         <fullName>GOL_RCC_Base_URL</fullName>
         <categories>URL</categories>
         <language>en_US</language>
@@ -1964,11 +2350,95 @@ Die Datenschutzerklärung der Jaguar Land Rover Austria GmbH ist abrufbar unter 
         <value>https://build.landrover/</value>
     </labels>
     <labels>
+        <fullName>GOL_Records_Saved_Successfully</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL Records Saved Successfully</shortDescription>
+        <value>Records Updated Successfully</value>
+    </labels>
+    <labels>
+        <fullName>GOL_Refund</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Refund</shortDescription>
+        <value>Refund</value>
+    </labels>
+    <labels>
+        <fullName>GOL_Refund_Cancel</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Refund Cancel</shortDescription>
+        <value>No</value>
+    </labels>
+    <labels>
+        <fullName>GOL_Refund_Confirmation</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Refund Confirmation</shortDescription>
+        <value>Yes</value>
+    </labels>
+    <labels>
+        <fullName>GOL_Refund_Confirmation_Header</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Refund Confirmation Header</shortDescription>
+        <value>Refund Request</value>
+    </labels>
+    <labels>
+        <fullName>GOL_Refund_Confirmation_Text</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Refund Confirmation Text</shortDescription>
+        <value>Are you sure you want to proceed with refund request?</value>
+    </labels>
+    <labels>
+        <fullName>GOL_Refund_Date</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Refund Date</shortDescription>
+        <value>Refund Date</value>
+    </labels>
+    <labels>
+        <fullName>GOL_Refund_Error_Message</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Refund Error Message</shortDescription>
+        <value>The refund request failed due to an error. Please contact your admin.</value>
+    </labels>
+    <labels>
+        <fullName>GOL_Refund_Reason</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Refund Reason</shortDescription>
+        <value>Refund Reason</value>
+    </labels>
+    <labels>
+        <fullName>GOL_Refund_Status</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Refund Status</shortDescription>
+        <value>Refund Status</value>
+    </labels>
+    <labels>
+        <fullName>GOL_Refund_Success_Message</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Refund Success Message</shortDescription>
+        <value>The refund request has been successfully processed.</value>
+    </labels>
+    <labels>
         <fullName>GOL_Region_City</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>GOL Region/City</shortDescription>
         <value>Region/City</value>
+    </labels>
+    <labels>
+        <fullName>GOL_Reservation_Section_Name</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Reservation Section Name</shortDescription>
+        <value>Reservation Details</value>
     </labels>
     <labels>
         <fullName>GOL_Reservation_fee</fullName>
@@ -1982,7 +2452,7 @@ Die Datenschutzerklärung der Jaguar Land Rover Austria GmbH ist abrufbar unter 
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>GOL_RetailerCommunityUrl</shortDescription>
-        <value>https://jlr-glms--nttfsdev.sandbox.my.site.com/Retailer/s</value>
+        <value>https://jlr-glms--gsprojqa3.sandbox.my.site.com/Retailer/s</value>
     </labels>
     <labels>
         <fullName>GOL_Retailer_Consent_Description</fullName>
@@ -2045,6 +2515,20 @@ The Dealer is obliged to process your personal data in order to fulfil the oblig
         <value>https://mynext.landrover.at</value>
     </labels>
     <labels>
+        <fullName>GOL_Row_Clicked_Event</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL Row Clicked Event</shortDescription>
+        <value>Row Clicked</value>
+    </labels>
+    <labels>
+        <fullName>GOL_Save_Button</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL Save Button</shortDescription>
+        <value>SAVE</value>
+    </labels>
+    <labels>
         <fullName>GOL_Save_Extras</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -2087,11 +2571,102 @@ The Dealer is obliged to process your personal data in order to fulfil the oblig
         <value>Select the financial service product</value>
     </labels>
     <labels>
+        <fullName>GOL_Send_To_Bank_Button</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL Send To Bank Button</shortDescription>
+        <value>SEND TO BANK</value>
+    </labels>
+    <labels>
+        <fullName>GOL_Send_to_Bank_Button_Clicked_Event</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL Send to Bank Button Clicked Event</shortDescription>
+        <value>Send to Bank Button Clicked</value>
+    </labels>
+    <labels>
+        <fullName>GOL_Share_Draft_OK</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL Share Draft OK</shortDescription>
+        <value>OK</value>
+    </labels>
+    <labels>
+        <fullName>GOL_Share_Draft_Quote_Confirmation_Text</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL Share Draft Quote Confirmation Text</shortDescription>
+        <value>Der Interessent bittet um Zusendung des vom Händler erstellten Angebots per Email durch die Jaguar Land Rover Deutschland GmbH.</value>
+    </labels>
+    <labels>
         <fullName>GOL_Special_Safety_Promotion</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>GOL Special Safety Promotion</shortDescription>
         <value>Special safety promotion</value>
+    </labels>
+    <labels>
+        <fullName>GOL_Status</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL Status</shortDescription>
+        <value>Status</value>
+    </labels>
+    <labels>
+        <fullName>GOL_StockVehicle_Accident_Free</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL_StockVehicle_Accident_Free</shortDescription>
+        <value>Accident free</value>
+    </labels>
+    <labels>
+        <fullName>GOL_StockVehicle_Engine_Displacement</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL_StockVehicle_Engine Displacement</shortDescription>
+        <value>Engine Displacement</value>
+    </labels>
+    <labels>
+        <fullName>GOL_StockVehicle_First_registration_date</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL_StockVehicle_First registration date</shortDescription>
+        <value>First registration date</value>
+    </labels>
+    <labels>
+        <fullName>GOL_StockVehicle_Fuel_Consumption</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL_StockVehicle_Fuel Consumption</shortDescription>
+        <value>Fuel Consumption</value>
+    </labels>
+    <labels>
+        <fullName>GOL_StockVehicle_List_price_inclVAT</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL_StockVehicle_List price (inclVAT)</shortDescription>
+        <value>List price (incl. VAT)</value>
+    </labels>
+    <labels>
+        <fullName>GOL_StockVehicle_Net_exclVAT</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL_StockVehicle_Net (exclVAT)</shortDescription>
+        <value>Net (excl. VAT)</value>
+    </labels>
+    <labels>
+        <fullName>GOL_StockVehicle_OptionsinclVAT</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL_StockVehicle_OptionsinclVAT</shortDescription>
+        <value>Options (incl. VAT)</value>
+    </labels>
+    <labels>
+        <fullName>GOL_StockVehicle_Power_hp_kw</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL_StockVehicle_Power(hp/kw)</shortDescription>
+        <value>Power (hp/kw)</value>
     </labels>
     <labels>
         <fullName>GOL_StockVehicle_Search_All</fullName>
@@ -2113,6 +2688,62 @@ The Dealer is obliged to process your personal data in order to fulfil the oblig
         <protected>false</protected>
         <shortDescription>GOL_StockVehicle_Search_New</shortDescription>
         <value>New</value>
+    </labels>
+    <labels>
+        <fullName>GOL_StockVehicle_Technical_Details</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL_StockVehicle_Technical Details</shortDescription>
+        <value>Technical Details</value>
+    </labels>
+    <labels>
+        <fullName>GOL_StockVehicle_Total_vehicle_price</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL_StockVehicle_Total vehicle price</shortDescription>
+        <value>Total vehicle price (incl. VAT)</value>
+    </labels>
+    <labels>
+        <fullName>GOL_StockVehicle_Used_car_details</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL_StockVehicle_Used car details</shortDescription>
+        <value>Used car details</value>
+    </labels>
+    <labels>
+        <fullName>GOL_StockVehicle_VAT</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL_StockVehicle_VAT</shortDescription>
+        <value>VAT</value>
+    </labels>
+    <labels>
+        <fullName>GOL_StockVehicle_VehicleOptions</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL_StockVehicle_VehicleOptions</shortDescription>
+        <value>Vehicle Options</value>
+    </labels>
+    <labels>
+        <fullName>GOL_StockVehicle_Vehicle_price</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL_StockVehicle_Vehicle_price</shortDescription>
+        <value>Vehicle price</value>
+    </labels>
+    <labels>
+        <fullName>GOL_StockVehicle_Vehicletype</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL_StockVehicle_Vehicletype</shortDescription>
+        <value>Vehicle type</value>
+    </labels>
+    <labels>
+        <fullName>GOL_StockVehicle_Wheels_driven</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL_StockVehicle_Wheels driven</shortDescription>
+        <value>Wheels driven</value>
     </labels>
     <labels>
         <fullName>GOL_Stock_Vehicle_Any</fullName>
@@ -2246,6 +2877,34 @@ The Dealer is obliged to process your personal data in order to fulfil the oblig
         <protected>false</protected>
         <shortDescription>GOL Subcategory</shortDescription>
         <value>Subcategory</value>
+    </labels>
+    <labels>
+        <fullName>GOL_Successfully_Saved_Contact_Details</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL Successfully Saved Contact Details</shortDescription>
+        <value>Successfully Saved Contact Details</value>
+    </labels>
+    <labels>
+        <fullName>GOL_Successfully_Sent_To_Bank</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL Successfully Sent To Bank</shortDescription>
+        <value>Successfully Sent to Bank.</value>
+    </labels>
+    <labels>
+        <fullName>GOL_TempToCreateConsentsForOnlineQuote</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL_TempToCreateConsentsForOnlineQuote</shortDescription>
+        <value>TRUE</value>
+    </labels>
+    <labels>
+        <fullName>GOL_Total</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL Total</shortDescription>
+        <value>Total</value>
     </labels>
     <labels>
         <fullName>GOL_Total_lease_amount</fullName>
@@ -2416,6 +3075,27 @@ The Dealer is obliged to process your personal data in order to fulfil the oblig
         <value>UPDATE</value>
     </labels>
     <labels>
+        <fullName>GOL_Update_Button_Clicked_Event</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL Update Button Clicked Event</shortDescription>
+        <value>Update Button Clicked</value>
+    </labels>
+    <labels>
+        <fullName>GOL_Update_Failed</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL Update Failed</shortDescription>
+        <value>An error occurred, Please try again later!</value>
+    </labels>
+    <labels>
+        <fullName>GOL_Update_Quote_Button</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL Update Quote Button</shortDescription>
+        <value>UPDATE</value>
+    </labels>
+    <labels>
         <fullName>GOL_Upsert_Extras_Tab</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -2477,6 +3157,13 @@ The Dealer is obliged to process your personal data in order to fulfil the oblig
         <protected>false</protected>
         <shortDescription>GOL WH1 Accessories Name</shortDescription>
         <value>Name</value>
+    </labels>
+    <labels>
+        <fullName>GOL_WH1_Accessories_Non_Tax_Item</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL WH1 Accessories Non Tax Item</shortDescription>
+        <value>Non Taxable Item</value>
     </labels>
     <labels>
         <fullName>GOL_WH1_Accessories_Part_Number</fullName>
@@ -2655,6 +3342,20 @@ Die Einwilligung kann mit Wirkung für die Zukunft widerrufen werden. Ausführli
         <protected>false</protected>
         <shortDescription>GOL monthly</shortDescription>
         <value>monthly</value>
+    </labels>
+    <labels>
+        <fullName>GOL_tax_tab</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOL_tax_tab</shortDescription>
+        <value>Tax</value>
+    </labels>
+    <labels>
+        <fullName>GOl_FS_showMinSendToBankError</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>GOl_FS_showMinSendToBankError</shortDescription>
+        <value>Please select one calculation for Send to bank</value>
     </labels>
     <labels>
         <fullName>Gol_Delete_Message</fullName>
@@ -3069,6 +3770,13 @@ Die Einwilligung kann mit Wirkung für die Zukunft widerrufen werden. Ausführli
         <value>This vehicle is missing data and the quote cannot progress – please contact your NSC administrator.</value>
     </labels>
     <labels>
+        <fullName>LMS_AdditionSearchSection</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Additional Search Criteria</shortDescription>
+        <value>Additional Search Criteria</value>
+    </labels>
+    <labels>
         <fullName>LMS_AdjustedPrice</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -3091,11 +3799,40 @@ Die Einwilligung kann mit Wirkung für die Zukunft widerrufen werden. Ausführli
         <value>Age of lead</value>
     </labels>
     <labels>
+        <fullName>LMS_AgeRangeFrom</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Age Range From</shortDescription>
+        <value>Age Range From</value>
+    </labels>
+    <labels>
+        <fullName>LMS_AgeRangeTo</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Age Range To</shortDescription>
+        <value>Age Range To</value>
+    </labels>
+    <labels>
+        <fullName>LMS_AgeRangeValues</fullName>
+        <categories>AddVehicle</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Age Range</shortDescription>
+        <value>calculated from First Registration Date(in Months)</value>
+    </labels>
+    <labels>
         <fullName>LMS_All</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Value &apos;All&apos; on the picklist</shortDescription>
         <value>All</value>
+    </labels>
+    <labels>
+        <fullName>LMS_AllCampaignDetails</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LMS_AllCampaignDetails</shortDescription>
+        <value>All campaigns detail</value>
     </labels>
     <labels>
         <fullName>LMS_AllCampaignsNotCompatible</fullName>
@@ -3234,6 +3971,14 @@ Die Einwilligung kann mit Wirkung für die Zukunft widerrufen werden. Ausführli
         <protected>false</protected>
         <shortDescription>April</shortDescription>
         <value>April</value>
+    </labels>
+    <labels>
+        <fullName>LMS_AssignmentSection</fullName>
+        <categories>AddVehicle</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Assignment and Location</shortDescription>
+        <value>Assignment and Location</value>
     </labels>
     <labels>
         <fullName>LMS_August</fullName>
@@ -3542,6 +4287,13 @@ Die Einwilligung kann mit Wirkung für die Zukunft widerrufen werden. Ausführli
         <protected>false</protected>
         <shortDescription>LMS_BlankFieldsError</shortDescription>
         <value>Please fill all the required fields</value>
+    </labels>
+    <labels>
+        <fullName>LMS_BlankVIN</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LMS_BlankVIN</shortDescription>
+        <value>VIN is Blank</value>
     </labels>
     <labels>
         <fullName>LMS_Both</fullName>
@@ -5055,6 +5807,14 @@ Prospect details:</value>
         <value>City</value>
     </labels>
     <labels>
+        <fullName>LMS_ClearAll</fullName>
+        <categories>AddVehicle</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Clear All</shortDescription>
+        <value>Clear All</value>
+    </labels>
+    <labels>
         <fullName>LMS_ClearanceOnly</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -5100,6 +5860,14 @@ Prospect details:</value>
         <value>Close</value>
     </labels>
     <labels>
+        <fullName>LMS_CloseButton</fullName>
+        <categories>AddVehicle</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LMS_CloseButton</shortDescription>
+        <value>Close</value>
+    </labels>
+    <labels>
         <fullName>LMS_CloseLeadNoLibraryAccess</fullName>
         <categories>Lead Closure, Lead Serialization</categories>
         <language>en_US</language>
@@ -5132,18 +5900,18 @@ Prospect details:</value>
         <value>Still want to continue please click on SAVE</value>
     </labels>
     <labels>
+        <fullName>LMS_CommonTOSNotHoldable</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LMS_CommonTOSNotHoldable</shortDescription>
+        <value>Common type of sale is not holdable</value>
+    </labels>
+    <labels>
         <fullName>LMS_CommonTypeOfSale</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>LMS_CommonTypeOfSale</shortDescription>
         <value>Common Type of Sale</value>
-    </labels>
-    <labels>
-        <fullName>GOL_Indicative_Tradein_Finance_Flag</fullName>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>GOL Indicative Tradein Finance Flag</shortDescription>
-        <value>false</value>
     </labels>
     <labels>
         <fullName>LMS_CommonTypeOfSaleNotMatchingWithOrder</fullName>
@@ -5184,7 +5952,7 @@ Thank you,
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Community url</shortDescription>
-        <value>https://jlr-glms--nttfsdev.sandbox.my.site.com/jlr</value>
+        <value>https://jlr-glms--gsprojqa3.sandbox.my.site.com/jlr</value>
     </labels>
     <labels>
         <fullName>LMS_ConfigureCar</fullName>
@@ -6450,6 +7218,30 @@ Retailer Registered Company Details&lt;/p&gt;​</value>
         <value>The Employee you would like to assign this event to has holidays. Please select different date.</value>
     </labels>
     <labels>
+        <fullName>LMS_EnginePowerFrom</fullName>
+        <categories>AddVehicle</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Engine Power From</shortDescription>
+        <value>Engine Power From</value>
+    </labels>
+    <labels>
+        <fullName>LMS_EnginePowerTo</fullName>
+        <categories>AddVehicle</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Engine Power To</shortDescription>
+        <value>Engine Power To</value>
+    </labels>
+    <labels>
+        <fullName>LMS_EnginePowerUnit</fullName>
+        <categories>AddVehicle</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Engine Power Unit</shortDescription>
+        <value>Engine Power Unit</value>
+    </labels>
+    <labels>
         <fullName>LMS_EnterVistaOrderNumber</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -6655,6 +7447,20 @@ Retailer Registered Company Details&lt;/p&gt;​</value>
         <value>PE:{0} does not have price;</value>
     </labels>
     <labels>
+        <fullName>LMS_Features</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LMS_Features</shortDescription>
+        <value>Features</value>
+    </labels>
+    <labels>
+        <fullName>LMS_FeaturesUnavailable</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LMS_FeaturesUnavailable</shortDescription>
+        <value>Features unavailable for the selected stock vehicle</value>
+    </labels>
+    <labels>
         <fullName>LMS_February</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -6682,6 +7488,13 @@ Retailer Registered Company Details&lt;/p&gt;​</value>
         <protected>false</protected>
         <shortDescription>LMS_FillVINOrLicencePlate</shortDescription>
         <value>Please provide valid vehicle data. VIN or Licence Plate are a minimum</value>
+    </labels>
+    <labels>
+        <fullName>LMS_FiltersSelected</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>filters selected</shortDescription>
+        <value>filters selected</value>
     </labels>
     <labels>
         <fullName>LMS_Finance_Information_Change_Status</fullName>
@@ -7326,6 +8139,13 @@ You have a hold on stock vehicle with VIN: {1} and its expiring on {2} Lead:</va
         <value>Invoice Address</value>
     </labels>
     <labels>
+        <fullName>LMS_IsCreateOrderBeforeApproveMsg</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LMS_IsCreateOrderBeforeApproveMsg</shortDescription>
+        <value>You cannot create an Order until the Hold Request is Approved.</value>
+    </labels>
+    <labels>
         <fullName>LMS_JOB_RUNNING_ERROR</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -7383,6 +8203,55 @@ You have a hold on stock vehicle with VIN: {1} and its expiring on {2} Lead:</va
         <protected>false</protected>
         <shortDescription>Description for KPI column</shortDescription>
         <value>KPI</value>
+    </labels>
+    <labels>
+        <fullName>LMS_KeyFeaturesAND</fullName>
+        <categories>AddVehicle</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>KeyFeatures And</shortDescription>
+        <value>Key search</value>
+    </labels>
+    <labels>
+        <fullName>LMS_KeyFeaturesOR</fullName>
+        <categories>AddVehicle</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>KeyFeatures OR</shortDescription>
+        <value>Key search</value>
+    </labels>
+    <labels>
+        <fullName>LMS_KeySearchANDInfo</fullName>
+        <categories>AddVehicle</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Key search AND info</shortDescription>
+        <value>Please enter all the equipment codes you want to search for. You can search for options and standard equipment.
+            Separate the codes with a comma (with or without spaces is irrelevant).The results will only show vehicles that contain ALL of the codes you entered.</value>
+    </labels>
+    <labels>
+        <fullName>LMS_KeySearchANDtext</fullName>
+        <categories>AddVehicle</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Key search AND text</shortDescription>
+        <value>(Vehicles must have ALL inserted Options)</value>
+    </labels>
+    <labels>
+        <fullName>LMS_KeySearchORInfo</fullName>
+        <categories>AddVehicle</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Key search OR info</shortDescription>
+        <value>Please enter any alternative option codes you wish to search for. You can search for options and standard  specification.Separate the codes with a comma (whether with or without a blank space is irrelevant).As a result, you will receive vehicles that contain at least ONE of the codes entered.</value>
+    </labels>
+    <labels>
+        <fullName>LMS_KeySearchORtext</fullName>
+        <categories>AddVehicle</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Key Search OR text</shortDescription>
+        <value>(Vehicles must have ONE of the inserted Options)</value>
     </labels>
     <labels>
         <fullName>LMS_LBL_Province</fullName>
@@ -7677,6 +8546,38 @@ You have a hold on stock vehicle with VIN: {1} and its expiring on {2} Lead:</va
         <value>Message</value>
     </labels>
     <labels>
+        <fullName>LMS_MileageRangeFrom</fullName>
+        <categories>AddVehicle</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Mileage Range From</shortDescription>
+        <value>Mileage Range From</value>
+    </labels>
+    <labels>
+        <fullName>LMS_MileageRangeTo</fullName>
+        <categories>AddVehicle</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Mileage Range To</shortDescription>
+        <value>Mileage Range To</value>
+    </labels>
+    <labels>
+        <fullName>LMS_MileageRangeValues</fullName>
+        <categories>AddVehicle</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Mileage Range</shortDescription>
+        <value>(e.g. 5000)</value>
+    </labels>
+    <labels>
+        <fullName>LMS_MileageRangeValuesTo</fullName>
+        <categories>AddVehicle</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Mileage Range To Values</shortDescription>
+        <value>(e.g. 30000)</value>
+    </labels>
+    <labels>
         <fullName>LMS_MissingCurrentCarInfo</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -7914,6 +8815,20 @@ The Team Jaguar Land Rover&lt;br&gt;&lt;/p&gt;</value>
         <protected>false</protected>
         <shortDescription>LMS_NoAccessMsg</shortDescription>
         <value>We are sorry but it looks like you don&apos;t have the correct permissions to access this record.</value>
+    </labels>
+    <labels>
+        <fullName>LMS_NoAccessToOrderMsg</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LMS_NoAccessToOrderMsg</shortDescription>
+        <value>Your retailer does not own this vehicle, please submit a Hold Request from owning retailer by using Hold Vehicle button.</value>
+    </labels>
+    <labels>
+        <fullName>LMS_NoAccessToOwningRetailer</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LMS_NoAccessToOwningRetailer</shortDescription>
+        <value>Owning Retailer does not have access to VHC</value>
     </labels>
     <labels>
         <fullName>LMS_NoAccessToVHCMessage</fullName>
@@ -8475,12 +9390,58 @@ Thank you,
         <value>Post Code</value>
     </labels>
     <labels>
+        <fullName>LMS_PowerUnitKW</fullName>
+        <categories>AddVehicle</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LMS_PowerUnitKW</shortDescription>
+        <value>KW</value>
+    </labels>
+    <labels>
+        <fullName>LMS_PowerUnitPS</fullName>
+        <categories>AddVehicle</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LMS_PowerUnitPS</shortDescription>
+        <value>PS</value>
+    </labels>
+    <labels>
         <fullName>LMS_Previous</fullName>
         <categories>Navigation</categories>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Previous</shortDescription>
         <value>Previous</value>
+    </labels>
+    <labels>
+        <fullName>LMS_PriceRangeFrom</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Price Range From</shortDescription>
+        <value>Price Range From</value>
+    </labels>
+    <labels>
+        <fullName>LMS_PriceRangeTo</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Price Range To</shortDescription>
+        <value>Price Range To</value>
+    </labels>
+    <labels>
+        <fullName>LMS_PriceRangeValues</fullName>
+        <categories>AddVehicle</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Price Range values</shortDescription>
+        <value>(e.g. 50,000)</value>
+    </labels>
+    <labels>
+        <fullName>LMS_PriceRangeValuesTo</fullName>
+        <categories>AddVehicle</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LMS_PriceRangeValuesTo</shortDescription>
+        <value>(e.g. 60,000)</value>
     </labels>
     <labels>
         <fullName>LMS_PriceValue</fullName>
@@ -8723,6 +9684,14 @@ Thank you,
         <value>You had a hold on this vehicle that expired. You cannot currently hold this vehicle until the punishment period has expired XXX.</value>
     </labels>
     <labels>
+        <fullName>LMS_QLI_APO</fullName>
+        <categories>AddVehicle</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LMS_QLI_APO</shortDescription>
+        <value>APO</value>
+    </labels>
+    <labels>
         <fullName>LMS_QLI_AccessoryApproval</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -8781,6 +9750,22 @@ Thank you,
         <value>Brand</value>
     </labels>
     <labels>
+        <fullName>LMS_QLI_BrandOrderType</fullName>
+        <categories>AddVehicle</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LMS_QLI_BrandOrderType</shortDescription>
+        <value>Brand Order Type</value>
+    </labels>
+    <labels>
+        <fullName>LMS_QLI_CO2Level</fullName>
+        <categories>AddVehicle</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LMS_QLI_CO2Level</shortDescription>
+        <value>CO2 Level [g/km]</value>
+    </labels>
+    <labels>
         <fullName>LMS_QLI_CarType</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -8828,6 +9813,20 @@ Thank you,
         <value>Choose exterior colour</value>
     </labels>
     <labels>
+        <fullName>LMS_QLI_ChooseInteriorColour</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Choose Interior Colour</shortDescription>
+        <value>Choose Interior Colour</value>
+    </labels>
+    <labels>
+        <fullName>LMS_QLI_ChooseNoOfSeats</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Choose Number of Seats</shortDescription>
+        <value>Choose Number of Seats</value>
+    </labels>
+    <labels>
         <fullName>LMS_QLI_ChooseTransmission</fullName>
         <categories>AddVehicle</categories>
         <language>en_US</language>
@@ -8858,6 +9857,14 @@ Thank you,
         <protected>false</protected>
         <shortDescription>Condition</shortDescription>
         <value>Condition</value>
+    </labels>
+    <labels>
+        <fullName>LMS_QLI_DataError</fullName>
+        <categories>AddVehicle</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LMS_QLI_DataError</shortDescription>
+        <value>Data Error</value>
     </labels>
     <labels>
         <fullName>LMS_QLI_DealerVehicleReference</fullName>
@@ -8924,6 +9931,14 @@ Thank you,
         <value>Engine Size To</value>
     </labels>
     <labels>
+        <fullName>LMS_QLI_EngineType</fullName>
+        <categories>AddVehicle</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Engine Type</shortDescription>
+        <value>Engine Type</value>
+    </labels>
+    <labels>
         <fullName>LMS_QLI_ErrorSizes</fullName>
         <categories>AddVehicle</categories>
         <language>en_US</language>
@@ -8947,11 +9962,26 @@ Thank you,
         <value>Extras Price needs approval.</value>
     </labels>
     <labels>
+        <fullName>LMS_QLI_FeatureDescription</fullName>
+        <categories>AddVehicle</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LMS_QLI_FeatureDescription</shortDescription>
+        <value>Feature Description</value>
+    </labels>
+    <labels>
         <fullName>LMS_QLI_Filters</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Filters</shortDescription>
         <value>Filters</value>
+    </labels>
+    <labels>
+        <fullName>LMS_QLI_FreeOfDamage</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Free of Damages</shortDescription>
+        <value>Free of Damages</value>
     </labels>
     <labels>
         <fullName>LMS_QLI_FuelType</fullName>
@@ -8969,6 +9999,14 @@ Thank you,
         <value>Image</value>
     </labels>
     <labels>
+        <fullName>LMS_QLI_InteriorColour</fullName>
+        <categories>AddVehicle</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Interior Colour</shortDescription>
+        <value>Interior Colour</value>
+    </labels>
+    <labels>
         <fullName>LMS_QLI_Level</fullName>
         <categories>AddVehicle</categories>
         <language>en_US</language>
@@ -8983,6 +10021,14 @@ Thank you,
         <protected>false</protected>
         <shortDescription>Licence Plate</shortDescription>
         <value>Licence Plate</value>
+    </labels>
+    <labels>
+        <fullName>LMS_QLI_LicensePlate</fullName>
+        <categories>AddVehicle</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LMS_QLI_LicensePlate</shortDescription>
+        <value>License Plate</value>
     </labels>
     <labels>
         <fullName>LMS_QLI_Mileage</fullName>
@@ -9008,6 +10054,14 @@ Thank you,
         <value>Model</value>
     </labels>
     <labels>
+        <fullName>LMS_QLI_ModelDerivative</fullName>
+        <categories>AddVehicle</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Model Derivative</shortDescription>
+        <value>Model Derivative</value>
+    </labels>
+    <labels>
         <fullName>LMS_QLI_ModelDescription</fullName>
         <categories>AddVehicle</categories>
         <language>en_US</language>
@@ -9029,6 +10083,44 @@ Thank you,
         <protected>false</protected>
         <shortDescription>LMS_QLI_NeedsApproval</shortDescription>
         <value>Vehicle Price needs approval.</value>
+    </labels>
+    <labels>
+        <fullName>LMS_QLI_NoOfSeats</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Number of Seats</shortDescription>
+        <value>Number of Seats</value>
+    </labels>
+    <labels>
+        <fullName>LMS_QLI_NumOfPreOwner</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>No. of pre-Owners</shortDescription>
+        <value>No. of pre-Owners</value>
+    </labels>
+    <labels>
+        <fullName>LMS_QLI_Odometer</fullName>
+        <categories>AddVehicle</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LMS_QLI_Odometer</shortDescription>
+        <value>Odometer</value>
+    </labels>
+    <labels>
+        <fullName>LMS_QLI_OnQuote</fullName>
+        <categories>AddVehicle</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LMS_QLI_OnQuote</shortDescription>
+        <value>On Quote</value>
+    </labels>
+    <labels>
+        <fullName>LMS_QLI_OrderStatus</fullName>
+        <categories>AddVehicle</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LMS_QLI_OrderStatus</shortDescription>
+        <value>Order Status</value>
     </labels>
     <labels>
         <fullName>LMS_QLI_Other</fullName>
@@ -9054,6 +10146,22 @@ Thank you,
         <value>Owning Retailer</value>
     </labels>
     <labels>
+        <fullName>LMS_QLI_Price</fullName>
+        <categories>AddVehicle</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LMS_QLI_Price</shortDescription>
+        <value>Price</value>
+    </labels>
+    <labels>
+        <fullName>LMS_QLI_PricingError</fullName>
+        <categories>AddVehicle</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LMS_QLI_PricingError</shortDescription>
+        <value>Pricing Error</value>
+    </labels>
+    <labels>
         <fullName>LMS_QLI_PublishedPrice</fullName>
         <categories>AddVehicle</categories>
         <language>en_US</language>
@@ -9074,6 +10182,22 @@ Thank you,
         <protected>false</protected>
         <shortDescription>LMS_QLI_QliCreationInvalidLeadError</shortDescription>
         <value>You cannot edit all fields on QuoteLineItem for Lead with current stage.</value>
+    </labels>
+    <labels>
+        <fullName>LMS_QLI_RecordTypeName</fullName>
+        <categories>AddVehicle</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LMS_QLI_RecordTypeName</shortDescription>
+        <value>Record Type Name</value>
+    </labels>
+    <labels>
+        <fullName>LMS_QLI_RegistrationDate</fullName>
+        <categories>AddVehicle</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LMS_QLI_RegistrationDate</shortDescription>
+        <value>Registration Date</value>
     </labels>
     <labels>
         <fullName>LMS_QLI_Retailer</fullName>
@@ -9105,6 +10229,14 @@ Thank you,
         <protected>false</protected>
         <shortDescription>Search Stock</shortDescription>
         <value>Search Stock</value>
+    </labels>
+    <labels>
+        <fullName>LMS_QLI_ShortVIN</fullName>
+        <categories>AddVehicle</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LMS_QLI_ShortVIN</shortDescription>
+        <value>Short VIN</value>
     </labels>
     <labels>
         <fullName>LMS_QLI_SimilarVehWarning</fullName>
@@ -9151,6 +10283,14 @@ Thank you,
         <protected>false</protected>
         <shortDescription>LMS_QLI_VATMARGIN</shortDescription>
         <value>VAT/MARGIN</value>
+    </labels>
+    <labels>
+        <fullName>LMS_QLI_VehicleFeatureName</fullName>
+        <categories>AddVehicle</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LMS_QLI_VehicleFeatureName</shortDescription>
+        <value>Vehicle Feature Name</value>
     </labels>
     <labels>
         <fullName>LMS_QLI_VehicleVIN</fullName>
@@ -10578,6 +11718,22 @@ on {0} or {1}.&lt;/p&gt;
         <value>Search</value>
     </labels>
     <labels>
+        <fullName>LMS_SearchLicensePlate</fullName>
+        <categories>AddVehicle</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Licence Plate</shortDescription>
+        <value>Search By Licence Plate</value>
+    </labels>
+    <labels>
+        <fullName>LMS_SearchOwningRetailerCity</fullName>
+        <categories>AddVehicle</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Filter By Location</shortDescription>
+        <value>Vehicle Location</value>
+    </labels>
+    <labels>
         <fullName>LMS_SearchRecord</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -11585,6 +12741,13 @@ NOTE: this will stop the automatic creation of a lead for this Individual</value
         <value>en</value>
     </labels>
     <labels>
+        <fullName>LMS_VATMargin</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Inkl.VAT</shortDescription>
+        <value>Incl.VAT</value>
+    </labels>
+    <labels>
         <fullName>LMS_VATNumber</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -11783,6 +12946,14 @@ NOTE: this will stop the automatic creation of a lead for this Individual</value
         <value>There is an error message {0} on this vehicle</value>
     </labels>
     <labels>
+        <fullName>LMS_VehEquipmentSection</fullName>
+        <categories>AddVehicle</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Vehicle Equipment and Condition</shortDescription>
+        <value>Vehicle Equipment and Condition</value>
+    </labels>
+    <labels>
         <fullName>LMS_Veh_Discount_Percent_Warning</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -11818,6 +12989,13 @@ cannot be added to this Quote</value>
         <protected>false</protected>
         <shortDescription>LMS_VehicleChangedError</shortDescription>
         <value>The specification of this vehicle has changed. Please update the quote as required.</value>
+    </labels>
+    <labels>
+        <fullName>LMS_VehicleExcluded</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LMS_VehicleExcluded</shortDescription>
+        <value>Vehicle is excluded for common type of sale</value>
     </labels>
     <labels>
         <fullName>LMS_VehicleFeatures</fullName>
@@ -12064,6 +13242,13 @@ add it to this Quote</value>
         <value>vehicles</value>
     </labels>
     <labels>
+        <fullName>LMS_ViewFeatures</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LMS_ViewFeatures</shortDescription>
+        <value>View Features</value>
+    </labels>
+    <labels>
         <fullName>LMS_VinNumber</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -12255,6 +13440,21 @@ Thank you,
         <protected>false</protected>
         <shortDescription>Chatter Notification</shortDescription>
         <value>Approval Comments:</value>
+    </labels>
+    <labels>
+        <fullName>LMS_optionSelected</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>options selected</shortDescription>
+        <value>options selected</value>
+    </labels>
+    <labels>
+        <fullName>LM_QLI_OptionalityIndicator</fullName>
+        <categories>AddVehicle</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LM_QLI_OptionalityIndicator</shortDescription>
+        <value>Optionality Indicator</value>
     </labels>
     <labels>
         <fullName>Missing_Derivative_OTR_Error</fullName>
@@ -16472,6 +17672,34 @@ If there are no Claims displayed on Screen, Please go ahead and Submit Claim for
         <protected>false</protected>
         <shortDescription>gol_austria_jlr_consents_header</shortDescription>
         <value>Consent for JLR Austria</value>
+    </labels>
+    <labels>
+        <fullName>gol_vehicle_config</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>gol_vehicle_config</shortDescription>
+        <value>Configuration Vehicle</value>
+    </labels>
+    <labels>
+        <fullName>gol_vehicle_stock</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>gol_vehicle_stock</shortDescription>
+        <value>Stock Vehicle</value>
+    </labels>
+    <labels>
+        <fullName>gol_vehicle_type</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>gol_vehicle_type</shortDescription>
+        <value>Type</value>
+    </labels>
+    <labels>
+        <fullName>gol_vehicle_used</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>gol_vehicle_used</shortDescription>
+        <value>Used</value>
     </labels>
     <labels>
         <fullName>no_records_found</fullName>

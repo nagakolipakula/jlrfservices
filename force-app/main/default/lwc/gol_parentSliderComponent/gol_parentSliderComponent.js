@@ -37,7 +37,7 @@ export default class gol_parentSliderComponent extends LightningElement {
   retailerDiscountSelectedProductId;
   selectedSliderValues = new Map();
   hasNoFinancialProducts = false;
-  hasNoInsuranceForSelectedProducts = false;
+  hasNoInsuranceForSelectedProducts = false;  //GOL-3620
   //   isSubmitted = false;
   sliders = [];
   namesWithIds = [];
@@ -109,9 +109,9 @@ export default class gol_parentSliderComponent extends LightningElement {
       console.error('Raw Response:', this.response);
       this.hasNoFinancialProducts = true;
     }
-    this.checkProductsForInsurance();
+    this.checkProductsForInsurance(); //GOL-3620
   }
-
+  //GOL-3620
   checkProductsForInsurance(){
     const selectedProduct = this.getSelectedProduct();
     const hasCpi = selectedProduct.cpiProducts && selectedProduct.cpiProducts.length > 0;
@@ -122,6 +122,7 @@ export default class gol_parentSliderComponent extends LightningElement {
     // console.log(`Selected Product KS: "${selectedProduct.name}"`);
     // console.log(`No Insurance Services KS: ${hasNoInsurance}`);
   }
+  //GOL-3620
 
   get isFinRecsCheckForOverview() {
     if (this.FinRecsCheckForOverview === true || this.FinRecsCheckForOverview === 'true') {
@@ -245,7 +246,6 @@ export default class gol_parentSliderComponent extends LightningElement {
               });
             });
             }
-
             if(storedData.insuranceData.inputFields.services?.length>0 && this.parsedResponse[i].inputFields.services?.length>0){
               storedData.insuranceData.inputFields.services.forEach((element2)=>{
                 this.parsedResponse[i].inputFields.services.forEach((childelement1)=>{
@@ -545,16 +545,16 @@ export default class gol_parentSliderComponent extends LightningElement {
     let sliderObject;
 
     if (key === 'durationsRange' && Array.isArray(field.explicitValues) && field.explicitValues.length > 0) {
-      const sortedExplicit = field.explicitValues.slice().sort((a, b) => a - b);
+      const sortedExplicitValues = field.explicitValues.slice().sort((a, b) => a - b);
       sliderObject = {
         id: key,
         label: sliderLabel,
         unit: this.getUnits(key, providerData.units),
-        defaultValue: sortedExplicit[0],
-        min: sortedExplicit[0],
-        max: sortedExplicit[sortedExplicit.length - 1],
-        step: this.getStepFromExplicitValues(sortedExplicit),
-        allowedValues: sortedExplicit
+        defaultValue: storedValue !== undefined ? storedValue : field.defaultValue,
+        min: sortedExplicitValues[0],
+        max: sortedExplicitValues[sortedExplicitValues.length - 1],
+        step: this.getStepFromExplicitValues(sortedExplicitValues),
+        allowedValues: sortedExplicitValues
       };
       return sliderObject;
     }

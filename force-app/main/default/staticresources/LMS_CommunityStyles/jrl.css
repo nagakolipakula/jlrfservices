@@ -1,0 +1,146 @@
+@font-face {
+    font-family: 'JLREmericWeb-Regular';
+    src: url('JLREmericWeb-Regular.eot');
+    src: url('JLREmericWeb-Regular.eot?#iefix') format('embedded-opentype'), url('JLREmericWeb-Regular.woff') format('woff'), url('JLREmericWeb-Regular.svg#svgFontName') format('svg');
+}
+
+.forceFilterPanelFilterCriterion.fieldLabel.operatorAndOperand {
+    color: white !important;
+}
+
+
+
+.slds-cell-edit.cellContainer {
+    border-bottom: 0px !important;
+}
+
+.slds-cell-fixed {
+    -webkit-text-fill-color: white !important;
+}
+
+.full.forcePageBlock.forceRecordLayout {
+    background-color: white !important;
+}
+
+.autocompleteWrapper {
+    background-color: white;
+}
+
+.pill.uiPill--default.uiPill {
+    background-color: white;
+}
+
+/* 'New' button on top of full list view */
+/* KP
+.slds-button.slds-button--neutral.slds-truncate {
+    background: #6c4646 url() repeat-x right top !important;
+    -webkit-text-fill-color: white;
+    color: white !important;
+    border-radius: 0 !important;
+    box-shadow: 0 0 0 black, 0 0 0 black !important;
+    text-shadow: 0 0 0 black !important;
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+}
+ */
+
+/* filter attributes on list view */
+.wrapper.hasBeenEdited {
+    background-color: #E7DBC6 !important;
+}
+
+.cLogo {
+    width: 200px;
+}
+
+.slds-scope span {
+    /* color: #4d3232 !important; */
+    color: #333333 !important;
+    /* color: rgb(21, 137, 238) !important; */
+}
+
+.uiDatePicker--default .dateBar select {
+    color: #4d3232;
+}
+
+.slds-scope ::selection {
+    background: rgb(231, 219, 198) !important;
+    text-shadow: none;
+}
+
+.slds-scope .slds-modal__header {
+    /*border-bottom: 2px solid rgb(231, 219, 198) !important;*/
+}
+
+.slds-scope .slds-modal__footer {
+    /* border-top: 2px solid rgb(231, 219, 198) !important; */
+}
+
+.slds-scope .slds-select, .slds-scope .slds-input, .slds-scope .slds-pill__container, .slds-scope .slds-pill-container, .slds-scope .slds-pill_container {
+    /*border: 1px solid rgb(231, 219, 198) !important;*/
+}
+
+div.uiDatePicker--default {
+    border-radius: 0 0 0 0;
+    border: solid 1px rgb(231, 219, 198);
+}
+.slds-scope .slds-datepicker td>.slds-day {
+    font-size: 10px;
+}
+
+.todayDate {
+    background: rgba(108, 70, 70, 0.1) !important;
+    color: grey;
+    font-weight: normal;
+}
+
+.slds-scope .slds-datepicker td.slds-is-selected:not(.slds-disabled-text)>.slds-day {
+    background: #4d3232 !important;
+    color: white !important;
+}
+
+.slds-radio_button-group, .slds-radio--button-group {
+    display: -webkit-inline-box !important;
+    display: -webkit-inline-flex !important;
+    display: -ms-inline-flexbox !important;
+    display: inline-flex !important;
+    /* border: 1px solid rgb(231, 219, 198) !important; */
+    border-radius: .25rem !important;
+}
+
+.slds-radio_button+.slds-radio_button, .slds-radio_button+.slds-radio--button, .slds-radio--button+.slds-radio_button, .slds-radio--button+.slds-radio--button {
+    border-left: 1px solid rgb(231, 219, 198) !important;
+    margin: 0 !important;
+}
+
+.slds-radio_button [type=radio]:checked+.slds-radio_faux, .slds-radio_button [type=radio]:checked+.slds-radio--faux, .slds-radio_button [type=radio]:checked~.slds-radio_faux, .slds-radio_button [type=radio]:checked~.slds-radio--faux, .slds-radio_button [type=radio]:checked+.slds-radio_button__label, .slds-radio_button [type=radio]:checked+.slds-radio--button__label, .slds-radio--button [type=radio]:checked+.slds-radio_faux, .slds-radio--button [type=radio]:checked+.slds-radio--faux, .slds-radio--button [type=radio]:checked~.slds-radio_faux, .slds-radio--button [type=radio]:checked~.slds-radio--faux, .slds-radio--button [type=radio]:checked+.slds-radio_button__label, .slds-radio--button [type=radio]:checked+.slds-radio--button__label {
+    background-color: rgb(21, 137, 238) !important;
+    color: rgb(255, 255, 255) !important;
+}
+
+.slds-radio_button [type=radio]:checked + .slds-radio_button__label > .slds-radio_faux {
+    color: #ffffff !important;
+}
+
+.slds-form-element__label {
+    color: #4d3232 !important;
+}
+
+span.red.uiOutputText {
+	color: red !important;
+}
+
+span.required {
+	color: red !important;
+}
+
+.errorDiv {
+    background-color: rgb(194, 57, 52);
+    color: white;
+    border-radius: 0.25em;
+    padding: 0.25em;
+}
+
+.hiddenDiv {
+    display: none;
+}

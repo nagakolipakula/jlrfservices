@@ -1,6 +1,5 @@
 import { LightningElement, api, track } from 'lwc';
 import { FlowAttributeChangeEvent ,FlowNavigationNextEvent } from 'lightning/flowSupport';
-
 export default class Gol_FinanceButtonsComponent extends LightningElement {
     @api buttonDetails;
     @api buttonValue;

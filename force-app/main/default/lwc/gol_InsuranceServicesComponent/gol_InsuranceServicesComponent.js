@@ -5,8 +5,7 @@ import 	GOL_Finance_Insurance_product_2 from '@salesforce/label/c.GOL_Finance_In
 import 	GOL_Finance_Zip_Postal_code from '@salesforce/label/c.GOL_Finance_Zip_Postal_code';
 import 	GOL_Finance_Client_age from '@salesforce/label/c.GOL_Finance_Client_age';
 import 	GOL_Finance_Additional_services from '@salesforce/label/c.GOL_Finance_Additional_services';
-import GOL_No_Financial_products_available from '@salesforce/label/c.GOL_No_Financial_products_available';
- 
+
 export default class Gol_InsuranceServicesComponent extends LightningElement {
     
     @api insuranceProducts;
@@ -24,8 +23,7 @@ export default class Gol_InsuranceServicesComponent extends LightningElement {
         GOL_Finance_Insurance_product_2,
         GOL_Finance_Zip_Postal_code,
         GOL_Finance_Client_age,
-        GOL_Finance_Additional_services,
-        GOL_No_Financial_products_available
+        GOL_Finance_Additional_services
     }
     isItalyCountryUser = false;
     isAdditionalServices = false;
@@ -69,18 +67,16 @@ export default class Gol_InsuranceServicesComponent extends LightningElement {
                 if(element.checked === undefined){
                     element.checked = false;
                 }   
-                element.checkboxLabel = element.description || '';
-                // if(element.name !== undefined){
-                //     element.checkboxLabel = element.name;
-                // }else if(element.description !== undefined){
-                //     element.checkboxLabel = element.description;
-                // }else{
-                //     element.checkboxLabel = '';
-                // }
+                if(element.name !== undefined){
+                    element.checkboxLabel = element.name;
+                }else if(element.description !== undefined){
+                    element.checkboxLabel = element.description;
+                }else{
+                    element.checkboxLabel = '';
+                }
             });
             this.nonCpiProducts = insuranceProductsVal.nonCpiProducts;
           }
-         
         if(insuranceProductsVal.ageRange && insuranceProductsVal.ageRange.length>0){
             this.isInsuranceProducts.ageRange = true;
             this.ageRange = insuranceProductsVal.ageRange;

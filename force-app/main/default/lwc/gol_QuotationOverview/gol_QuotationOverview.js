@@ -173,8 +173,7 @@ export default class golQuotationOverview extends LightningElement {
             formattedMonthly: this.formatCurrency(record.ERPT_FIN_InstallmentIntGrossAmt__c),
             productName: record.GOL_FIN_Finance_Product_Description__c ||
                          record.LMS_FIN_ProdName__c,
-            jlrId: record.GOL_JLR_QUOTE_FIN_ID__c ||
-                   record.GOL_JLR_ID__c
+            jlrId: record.GOL_JLR_QUOTE_FIN_ID__c || record.GOL_JLR_ID__c
         }));
     }
 

@@ -3,17 +3,22 @@
 <aura:handler name="init" value="{!this}" action="{!c.onInit}"/>
 <aura:attribute name="isNotGolFinance" type="Boolean" default="true" />
 <aura:attribute name="isVisible" type="Boolean" default="false" />
-<aura:attribute name="gsFsIntegration" type="Boolean" default="false" />
+<aura:attribute name="gsFsIntegration" type="Boolean" default="true" />
+<aura:attribute name="gsFsIntegrationVisible" type="Boolean" default="true" />
+
    <aura:if isTrue="{!v.isVisible}">    
     <center><div class="container">
         <div class="slds-text-heading_medium slds-text-color_success slds-text-title_bold slds-p-left_xx-large slds-p-top_medium" style="font-size: 20px; ">{!$Label.c.Gol_Save_Message}</div>
     </div></center>
     </aura:if>
-   <c:LMS_VMEPromotions
+    <aura:if isTrue="{!v.gsFsIntegrationVisible}">  
+    <c:LMS_VMEPromotions
+    aura:id="VMEPromotions"
     isGSRESET="true"
     quoteId ="{!v.quoteId}"
-    gsFsIntegration="{!v.gsFsIntegration}"
+    gsFsIntegration="{!v.isNotGolFinance}"
     />
+    </aura:if>
     <aura:if isTrue="{!v.isNotGolFinance}">  
     <c:LMS_LWCAddOnWrapper
     isGSRESET="true"

@@ -22,7 +22,7 @@
     <p class="no-products-message">{label.GOL_No_Financial_products_available}</p>
   </template>
   <!--Insurance and Services Section Start-->
-  <template if:true={hasNoInsuranceForSelectedProducts}>
+  <template if:true={hasNoInsuranceForSelectedProducts}> <!-- GOL-3620 -->
     <template if:true={childInsuranceProductComponent}>
       <div class="insurancelabelcss">
         {label.GOL_Finance_Insurance_and_Services}
@@ -38,7 +38,7 @@
         <!-- </template> -->
       </div>
     </template>
-  </template>
+  </template> <!-- GOL-3620 -->
   <!--Insurance and Services Section End-->
   <div class="button-container">
     <button class="calculate-financing-btn" onclick={handleCalculateFinancingClick}>

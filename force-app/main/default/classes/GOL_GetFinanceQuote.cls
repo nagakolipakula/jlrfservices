@@ -26,20 +26,15 @@ public with sharing class GOL_GetFinanceQuote {
             
             if (response.getStatusCode() == 200) {
                 GOL_JSON2ApexFinancialQuoteWrapper parsedResponse = GOL_JSON2ApexFinancialQuoteWrapper.parse(response.getBody());
-                Id financeRecordId = createFinanceInformationRecord(quoteId, parsedResponse,financeQuoteIdOld);
+                LMS_FinanceInformation__c financeInformation = createFinanceInformationRecord(quoteId, parsedResponse,financeQuoteIdOld);
+                upsert financeInformation;
+                Id financeRecordId = financeInformation.Id;
                 deleteFinanceItems(financeRecordId);
-                if(parsedResponse.fixedCosts != null && parsedResponse.fixedCosts.size() > 0){
-                    createFinanceItemsFixedCosts(financeRecordId, parsedResponse.fixedCosts);
-                }
-                if(parsedResponse.cpiProducts != null && parsedResponse.cpiProducts.size() > 0){
-                    createFinanceItemsCpiProducts(financeRecordId, parsedResponse.cpiProducts);
-                }
-                if(parsedResponse.nonCpiProducts != null && parsedResponse.nonCpiProducts.size() > 0){
-                    createFinanceItemsNonCpiProducts(financeRecordId, parsedResponse.nonCpiProducts);
-                }
-                if(parsedResponse.financialProduct.services != null && parsedResponse.financialProduct.services.size() > 0){
-                    createFinanceItemsServices(financeRecordId, parsedResponse.financialProduct.services);
-                }
+                // buildFinanceDetailsRecord(financeRecordId,parsedResponse);
+                createFinanceItemsFixedCosts(financeRecordId, parsedResponse);
+                createFinanceItemsCpiProducts(financeRecordId, parsedResponse);
+                createFinanceItemsNonCpiProducts(financeRecordId, parsedResponse);
+                createFinanceItemsServices(financeRecordId, parsedResponse);
                 results.isSuccess = (financeRecordId != null);
                 results.financeQuoteId = financeRecordId;
             } else {
@@ -74,15 +69,11 @@ public with sharing class GOL_GetFinanceQuote {
         return http.send(request);
     }
 
-    public static Id createFinanceInformationRecord(String quoteId, GOL_JSON2ApexFinancialQuoteWrapper parsedResponse,String financeQuoteIdOld) {
+    public static LMS_FinanceInformation__c createFinanceInformationRecord(String quoteId, GOL_JSON2ApexFinancialQuoteWrapper parsedResponse,String financeQuoteIdOld) {
         if (parsedResponse == null) {
             return null;
-        }
-        
+        }       
         LMS_FinanceInformation__c financeInformation = new LMS_FinanceInformation__c();
-
-        
-
         if(!String.isEmpty(financeQuoteIdOld)){
             financeInformation.Id = financeQuoteIdOld;
         }else{
@@ -123,8 +114,26 @@ public with sharing class GOL_GetFinanceQuote {
             financeInformation.GOL_View_Quote_Details__c = JSON.serialize(parsedResponse.quoteDetails);
         }
         financeInformation.GOL_FIN_Finance_Product_Description__c = parsedResponse.FinancialProduct.description; //GOL-4251
-        upsert financeInformation;
-        return financeInformation.Id;
+        //GOL-3208 Start
+        financeInformation.LMS_FIN_End_of_Term_Date__c = parsedResponse.Quote.endingValidityDate;
+        financeInformation.LMS_FIN_APR__c = parsedResponse.Quote.aprcRate;
+        financeInformation.ERPT_FIN_TotalInterestGrossAmt__c = parsedResponse.Quote.totalInterestGrossAmount;
+        financeInformation.ERPT_FIN_TotalFinancedGrossAmt__c =	parsedResponse.Quote.totalFinancedGrossAmount;
+        financeInformation.ERPT_FIN_ToBeFinancedGrossAmt__c	=	parsedResponse.Quote.toBeFinancedGrossAmount;
+        financeInformation.ERPT_FIN_NominalRate__c	=	parsedResponse.Quote.nominalRate;
+        financeInformation.ERPT_FIN_jlrTotalCostOfCredit__c	=	parsedResponse.Quote.jlrTotalCostOfCredit;
+        financeInformation.ERPT_FIN_jlrMonthlyInstallments__c	=	parsedResponse.Quote.jlrMonthlyInstallments;
+        financeInformation.ERPT_FIN_jlrLastMonthlyInstallment__c	=	parsedResponse.Quote.jlrLastMonthlyInstallment;
+        financeInformation.ERPT_FIN_jlrFirstMonthlyInstallment__c	=	parsedResponse.Quote.jlrFirstMonthlyInstallment;
+        financeInformation.ERPT_FIN_jlrFinancedAmt__c	=	parsedResponse.Quote.jlrFinancedAmount;
+        financeInformation.ERPT_FIN_InstallmentLastGrossAmt__c	=	parsedResponse.Quote.installmentLastGrossAmount;
+        financeInformation.ERPT_FIN_installmentFirstGrossAmount__c	=	parsedResponse.Quote.installmentFirstGrossAmount;
+        financeInformation.ERPT_FIN_InstallmentAndIntTotalGrossAmt__c	=	parsedResponse.Quote.installmentAndInterestTotalGrossAmount;
+        financeInformation.ERPT_FIN_InstallmentAndInterestGrossAmt__c	=	parsedResponse.Quote.installmentInterestGrossAmount;
+        financeInformation.ERPT_FIN_EffectiveRate__c	=	parsedResponse.Quote.effectiveRate;
+        //GOL-3208 End
+        
+        return financeInformation;
     }
 
     public static void deleteFinanceItems(String financeInformationId){
@@ -134,83 +143,88 @@ public with sharing class GOL_GetFinanceQuote {
         }
     }
 
-    public static void createFinanceItemsFixedCosts(String financeInformationId,List<GOL_JSON2ApexFinancialQuoteWrapper.FixedCost> fixedCosts) {
-        // if (fixedCosts == null) {
-        //     return null;
-        // }
-        List<ERPT_FinanceItem__c> lstFinanceItems = new List<ERPT_FinanceItem__c>();
-        for(GOL_JSON2ApexFinancialQuoteWrapper.FixedCost fixedCost : fixedCosts) {
-            ERPT_FinanceItem__c financeItem = new ERPT_FinanceItem__c();
-            financeItem.ERPT_FII_FinanceInformation__c = financeInformationId;
-            financeItem.RecordTypeId = Schema.SObjectType.ERPT_FinanceItem__c.getRecordTypeInfosByDeveloperName().get(GOL_Constants.ERPT_FII_FIXEDCOST_RT).getRecordTypeId();
-            financeItem.ERPT_FII_Description__c = fixedCost.name;
-            financeItem.ERPT_FII_FullName__c = fixedCost.name;
-            financeItem.ERPT_FII_GrossAmount__c = fixedCost.grossAmount;
-            lstFinanceItems.add(financeItem);
-        }
-        if (!lstFinanceItems.isEmpty()) {
-            insert lstFinanceItems;
-        }
-    }
-
-    public static void createFinanceItemsCpiProducts(String financeInformationId,List<GOL_JSON2ApexFinancialQuoteWrapper.CpiProducts> cpiProducts) {
-        List<ERPT_FinanceItem__c> lstFinanceItems = new List<ERPT_FinanceItem__c>();
-        for(GOL_JSON2ApexFinancialQuoteWrapper.CpiProducts cpiProduct : cpiProducts) {
-            ERPT_FinanceItem__c financeItem = new ERPT_FinanceItem__c();
-            financeItem.ERPT_FII_FinanceInformation__c = financeInformationId;
-            financeItem.RecordTypeId = Schema.SObjectType.ERPT_FinanceItem__c.getRecordTypeInfosByDeveloperName().get(GOL_Constants.ERPT_FII_CPIPRODUCT_RT).getRecordTypeId();
-            financeItem.ERPT_FII_ExternalRef__c = cpiProduct.id;
-            financeItem.ERPT_FII_financialProductRef__c = cpiProduct.financialProductId;
-            financeItem.ERPT_FII_FullName__c = cpiProduct.name;
-            //financeItem.ERPT_FII_premiumPeriodAmount__c = cpiProduct.monthlyCost;
-
-            lstFinanceItems.add(financeItem);
-        }
-        if (!lstFinanceItems.isEmpty()){
-            insert lstFinanceItems;
-        }
-    }
-
-    public static void createFinanceItemsNonCpiProducts(String financeInformationId,List<GOL_JSON2ApexFinancialQuoteWrapper.NonCpiProducts> nonCpiProducts) {
-        List<ERPT_FinanceItem__c> lstFinanceItems = new List<ERPT_FinanceItem__c>();
-        for(GOL_JSON2ApexFinancialQuoteWrapper.NonCpiProducts nonCpiProduct : nonCpiProducts) {
-            ERPT_FinanceItem__c financeItem = new ERPT_FinanceItem__c();
-            financeItem.ERPT_FII_FinanceInformation__c = financeInformationId;
-            financeItem.RecordTypeId = Schema.SObjectType.ERPT_FinanceItem__c.getRecordTypeInfosByDeveloperName().get(GOL_Constants.ERPT_FII_NONCPIPRODUCT_RT).getRecordTypeId();
-            financeItem.ERPT_FII_ExternalRef__c = nonCpiProduct.id;
-            financeItem.ERPT_FII_financialProductRef__c = nonCpiProduct.financialProductId;
-            financeItem.ERPT_FII_FullName__c = nonCpiProduct.name;
-            //financeItem.ERPT_FII_premiumPeriodAmount__c = nonCpiProduct.monthlyCost;
-            
-            lstFinanceItems.add(financeItem);
-        }
-        
-        if (!lstFinanceItems.isEmpty()){
-            insert lstFinanceItems;
-        }
-       
-    }
-
-    public static void createFinanceItemsServices(String financeInformationId,List<GOL_JSON2ApexFinancialQuoteWrapper.Services> services) {
-        List<ERPT_FinanceItem__c> lstFinanceItems = new List<ERPT_FinanceItem__c>();
-        for(GOL_JSON2ApexFinancialQuoteWrapper.Services service : services) {
-            // if(!service.serviceValue.excluded){
+    public static void createFinanceItemsFixedCosts(String financeInformationId,GOL_JSON2ApexFinancialQuoteWrapper parsedResponse) {
+        if(parsedResponse.fixedCosts != null && parsedResponse.fixedCosts.size() > 0){
+            List<ERPT_FinanceItem__c> lstFinanceItems = new List<ERPT_FinanceItem__c>();
+            for(GOL_JSON2ApexFinancialQuoteWrapper.FixedCost fixedCost : parsedResponse.fixedCosts) {
                 ERPT_FinanceItem__c financeItem = new ERPT_FinanceItem__c();
                 financeItem.ERPT_FII_FinanceInformation__c = financeInformationId;
-                financeItem.RecordTypeId = Schema.SObjectType.ERPT_FinanceItem__c.getRecordTypeInfosByDeveloperName().get(GOL_Constants.ERPT_FII_ARVAL_ADDITIONAL_FIELDS_RT).getRecordTypeId();
-                financeItem.ERPT_FII_Description__c = service.label;
-                financeItem.ERPT_FII_ExternalRef__c = service.serviceId;
-                financeItem.ERPT_FII_FullName__c = service.serviceValue.label;
-                financeItem.ERPT_FII_Value__c = service.serviceValue.value;
-                financeItem.GOL_FII_Excluded__c = service.serviceValue.excluded;
+                financeItem.RecordTypeId = Schema.SObjectType.ERPT_FinanceItem__c.getRecordTypeInfosByDeveloperName().get(GOL_Constants.ERPT_FII_FIXEDCOST_RT).getRecordTypeId();
+                financeItem.ERPT_FII_Description__c = fixedCost.name;
+                financeItem.ERPT_FII_FullName__c = fixedCost.name;
+                financeItem.ERPT_FII_GrossAmount__c = fixedCost.grossAmount;
                 lstFinanceItems.add(financeItem);
-            // }
+            }
+            if (!lstFinanceItems.isEmpty()) {
+                insert lstFinanceItems;
+            }
         }
-        
-        if (!lstFinanceItems.isEmpty()){
-            insert lstFinanceItems;
+    }
+
+    public static void createFinanceItemsCpiProducts(String financeInformationId,GOL_JSON2ApexFinancialQuoteWrapper parsedResponse) {
+        if(parsedResponse.cpiProducts != null && parsedResponse.cpiProducts.size() > 0){
+            // List<GOL_JSON2ApexFinancialQuoteWrapper.CpiProducts> cpiProducts = parsedResponse.cpiProducts;
+            List<ERPT_FinanceItem__c> lstFinanceItems = new List<ERPT_FinanceItem__c>();
+            for(GOL_JSON2ApexFinancialQuoteWrapper.CpiProducts cpiProduct :  parsedResponse.cpiProducts) {
+                ERPT_FinanceItem__c financeItem = new ERPT_FinanceItem__c();
+                financeItem.ERPT_FII_FinanceInformation__c = financeInformationId;
+                financeItem.RecordTypeId = Schema.SObjectType.ERPT_FinanceItem__c.getRecordTypeInfosByDeveloperName().get(GOL_Constants.ERPT_FII_CPIPRODUCT_RT).getRecordTypeId();
+                financeItem.ERPT_FII_ExternalRef__c = cpiProduct.id;
+                financeItem.ERPT_FII_financialProductRef__c = cpiProduct.financialProductId;
+                financeItem.ERPT_FII_FullName__c = cpiProduct.name;
+                financeItem.ERPT_FII_premiumPeriodAmount__c = cpiProduct.monthlyCost;
+
+                lstFinanceItems.add(financeItem);
+            }
+            if (!lstFinanceItems.isEmpty()){
+                insert lstFinanceItems;
+            }
         }
-       
+    }
+
+    public static void createFinanceItemsNonCpiProducts(String financeInformationId,GOL_JSON2ApexFinancialQuoteWrapper parsedResponse) {
+        if(parsedResponse.nonCpiProducts != null && parsedResponse.nonCpiProducts.size() > 0){
+            // List<GOL_JSON2ApexFinancialQuoteWrapper.NonCpiProducts> nonCpiProducts = parsedResponse.nonCpiProducts;
+            List<ERPT_FinanceItem__c> lstFinanceItems = new List<ERPT_FinanceItem__c>();
+            for(GOL_JSON2ApexFinancialQuoteWrapper.NonCpiProducts nonCpiProduct : parsedResponse.nonCpiProducts) {
+                ERPT_FinanceItem__c financeItem = new ERPT_FinanceItem__c();
+                financeItem.ERPT_FII_FinanceInformation__c = financeInformationId;
+                financeItem.RecordTypeId = Schema.SObjectType.ERPT_FinanceItem__c.getRecordTypeInfosByDeveloperName().get(GOL_Constants.ERPT_FII_NONCPIPRODUCT_RT).getRecordTypeId();
+                financeItem.ERPT_FII_ExternalRef__c = nonCpiProduct.id;
+                financeItem.ERPT_FII_financialProductRef__c = nonCpiProduct.financialProductId;
+                financeItem.ERPT_FII_FullName__c = nonCpiProduct.name;
+                financeItem.ERPT_FII_premiumPeriodAmount__c = nonCpiProduct.monthlyCost;
+                
+                lstFinanceItems.add(financeItem);
+            }
+            
+            if (!lstFinanceItems.isEmpty()){
+                insert lstFinanceItems;
+            }
+        }
+    }
+
+    public static void createFinanceItemsServices(String financeInformationId,GOL_JSON2ApexFinancialQuoteWrapper parsedResponse) {
+        if(parsedResponse.financialProduct.services != null && parsedResponse.financialProduct.services.size() > 0){
+            List<ERPT_FinanceItem__c> lstFinanceItems = new List<ERPT_FinanceItem__c>();
+            for(GOL_JSON2ApexFinancialQuoteWrapper.Services service : parsedResponse.financialProduct.services) {
+                // if(!service.serviceValue.excluded){
+                    ERPT_FinanceItem__c financeItem = new ERPT_FinanceItem__c();
+                    financeItem.ERPT_FII_FinanceInformation__c = financeInformationId;
+                    financeItem.RecordTypeId = Schema.SObjectType.ERPT_FinanceItem__c.getRecordTypeInfosByDeveloperName().get(GOL_Constants.ERPT_FII_ARVAL_ADDITIONAL_FIELDS_RT).getRecordTypeId();
+                    financeItem.ERPT_FII_Description__c = service.label;
+                    financeItem.ERPT_FII_ExternalRef__c = service.serviceId;
+                    financeItem.ERPT_FII_FullName__c = service.serviceValue.label;
+                    financeItem.ERPT_FII_Value__c = service.serviceValue.value;
+                    financeItem.GOL_FII_Excluded__c = service.serviceValue.excluded;
+                    lstFinanceItems.add(financeItem);
+                // }
+            }
+            
+            if (!lstFinanceItems.isEmpty()){
+                insert lstFinanceItems;
+            }
+        }
     }
 
     private static Id getSalesLead(Id quoteId) {

@@ -14,3 +14,6 @@
     border: 2px solid black;
     box-shadow: none;
 }
+.datatableDivContainer table>thead .slds-cell-fixed.slds-has-button-menu, .datatableDivContainer table>thead .slds-cell-fixed.slds-has-button-menu:hover{
+	color: #ffffff !important;
+}

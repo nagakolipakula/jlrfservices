@@ -3,7 +3,7 @@
     <fullName>ERPT_FIN_InstallmentIntGrossAmt__c</fullName>
     <description>Installment Interest Gross Amount</description>
     <inlineHelpText>Installment Interest Gross Amount</inlineHelpText>
-    <label>Monthly Installment</label>
+    <label>inst interest gross amt</label>
     <precision>18</precision>
     <required>false</required>
     <scale>2</scale>

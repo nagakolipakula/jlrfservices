@@ -5,16 +5,18 @@
     <aura:attribute name="accessToVMECampaign" type="Boolean" default="false"/>
     <aura:attribute name="isGSRESET" type="Boolean" default="false"/>
     <aura:attribute name="quoteId" type="String" />
-    <aura:attribute name="gsFsIntegration" type="Boolean" default="false" />
+    <aura:attribute name="gsFsIntegration" type="Boolean" default="true" />
     <aura:handler name="init" value="{!this}" action="{!c.onInit}"/>
     <aura:if isTrue="{!v.accessToVMECampaign}">
-        <c:lmsAddAddOn
-            aura:id="lwcAddAddOn"
-            recordId="{!v.recordId}"
-            recordType="{!v.RecordType}"
-            isThereAnAddOn="{!v.isThereAnAddOn}"
-            sObjectType="{!v.SObjectType}"
-            gsRESET="{!v.isGSRESET}"
-            gsFsIntegration="{!v.gsFsIntegration}" />
+        <div aura:id="myDiv" class="{! v.isGSRESET ? 'my-class-smart2' : 'my-class-smart1' }">
+            <c:lmsAddAddOn
+                aura:id="lwcAddAddOn"
+                recordId="{!v.recordId}"
+                recordType="{!v.RecordType}"
+                isThereAnAddOn="{!v.isThereAnAddOn}"
+                sObjectType="{!v.SObjectType}"
+                gsRESET="{!v.isGSRESET}"
+                gsFsIntegration="{!v.gsFsIntegration}" />
+        </div>
     </aura:if>
 </aura:component>

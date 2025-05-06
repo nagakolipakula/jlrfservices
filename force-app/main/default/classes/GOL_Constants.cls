@@ -24,6 +24,7 @@ public with sharing class GOL_Constants {
     public static final String ACC_SLOVAKIA_NSC_REF ='SK'; //GOL-1970
     public static final String ACC_ANDORRA_NSC_REF ='AD'; //GOL-1970  
 
+    //FS Integration - Start 
     public static final String LMS_FIN_CENTRAL_FINANCING_RT = 'LMS_FIN_CentralFinancing';
     public static final String LMS_FIN_FINANCE_PROVIDER = 'Jaguar Land Rover Financial Services';
     public static final String ERPT_FII_FIXEDCOST_RT = 'ERPT_FII_FixedCost';
@@ -31,6 +32,9 @@ public with sharing class GOL_Constants {
     public static final String ERPT_FII_CPIPRODUCT_RT = 'ERPT_FII_CPIProduct';
     public static final String ERPT_FII_NONCPIPRODUCT_RT = 'ERPT_FII_NonCPIProduct';
     public static final String ERPT_FII_ARVAL_ADDITIONAL_FIELDS_RT =  'ERPT_FII_Arval_Additional_Fields';
-   
+    public static final String SEND_TO_POS =  'Sent to POS';
 
+    public static final String FULL_FINANCE_GET_PRODUCT_API = 'Full_Finance_Get_Product_API';
+    public static final String FULL_FINANCE_GET_QUOTE_API = 'Full_Finance_Get_Quote_API';
+    //FS Integration - End 
 }

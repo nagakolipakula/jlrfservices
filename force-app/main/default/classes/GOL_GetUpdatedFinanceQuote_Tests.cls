@@ -135,7 +135,13 @@ public with sharing class GOL_GetUpdatedFinanceQuote_Tests {
         LMS_TriggerHandler.turnOffTriggers = true;
         
         ERPT_Datafactory.initEnvironment();
-
+        
+        LMS_CST_IntegrationEndpoint__c   accesstoken =  new LMS_CST_IntegrationEndpoint__c(
+            Name = GOL_Constants.FULL_FINANCE_GET_QUOTE_API,
+            LMS_CST_EndpointAddress__c = 'v2/finance/quote',
+            LMS_CST_Scope__c = 'SMART');
+        insert accesstoken;
+        
         Account acc = ERPT_DataFactory.createAccount('Test Italy Account','LMS_ACC_SalesCountry');
         acc.LMS_ACC_NSC_Reference__c = 'IT';
         insert acc;
@@ -192,6 +198,28 @@ public with sharing class GOL_GetUpdatedFinanceQuote_Tests {
             ERPT_FII_Description__c = 'CPI Basic'
         );
         insert finItem;
+        
+        ERPT_FinanceItem__c finItem2 = new ERPT_FinanceItem__c(
+            ERPT_FII_FinanceInformation__c  = financeInfo.Id,
+            RecordTypeId = Schema.SObjectType.ERPT_FinanceItem__c.getRecordTypeInfosByDeveloperName()
+                .get('ERPT_FII_CPIProduct').getRecordTypeId(),
+            ERPT_FII_ExternalRef__c = 'CPI002',
+            ERPT_FII_financialProductRef__c = 'FP002',
+            ERPT_FII_FullName__c = 'Insurance 2',
+            ERPT_FII_Description__c = 'CPI Basic'
+        );
+        insert finItem2;
+        
+        ERPT_FinanceItem__c finItem3 = new ERPT_FinanceItem__c(
+            ERPT_FII_FinanceInformation__c  = financeInfo.Id,
+            RecordTypeId = Schema.SObjectType.ERPT_FinanceItem__c.getRecordTypeInfosByDeveloperName()
+                .get('ERPT_FII_NonCPIProduct').getRecordTypeId(),
+            ERPT_FII_ExternalRef__c = 'CPI003',
+            ERPT_FII_financialProductRef__c = 'FP003',
+            ERPT_FII_FullName__c = 'Insurance 3',
+            ERPT_FII_Description__c = 'CPI Basic'
+        );
+        insert finItem3;
     }
     
     //Http Region helpers
@@ -199,11 +227,13 @@ public with sharing class GOL_GetUpdatedFinanceQuote_Tests {
         public HttpResponse respond(HttpRequest req) {
             HttpResponse res = new HttpResponse();
             res.setStatusCode(200);
-            res.setBody('{' +
+            /*res.setBody('{' +
                 '"quote": {"duration": 48, "downPaymentGrossAmount": 2000, "annualMileage": 18000},' +
                 '"channel": "Web", "personType": "Corporate", "typeOfUse": "Commercial",' +
                 '"financialProduct": {"name": "Lease Updated"}' +
-            '}');
+            '}');*/
+            res.setBody('{"Quote": {"duration": 36, "annualMileage": 15000, "totalGrossAmount": 50000, "installmentGrossAmount": 1200}, "FinancialProduct": {"name": "Lease", "fullId": "12345", "creditTimeUnit": "Months", "currencyCode": "USD" ,  "services": [ {"serviceId": "1","serviceValue": {"value": "MA_FORFAITRE","label": "Maintenance (Assistance Plus incluse)","excluded": false},"label": "Maintenance" }]}, "LegalDocument": {"title": "Finance Agreement", "body": "Terms and conditions..."}, '+ 
+            ' "fixedCosts": [{"name": "Service Fee", "grossAmount": 500}] , "cpiProducts": [{"name": "CPIVV", "financialProductId": "7892" , "description": "LEASING Credito", "id": "CPIVV"}], "nonCpiProducts": [{"name": "CP", "financialProductId": "246" , "description": "LEASING Credito NON", "id": "CPI"}]}');
             return res;
         }
     }

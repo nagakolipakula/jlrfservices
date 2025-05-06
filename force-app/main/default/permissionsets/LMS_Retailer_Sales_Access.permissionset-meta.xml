@@ -229,6 +229,10 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>GOL_FinanceUpdateRetailerDiscountQLI</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>GOL_GenerateExternalIdOnQuote</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -245,11 +249,27 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>GOL_GetFinanceProduct</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>GOL_GetFinanceQuote</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>GOL_GetShowroom</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>GOL_GetUpdatedFinanceQuote</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>GOL_ITGModifyCurrentConfigURL</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>GOL_JSON2ApexFinancialQuoteWrapper</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -278,6 +298,14 @@
     </classAccesses>
     <classAccesses>
         <apexClass>GOL_SelectQuoteController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>GOL_SendFinInfoToBank</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>GOL_SendFinInfoToBankWrapper</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -399,11 +427,6 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
-        <field>LMS_FinanceInformation__c.GOL_JLR_ID__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
         <editable>true</editable>
         <field>Account.ERPT_ACC_Default_Quote_Region__c</field>
         <readable>true</readable>
@@ -505,7 +528,47 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>ERPT_FinanceItem__c.ERPT_FII_Description__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ERPT_FinanceItem__c.ERPT_FII_ExternalRef__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ERPT_FinanceItem__c.ERPT_FII_FullName__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ERPT_FinanceItem__c.ERPT_FII_GrossAmount__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ERPT_FinanceItem__c.ERPT_FII_Rate__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>ERPT_FinanceItem__c.ERPT_FII_Value__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ERPT_FinanceItem__c.ERPT_FII_financialProductRef__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ERPT_FinanceItem__c.ERPT_FII_premiumPeriodAmount__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>ERPT_FinanceItem__c.GOL_Record_Type_Name__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -581,6 +644,26 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>LMS_ConfigurationVehicle__c.ERPT_Configurator_Vehicle_Image_URL__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>LMS_ConfigurationVehicle__c.GOL_CVH_Delivery_Date_As_Of__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>LMS_ConfigurationVehicle__c.GOL_CVH_Estimated_Delivery_Date__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>LMS_ConfigurationVehicle__c.GOL_CVH_Vehicle_Engine_Description__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>LMS_ConfigurationVehicle__c.GOL_CVH_Vehicle_Model_Description__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -736,6 +819,51 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>LMS_FinanceInformation__c.ERPT_FIN_InstallmentIntGrossAmt__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>LMS_FinanceInformation__c.GOL_Age_Range__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>LMS_FinanceInformation__c.GOL_Channel__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>LMS_FinanceInformation__c.GOL_FIN_Finance_Product_Description__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>LMS_FinanceInformation__c.GOL_JLR_ID__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>LMS_FinanceInformation__c.GOL_JLR_QUOTE_FIN_ID__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>LMS_FinanceInformation__c.GOL_Person_Type__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>LMS_FinanceInformation__c.GOL_Type_Of_Use__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>LMS_FinanceInformation__c.GOL_View_Quote_Details__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>LMS_FinanceInformation__c.GOL_Zip_Postal_Code__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -1764,7 +1892,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>LMS_Quote__c.ERPT_QUO_Reservation_Fee__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1814,18 +1942,28 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>LMS_Quote__c.ERPT_QUO_StripeChargeId__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
+        <field>LMS_Quote__c.ERPT_QUO_StripeHoldRefund__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>LMS_Quote__c.ERPT_QUO_StripeIntentKey__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
         <field>LMS_Quote__c.ERPT_QUO_StripePaymentMethod__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>LMS_Quote__c.ERPT_QUO_StripeRefundStatus__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -1890,6 +2028,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>LMS_Quote__c.GOL_QUO_Available_Online__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>LMS_Quote__c.GOL_QUO_Brand_Logofx__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1910,7 +2053,22 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>LMS_Quote__c.GOL_QUO_Delivery_Date_As_Of__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>LMS_Quote__c.GOL_QUO_Estimated_Delivery_Date__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>LMS_Quote__c.GOL_QUO_Expiry_Date__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>LMS_Quote__c.GOL_QUO_ITG_Full_Parse_Complete__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -2241,6 +2399,31 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>LMS_Quote__c.LMS_QUO_StockVehicle__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>LMS_Quote__c.LMS_QUO_StripePayementDate__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>LMS_Quote__c.LMS_QUO_StripePaymentUrl__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>LMS_Quote__c.LMS_QUO_StripeRefundDate__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>LMS_Quote__c.LMS_QUO_StripeRefundReason__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>LMS_Quote__c.LMS_QUO_StripeRefunded__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -3026,6 +3209,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>LMS_StockVehicle__c.ERPT_VHC_Vehicle_Type_Description__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>LMS_StockVehicle__c.GOL_VHC_Sales_Status__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -3826,6 +4014,15 @@
         <allowRead>true</allowRead>
         <modifyAllRecords>false</modifyAllRecords>
         <object>Campaign</object>
+        <viewAllRecords>false</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>true</allowCreate>
+        <allowDelete>false</allowDelete>
+        <allowEdit>false</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>false</modifyAllRecords>
+        <object>ERPT_FinanceItem__c</object>
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
     <objectPermissions>

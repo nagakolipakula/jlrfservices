@@ -24,7 +24,7 @@ public with sharing class GOL_GetUpdatedFinanceQuote {
                                                         CurrencyIsoCode,
                                                         ERPT_FIN_CreditTimeUoM__c,
                                                         LMS_FIN_Quote__r.EPRT_QUO_External_ID__c,
-                                                        GOL_FIN_Finance_Product_Description__c,
+            											GOL_FIN_Finance_Product_Description__c,
                                                         GOL_JLR_QUOTE_FIN_ID__c
                                                     FROM LMS_FinanceInformation__c
                                                     WHERE Id IN :financeQuoteIds
@@ -45,17 +45,16 @@ public with sharing class GOL_GetUpdatedFinanceQuote {
                 if (res.getStatusCode() == 200) {
                     GOL_JSON2ApexFinancialQuoteWrapper parsed = GOL_JSON2ApexFinancialQuoteWrapper.parse(res.getBody());
 
-                    record.LMS_FIN_Term__c = parsed.quote.duration;
-                    record.LMS_FIN_Deposit__c = parsed.quote.downPaymentGrossAmount;
-                    record.LMS_FIN_Annual_Contract_Mileage__c = parsed.quote.annualMileage;
-                    record.GOL_Channel__c = parsed.channel;
-                    record.GOL_Person_Type__c = parsed.personType;
-                    record.GOL_Type_Of_Use__c = parsed.typeOfUse;
-                    // record.GOL_Zip_Postal_Code__c = ''; // if not from response
-                    record.LMS_FIN_ProdName__c = parsed.financialProduct.name;
-                    record.GOL_View_Quote_Details__c  = JSON.serialize(parsed.quoteDetails);
-
-                    recordsToUpdate.add(record);
+                    // record.LMS_FIN_Term__c = parsed.quote.duration;
+                    // record.LMS_FIN_Deposit__c = parsed.quote.downPaymentGrossAmount;
+                    // record.LMS_FIN_Annual_Contract_Mileage__c = parsed.quote.annualMileage;
+                    // record.GOL_Channel__c = parsed.channel;
+                    // record.GOL_Person_Type__c = parsed.personType;
+                    // record.GOL_Type_Of_Use__c = parsed.typeOfUse;
+                    // // record.GOL_Zip_Postal_Code__c = ''; // if not from response
+                    // record.LMS_FIN_ProdName__c = parsed.financialProduct.name;
+					// record.GOL_View_Quote_Details__c  = JSON.serialize(parsed.quoteDetails);
+                    recordsToUpdate.add(GOL_GetFinanceQuote.createFinanceInformationRecord(quoteId,parsed,record.Id));
                     responses.add(new Response(true, 'Record updated successfully', record.Id));
                 } else {
                     String msg = 'API Error: ' + res.getStatusCode() + ' - ' + res.getStatus();
@@ -83,29 +82,28 @@ public with sharing class GOL_GetUpdatedFinanceQuote {
             FROM ERPT_FinanceItem__c 
             WHERE ERPT_FII_FinanceInformation__c = :record.Id
         ];
-    
         List<Object> cpiProducts = new List<Object>();
         List<Object> nonCpiProducts = new List<Object>();
         List<Object> services = new List<Object>();
     
         for (ERPT_FinanceItem__c item : financeItems) {
-            if (item.RecordType.DeveloperName == 'ERPT_FII_CPIPRODUCT_RT') {
+            if (item.RecordType.DeveloperName == 'ERPT_FII_CPIProduct') {
                 cpiProducts.add(new Map<String, Object>{
                     'financialProductId' => item.ERPT_FII_financialProductRef__c,
                     'name' => item.ERPT_FII_FullName__c,
-                    'description' => item.ERPT_FII_Description__c,
+                    // 'description' => item.ERPT_FII_Description__c,
                     'id' => item.ERPT_FII_ExternalRef__c,
                     'checked' => true
                 });
-            } else if (item.RecordType.DeveloperName == 'ERPT_FII_NONCPIPRODUCT_RT') {
+            } else if (item.RecordType.DeveloperName == 'ERPT_FII_NonCPIProduct') {
                 nonCpiProducts.add(new Map<String, Object>{
                     'financialProductId' => item.ERPT_FII_financialProductRef__c,
                     'name' => item.ERPT_FII_FullName__c,
-                    'description' => item.ERPT_FII_Description__c,
+                    // 'description' => item.ERPT_FII_Description__c,
                     'id' => item.ERPT_FII_ExternalRef__c,
                     'checked' => true
                 });
-            } else if (item.RecordType.DeveloperName == 'ERPT_FII_FIXEDCOST_RT') {
+            } else if (item.RecordType.DeveloperName == 'ERPT_FII_FixedCost') {
                 services.add(new Map<String, Object>{
                     'serviceId' => item.ERPT_FII_ExternalRef__c,
                     'label' => item.ERPT_FII_Description__c,
@@ -206,6 +204,7 @@ public with sharing class GOL_GetUpdatedFinanceQuote {
 
     @AuraEnabled(cacheable=true)
     public static List<LMS_FinanceInformation__c> getFinanceInfoRecords(Id quoteId) {
+        Id RecordTypeId = Schema.SObjectType.LMS_FinanceInformation__c.getRecordTypeInfosByDeveloperName().get(GOL_Constants.LMS_FIN_CENTRAL_FINANCING_RT).getRecordTypeId();//GOL-3364
         return [
             SELECT Id,
                 LMS_FIN_Status__c,
@@ -218,10 +217,11 @@ public with sharing class GOL_GetUpdatedFinanceQuote {
                 LMS_FIN_Deposit__c,
                 GOL_JLR_ID__c,
                 LMS_FIN_Annual_Contract_Mileage__c,
-                GOL_FIN_Finance_Product_Description__c,
+                LMS_FIN_SysLink__c,
                 GOL_JLR_QUOTE_FIN_ID__c
             FROM LMS_FinanceInformation__c
             WHERE LMS_FIN_Quote__c = :quoteId
+            AND RecordTypeId = :RecordTypeId //GOL-3364
             ORDER BY LastModifiedDate DESC
         ];
     }

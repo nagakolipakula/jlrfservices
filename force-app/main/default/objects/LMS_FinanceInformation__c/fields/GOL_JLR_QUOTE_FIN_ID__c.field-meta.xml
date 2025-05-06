@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>GOL_JLR_QUOTE_FIN_ID__c</fullName>
+    <description>This field to display QuoteId - count of Fin info records e.g(a123213132 - 001) Which will be using in golQuotationOverview</description>
+    <externalId>false</externalId>
+    <label>GOL JLR FIN ID</label>
+    <length>99</length>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

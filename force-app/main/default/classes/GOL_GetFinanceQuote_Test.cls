@@ -8,6 +8,12 @@ public with sharing class GOL_GetFinanceQuote_Test {
         
         ERPT_Datafactory.initEnvironment();
 
+        LMS_CST_IntegrationEndpoint__c   accesstoken =  new LMS_CST_IntegrationEndpoint__c(
+            Name = GOL_Constants.FULL_FINANCE_GET_QUOTE_API,
+            LMS_CST_EndpointAddress__c = 'v2/finance/quote',
+            LMS_CST_Scope__c = 'SMART');
+        insert accesstoken;
+
         Account acc = ERPT_DataFactory.createAccount('Test Italy Account','LMS_ACC_SalesCountry');
         acc.LMS_ACC_NSC_Reference__c = 'IT';
         insert acc;
@@ -106,6 +112,13 @@ public with sharing class GOL_GetFinanceQuote_Test {
         Test.stopTest();
 
        // System.assertNotEquals(null, responseList);
+    }
+    
+    @isTest
+    static void testGOL_JSON2ApexFinancialQuoteWrapper() {
+        Test.startTest();
+        GOL_JSON2ApexFinancialQuoteWrapper controller = new GOL_JSON2ApexFinancialQuoteWrapper(); 
+        Test.stopTest();
     }
 
     private class MockHttpResponse implements HttpCalloutMock {

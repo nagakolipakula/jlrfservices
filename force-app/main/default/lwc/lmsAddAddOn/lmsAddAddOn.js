@@ -1,89 +1,87 @@
-import { LightningElement, track, api, wire } from 'lwc';
-import { ShowToastEvent } from 'lightning/platformShowToastEvent';
-import {NavigationMixin} from "lightning/navigation";
-import { getPicklistValuesByRecordType } from 'lightning/uiObjectInfoApi';
-import { getRecord, getFieldValue } from 'lightning/uiRecordApi';
+import { LightningElement, api, track, wire } from 'lwc';
+import { getFieldValue, getRecord } from 'lightning/uiRecordApi';
+import { refreshApex } from '@salesforce/apex';
 
-import LMS_Category from '@salesforce/label/c.LMS_Category';
-import LMS_SubCategory from '@salesforce/label/c.LMS_SubCategory';
-import LMS_ClearanceOnly from '@salesforce/label/c.LMS_ClearanceOnly';
-import LMS_RetailerOnly from '@salesforce/label/c.LMS_RetailerOnly';
-import LMS_ChooseReason from '@salesforce/label/c.LMS_ChooseReason';
-import LMS_NonePicklistValue from '@salesforce/label/c.LMS_NonePicklistValue';
+import LMS_AccessoriesAppMissingDealerCode from '@salesforce/label/c.LMS_AccessoriesAppMissingDealerCode';
+import LMS_AccessoriesAppMissingModelCode from '@salesforce/label/c.LMS_AccessoriesAppMissingModelCode';
 import LMS_AccessoryPacksOnly from '@salesforce/label/c.LMS_AccessoryPacksOnly';
-import LMS_Search from '@salesforce/label/c.LMS_Search';
 import LMS_Accessory_NotRequiredReason from '@salesforce/label/c.LMS_Accessory_NotRequiredReason';
 import LMS_AddAddOns_NotRequiredReason from '@salesforce/label/c.LMS_AddAddOns_NotRequiredReason';
-import LMS_ChosenReason from '@salesforce/label/c.LMS_ChosenReason';
+import LMS_AddInfoMessage from '@salesforce/label/c.LMS_QuoteAddShowToastInfo';
+import LMS_AddSuccessMessage from '@salesforce/label/c.LMS_QuoteAddShowToastSuccess';
+import LMS_AddSuccessTitle from '@salesforce/label/c.LMS_QuoteAddShowToastSuccessTitle';
 import LMS_AddToQuote from '@salesforce/label/c.LMS_AddToQuote';
-import LMS_SearchBy from '@salesforce/label/c.LMS_SearchBy';
+import LMS_AllCampaignsNotCompatible from '@salesforce/label/c.LMS_AllCampaignsNotCompatible';
+import LMS_AlreadyExistingCampains from '@salesforce/label/c.LMS_AlreadyExistingCampains';
+import LMS_CampaignsAreNotCompatible from '@salesforce/label/c.LMS_CampaignsAreNotCompatible';
+import LMS_CampaignsWithDifferentSalesChannel from '@salesforce/label/c.LMS_CampaignsWithDifferentSalesChannel';
+import LMS_Category from '@salesforce/label/c.LMS_Category';
+import LMS_ChooseReason from '@salesforce/label/c.LMS_ChooseReason';
+import LMS_ChosenReason from '@salesforce/label/c.LMS_ChosenReason';
+import LMS_ClearanceOnly from '@salesforce/label/c.LMS_ClearanceOnly';
+import LMS_CommonTypeOfSale from '@salesforce/label/c.LMS_CommonTypeOfSale';
+import LMS_ContactAdministrator	from '@salesforce/label/c.LMS_ContactAdministrator';
+import LMS_DiscountBasis from '@salesforce/label/c.LMS_DiscountBasis';
 import LMS_DisplayPictureId from '@salesforce/label/c.LMS_DisplayPictureId';
-import LMS_SupplementName from '@salesforce/label/c.LMS_SupplementName';
-import LMS_PartNumber from '@salesforce/label/c.LMS_PartNumber';
-import LMS_ShortDescription from '@salesforce/label/c.LMS_ShortDescription';
-import LMS_PriceValue from '@salesforce/label/c.LMS_PriceValue';
-import LMS_PercentageCharge from '@salesforce/label/c.LMS_PercentageCharge';
-import LMS_NetPriceValue from '@salesforce/label/c.LMS_NetPriceValue';
-import LMS_LabourTimeMinutes from '@salesforce/label/c.LMS_LabourTimeMinutes';
+import LMS_Error from '@salesforce/label/c.LMS_Error';
+import LMS_GlobalSalesChannel from '@salesforce/label/c.LMS_GlobalSalesChannel';
 import LMS_LabourCost from '@salesforce/label/c.LMS_LabourCost';
+import LMS_LabourTimeMinutes from '@salesforce/label/c.LMS_LabourTimeMinutes';
+import LMS_NetPriceValue from '@salesforce/label/c.LMS_NetPriceValue';
+import LMS_NoRowsSelected from '@salesforce/label/c.LMS_NoRowsSelected';
+import LMS_NonePicklistValue from '@salesforce/label/c.LMS_NonePicklistValue';
+import LMS_PartNumber from '@salesforce/label/c.LMS_PartNumber';
+import LMS_PercentageCharge from '@salesforce/label/c.LMS_PercentageCharge';
+import LMS_PriceValue from '@salesforce/label/c.LMS_PriceValue';
+import LMS_QUO_ImportAccessories from '@salesforce/label/c.LMS_QUO_ImportAccessories';
+import LMS_QUO_LaunchAccessoriesApp	from '@salesforce/label/c.LMS_QUO_LaunchAccessoriesApp';
+import LMS_QUO_UnknownError	from '@salesforce/label/c.LMS_QUO_UnknownError';
+import LMS_RemoveCampaignsFromQLI from '@salesforce/label/c.LMS_RemoveCampaignsFromQLI';
+import LMS_RetailerOnly from '@salesforce/label/c.LMS_RetailerOnly';
+import LMS_RetailerPromotions from '@salesforce/label/c.LMS_RetailerPromotions';
+import LMS_Save from '@salesforce/label/c.LMS_Save';
+import LMS_Search from '@salesforce/label/c.LMS_Search';
+import LMS_SearchBy from '@salesforce/label/c.LMS_SearchBy';
+import LMS_SearchLabel from '@salesforce/label/c.LMS_SearchLabel';
+import LMS_ShortDescription from '@salesforce/label/c.LMS_ShortDescription';
+import LMS_SubCategory from '@salesforce/label/c.LMS_SubCategory';
+import LMS_SupplementName from '@salesforce/label/c.LMS_SupplementName';
 import LMS_SupplementTerm from '@salesforce/label/c.LMS_SupplementTerm';
 import LMS_SupplementValidFrom from '@salesforce/label/c.LMS_SupplementValidFrom';
-import LMS_Save from '@salesforce/label/c.LMS_Save';
-import LMS_SearchLabel from '@salesforce/label/c.LMS_SearchLabel';
 import LMS_SupplementValidTo from '@salesforce/label/c.LMS_SupplementValidTo';
-import LMS_AddSuccessTitle from '@salesforce/label/c.LMS_QuoteAddShowToastSuccessTitle';
-import LMS_AddSuccessMessage from '@salesforce/label/c.LMS_QuoteAddShowToastSuccess';
-import LMS_AddInfoMessage from '@salesforce/label/c.LMS_QuoteAddShowToastInfo';
-import LMS_QUO_UnknownError	from '@salesforce/label/c.LMS_QUO_UnknownError';
-import LMS_QUO_LaunchAccessoriesApp	from '@salesforce/label/c.LMS_QUO_LaunchAccessoriesApp';
-import LMS_QUO_ImportAccessories from '@salesforce/label/c.LMS_QUO_ImportAccessories';
-import LMS_ContactAdministrator	from '@salesforce/label/c.LMS_ContactAdministrator';
 import LMS_UnknownError	from '@salesforce/label/c.LMS_UnknownError';
-import LMS_Error from '@salesforce/label/c.LMS_Error';
-import LMS_AccessoriesAppMissingModelCode from '@salesforce/label/c.LMS_AccessoriesAppMissingModelCode';
-import LMS_AccessoriesAppMissingDealerCode from '@salesforce/label/c.LMS_AccessoriesAppMissingDealerCode';
-import LMS_GlobalSalesChannel from '@salesforce/label/c.LMS_GlobalSalesChannel';
-import LMS_CommonTypeOfSale from '@salesforce/label/c.LMS_CommonTypeOfSale';
 import LMS_VMEPromotions from '@salesforce/label/c.LMS_VMEPromotions';
-import LMS_RetailerPromotions from '@salesforce/label/c.LMS_RetailerPromotions';
-import LMS_AllCampaignsNotCompatible from '@salesforce/label/c.LMS_AllCampaignsNotCompatible';
-import LMS_NoRowsSelected from '@salesforce/label/c.LMS_NoRowsSelected';
-import LMS_RemoveCampaignsFromQLI from '@salesforce/label/c.LMS_RemoveCampaignsFromQLI';
-import LMS_AlreadyExistingCampains from '@salesforce/label/c.LMS_AlreadyExistingCampains';
-import LMS_CampaignsWithDifferentSalesChannel from '@salesforce/label/c.LMS_CampaignsWithDifferentSalesChannel';
-import LMS_CampaignsAreNotCompatible from '@salesforce/label/c.LMS_CampaignsAreNotCompatible';
-import LMS_DiscountBasis from '@salesforce/label/c.LMS_DiscountBasis';
-
-import SupplementObject from '@salesforce/schema/LMS_Accessory__c';
-
-import QuoteObject from '@salesforce/schema/LMS_Quote__c';
-import QUOTE_RECORDTYPE_FIELD from '@salesforce/schema/LMS_Quote__c.RecordTypeId';
-import QUOTE_STATUS_FIELD from '@salesforce/schema/LMS_Quote__c.LMS_QUO_Status__c';
-import QUOTE_RETAILER_CODE_FIELD from '@salesforce/schema/LMS_Quote__c.LMS_QUO_ShowroomId__r.LMS_SWR_RetailerCode__c';
-import QUOTE_IS_CONFIG_CAR_FIELD from '@salesforce/schema/LMS_Quote__c.LMS_QUO_isConfigCarQuote__c';
-import QUOTE_IS_USED_CAR_QUOTE_COUNT_FIELD from '@salesforce/schema/LMS_Quote__c.LMS_QUO_isUsedCarQuoteCount__c';
-import QUOTE_IS_NEW_CAR_QUOTE_COUNT_FIELD from '@salesforce/schema/LMS_Quote__c.LMS_QUO_isNewCarQuoteCount__c';
+import {NavigationMixin} from "lightning/navigation";
 import QUOTE_CONFIG_CODE_FIELD from '@salesforce/schema/LMS_Quote__c.LMS_QUO_ConfigurationVehicle__r.LMS_CVH_VehicleModel__r.LMS_VMO_Code__c';
+import QUOTE_IS_CONFIG_CAR_FIELD from '@salesforce/schema/LMS_Quote__c.LMS_QUO_isConfigCarQuote__c';
+import QUOTE_IS_NEW_CAR_QUOTE_COUNT_FIELD from '@salesforce/schema/LMS_Quote__c.LMS_QUO_isNewCarQuoteCount__c';
+import QUOTE_IS_USED_CAR_QUOTE_COUNT_FIELD from '@salesforce/schema/LMS_Quote__c.LMS_QUO_isUsedCarQuoteCount__c';
+import QUOTE_RECORDTYPE_FIELD from '@salesforce/schema/LMS_Quote__c.RecordTypeId';
+import QUOTE_RETAILER_CODE_FIELD from '@salesforce/schema/LMS_Quote__c.LMS_QUO_ShowroomId__r.LMS_SWR_RetailerCode__c';
+import QUOTE_STATUS_FIELD from '@salesforce/schema/LMS_Quote__c.LMS_QUO_Status__c';
 import QUOTE_STOCK_CODE_FIELD from '@salesforce/schema/LMS_Quote__c.LMS_QUO_StockVehicle__r.LMS_VHC_VehicleModel__r.LMS_VMO_Code__c';
-
+import QuoteObject from '@salesforce/schema/LMS_Quote__c';
 import SS_RECORDTYPE_NAME_FIELD from '@salesforce/schema/LMS_SilentSalesman__c.RecordType.DeveloperName';
 import SS_RETAILER_CODE_FIELD from '@salesforce/schema/LMS_SilentSalesman__c.LMS_SIL_StockVehicleId__r.LMS_VHC_Account__r.LMS_ACC_ShowroomId__r.LMS_SWR_RetailerCode__c';
 import SS_STOCK_CODE_FIELD from '@salesforce/schema/LMS_SilentSalesman__c.LMS_SIL_StockVehicleId__r.LMS_VHC_VehicleModel__r.LMS_VMO_Code__c';
-
+import { ShowToastEvent } from 'lightning/platformShowToastEvent';
+import SupplementObject from '@salesforce/schema/LMS_Accessory__c';
 import checkIfThereIsAccessory from '@salesforce/apex/LMS_QOT_AddQliViewController.isThereAnAccesory';
 import checkIfThereIsAddOn from '@salesforce/apex/LMS_QOT_AddQliViewController.isThereAnAddOn';
+import getAllPromotions from '@salesforce/apex/LMS_QOT_AddQliViewController.getAllPromotions';
+import getCustomSettings from '@salesforce/apex/LMS_QOT_AddQliViewController.getCustomSettings';
+import getDependentMap from '@salesforce/apex/LMS_QOT_AddQliViewController.getDependentMap';
+import { getPicklistValuesByRecordType } from 'lightning/uiObjectInfoApi';
+import getRetailerId from '@salesforce/apex/LMS_QOT_AddQliViewController.getCurrentGroupId';
+import getShowroomDealerCode from '@salesforce/apex/LMS_QOT_AddQliViewController.getShowroomDealerCode';
 import queryNotReqReason from '@salesforce/apex/LMS_QOT_AddQliViewController.queryAccessoryAndAddOnLWCReason';
+import retrieveRetailerRate from '@salesforce/apex/LMS_QOT_AddQliViewController.retrieveRetailerRate';
 import saveReasonOnQuoteAccessory from '@salesforce/apex/LMS_QOT_AddQliViewController.updateModifiedQuoteLWCAccessory';
 import saveReasonOnQuoteAddOn from '@salesforce/apex/LMS_QOT_AddQliViewController.updateModifiedQuoteLWCAddOn';
-import searchSupplements from '@salesforce/apex/LMS_QOT_AddQliViewController.getSupplements';
-import getRetailerId from '@salesforce/apex/LMS_QOT_AddQliViewController.getCurrentGroupId';
-import retrieveRetailerRate from '@salesforce/apex/LMS_QOT_AddQliViewController.retrieveRetailerRate';
-import saveSupplements from '@salesforce/apex/LMS_QOT_AddQliViewController.saveQLI';
 import saveSilentSalesmanFeatures from '@salesforce/apex/LMS_QOT_AddQliViewController.saveSilentSalesmanFeatures';
-import getCustomSettings from '@salesforce/apex/LMS_QOT_AddQliViewController.getCustomSettings';
-import getShowroomDealerCode from '@salesforce/apex/LMS_QOT_AddQliViewController.getShowroomDealerCode';
-import getAllPromotions from '@salesforce/apex/LMS_QOT_AddQliViewController.getAllPromotions';
-import getDependentMap from '@salesforce/apex/LMS_QOT_AddQliViewController.getDependentMap';
+import saveSupplements from '@salesforce/apex/LMS_QOT_AddQliViewController.saveQLI';
+import searchSupplements from '@salesforce/apex/LMS_QOT_AddQliViewController.getSupplements';
+import getPromotionOnQuote from '@salesforce/apex/GOL_PromotionDataTableController.getPromotionOnQuote'; //Added by MS
 
 const ACCESSORIES_APP = 'Accessories_App';
 const ACCESSORIES_REST = 'Accessories_REST';
@@ -153,8 +151,13 @@ export default class LMS_AddAddOn extends NavigationMixin(LightningElement) {
     @track latestSelectedId;
     @track existingVMEIds = new Set();
     @track onFirstLoad = false;
+    @track isSmart2CSSClass = '';
     @track intialSearchData;
     @api gsRESET=false;
+    @api gsFsIntegration;
+
+    @wire(getAllPromotions, { recordId: '$recordId', globalSalesChannel: '$selectedChannel', commonTypeOfSale: '$selectedCommonType' })
+    wiredPromotions;
 
     customSettings;
     isVisibleShowLaunchAccessoriesAppButton = false;
@@ -223,6 +226,12 @@ export default class LMS_AddAddOn extends NavigationMixin(LightningElement) {
     };
 
     @wire(getShowroomDealerCode) showroom;
+    
+    //Added by MS wire method
+    @wire(getPromotionOnQuote, {
+        quoteId: "$recordId",
+    })
+    wireForRefreshPromotionDatatable;
 
     refreshAccessories(event) {
         this.isThereAnAccessory = true;
@@ -239,6 +248,7 @@ export default class LMS_AddAddOn extends NavigationMixin(LightningElement) {
     }
 
     connectedCallback() {
+        console.log('connected---->',this.gsFsIntegration);
         this.setRTAttribute();
         this.getRetailerId();
         if (this.isAccessoryRT) {
@@ -250,7 +260,20 @@ export default class LMS_AddAddOn extends NavigationMixin(LightningElement) {
         this.initAccessoriesNotReqReason();
         this.initAddOnsNotReqReason();
         this.handleSearch();
+        this.isSmart2CSSClass = window.location.href.includes('hybrid-main-screen') ? '' : 'height: 15rem';
     }
+
+    // renderedCallback() {
+    //     console.log(this.isRendered);
+    //     if (this.isRendered) {
+    //         return; 
+    //     }
+    //     this.isRendered = true;
+    
+    //     let style = document.createElement('style');
+    //     style.innerText = '.slds-th__action{background-color: #000000; color: #ffffff;}';
+    //     this.template.querySelector('lightning-datatable').appendChild(style);
+    // }
 
     setRTAttribute() {
         if (this.recordType == ACCESSORIES_RT) {
@@ -324,9 +347,14 @@ export default class LMS_AddAddOn extends NavigationMixin(LightningElement) {
     }
 
     setColumnsPerRT() {
-        this.columns  = [
-            {label: this.label.LMS_SupplementName, fieldName: 'Name', type: 'text', cellAttributes: {alignment : 'left'}}
-        ];
+        console.log('MS Test this.recordType==>'+this.recordType); //added by MS
+        if (this.recordType !== VMEPROMOTIONS_RT) {
+            this.columns = [
+                {label: this.label.LMS_SupplementName, fieldName: 'Name', type: 'text', cellAttributes: {alignment: 'left'}}
+            ];
+        } else {
+            this.columns = []; 
+        }
         let priceLabel = this.label.LMS_PriceValue;
         let priceField = 'LMS_ACS_PriceValue__c';
         if (this.isTaxExempt) {
@@ -350,6 +378,7 @@ export default class LMS_AddAddOn extends NavigationMixin(LightningElement) {
             );
         } else if (this.recordType == VMEPROMOTIONS_RT) {
             this.columns.push(
+                {label:'Customer Campaing Name', fieldName:'Customer_Campaign_Name__c', type:'text', cellAttributes: {alignment:'left'}},
                 {label: this.label.LMS_SupplementValidFrom, fieldName: 'VME_Start_Date__c', type: 'date', cellAttributes: {alignment: 'left'}},
                 {label: this.label.LMS_SupplementValidTo, fieldName: 'VME_End_Date__c', type: 'date', cellAttributes: {alignment: 'left'}},
                 {label: this.label.LMS_DiscountBasis, fieldName: 'VME_Invoice_segment__c', type: 'text', cellAttributes: {alignment: 'left'}},
@@ -420,7 +449,7 @@ export default class LMS_AddAddOn extends NavigationMixin(LightningElement) {
         if(data) {
             this.error = null;
 
-            let categoryOptions = [{label:'--None--', value:'--None--'}];
+            let categoryOptions = [{label: this.label.LMS_NonePicklistValue, value:'--None--'}];
 
             data.picklistFieldValues.LMS_ACS_Category__c.values.forEach(key => {
                 categoryOptions.push({
@@ -431,7 +460,7 @@ export default class LMS_AddAddOn extends NavigationMixin(LightningElement) {
 
             this.controllingValues = categoryOptions;
 
-            let subcategoryOptions = [{label:'--None--', value:'--None--'}];
+            let subcategoryOptions = [{label: this.label.LMS_NonePicklistValue, value:'--None--'}];
 
             this.controlValues = data.picklistFieldValues.LMS_ACS_Subcategory__c.controllerValues;
             this.totalDependentValues = data.picklistFieldValues.LMS_ACS_Subcategory__c.values;
@@ -1076,11 +1105,17 @@ export default class LMS_AddAddOn extends NavigationMixin(LightningElement) {
     doSaveSupplements(selectedRows) {
         saveSupplements({quoteId: this.recordId, changedRecords: selectedRows, recType: this.recordType})
             .then(result => {
-                if(this.gsRESET){
-                    window.location.reload()
-                }else{
+                console.log('gsRESET:', this.gsRESET);
+                console.log('gsFsIntegration:', this.gsFsIntegration);
+
+                if (this.gsFsIntegration === false) {
+                    refreshApex(this.wiredPromotions);
+                } else if (this.gsRESET === true) {
+                    window.location.reload();
+                } else {
                     this.navigateToViewRecordPage(this.recordId);
-            }
+                }
+                
             }).catch(error => {
                 console.log(JSON.stringify(error));
                 if (error) {
@@ -1100,11 +1135,17 @@ export default class LMS_AddAddOn extends NavigationMixin(LightningElement) {
     doSaveSilentSalesmanFeatures(selectedRows) {
         saveSilentSalesmanFeatures({silentSalesmanId: this.recordId, changedRecords: selectedRows, recordTypeName: this.recordType})
             .then(result => {
-                 if(this.gsRESET){
-                    window.location.reload()
-                }else{
+                console.log('gsRESET:', this.gsRESET);
+                console.log('gsFsIntegration:', this.gsFsIntegration);
+
+                if (this.gsFsIntegration === false) {
+                    refreshApex(this.wiredPromotions);
+                } else if (this.gsRESET === true) {
+                    window.location.reload();
+                } else {
                     this.navigateToViewRecordPage(this.recordId);
-            }
+                }
+                
             }).catch(error => {
                 console.log(JSON.stringify(error));
                 if (error) {
@@ -1255,5 +1296,11 @@ export default class LMS_AddAddOn extends NavigationMixin(LightningElement) {
 
     onCloseModal(event){
         this.isModalOpen = event.detail.showModal;
+
+        //Added by MS Start
+        if(event.detail.refreshDataTable !== undefined && event.detail.refreshDataTable){
+            refreshApex(this.wireForRefreshPromotionDatatable); 
+        }
+        //Added by MS End
     }
 }

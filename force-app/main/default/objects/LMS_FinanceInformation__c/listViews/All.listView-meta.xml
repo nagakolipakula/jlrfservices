@@ -6,9 +6,12 @@
     <columns>LMS_FIN_Deposit__c</columns>
     <columns>LMS_FIN_Contract_Start_Date__c</columns>
     <columns>NAME</columns>
+    <columns>LMS_FIN_Quote__c</columns>
+    <columns>CREATEDBY_USER</columns>
+    <columns>CREATED_DATE</columns>
+    <columns>LMS_FIN_Lead__c</columns>
     <filterScope>Everything</filterScope>
     <label>All</label>
-    <language>en_US</language>
     <sharedTo>
         <role>LMS_NSC_Jordan</role>
     </sharedTo>

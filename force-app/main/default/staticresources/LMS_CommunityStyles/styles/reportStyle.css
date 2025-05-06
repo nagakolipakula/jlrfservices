@@ -1,0 +1,39 @@
+th {
+            text-transform: uppercase;
+            text-align: left;
+        }
+        th, td {
+            /*border-bottom: 1px solid rgb(231, 219, 198);*/
+            border-bottom: 1px solid #eeeeee;
+            padding: .5rem;
+		font-size: 12px;
+    		font-weight: 300;
+        }
+        thead {
+            border-top: 1px solid rgb(231, 219, 198);
+            /*background-color: #C28659 !important;*/
+            background-color: #999999 !important;
+            -webkit-text-fill-color: white;
+            color: white;
+            font-size: .75rem;
+            text-transform: uppercase;
+            letter-spacing: .0625rem;
+            font-weight: 300;
+        }
+        table{
+            font-size: 14px;
+            font-family: "Maven Pro";
+            font-weight: 300;
+            width: 100%;
+        }
+th a, a {
+    font-style: bold;
+    text-decoration: none;
+    color: black;
+}
+a:hover {
+    text-decoration: underline;
+}
+body {
+    font-family: "Maven Pro";
+}

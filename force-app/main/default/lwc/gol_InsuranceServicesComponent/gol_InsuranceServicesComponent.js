@@ -38,6 +38,11 @@ export default class Gol_InsuranceServicesComponent extends LightningElement {
             this.insuranceProductsCheck();
         }
     }
+    //GOL-4178
+    get isAgeRangeUnselected() {
+        return this.ageRangeSelected === null || this.ageRangeSelected === undefined;
+    }    
+
     insuranceProductsCheck(){
         var insuranceProductsVal = JSON.parse(JSON.stringify(this.insuranceProducts));
         if(insuranceProductsVal.zipCode){
@@ -82,7 +87,8 @@ export default class Gol_InsuranceServicesComponent extends LightningElement {
             this.ageRange = insuranceProductsVal.ageRange;
         } 
         if(insuranceProductsVal.ageRangeSelected !== undefined){
-            this.ageRangeSelected = insuranceProductsVal.ageRangeSelected;
+            //GOL-4178
+            this.ageRangeSelected = insuranceProductsVal.ageRangeSelected ?? null;
         }
         if(insuranceProductsVal.inputFields &&  insuranceProductsVal.inputFields.services && insuranceProductsVal.inputFields.services.length>0){
             this.isInsuranceProducts.services = true;
@@ -161,6 +167,10 @@ export default class Gol_InsuranceServicesComponent extends LightningElement {
         const productId = event.target.dataset.id;
         if(productHeaderName === 'services' || productHeaderName === 'zipcode' || productHeaderName === 'clientage'){
             selectedProduct = event.target.value;
+            //GOL-4178
+            if(productHeaderName === 'clientage' && selectedProduct === ''){
+                selectedProduct = null;
+            }
         }else{
             selectedProduct = event.target.checked;
         }

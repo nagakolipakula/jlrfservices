@@ -14,12 +14,14 @@
                     <template if:true={isInsuranceProducts.ageRange}>
                     <div class="clientagedivcss">
                         <div for="clientage" class="clientagelabelcss">{label.GOL_Finance_Client_age}</div>
-                        <select data-mid="clientage" data-id="clientage" name="clientage" id="clientage" class="clientagecss" onchange={handleInsuranceProductSelection}>
-                        <template for:each={ageRangeOptions} for:item="ageRange" for:index="index">
-                            <option selected={ageRange.selected} key={ageRange.name} value={ageRange.name}>{ageRange.name}</option>
-                        </template>   
-                        </select>  
-                    </div>    
+                        <!-- GOL-4178 -->
+                        <select data-mid="clientage" data-id="clientage" name="clientage" id="clientage" class="clientagecss" value={ageRangeSelected} onchange={handleInsuranceProductSelection}>
+                            <option value="" selected={isAgeRangeUnselected}></option>
+                            <template for:each={ageRangeOptions} for:item="ageRange" for:index="index">
+                                <option selected={ageRange.selected} key={ageRange.name} value={ageRange.name}>{ageRange.name}</option>
+                            </template>
+                        </select>                     
+                    </div>
                     </template>  
                     </template>     
             </div>

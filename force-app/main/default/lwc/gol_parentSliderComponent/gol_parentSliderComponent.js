@@ -805,11 +805,10 @@ export default class gol_parentSliderComponent extends LightningElement {
     console.log('services after filter', services);
     //const ageRange = (providerData.ageRange && providerData.ageRangeSelected) ? providerData.ageRange.filter((ele,index) => ele.name == providerData.ageRangeSelected) : providerData.ageRange.length>0 ? providerData.ageRange[0] : [];
     let ageRange;
-    if(providerData.ageRange && providerData.ageRange.length>0 && providerData.ageRangeSelected !== undefined){
-      ageRange = providerData.ageRange.filter((ele,index) => ele.name == providerData.ageRangeSelected);
-    }else if(providerData.ageRange && providerData.ageRange.length>0){
-      ageRange = providerData.ageRange.filter((ele,index) => index == 0);
-    }else{
+    //GOL-4178
+    if(providerData.ageRange && providerData.ageRange.length > 0 && providerData.ageRangeSelected){
+      ageRange = providerData.ageRange.filter(ele => ele.name == providerData.ageRangeSelected);
+    } else{
       ageRange = [];
     }
     const zipCode = providerData.zipCode ? providerData.zipCode : '';
